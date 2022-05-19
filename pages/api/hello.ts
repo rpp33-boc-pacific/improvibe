@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// Example: GET http://localhost:3000/api/hello --> Response.body: { name: 'John Doe' }
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {

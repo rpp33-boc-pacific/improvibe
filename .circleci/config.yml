@@ -40,7 +40,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-        docker_layer_caching: true
+          docker_layer_caching: true
       - run: docker build -t happyboxes/improvibe .
       - run: docker push happyboxes/improvibe .
 # Invoke jobs via workflows

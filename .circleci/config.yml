@@ -29,7 +29,7 @@ jobs:
           name: Test
           command: |
             npm install
-            npm test
+            npm test -- -u
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:

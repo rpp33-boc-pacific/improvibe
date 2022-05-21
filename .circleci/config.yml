@@ -11,7 +11,7 @@ jobs:
     steps:
       - checkout
       - run:
-        name: "Build"
+        name: Build
         command: |
           npm install
           npm run dev
@@ -26,7 +26,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Test"
+          name: Test
           command: |
             npm install
             npm test

@@ -48,4 +48,4 @@ workflows:
     jobs:
       - build-job
       - test-job
-      - deploy-to-checkout
+      - deploy-to-dockerhub

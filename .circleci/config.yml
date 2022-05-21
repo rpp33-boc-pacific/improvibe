@@ -48,4 +48,4 @@ workflows:
     jobs:
       - build-job
       - test-job
-      - build-image
+      - deploy-to-checkout

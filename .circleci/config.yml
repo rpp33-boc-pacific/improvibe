@@ -36,6 +36,4 @@ workflows:
   build-test-workflow:
     jobs:
       - build-job
-      - test-job:
-        requires:
-          - build-job
+      - test-job

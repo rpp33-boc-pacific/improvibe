@@ -35,6 +35,9 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       - image: circleci/node
+      Auth:
+        username: $DOCKER_USER
+        password: $DOCKER_PASSWORD
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -42,7 +45,6 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run: docker build -t happyboxes/improvibe .
-      - run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER--password-stdin
       - run: docker push happyboxes/improvibe
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

@@ -52,5 +52,5 @@ workflows:
       - build-job
       - test-job
       - deploy-to-dockerhub
-        context:
-          - DOCKER
+          context:
+            - DOCKER

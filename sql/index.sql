@@ -1,3 +1,5 @@
+\c improvibe;
+
 CREATE INDEX index_projects_genreid
   ON projects(genre_id);
 

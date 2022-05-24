@@ -4,18 +4,18 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Player = () => {
   //hooks
   const style = {
     position: 'absolute' as 'absolute',
-    top: '50%',
+    top: '97%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '100%',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
+    bgcolor: 'white',
+    border: '1px solid #000',
     p: 4,
   };
     const [open, setOpen] = React.useState(false);
@@ -26,11 +26,17 @@ const Player = () => {
       <div>
         <PlayCircleIcon onClick={handleOpen}></PlayCircleIcon>
         <Modal
+          hideBackdrop
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
           open={open}
-          onClose={handleClose}
-        >
+          onClose={handleClose}>
           <Box sx={style}>
             <audio controls></audio>
+            <CloseIcon
+              sx={{position: 'absolute', top: '2%', right: '1%'}}
+              onClick={handleClose}>
+            </CloseIcon>
           </Box>
         </Modal>
       </div>

@@ -5,6 +5,8 @@ import styles from '../styles/Home.module.css';
 import Player from './components/player';
 
 const Home: NextPage = () => {
+
+
   return (
     <div className={styles.container}>
       <Head>

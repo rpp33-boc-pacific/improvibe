@@ -1,3 +1,11 @@
-export default function Contact() {
-  return <div>This is the contact page.</div>
+import Layer from './Layer';
+
+export default function LayerList({ layers }) {
+  return (
+    <ul role='list-layers'>
+      {layers.map((layer) => {
+        return <Layer key={layer.id} data={layer} />
+      })}
+    </ul>
+  )
 }

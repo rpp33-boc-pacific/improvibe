@@ -1,13 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import Link from '@mui/material/Link';
 import Modal from '@mui/material/Modal';
-import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import IconButton from '@mui/material/IconButton';
@@ -16,7 +13,6 @@ const Player = () => {
   const style = {
     position: 'absolute',
     bottom: '0%',
-    // transform: 'translate(-50%, -50%)',
     height: '300px',
     width: '100%',
     bgcolor: '#333',
@@ -37,13 +33,12 @@ const Player = () => {
     return (
       <div id="play-song-container">
         <IconButton
-          aria-label="play-modal"
+          aria-label="open-player-modal"
           onClick={handleOpen}>
           <PlayCircleIcon/>
         </IconButton>
         <Modal
           hideBackdrop
-          aria-describedby="song-audio-player"
           open={open}
           onClose={handleClose}>
           <Box sx={style}>
@@ -70,7 +65,7 @@ const Player = () => {
             </Grid>
             <audio role="audio-player" controls></audio>
             <IconButton
-              aria-label="close-modal"
+              aria-label="close-player-modal"
               sx={{color: 'white', position: 'absolute', top: '2%', right: '1%'}}
               onClick={handleClose}>
                 <CloseIcon></CloseIcon>

@@ -1,3 +1,8 @@
-export default function Contact() {
-  return <div>This is the contact page.</div>
+function AddLayer() {
+
+  return (
+    <div>AddLayerButton</div>
+  );
 }
+
+export default AddLayer;

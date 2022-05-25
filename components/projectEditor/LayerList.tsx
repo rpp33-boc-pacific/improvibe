@@ -1,3 +1,10 @@
-export default function Contact() {
-  return <div>This is the contact page.</div>
+import React from 'react';
+
+function LayerList() {
+
+  return (
+    <div>Layer List</div>
+  );
 }
+
+export default LayerList;

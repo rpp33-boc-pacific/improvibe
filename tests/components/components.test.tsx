@@ -1,5 +1,6 @@
 import { getByTestId, render, screen, fireEvent } from '@testing-library/react';
-import Player from '../../pages/components/player';
+import Player from '../../components/reusable/player';
+
 
 describe('Audio Player', () => {
   it('Has an icon button', () => {

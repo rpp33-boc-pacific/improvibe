@@ -1,11 +1,15 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+import Card from '@mui/material/card';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import Image from 'next/image'
 import Modal from '@mui/material/Modal';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import IconButton from '@mui/material/IconButton';
 
 const Player = () => {
   //hooks
@@ -16,7 +20,7 @@ const Player = () => {
     transform: 'translate(-50%, -50%)',
     height: '300px',
     width: '100%',
-    bgcolor: 'black',
+    bgcolor: '#333',
     border: '1px solid #000',
     p: 4,
   };
@@ -37,6 +41,10 @@ const Player = () => {
           open={open}
           onClose={handleClose}>
           <Box sx={style}>
+            <Stack>
+                <Typography variant="h4" sx={{color: "white"}}>Artist</Typography>
+                <Typography sx={{color: "white"}}>Artist Name</Typography>
+            </Stack>
             <audio role="audio-player" controls></audio>
             <IconButton
               aria-label="close-modal"

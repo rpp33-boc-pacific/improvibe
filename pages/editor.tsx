@@ -4,7 +4,7 @@ import AddLayer from '../components/projectEditor/AddLayer'
 import NewProject from '../components/projectEditor/NewProject'
 import ProjectList from '../components/projectEditor/ProjectList'
 
-export default function Projects() {
+export default function Editor() {
   return (
     <>
       <h1>Edit Project</h1>

@@ -14,10 +14,9 @@ import IconButton from '@mui/material/IconButton';
 
 const Player = () => {
   const style = {
-    position: 'absolute' as 'absolute',
-    top: '97%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: 'absolute',
+    bottom: '0%',
+    // transform: 'translate(-50%, -50%)',
     height: '300px',
     width: '100%',
     bgcolor: '#333',
@@ -27,7 +26,7 @@ const Player = () => {
 
   const ProfileImage = () => {
     return (
-      <Image src={"https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif"} alt="artist-profile-picture" width="300" height="300"/>
+      <Image src={"https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif"} alt="artist-profile-picture" layout={"fixed"} width="75px" height="75px"/>
     )
   }
 
@@ -49,7 +48,7 @@ const Player = () => {
           onClose={handleClose}>
           <Box sx={style}>
             <Grid container direction="row" spacing={2} sx={{paddingBottom: '.5em'}}>
-              <Grid item xs={1}>
+              <Grid item xs={1.2}>
               <Link href="#">
                 <ProfileImage></ProfileImage>
               </Link>

@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/card';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image'
 import Modal from '@mui/material/Modal';
@@ -41,10 +42,15 @@ const Player = () => {
           open={open}
           onClose={handleClose}>
           <Box sx={style}>
-            <Stack>
+            <Grid container direction="row" spacing={2}>
+              <Grid item xs={3}>
                 <Typography variant="h4" sx={{color: "white"}}>Artist</Typography>
                 <Typography sx={{color: "white"}}>Artist Name</Typography>
-            </Stack>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography sx={{color: "white", textAlign: "center"}}>Genre #tag</Typography>
+              </Grid>
+            </Grid>
             <audio role="audio-player" controls></audio>
             <IconButton
               aria-label="close-modal"

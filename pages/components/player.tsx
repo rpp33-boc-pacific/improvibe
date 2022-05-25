@@ -43,7 +43,7 @@ const Player = () => {
           onClose={handleClose}>
           <Box sx={style}>
             <Grid container direction="row" spacing={2} sx={{paddingBottom: '.5em'}}>
-              <Grid item xs={1.2}>
+              <Grid item xs={2}>
               <Link href="#">
                 <ProfileImage></ProfileImage>
               </Link>

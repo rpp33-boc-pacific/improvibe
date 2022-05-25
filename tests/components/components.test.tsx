@@ -13,7 +13,7 @@ describe('Audio Player', () => {
   it('Opens audio player modal when icon is clicked', async () => {
     render(<Player />);
     fireEvent.click(screen.getByRole('button', {
-      name: /play-modal/i
+      name: /open-player-modal/i
     }));
     expect(screen.getByRole('audio-player')).toBeInTheDocument()
   });
@@ -21,10 +21,10 @@ describe('Audio Player', () => {
   it('Closes audio player modal when icon is clicked', async () => {
     render(<Player />);
     fireEvent.click(screen.getByRole('button', {
-      name: /play-modal/i
+      name: /open-player-modal/i
     }));
     fireEvent.click(screen.getByRole('button', {
-      name: /close-modal/i
+      name: /close-player-modal/i
     }));
     const audioPlayer = screen.queryByRole('audio-player');
     expect(audioPlayer).toBeNull();

@@ -1,6 +1,32 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+import IconButton from '@mui/material/IconButton';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const LikeButton = () => {
+
+  //stand in for prop that would be passed down
+  let prop = {
+    status: false
+  };
+
+  const [liked, updateLiked] = useState(prop.status);
+
+  useEffect(() => {
+    //update the database
+    console.log('The status', liked);
+  })
+
+  return (
+    liked === false ?
+    <IconButton onClick={() => {updateLiked(!liked)}}>
+      <FavoriteBorderIcon></FavoriteBorderIcon>
+    </IconButton>
+    :
+    <IconButton onClick={() => {updateLiked(!liked)}}>
+      <FavoriteIcon></FavoriteIcon>
+    </IconButton>
+  )
 
 };
 

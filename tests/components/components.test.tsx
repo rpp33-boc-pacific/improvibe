@@ -1,5 +1,5 @@
 import { getByTestId, render, screen, fireEvent } from '@testing-library/react';
-import Player from '../../components/reusable/player';
+import Player from '../../components/reusable/AudioPlayer';
 
 
 describe('Audio Player', () => {

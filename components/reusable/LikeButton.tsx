@@ -19,15 +19,14 @@ const LikeButton = () => {
 
   return (
     liked === false ?
-    <IconButton onClick={() => {updateLiked(!liked)}}>
+    <IconButton aria-label="like-song" onClick={() => {updateLiked(!liked)}}>
       <FavoriteBorderIcon></FavoriteBorderIcon>
     </IconButton>
     :
-    <IconButton onClick={() => {updateLiked(!liked)}}>
+    <IconButton aria-label="unlike-song" onClick={() => {updateLiked(!liked)}}>
       <FavoriteIcon></FavoriteIcon>
     </IconButton>
   )
-
 };
 
 export default LikeButton;

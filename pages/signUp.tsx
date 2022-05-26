@@ -1,9 +1,9 @@
 export default function SignUp() {
   return (
-    <form method="post" action="/api/auth/callback/signUp">
+    <form method="post" action="/api/signUp">
       <label>
         Username
-        <input name="username" type="text" />
+        <input name="email" type="text" />
       </label>
       <label>
         Password

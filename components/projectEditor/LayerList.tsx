@@ -8,6 +8,9 @@ export default function LayerList({ layers }) {
     listStyleType: 'none',
     padding: 0
   }
+  const liStyle = {
+    marginBottom: 10
+  }
 
   return (
     <ul role='list-layers' style={listStyle}>
@@ -16,7 +19,17 @@ export default function LayerList({ layers }) {
         <Layer key={layer.id} data={layer} />
         );
       })} */}
-      <li><Box sx={{
+      <li style={liStyle}><Box sx={{
+        width: 600,
+        height: 100,
+        backgroundColor: '#eee',
+        '&:hover': {
+          backgroundColor: '#ccc',
+          opacity: [0.9, 0.8, 0.7],
+        },
+        borderRadius: 2
+      }}>Layer Content Here</Box></li>
+      <li style={liStyle}><Box sx={{
         width: 600,
         height: 100,
         backgroundColor: '#eee',

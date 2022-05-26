@@ -2,7 +2,7 @@ import client from "../../sql/db.js";
 import hash from 'object-hash';
 import { Console } from "console";
 
-export default function handler(req, res) {
+export default function signUpHandler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).send({ message: 'Only POST requests allowed' })
     return
@@ -16,7 +16,7 @@ export default function handler(req, res) {
 
   client.query(checkUserExists)
   .then((user) => {
-      if (user.rowCount) {
+      if (user.rowCount === 0) {
         throw new Error('Invalid email', {cause: 'User already exists with this email address.'});
       } else {
         client.query(insertUser)

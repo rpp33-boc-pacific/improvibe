@@ -2,7 +2,7 @@ export default function SignUp() {
   return (
     <form method="post" action="/api/signUp">
       <label>
-        Username
+        Email
         <input name="email" type="text" />
       </label>
       <label>

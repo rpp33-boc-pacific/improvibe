@@ -1,3 +1,3 @@
-export default function Contact() {
-  return <div>This is the contact page.</div>
+export default function PlayLayer() {
+  return <div>Play</div>
 }

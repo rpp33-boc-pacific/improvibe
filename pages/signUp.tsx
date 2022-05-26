@@ -9,7 +9,7 @@ export default function SignUp() {
         Password
         <input name="password" type="password" />
       </label>
-      <button type="submit">Sign in</button>
+      <button type="submit">Sign up</button>
     </form>
   )
 }

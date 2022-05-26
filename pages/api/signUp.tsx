@@ -21,7 +21,8 @@ export default function handler(req, res) {
       } else {
         client.query(insertUser)
         .then(() => {
-          res.send(201, 'User has been created');
+          alert('Account created. Please login.')
+          res.redirect('/signIn');
         })
         .catch(() => {
           throw new Error('Internal error', {cause: 'Error: please try again.'});

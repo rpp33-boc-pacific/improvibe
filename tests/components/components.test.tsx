@@ -1,6 +1,7 @@
 import { getByTestId, render, screen, fireEvent } from '@testing-library/react';
 import Player from '../../components/reusable/AudioPlayer';
 import LikeButton from '../../components/reusable/LikeButton';
+import AddToProjects from '../../components/reusable/AddToProjects';
 
 describe('Audio Player', () => {
   it('Has an icon button', () => {
@@ -10,7 +11,6 @@ describe('Audio Player', () => {
     expect(icon).toBeInTheDocument();
     expect(button).toBeInTheDocument();
   });
-
   it('Opens audio player modal when icon is clicked', async () => {
     render(<Player />);
     fireEvent.click(screen.getByRole('button', {
@@ -18,7 +18,6 @@ describe('Audio Player', () => {
     }));
     expect(screen.getByRole('audio-player')).toBeInTheDocument()
   });
-
   it('Closes audio player modal when icon is clicked', async () => {
     render(<Player />);
     fireEvent.click(screen.getByRole('button', {
@@ -32,27 +31,43 @@ describe('Audio Player', () => {
   });
 });
 
-
 describe('Like Button', () => {
   it('Renders "like song" button', () => {
     render(<LikeButton />);
-
     const likeButton = screen.getByRole('button', {
       name: /like-song/i,
     });
     expect(likeButton).toBeInTheDocument();
-  })
+  });
   it('Renders "unlike song" button when "like song" button is clicked', () => {
     render(<LikeButton></LikeButton>);
-
     fireEvent.click(screen.getByRole('button', {
       name: /like-song/i,
-    }))
-
+    }));
     const unlikeButton = screen.getByRole('button', {
       name: /unlike-song/i,
     });
     expect(unlikeButton).toBeInTheDocument();
-  })
-})
+  });
+});
+
+describe('Add To Projects', () => {
+  it('Renders "add to projects" button', () => {
+    render(<AddToProjects />);
+    const addButton = screen.getByRole('button', {
+      name: /add-project/i,
+    });
+    expect(addButton).toBeInTheDocument();
+  });
+  it('Renders "Clicking "add to projects" removes button from UI', () => {
+    render(<AddToProjects />);
+    fireEvent.click(screen.getByRole('button', {
+      name: /add-project/i,
+    }));
+    const unlikeButton = screen.queryByRole('button', {
+      name: /add-project/i,
+    });
+    expect(unlikeButton).not.toBeInTheDocument();
+  });
+});
 

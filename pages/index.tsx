@@ -23,9 +23,6 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to improvibe!
         </h1>
-        <Player />
-        <LikeButton></LikeButton>
-        <AddToProjects></AddToProjects>
       </main>
     </div>
   )

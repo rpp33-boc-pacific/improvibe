@@ -14,11 +14,11 @@ export default function LayerList({ layers }) {
 
   return (
     <ul role='list-layers' style={listStyle}>
-      {/* {layers.map((layer) => {
+      {layers.map((layer) => {
         return (
         <Layer key={layer.id} data={layer} />
         );
-      })} */}
+      })}
       <li style={liStyle}><Box sx={{
         width: 600,
         height: 100,

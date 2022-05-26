@@ -1,7 +1,7 @@
 import { getByTestId, render, screen, fireEvent } from '@testing-library/react';
-import Player from '../../components/reusable/AudioPlayer';
-import LikeButton from '../../components/reusable/LikeButton';
-import AddToProjects from '../../components/reusable/AddToProjects';
+import Player from '../../components/shared/AudioPlayer';
+import LikeButton from '../../components/shared/LikeButton';
+import AddToProjects from '../../components/shared/AddToProjects';
 
 describe('Audio Player', () => {
   it('Has an icon button', () => {

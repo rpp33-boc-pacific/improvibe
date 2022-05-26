@@ -1,3 +1,3 @@
-export default function Contact() {
-  return <div>This is the contact page.</div>
+export default function Layer({ data }) {
+  return <li role='layer'>This is a layer</li>
 }

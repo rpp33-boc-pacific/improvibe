@@ -18,7 +18,7 @@ export default function Editor() {
           <div className='layers'>
             <div>
               <ProjectHeader />
-              <LayerList />
+              <LayerList layers={[]}/>
               <AddLayer />
             </div>
           </div>

@@ -2,7 +2,10 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+
 import LikeButton from '../components/reusable/LikeButton';
+import AddToProjects from '../components/reusable/AddToProjects';
+
 
 const Home: NextPage = () => {
   return (
@@ -18,6 +21,7 @@ const Home: NextPage = () => {
           Welcome to improvibe!
         </h1>
         <LikeButton></LikeButton>
+        <AddToProjects></AddToProjects>
       </main>
     </div>
   )

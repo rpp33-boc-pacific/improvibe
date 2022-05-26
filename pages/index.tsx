@@ -4,6 +4,10 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Player from '../components/reusable/AudioPlayer';
 
+import LikeButton from '../components/reusable/LikeButton';
+import AddToProjects from '../components/reusable/AddToProjects';
+
+
 const Home: NextPage = () => {
 
 
@@ -20,6 +24,8 @@ const Home: NextPage = () => {
           Welcome to improvibe!
         </h1>
         <Player />
+        <LikeButton></LikeButton>
+        <AddToProjects></AddToProjects>
       </main>
     </div>
   )

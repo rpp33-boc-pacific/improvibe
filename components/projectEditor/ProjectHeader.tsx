@@ -1,7 +1,14 @@
+import PlayProject from "./PlayProject";
+import GenreSelector from "./GenreSelector";
+
 function ProjectHeader() {
 
   return (
-    <div>ProjectHeader</div>
+    <>
+      <PlayProject />
+      <h3>Song Name</h3>
+      <GenreSelector />
+    </>
   );
 }
 

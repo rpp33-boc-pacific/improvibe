@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -13,24 +14,24 @@ function GenreSelector() {
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 80 }}>
-        <InputLabel id="genre-select-label">Genre</InputLabel>
-        <Select
-          labelId="genre-select-label"
-          id="genre-select"
-          value={genre}
-          onChange={handleChange}
-          label="Genre"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={'rock'}>Rock</MenuItem>
-          <MenuItem value={'hip-hop'}>Hip-Hop</MenuItem>
-          <MenuItem value={'pop'}>Pop</MenuItem>
-          <MenuItem value={'country'}>Country</MenuItem>
-        </Select>
-      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      <InputLabel id="genre-select-label">Genre</InputLabel>
+      <Select
+        labelId="genre-select-label"
+        id="genre-select"
+        value={genre}
+        label="Genre"
+        onChange={handleChange}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={'pop'}>Pop</MenuItem>
+        <MenuItem value={'rock'}>Rock</MenuItem>
+        <MenuItem value={'hip-hop'}>Hip-Hop</MenuItem>
+        <MenuItem value={'country'}>Country</MenuItem>
+      </Select>
+    </FormControl>
     </div>
   );
   };

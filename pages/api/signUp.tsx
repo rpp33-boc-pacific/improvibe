@@ -16,7 +16,6 @@ export default function handler(req, res) {
 
   client.query(checkUserExists)
   .then((user) => {
-      console.log(user);
       if (user.rowCount) {
         throw new Error('Invalid email', {cause: 'User already exists with this email address.'});
       } else {
@@ -24,7 +23,7 @@ export default function handler(req, res) {
         .then(() => {
           res.send(201, 'User has been created');
         })
-        .catch((err) => {
+        .catch(() => {
           throw new Error('Internal error', {cause: 'Error: please try again.'});
         });
       }

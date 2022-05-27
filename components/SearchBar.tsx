@@ -169,7 +169,7 @@ export default function SearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -177,7 +177,7 @@ export default function SearchAppBar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography
             variant="h6"
             noWrap
@@ -193,7 +193,7 @@ export default function SearchAppBar() {
             improvibe
           </HomeButton>
           </Typography>
-          <Box sx={{ flexGrow: 1 }} />
+          {/* <Box sx={{ flexGrow: 1 }} /> */}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -206,7 +206,7 @@ export default function SearchAppBar() {
               onKeyPress={(event) => {
                 if (event.key === "Enter") {
                   event.preventDefault();
-                  console.log(event.target.value);
+                  // console.log(event.target.value);
                   Router.push('/query');
                 }
               }}

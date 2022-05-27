@@ -1,7 +1,13 @@
-import { PlayCircle } from "@mui/icons-material";
+import { useState } from "react"
 
 export default function PlayLayer() {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleClick = (event: any) => {
+    setIsPlaying(!isPlaying);
+  }
+
   return (
-    <div>Play</div>
+    <div onClick={handleClick}>&#8883;</div>
   )
 }

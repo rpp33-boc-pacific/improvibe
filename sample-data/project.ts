@@ -7,8 +7,8 @@ const project = {
   layers: [
     {
       layerId: 1,
-      track: 'track',
-      trackName: 'track name',
+      trackAudio: 'https://www.mfiles.co.uk/mp3-downloads/faure-dolly-suite-1-berceuse-piano-solo.mp3',
+      trackName: 'piano',
       trackTime: 'track time',
       tempo: 10,
       pitch: 50,
@@ -20,8 +20,8 @@ const project = {
     },
     {
       layerId: 2,
-      track: 'track',
-      trackName: 'track name',
+      trackAudio: 'https://www.mfiles.co.uk/mp3-downloads/franz-schubert-mertz-standchen-guitar.mp3',
+      trackName: 'guitar',
       trackTime: 'track time',
       tempo: 40,
       pitch: 100,

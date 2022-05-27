@@ -1,25 +1,27 @@
+import { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
-import _ from 'lodash';
+const { debounce } = require('lodash');
 
-const formWaveSurferOptions = (ref) => ({
+const formWaveSurferOptions = (ref: any) => ({
   container: ref,
-  waveColor: "#0000FF",
-  progressColor: "#0178FF",
-  cursorColor: "OrangeRed",
-  barWidth: 3,
-  barRadius: 3,
+  waveColor: "#2877cc",
+  progressColor: "#accbeb",
+  cursorColor: "#f50057",
+  barWidth: 4,
+  barRadius: 4,
   responsive: true,
-  height: 150,
+  height: 175,
   normalize: true,
   partialRender: true,
 });
 
-const Wave = () => {
-  const waveformRef = useRef();
-  const wavesurfer = useRef();
+interface Props {
+  data: { trackAudio: string, layerId: number, [key: string]: any }
+}
 
-  const url =
-    "https://www.mfiles.co.uk/mp3-downloads/brahms-st-anthony-chorale-theme-two-pianos.mp3";
+const Wave: NextPage<Props> = ({ data }) => {
+  const waveformRef: any = useRef();
+  const wavesurfer: { current: any, [key: string]: any }= useRef();
 
   useEffect(() => {
     create();
@@ -31,8 +33,8 @@ const Wave = () => {
     };
   }, []);
 
-  const create = _.once(async () => {
-    const WaveSurfer = (await import('wavesurfer.js')).default;
+  const create = debounce(async () => {
+    const WaveSurfer = await require('wavesurfer.js');
 
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
@@ -41,11 +43,11 @@ const Wave = () => {
       wavesurfer.current.play();
     });
 
-    wavesurfer.current.load(url);
+    wavesurfer.current.load(data.trackAudio);
   });
 
   return (
-    <div ref={waveformRef} />
+    <div id={`wave-${data.layerId}`} ref={waveformRef} />
   );
 }
 

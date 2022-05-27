@@ -1,16 +1,18 @@
-import { Card } from "@mui/material";
+import { Card, Container, Stack } from "@mui/material";
 
 function ProjectList({ projects }) {
   return (
-    <ul>
-      {projects.map((project) => {
-        return (
-          <Card key={project.id}>
-            <div>{project.projectName}</div>
-          </Card>
-        )
-      })}
-    </ul>
+    <Container>
+      <Stack spacing={2}>
+        {projects.map((project) => {
+          return (
+            <Card key={project.id}>
+              <div>{project.projectName}</div>
+            </Card>
+          )
+        })}
+      </Stack>
+    </Container>
   );
 }
 

@@ -1,14 +1,18 @@
 import client from "../../sql/db.js";
 import hash from 'object-hash';
-import { Console } from "console";
+import { useSession, getSession } from "next-auth/react"
 
-export default function signInHandler(req, res) {
+export default async function signInHandler(req, res) {
+  const session = await getSession({ req });
+
+  console.log(session)
+
   const hashedPassword = hash(req.body.password);
   const email = req.body.email;
 
-  const checkUserCrendentials = `SELECT email FROM users WHERE email='${email}' AND hash='${hashedPassword}'`
+  const checkUserCredentials = `SELECT email FROM users WHERE email='${email}' AND hash='${hashedPassword}'`
 
-  client.query(checkUserCrendentials)
+  client.query(checkUserCredentials)
   .then((user) => {
     if (user.rowCount === 0) {
       throw new Error('Invalid email or password', {cause: 'Your email or password is incorrect.'});

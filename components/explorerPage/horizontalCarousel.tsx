@@ -24,11 +24,11 @@ const HorizontalCarousel = () => {
           perPage: 4,
           perMove: 1,
           gap: '1em',
-          padding: '2em',
+          padding: '1em',
           border: '2em',
           heightRatio: 0.25,
           pagination: false,
-          width: '80%',
+          width: '75%',
         }}
       >
         {items.map(item => {

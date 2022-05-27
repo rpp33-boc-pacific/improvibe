@@ -26,9 +26,9 @@ const PopularGenres = (props: any) => {
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
       >
-        {TopGenre.map((genre) => {
+        {TopGenre.map((genre: { name: string, likes: number}) => {
           return (
-            <Item>{genre.name}</Item>
+            <Item key = {genre.name}>{genre.name}</Item>
           )
         })}
       </Stack>

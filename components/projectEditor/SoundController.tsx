@@ -1,4 +1,5 @@
 import { Slider, Stack, ThemeProvider, createTheme } from '@mui/material';
+import { NextPage } from 'next';
 
 const theme = createTheme({
   palette: {
@@ -8,7 +9,11 @@ const theme = createTheme({
   }
 });
 
-export default function SoundController({ settings }) {
+interface Props {
+  settings: { value: number, min: number, max: number, label: string }
+}
+
+const SoundController: NextPage<Props> = ({ settings }) => {
   return (
     <Stack spacing={3} direction='row' justifyContent="space-between">
       <div>{settings.label}</div>
@@ -18,3 +23,5 @@ export default function SoundController({ settings }) {
     </Stack>
   )
 }
+
+export default SoundController;

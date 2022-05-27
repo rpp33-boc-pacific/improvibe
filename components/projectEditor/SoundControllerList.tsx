@@ -1,7 +1,12 @@
 import { Slider, Stack } from '@mui/material'
+import { NextPage } from 'next'
 import SoundController from './SoundController'
 
-export default function SoundControllerList({ data }) {
+interface Props {
+  data: { volume: number, pitch: number, tempo: number, loop: boolean, [key: string]: any }
+}
+
+const SoundControllerList: NextPage<Props> = ({ data }) => {
   return (
     <Stack spacing={1} role='sound-controller-list'>
       <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 100 }}/>
@@ -11,3 +16,5 @@ export default function SoundControllerList({ data }) {
     </Stack>
   )
 }
+
+export default SoundControllerList;

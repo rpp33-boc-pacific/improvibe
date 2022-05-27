@@ -1,10 +1,21 @@
-import React from 'react';
+import { NextPage } from "next";
+import { Container, Stack } from '@mui/material';
+import Layer from './Layer';
 
-function LayerList() {
+interface Props {
+  layers: Array<{ layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, [key: string]: any }>,
+}
 
+const LayerList : NextPage<Props> = ({ layers }) => {
   return (
-    <div>Layer List</div>
-  );
+    <Container>
+      <Stack spacing={2} role='list-layers'>
+        {layers.map((layer) => {
+          return <Layer key={layer.layerId} data={layer} />
+        })}
+      </Stack>
+    </Container>
+  )
 }
 
 export default LayerList;

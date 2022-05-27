@@ -1,7 +1,4 @@
 
-
-
-
 function TopArtists () {
   return (
     <div>

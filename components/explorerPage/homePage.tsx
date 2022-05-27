@@ -1,15 +1,17 @@
 import Dashboard from './dashboard';
-import VerticalCarousel from './verticalCarousel';
 import PopularGenres from './popularGenres';
 import TopArtists from './topArtists';
 import YourContributions from './yourContributions';
+import HorizontalCarousel from './horizontalCarousel';
+import GenreData from './genres-sampleData';
 
 const HomePage = () => {
 
   return (
     <div>
-      <PopularGenres/>
-      <VerticalCarousel/>
+      <PopularGenres GenreData = {GenreData}/>
+      <HorizontalCarousel/>
+      <HorizontalCarousel/>
       <Dashboard/>
       <YourContributions/>
       <TopArtists/>

@@ -13,7 +13,7 @@ export default function SoundController({ settings }) {
     <Stack spacing={3} direction='row' justifyContent="space-between">
       <div>{settings.label}</div>
       <ThemeProvider theme={theme}>
-        <Slider defaultValue={settings.value} min={settings.min} max={settings.max} disabled color="secondary"/>
+        <Slider defaultValue={settings.value} min={settings.min} max={settings.max}/>
       </ThemeProvider>
     </Stack>
   )

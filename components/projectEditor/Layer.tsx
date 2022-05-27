@@ -5,7 +5,7 @@ import Wave from './Wave';
 
 export default function Layer({ data }) {
   return (
-    <Card>
+    <Card role='layer'>
       <Stack spacing={2} direction="row" alignItems="center" m={2}>
         <Stack spacing={2}>
           <Stack direction="row" spacing={2}>

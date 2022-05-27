@@ -1,18 +1,19 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import LayerList from '../../components/projectEditor/LayerList';
+import Project from '../../sample-data/project';
+
+const sammpleProject = Project;
 
 describe('Layers', () => {
   it('Has a UL to hold layers', () => {
-    const layers = [{ id: 1 }, { id: 2 }, { id: 3}];
-    render(<LayerList layers={ layers } />);
+    render(<LayerList layers={ sammpleProject.layers } />);
     const list = screen.getByRole('list-layers');
     expect(list).toBeInTheDocument();
   });
 
   it('Renders multiple layers', async () => {
-    const layers = [{ id: 1 }, { id: 2 }, { id: 3}];
-    render(<LayerList layers={ layers } />);
+    render(<LayerList layers={ sammpleProject.layers } />);
     const layersRendered = await screen.findAllByRole('layer')
-    expect(layersRendered).toHaveLength(3);
+    expect(layersRendered).toHaveLength(2);
   });
 });

@@ -1,0 +1,10 @@
+.SkeletonContainer {
+  height: 500;
+  width: 500;
+  padding: 2000px;
+}
+.Skeleton {
+  position: "absolute";
+  justify-content: center;
+
+}

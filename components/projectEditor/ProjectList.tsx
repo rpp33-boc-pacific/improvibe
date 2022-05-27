@@ -1,7 +1,16 @@
-function ProjectList() {
+import { Card } from "@mui/material";
 
+function ProjectList({ projects }) {
   return (
-    <div>ProjectList</div>
+    <ul>
+      {projects.map((project) => {
+        return (
+          <Card key={project.id}>
+            <div>{project.projectName}</div>
+          </Card>
+        )
+      })}
+    </ul>
   );
 }
 

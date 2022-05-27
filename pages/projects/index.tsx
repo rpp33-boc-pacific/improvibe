@@ -1,7 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import ProjectList from '../../components/projectEditor/ProjectList';
+import projects from '../../sample-data/projects';
 
+const sampleProjects = projects;
 
 const Projects: NextPage = () => {
   return (
@@ -12,7 +14,7 @@ const Projects: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ProjectList />
+      <ProjectList projects={sampleProjects}/>
     </>
   )
 };

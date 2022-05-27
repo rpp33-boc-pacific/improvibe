@@ -5,6 +5,11 @@ import ProjectHeader from '../../components/projectEditor/ProjectHeader'
 import AddLayer from '../../components/projectEditor/AddLayer'
 import NewProject from '../../components/projectEditor/NewProject'
 import ProjectList from '../../components/projectEditor/ProjectList'
+import project from '../../sample-data/project';
+import projects from '../../sample-data/projects';
+
+const sammpleProject = project;
+const sampleProjects = projects;
 
 const Editor: NextPage = () => {
   return (
@@ -20,14 +25,14 @@ const Editor: NextPage = () => {
         <div className='layers'>
           <div>
             <ProjectHeader />
-            <LayerList layers={[{ id: 1, settings: { pitch: 10, tempo: 50, volume: 75, loop: false } }, { id: 2, settings: { pitch: 80, tempo: 25, volume: 50, loop: true }}]} />
+            <LayerList layers={sammpleProject.layers} />
             <AddLayer />
           </div>
         </div>
         <div className='projects'>
           <h2>My Projects</h2>
           <NewProject />
-          <ProjectList />
+          <ProjectList projects={sampleProjects}/>
         </div>
       </div>
     </>

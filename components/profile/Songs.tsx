@@ -1,13 +1,19 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import LockIcon from '@mui/icons-material/Lock';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { Box } from '@mui/system';
+import { Grid } from '@mui/material';
+import { Typography } from '@mui/material';
 
-export default function Songs ({ songs }) {
- return (
-   <div>
+const Songs = ({ songs }) => {
 
-   </div>
- );
+  return (
+    <Box>
+      <Typography>My Songs</Typography>
+      <Box>
+        <Grid container>
+          {/* map songs */}
+        </Grid>
+      </Box>
+    </Box>
+  );
 };
+
+export default Songs;

@@ -1,11 +1,20 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { Box } from '@mui/material';
+// import { Grid } from '@mui/material';
+import { Typography } from '@mui/material';
 
-export default function Name ({ name }) {
- return (
-   <div>
+const Name = ({ name }) => {
 
-   </div>
- );
+  const style = {
+    // TO DO
+  };
+
+  return (
+    <Box sx={style}>
+      <Typography variant='h2'>
+        {name}
+      </Typography>
+    </Box>
+  );
 };
+
+export default Name;

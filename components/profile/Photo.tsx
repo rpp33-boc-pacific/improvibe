@@ -1,12 +1,23 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { Box } from '@mui/material';
+import { Typography } from '@mui/material';
 import Image from 'next/image';
 
-export default function Photo ({ url }) {
- return (
-   <div>
+const Photo = ({ url }) => {
 
-   </div>
- );
+  const style = {
+
+  };
+
+  return (
+    <Box>
+      <Image
+        alt='Picture of the artist'
+        src={url}
+        height={ }
+        width={ }
+      />
+    </Box>
+  );
 };
+
+export default Photo;

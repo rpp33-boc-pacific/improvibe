@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.wave {
+  height: 200px;
+  width: 1000px;
+}

@@ -1,5 +1,5 @@
-import { DiscFull } from '@mui/icons-material';
-import { Card, Grid, Stack } from '@mui/material';
+
+import { Card, Stack } from '@mui/material';
 import { NextPage } from 'next';
 import PlayLayer from './PlayLayer';
 import SoundControllerList from './SoundControllerList';
@@ -20,11 +20,11 @@ const Layer : NextPage<Props> = ({ data }) => {
           </Stack>
           <SoundControllerList data={data}/>
         </Stack>
-        <Stack alignItems="center">
+        <div className='wave'>
           <Card variant="outlined">
-            <Wave />
+            <Wave id={data.layerId}/>
           </Card>
-        </Stack>
+        </div>
       </Stack>
     </Card>
   )

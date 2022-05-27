@@ -21,7 +21,6 @@ const AddToProjects = ({ song, user}: any) => {
     :
     <>
     <Button
-      aria-label="add-project"
       onClick={() => {addToProjects(!inProjects)}}
       sx={{color: "white"}}>
         Added To Your Projects

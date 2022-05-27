@@ -1,25 +1,39 @@
 import { getByTestId, render, screen, fireEvent } from '@testing-library/react';
-import Player from '../../components/shared/AudioPlayer';
+import AudioPlayer from '../../components/shared/AudioPlayer';
 import LikeButton from '../../components/shared/LikeButton';
 import AddToProjects from '../../components/shared/AddToProjects';
 
+const userProp = {
+  userId: 1,
+  liked: false, //liked by current user
+}
+const songProp = {
+  songName: 'Song Name',
+  artistName: 'Artist Name',
+  songPath: 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav',
+  genre: 'rock',
+  tags: ['smooth', 'funky'],
+  artistPic: "https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif",
+  cumulativeLikes: 234,
+}
+
 describe('Audio Player', () => {
   it('Has an icon button', () => {
-    render(<Player />);
+    render(<AudioPlayer  color={'white'} song={songProp} user={userProp}/>);
     const button = screen.getByRole('button');
     const icon = screen.getByTestId("PlayCircleIcon");
     expect(icon).toBeInTheDocument();
     expect(button).toBeInTheDocument();
   });
   it('Opens audio player modal when icon is clicked', async () => {
-    render(<Player />);
+    render(<AudioPlayer color={'white'} song={songProp} user={userProp}/>);
     fireEvent.click(screen.getByRole('button', {
       name: /open-player-modal/i
     }));
     expect(screen.getByRole('audio-player')).toBeInTheDocument()
   });
   it('Closes audio player modal when icon is clicked', async () => {
-    render(<Player />);
+    render(<AudioPlayer color={'white'} song={songProp} user={userProp}/>);
     fireEvent.click(screen.getByRole('button', {
       name: /open-player-modal/i
     }));
@@ -33,14 +47,14 @@ describe('Audio Player', () => {
 
 describe('Like Button', () => {
   it('Renders "like song" button', () => {
-    render(<LikeButton />);
+    render(<LikeButton color={'#757575'} song={songProp} user={userProp}/>);
     const likeButton = screen.getByRole('button', {
       name: /like-song/i,
     });
     expect(likeButton).toBeInTheDocument();
   });
   it('Renders "unlike song" button when "like song" button is clicked', () => {
-    render(<LikeButton></LikeButton>);
+    render(<LikeButton color={'#757575'} song={songProp} user={userProp}/>);
     fireEvent.click(screen.getByRole('button', {
       name: /like-song/i,
     }));
@@ -53,14 +67,14 @@ describe('Like Button', () => {
 
 describe('Add To Projects', () => {
   it('Renders "add to projects" button', () => {
-    render(<AddToProjects />);
+    render(<AddToProjects song={songProp} user={userProp}/>);
     const addButton = screen.getByRole('button', {
       name: /add-project/i,
     });
     expect(addButton).toBeInTheDocument();
   });
   it('Clicking "add to projects" removes button from UI', () => {
-    render(<AddToProjects />);
+    render(<AddToProjects song={songProp} user={userProp}/>);
     fireEvent.click(screen.getByRole('button', {
       name: /add-project/i,
     }));

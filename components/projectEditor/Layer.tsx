@@ -20,10 +20,12 @@ const Layer : NextPage<Props> = ({ data }) => {
           </Stack>
           <SoundControllerList data={data}/>
         </Stack>
-        <div className='wave'>
-          <Card variant="outlined">
-            <Wave id={data.layerId}/>
-          </Card>
+        <div className='wave-holder'>
+          <div className='wave'>
+            <Card variant="outlined">
+              <Wave />
+            </Card>
+          </div>
         </div>
       </Stack>
     </Card>

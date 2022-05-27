@@ -15,6 +15,12 @@ a {
   box-sizing: border-box;
 }
 
+.wave-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .wave {
   height: 200px;
   width: 1000px;

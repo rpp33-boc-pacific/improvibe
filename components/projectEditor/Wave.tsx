@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import WaveSurfer from 'wavesurfer.js';
+import _ from 'lodash';
 
 const formWaveSurferOptions = (ref) => ({
   container: ref,
@@ -12,11 +12,9 @@ const formWaveSurferOptions = (ref) => ({
   height: 150,
   normalize: true,
   partialRender: true,
-
-
 });
 
-const Wave = ({ id }) => {
+const Wave = () => {
   const waveformRef = useRef();
   const wavesurfer = useRef();
 
@@ -33,21 +31,21 @@ const Wave = ({ id }) => {
     };
   }, []);
 
-  const create = async () => {
+  const create = _.once(async () => {
     const WaveSurfer = (await import('wavesurfer.js')).default;
 
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
 
-    wavesurfer.current.load(url);
-
     wavesurfer.current.on('ready', function () {
       wavesurfer.current.play();
     });
-  };
+
+    wavesurfer.current.load(url);
+  });
 
   return (
-    <div id={id} ref={waveformRef} />
+    <div ref={waveformRef} />
   );
 }
 

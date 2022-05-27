@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import SearchAppBar from '../components/SearchBar.tsx';
+import SearchAppBar from '../components/SearchBar';
 import Player from '../components/reusable/AudioPlayer';
 
 import LikeButton from '../components/reusable/LikeButton';

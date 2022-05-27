@@ -1,4 +1,6 @@
 import * as React from 'react';
+import LikeButton from './LikeButton';
+import AddToProjects from './AddToProjects';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -8,8 +10,10 @@ import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import IconButton from '@mui/material/IconButton';
+import { borderRadius } from '@mui/system';
 
-const Player = () => {
+const AudioPlayer = ({ song, user, color }: any) => {
+
   const style = {
     position: 'absolute',
     bottom: '0%',
@@ -22,7 +26,7 @@ const Player = () => {
 
   const ProfileImage = () => {
     return (
-      <Image src={"https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif"} alt="artist-profile-picture" layout={"fixed"} width="75px" height="75px"/>
+      <Image src={song.artistPic} alt="artist-profile-picture" layout={"fixed"} width="125px" height="125px"/>
     )
   }
 
@@ -35,7 +39,7 @@ const Player = () => {
         <IconButton
           aria-label="open-player-modal"
           onClick={handleOpen}>
-          <PlayCircleIcon/>
+          <PlayCircleIcon fontSize="large"/>
         </IconButton>
         <Modal
           hideBackdrop
@@ -43,27 +47,25 @@ const Player = () => {
           onClose={handleClose}>
           <Box sx={style}>
             <Grid container direction="row" spacing={2} sx={{paddingBottom: '.5em'}}>
-              <Grid item xs={2}>
-              <Link href="#">
+              <Grid item xs={1.5}>
+              <Link href="./profile">
                 <ProfileImage></ProfileImage>
               </Link>
               </Grid>
-              <Grid item xs={2} sx={{paddingBotton: ".5em"}}>
-                <Typography
-                  variant="h4"
-                  sx={{color: "white"}}>
-                    Song
-                </Typography>
-                <Link sx={{color: "white"}}>Artist Name</Link>
+              <Grid item xs={3} sx={{paddingBotton: ".5em"}}>
+                <Typography variant="h4"sx={{color: "white"}}>{song.songName}</Typography>
+                <Link href="./profile" sx={{color: "white"}}>{song.artistName}</Link>
               </Grid>
-              <Grid
-                item xs={3}>
+              <Grid item xs={3}>
                 <Typography sx={{color: "white", textAlign: "center"}}>
-                    Genre #tag
+                    {song.genre}
+                    {/* insert component to display list here */}
                 </Typography>
+                <LikeButton color={color} song={song} user={user}/>
+                <AddToProjects song={song} user={user}/>
               </Grid>
             </Grid>
-            <audio role="audio-player" controls></audio>
+            <audio role="audio-player" controls src={song.songPath}></audio>
             <IconButton
               aria-label="close-player-modal"
               sx={{color: 'white', position: 'absolute', top: '2%', right: '1%'}}
@@ -76,4 +78,4 @@ const Player = () => {
     );
 }
 
-export default Player;
+export default AudioPlayer;

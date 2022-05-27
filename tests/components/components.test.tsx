@@ -59,7 +59,7 @@ describe('Add To Projects', () => {
     });
     expect(addButton).toBeInTheDocument();
   });
-  it('Renders "Clicking "add to projects" removes button from UI', () => {
+  it('Clicking "add to projects" removes button from UI', () => {
     render(<AddToProjects />);
     fireEvent.click(screen.getByRole('button', {
       name: /add-project/i,

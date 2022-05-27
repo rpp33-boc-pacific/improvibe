@@ -20,6 +20,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to improvibe!
         </h1>
+        <SongTile />
       </main>
     </div>
   )

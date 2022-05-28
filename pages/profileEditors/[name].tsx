@@ -10,34 +10,24 @@ import { TextField } from '@mui/material';
 import Photo from '../../components/profileEditor/Photo';
 import Songs from '../../components/profile/Songs';
 // import SearchBar from '../../components/SearchBar';
-import { getAllUserNames } from '../../database/profile-helpers';
+import { getUserData } from '../../database/profileEditorHelpers';
 
-const getStaticPaths = () => {
-  const paths = await getAllUserNames();
-  return {
-    // paths,
-    // TO DO - delete below
-    paths: [
-      { params: { name: 'jp' } }
-    ],
-    // TO DO - delete above
-    fallback: 'blocking'
-  };
-};
-
-const getStaticProps = ({ params }) => {
-  const name = params.name;
-  return { props: { name } };
+const getServerSideProps = async (context) => {
+  const userName = context.params.name;
+  const userProfile = await getUserData(userName);
+  const userEmail = userProfile.email;
+  const userAbout = userProfile.about;
+  return { props: { userName, userEmail, userAbout } };
 };
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
-const ProfileEditor = ({ name }) => {
+const ProfileEditor = ({ userName, userEmail, userAbout }) => {
 
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setUserName] = useState(userName);
+  const [email, setEmail] = useState(userEmail);
   const [password, setPassword] = useState('');
-  const [about, setAbout] = useState('');
+  const [about, setAbout] = useState(userAbout);
 
   const { data, error } = useSWR(`/api/profileEditors/${name}`, fetcher);
 
@@ -70,7 +60,7 @@ const ProfileEditor = ({ name }) => {
             <TextField type='text' value={userName} onChange={(event) => setUserName(event.target.value)} />
             <Grid>
               <Grid item>
-                <TextField type='password' value={password} onChange={(event) => setPassword(event.target.value)} />
+                <TextField type='password' placeholder='New password' value={password} onChange={(event) => setPassword(event.target.value)} />
               </Grid>
               <Grid item>
                 <TextField type='text' value={about} onChange={(event) => setAbout(event.target.value)} />
@@ -87,6 +77,5 @@ const ProfileEditor = ({ name }) => {
   );
 };
 
-export { getStaticPaths };
-export { getStaticProps };
+export { getServerSideProps };
 export default ProfileEditor;

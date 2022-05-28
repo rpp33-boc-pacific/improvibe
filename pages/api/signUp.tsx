@@ -1,4 +1,4 @@
-import client from "../../sql/db";
+import pool from "../../sql/db";
 import hash from 'object-hash';
 
 export default function signUpHandler(req: any, res: any) {
@@ -12,12 +12,12 @@ export default function signUpHandler(req: any, res: any) {
     const checkUserExists = `SELECT email FROM users WHERE email='${email}'`
     const insertUser = `INSERT INTO users(email, hash) VALUES ('${email}', '${hashedPassword}');`
 
-    client.query(checkUserExists)
+    pool.query(checkUserExists)
     .then((user: any) => {
         if (user.rowCount !== 0) {
           throw new Error('User already exists with this email address');
         } else {
-          client.query(insertUser)
+          pool.query(insertUser)
           .then(() => {
             res.status(201).send('Your account has successfully been created')
           })

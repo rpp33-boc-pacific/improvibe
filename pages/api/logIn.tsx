@@ -1,4 +1,4 @@
-import client from "../../sql/db";
+import pool from "../../sql/db";
 import hash from 'object-hash';
 
 export default async function loginHandler(req: any, res: any) {
@@ -8,7 +8,7 @@ export default async function loginHandler(req: any, res: any) {
 
   const checkUserCredentials = `SELECT email FROM users WHERE email='${email}' AND hash='${hashedPassword}'`
 
-  client.query(checkUserCredentials)
+  pool.query(checkUserCredentials)
   .then((user: any) => {
     if (user.rowCount === 0) {
       throw new Error('Invalid email or password');

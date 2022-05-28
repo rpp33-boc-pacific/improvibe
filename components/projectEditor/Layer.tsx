@@ -23,7 +23,7 @@ const Layer : NextPage<Props> = ({ data }) => {
       <Stack spacing={2} direction="row" alignItems="center" m={2}>
         <Stack spacing={2} width={400}>
           <Stack direction="row" spacing={2}>
-            <div>{data.trackName}</div>
+            <div className='layer-name'>{data.trackName}</div>
             <PlayLayer setIsPlaying={setIsPlaying} isPlaying={isPlaying}/>
           </Stack>
           <SoundControllerList data={data}/>

@@ -3,7 +3,7 @@ import { Container, Stack } from '@mui/material';
 import Layer from './Layer';
 
 interface Props {
-  layers: Array<{ layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, trackAudio: string, [key: string]: any }>,
+  layers: Array<{ layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, trackAudio: string, trackName: string, [key: string]: any }>,
 }
 
 const LayerList : NextPage<Props> = ({ layers }) => {

@@ -12,7 +12,7 @@ const PlayLayer: NextPage<Props> = ({ isPlaying, setIsPlaying }) => {
   }
 
   return (
-    <div onClick={handleClick}>&#8883;</div>
+    <div className='play-layer' onClick={handleClick}>&#8883;</div>
   )
 }
 

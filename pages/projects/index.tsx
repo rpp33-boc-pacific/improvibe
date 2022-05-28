@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Head from 'next/head';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -10,6 +11,9 @@ import ProjectHeader from '../../components/projectEditor/ProjectHeader'
 import AddLayer from '../../components/projectEditor/AddLayer'
 import NewProject from '../../components/projectEditor/NewProject'
 import ProjectList from '../../components/projectEditor/ProjectList'
+import SearchAppBar from '../../components/SearchBar';
+import projects from '../../sample-data/projects';
+import { NextPage } from 'next';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -19,9 +23,19 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Editor() {
+const sampleProjects = projects;
+
+
+const Projects: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>improvibe</title>
+        <meta name="project editor" content="page to edit songs" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <SearchAppBar />
+
       <CssBaseline />
       <Container maxWidth="xl">
         <h1>Edit Project</h1>
@@ -42,7 +56,7 @@ export default function Editor() {
               <Item>
                 <div className='projects'>
                   <h2>My Projects</h2>
-                  <ProjectList />
+                  <ProjectList projects={sampleProjects}/>
                   <NewProject />
                 </div>
               </Item>
@@ -53,3 +67,6 @@ export default function Editor() {
     </>
   );
 }
+
+export default Projects;
+

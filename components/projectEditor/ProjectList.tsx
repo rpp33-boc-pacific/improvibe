@@ -1,7 +1,26 @@
-function ProjectList() {
+import { Card, Container, Stack } from "@mui/material";
+import { NextPage } from "next";
+import Link from "next/link";
 
+interface Props {
+  projects: Array<{ id: number, [key: string]: any }>
+}
+
+const ProjectList: NextPage<Props> = ({ projects }) => {
   return (
-    <div>ProjectList</div>
+    <Container>
+      <Stack spacing={2}>
+        {projects.map((project: { id: number, [key: string]: any }) => {
+          return (
+            <Card key={project.id}>
+              <Link href={`/projects/${project.id}`}>
+                <a>{project.projectName}</a>
+              </Link>
+            </Card>
+          )
+        })}
+      </Stack>
+    </Container>
   );
 }
 

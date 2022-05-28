@@ -17,7 +17,11 @@ const sampleProjects = projects;
 
 const Editor: NextPage = () => {
   const router = useRouter();
-  const { id } = router.query;
+  let { id } = router.query;
+  if (id !== undefined) {
+    id = '1';
+  }
+
   const sammpleProject = sampleProjectOptions[Number(id) - 1];
 
   return (

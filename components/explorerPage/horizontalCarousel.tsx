@@ -3,6 +3,8 @@ import { useState, useRef } from "react";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '../../styles/Explorer.module.css';
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
+// import SongTile from '../shared/SongTile';
+import Tile from './tile';
 
 let uniqueKey = 0;
 
@@ -18,7 +20,7 @@ const HorizontalCarousel = () => {
     <>
       {/* <hr /> */}
       <Splide
-        ref={ref}
+        // ref={ref}
         options={{
           rewind: false,
           perPage: 4,
@@ -32,13 +34,17 @@ const HorizontalCarousel = () => {
         }}
       >
         {items.map(item => {
+          console.log('item', item)
           return (
             <>
-            <SplideSlide key={item} className="slide">
-              <img
+            <SplideSlide  key={item}>
+              {/* <img
                 src={`https://source.unsplash.com/random/400x500?sig=${item}`}
-                alt={`${item}`} className="slide" />
+                alt={`${item}`} className="slide" /> */}
               {/* <span>Tile {item}</span> */}
+              <div className="slide" >
+                <Tile />
+              </div>
             </SplideSlide>
             </>
           );

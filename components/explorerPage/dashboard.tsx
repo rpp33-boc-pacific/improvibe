@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
+import ApiIcon from '@mui/icons-material/Api';
 
 const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -25,7 +26,7 @@ const Dashboard = (props: { Performance: any }) => {
     <Box sx={{ flexGrow: 1, maxWidth: 752}}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12}>
-          <Typography sx={{ mt: 2, mb: 6.25 }} variant="h6" component="div">
+          <Typography sx={{ mt: 2, mb: 8.25 }} variant="h6" component="div">
             Your Dashboard
           </Typography>
           <Demo>
@@ -38,7 +39,7 @@ const Dashboard = (props: { Performance: any }) => {
                   } key = {Metrics.likes}
                 >
                   <ListItemAvatar>
-                  <Avatar src="/broken-image.jpg" />
+                  <ApiIcon />
                   </ListItemAvatar>
                   <ListItemText
                     primary='Total Likes'
@@ -52,7 +53,7 @@ const Dashboard = (props: { Performance: any }) => {
                   } key = {Metrics.shares}
                 >
                   <ListItemAvatar>
-                  <Avatar src="/broken-image.jpg" />
+                  <ApiIcon />
                   </ListItemAvatar>
                   <ListItemText
                     primary='Total Shares'

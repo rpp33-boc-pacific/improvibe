@@ -1,3 +1,5 @@
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Dashboard from './dashboard';
 import PopularGenres from './popularGenres';
 import TopArtists from './topArtists';
@@ -8,26 +10,6 @@ import GenreData from './genres-sampleData';
 import Artists from './topArtists-sampleData';
 import Songs from './topContributions-sampleData';
 import Performance from './dashboard-sampleData';
-
-// const HomePage = () => {
-
-//   return (
-//     <div>
-//       <SearchBar/>
-//       <PopularGenres GenreData = {GenreData}/>
-//       <HorizontalCarousel/>
-//       <HorizontalCarousel/>
-//       <Dashboard Performance = {Performance}/>
-//       <YourContributions Songs = {Songs}/>
-//       <TopArtists Artists = {Artists}/>
-//     </div>
-//   )
-// }
-
-// export default HomePage;
-
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';

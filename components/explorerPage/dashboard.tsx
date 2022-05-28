@@ -16,7 +16,7 @@ const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-const Dashboard = (props: { Performance: any[]; }) => {
+const Dashboard = (props: { Performance: any }) => {
   const [dense, setDense] = React.useState(false);
   const Metrics = props.Performance;
   // console.log('metrics', Metrics)

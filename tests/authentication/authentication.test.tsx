@@ -1,16 +1,35 @@
 import { render, screen } from '@testing-library/react';
-import SignUp from '../..pages/signUp.tsx';
+import SignUp from '../../pages/signUp';
+import SignIn from '../../pages/signIn';
 
 describe('Sign up', () => {
-  it('Has a UL to hold layers', () => {
-    render(<LayerList layers={ sammpleProject.layers } />);
-    const list = screen.getByRole('list-layers');
-    expect(list).toBeInTheDocument();
+
+  it('renders sign up form', () => {
+    render(<SignUp />);
+
+    const email = screen.getByLabelText('Email');
+    const password = screen.getByLabelText('Password');
+    const button = screen.getByRole('button');
+
+    expect(email).toBeInTheDocument();
+    expect(password).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
   });
 
-  it('Renders multiple layers', async () => {
-    render(<LayerList layers={ sammpleProject.layers } />);
-    const layersRendered = await screen.findAllByRole('layer')
-    expect(layersRendered).toHaveLength(2);
+});
+
+describe('Sign in', () => {
+
+  it('renders sign in form', () => {
+    render(<SignIn />);
+
+    const email = screen.getByLabelText('Email');
+    const password = screen.getByLabelText('Password');
+    const button = screen.getByRole('button');
+
+    expect(email).toBeInTheDocument();
+    expect(password).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
   });
+
 });

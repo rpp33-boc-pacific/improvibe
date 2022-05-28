@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import SignUp from '../../pages/signUp';
-import LogIn from '../../pages/login';
+import LogIn from '../../pages/logIn';
 
 describe('Sign up', () => {
 

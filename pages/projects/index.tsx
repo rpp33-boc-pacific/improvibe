@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import ProjectList from '../../components/projectEditor/ProjectList';
 import projects from '../../sample-data/projects';
+import SearchAppBar from '../../components/SearchBar';
 
 const sampleProjects = projects;
 
@@ -14,6 +15,7 @@ const Projects: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <SearchAppBar />
       <ProjectList projects={sampleProjects}/>
     </>
   )

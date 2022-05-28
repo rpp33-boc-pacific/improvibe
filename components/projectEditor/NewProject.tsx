@@ -1,3 +1,8 @@
-export default function Contact() {
-  return <div>This is the contact page.</div>
+function NewProject() {
+
+  return (
+    <div>NewProjectButton</div>
+  );
 }
+
+export default NewProject;

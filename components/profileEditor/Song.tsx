@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { Box } from '@mui/material';
 import { Grid } from '@mui/material';
 import { ListItem } from '@mui/material';
 import { ListItemText } from '@mui/material';
 import { Lock } from '@mui/icons-material';
 import { LockOpen } from '@mui/icons-material';
-import axios from 'axios';
 
 const Songs = ({ song }) => {
   const [ publicState, setpublicState ] = useState(song.public);
@@ -13,7 +11,7 @@ const Songs = ({ song }) => {
   const handleLockClick = async () => {
     let err;
     try {
-      await axios.post(`/api/songs/${song.id}/public`);
+      await fetch(`/api/songs/${song.id}/public`, { method: 'PUT' });
     } catch (error) {
       err = error;
     } finally {
@@ -26,7 +24,7 @@ const Songs = ({ song }) => {
   const handleLockOpenClick = async () => {
     let err;
     try {
-      await axios.post(`/api/songs/${song.id}/private`);
+      await fetch(`/api/songs/${song.id}/private`, { method: 'PUT' });
     } catch (error) {
       err = error;
     } finally {

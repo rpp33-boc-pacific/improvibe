@@ -14,3 +14,25 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.wave-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wave {
+  margin-top: 14px;
+  height: 200px;
+  width: 900px;
+}
+
+.setting-label {
+  width: 80px;
+  font-weight: lighter;
+}
+
+.play-layer, .layer-name {
+  font-weight: bold;
+  font-size: 150%;
+}

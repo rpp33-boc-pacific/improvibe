@@ -2,7 +2,7 @@ version: "3"
 services:
   improvibe:
     container_name: improvibe
-    image: happyboxes/improvibe
+    image: happyboxes/improvibe:latest
     ports:
       - 3000:3000
   watchtower:

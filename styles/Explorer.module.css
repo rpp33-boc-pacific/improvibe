@@ -1,0 +1,17 @@
+.App {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 1rem;
+}
+
+#btn {
+  margin-right: 0.5rem;
+}
+
+#genres {
+  display: inline
+}
+
+.slide:hover {
+  transform: scale(1.5) !important;
+}
+

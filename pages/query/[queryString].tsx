@@ -7,7 +7,7 @@ import { Grid, Skeleton } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import styles from '../styles/Query.module.css';
 import { useRouter } from 'next/router';
-import SearchResult from '../../components/reusable/SearchResult';
+import SearchResult from '../../components/shared/SearchResult';
 
 const Query: NextPage = () => {
 

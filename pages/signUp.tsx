@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function SignUp() {
   return (
     <form method="post" action="/api/signUp">
@@ -11,7 +13,11 @@ export default function SignUp() {
         <input name="password" type="password" />
       </label>
       <button type="submit">Sign Up</button>
-      <p>Already have an account? <a href="/logIn">Log in</a></p>
+      <p>Already have an account?
+        <Link href="/logIn">
+          <a> Log In</a>
+        </Link>
+        </p>
     </form>
   )
 }

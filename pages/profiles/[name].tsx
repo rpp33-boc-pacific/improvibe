@@ -3,7 +3,6 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import { Box } from '@mui/material';
 import { Grid } from '@mui/material';
-import { Link } from '@mui/material';
 import { Typography } from '@mui/material';
 import { CircularProgress } from '@mui/material';
 import { Alert } from '@mui/material';
@@ -25,16 +24,17 @@ const Profile = ({ name, owner }) => {
 
   const { data, error } = useSWR(`/api/profiles/${name}`, fetcher);
   if (error) {
+    console.log(error);
     return <Alert severity='error'>Error fetching data</Alert>;
   }
   if (!data) {
     return <CircularProgress />;
   }
 
-  if (owner) {
+  if (owner === 'true') {
     return (
       <Grid>
-        <SearchBar />
+        {/* <SearchBar /> */}
         <Grid container>
           <Grid item>
             <Photo photoUrl={data.user.photoUrl}></Photo>
@@ -64,12 +64,13 @@ const Profile = ({ name, owner }) => {
             </Grid>
           </Grid>
         </Grid>
+        <Player color={'white'} song={'songProp'} user={'userProp'} />
       </Grid>
     );
   } else {
     return (
       <Grid>
-        <SearchBar />
+        {/* <SearchBar /> */}
         <Grid container>
           <Grid item>
             <Photo photoUrl={data.user.photoUrl}></Photo>
@@ -92,10 +93,11 @@ const Profile = ({ name, owner }) => {
           </Grid>
           <Grid item>
             <Grid container>
-              <SongTiles songs={data.songs} />
+              <SongTiles songs={data.songs} user={data.user} />
             </Grid>
           </Grid>
         </Grid>
+        <Player color={'white'} song={'songProp'} user={'userProp'} />
       </Grid>
     );
   }

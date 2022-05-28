@@ -33,12 +33,12 @@ export default function HomePage() {
         </Grid>
         <Grid item xs={12}>
           <Item>
-          {/* <PopularGenres GenreData = {GenreData}/> */}
+          <PopularGenres GenreData = {GenreData}/>
           </Item>
         </Grid>
         <Grid item xs={8}>
           <Item>
-          {/* <HorizontalCarousel/> */}
+          <HorizontalCarousel/>
           </Item>
         </Grid>
         <Grid item xs={4}>

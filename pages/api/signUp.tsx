@@ -28,9 +28,9 @@ export default function signUpHandler(req: any, res: any) {
     }).catch((err) => {
       console.log(err.message)
       if (err.message === 'User already exists with this email address') {
-        res.status(400).send('User already exists with this email address');
+        res.status(400).send(err.message);
       } else {
-        res.status(500).send('Error: please try again.');
+        res.status(500).send('Error: please try again');
       }
     });
   }

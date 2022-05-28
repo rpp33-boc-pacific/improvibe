@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import SignUp from '../../pages/signUp';
-import LogIn from '../../pages/logIn';
+import LogIn from '../../pages/login';
 
 describe('Sign up', () => {
 
@@ -18,9 +18,9 @@ describe('Sign up', () => {
 
 });
 
-describe('Log in', () => {
+describe('Log In', () => {
 
-  it('renders login form', () => {
+  it('renders log in form', () => {
     render(<LogIn />);
 
     const email = screen.getByLabelText('Email');

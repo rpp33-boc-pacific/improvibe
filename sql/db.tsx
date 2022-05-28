@@ -1,7 +1,7 @@
 import { Client } from 'pg';
 const client = new Client({
   host: process.env.PGHOST,
-  database: process.env.PGDATABASE,
+  database: 'improvibe',
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
 });

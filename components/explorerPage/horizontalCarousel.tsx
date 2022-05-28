@@ -16,7 +16,7 @@ const HorizontalCarousel = () => {
   const [items, setItems] = useState(initialItems);
   return (
     <>
-      <hr />
+      {/* <hr /> */}
       <Splide
         ref={ref}
         options={{
@@ -28,18 +28,19 @@ const HorizontalCarousel = () => {
           border: '2em',
           heightRatio: 0.25,
           pagination: false,
-          width: '75%',
+          width: '100%',
         }}
       >
         {items.map(item => {
           return (
-            <SplideSlide key={item} className="slide" >
+            <>
+            <SplideSlide key={item} className="slide">
               <img
                 src={`https://source.unsplash.com/random/400x500?sig=${item}`}
-                alt={`${item}`} className="slide"
-              />
-              <span width = '80%'>Tile {item}</span>
+                alt={`${item}`} className="slide" />
+              {/* <span>Tile {item}</span> */}
             </SplideSlide>
+            </>
           );
         })}
       </Splide>

@@ -2,21 +2,21 @@ const projects = [
   {
     id: 1,
     user: 'username1',
-    projectName: 'project name 1',
+    projectName: 'classical jam',
     genre: 'genre',
     total_time: 'total time'
   },
   {
     id: 2,
     user: 'username2',
-    projectName: 'project name 2',
+    projectName: 'folk dancing',
     genre: 'genre',
     total_time: 'total time'
   },
   {
     id: 3,
     user: 'username3',
-    projectName: 'project name 3',
+    projectName: 'wedding beats',
     genre: 'genre',
     total_time: 'total time'
   }

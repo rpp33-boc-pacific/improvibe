@@ -8,10 +8,10 @@ jobs:
   build-job:
     docker:
       - image: circleci/node
-    # environment:
-    #   - POSTGRES_HOST: $POSTGRES_HOST
-    #   - POSTGRES_USER: $POSTGRES_USER
-    #   - POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    environment:
+      - POSTGRES_HOST: $POSTGRES_HOST
+      - POSTGRES_USER: $POSTGRES_USER
+      - POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     steps:
       - checkout
       - run:
@@ -24,10 +24,10 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       - image: circleci/node
-    # environment:
-    #   - POSTGRES_HOST: $POSTGRES_HOST
-    #   - POSTGRES_USER: $POSTGRES_USER
-    #   - POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    environment:
+      - POSTGRES_HOST: $POSTGRES_HOST
+      - POSTGRES_USER: $POSTGRES_USER
+      - POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -42,10 +42,10 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       - image: cimg-base
-    # environment:
-    #   - POSTGRES_HOST: $POSTGRES_HOST
-    #   - POSTGRES_USER: $POSTGRES_USER
-    #   - POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    environment:
+      - POSTGRES_HOST: $POSTGRES_HOST
+      - POSTGRES_USER: $POSTGRES_USER
+      - POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:

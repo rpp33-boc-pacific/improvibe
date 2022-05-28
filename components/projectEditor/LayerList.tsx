@@ -3,18 +3,16 @@ import { Container, Stack } from '@mui/material';
 import Layer from './Layer';
 
 interface Props {
-  layers: Array<{ layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, [key: string]: any }>,
+  layers: Array<{ layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, trackAudio: string, trackName: string, [key: string]: any }>,
 }
 
 const LayerList : NextPage<Props> = ({ layers }) => {
   return (
-    <Container>
-      <Stack spacing={2} role='list-layers'>
-        {layers.map((layer) => {
-          return <Layer key={layer.layerId} data={layer} />
-        })}
-      </Stack>
-    </Container>
+    <Stack spacing={2} role='list-layers' width={1150} margin={2}>
+      {layers.map((layer) => {
+        return <Layer key={layer.layerId} data={layer} />
+      })}
+    </Stack>
   )
 }
 

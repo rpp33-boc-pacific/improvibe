@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import LayerList from '../../components/projectEditor/LayerList';
-import Project from '../../sample-data/project';
+import Project from '../../sample-data/project1';
 
 const sammpleProject = Project;
 

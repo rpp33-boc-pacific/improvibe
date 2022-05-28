@@ -1,9 +1,9 @@
-import client from "../../sql/db.js";
+import client from "../../sql/db";
 import hash from 'object-hash';
 
-export default function signUpHandler(req, res) {
+export default function signUpHandler(req: any, res: any) {
   if (req.method !== 'POST') {
-    res.status(405).send({ message: 'Only POST requests allowed' })
+    res.status(405).send({ message: 'Only POST requests allowed' });
     return
   } else {
     const password = hash(req.body.password);
@@ -14,25 +14,24 @@ export default function signUpHandler(req, res) {
 
     client.query(checkUserExists)
     .then((user) => {
-        if (user.rowCount === 0) {
-          throw new Error('Invalid email', {cause: 'User already exists with this email address.'});
+        if (user.rowCount !== 0) {
+          throw new Error('User already exists with this email address');
         } else {
           client.query(insertUser)
           .then(() => {
-            alert('Account created. Please login.')
-            res.redirect('/signIn');
+            res.status(201).send('Your account has successfully been created')
           })
-          .catch(() => {
-            throw new Error('Internal error', {cause: 'Error: please try again.'});
+          .catch((err) => {
+            throw new Error('Internal error');
           });
         }
     }).catch((err) => {
-      if (err.cause === 'User already exists with this email address.') {
-        res.send(400, err.cause);
+      console.log(err.message)
+      if (err.message === 'User already exists with this email address') {
+        res.status(400).send('User already exists with this email address');
       } else {
-        res.send(500, 'Error: please try again.');
+        res.status(500).send('Error: please try again.');
       }
     });
   }
-
 }

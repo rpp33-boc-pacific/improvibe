@@ -1,8 +1,8 @@
-import client from "../../sql/db.js";
+import client from "../../sql/db";
 import hash from 'object-hash';
 import { useSession, getSession } from "next-auth/react"
 
-export default async function signInHandler(req, res) {
+export default async function signInHandler(req: any, res: any) {
   const session = await getSession({ req });
 
   console.log(session)

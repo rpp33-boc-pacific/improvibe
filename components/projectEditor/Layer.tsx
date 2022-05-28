@@ -21,7 +21,7 @@ const Layer : NextPage<Props> = ({ data }) => {
   return (
     <Card role='layer'>
       <Stack spacing={2} direction="row" alignItems="center" m={2}>
-        <Stack spacing={2}>
+        <Stack spacing={2} width={400}>
           <Stack direction="row" spacing={2}>
             <div>{data.trackName}</div>
             <PlayLayer setIsPlaying={setIsPlaying} isPlaying={isPlaying}/>

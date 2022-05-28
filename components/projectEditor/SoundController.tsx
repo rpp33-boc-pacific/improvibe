@@ -13,7 +13,7 @@ interface Props {
 const SoundController: NextPage<Props> = ({ settings }) => {
   return (
     <Stack spacing={3} direction='row' justifyContent="space-between">
-      <div>{settings.label}</div>
+      <div className='setting-label'>{settings.label}</div>
       <Slider defaultValue={settings.value} min={settings.min} max={settings.max} onChange={handleChange}/>
     </Stack>
   )

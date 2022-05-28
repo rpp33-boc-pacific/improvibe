@@ -8,13 +8,11 @@ interface Props {
 
 const LayerList : NextPage<Props> = ({ layers }) => {
   return (
-    <Container>
-      <Stack spacing={2} role='list-layers'>
-        {layers.map((layer) => {
-          return <Layer key={layer.layerId} data={layer} />
-        })}
-      </Stack>
-    </Container>
+    <Stack spacing={2} role='list-layers' width={1150} margin={2}>
+      {layers.map((layer) => {
+        return <Layer key={layer.layerId} data={layer} />
+      })}
+    </Stack>
   )
 }
 

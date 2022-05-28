@@ -23,5 +23,9 @@ a {
 
 .wave {
   height: 200px;
-  width: 1000px;
+  width: 900px;
+}
+
+.setting-label {
+  width: 80px;
 }

@@ -23,7 +23,7 @@ interface Props {
 
 const Wave: NextPage<Props> = ({ data, isPlaying }) => {
   const waveformRef: any = useRef();
-  const wavesurfer: { current: any, [key: string]: any }= useRef();
+  const wavesurfer: { current: any, [key: string]: any } = useRef();
 
   useEffect(() => {
     create();
@@ -40,12 +40,17 @@ const Wave: NextPage<Props> = ({ data, isPlaying }) => {
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
     wavesurfer.current.load(data.trackAudio);
+    wavesurfer.current.on('ready', () => {
+      isReady = true;
+    })
   });
 
-  if (isPlaying) {
-    wavesurfer.current.play();
-  } else {
-    wavesurfer.current.pause();
+  if (wavesurfer.current) {
+    if (isPlaying) {
+      wavesurfer.current.play();
+    } else {
+      wavesurfer.current.pause();
+    }
   }
 
   return (

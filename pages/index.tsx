@@ -5,7 +5,6 @@ import styles from '../styles/Home.module.css';
 import Player from '../components/shared/AudioPlayer';
 import SongTile from '../components/shared/SongTile';
 import SearchAppBar from '../components/SearchBar';
-import Player from '../components/reusable/AudioPlayer';
 import LikeButton from '../components/reusable/LikeButton';
 import AddToProjects from '../components/reusable/AddToProjects';
 

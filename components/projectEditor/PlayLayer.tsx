@@ -1,8 +1,12 @@
+import { NextPage } from "next";
 import { useState } from "react"
 
-export default function PlayLayer() {
-  const [isPlaying, setIsPlaying] = useState(false);
+interface Props {
+  isPlaying: boolean,
+  setIsPlaying: Function,
+}
 
+const PlayLayer: NextPage<Props> = ({ isPlaying, setIsPlaying }) => {
   const handleClick = (event: any) => {
     setIsPlaying(!isPlaying);
   }
@@ -11,3 +15,5 @@ export default function PlayLayer() {
     <div onClick={handleClick}>&#8883;</div>
   )
 }
+
+export default PlayLayer;

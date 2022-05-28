@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
 const { debounce } = require('lodash');
+import LayerContext from "./LayerContext";
 
 const formWaveSurferOptions = (ref: any) => ({
   container: ref,
@@ -16,10 +17,11 @@ const formWaveSurferOptions = (ref: any) => ({
 });
 
 interface Props {
-  data: { trackAudio: string, layerId: number, [key: string]: any }
+  data: { trackAudio: string, layerId: number, [key: string]: any },
+  isPlaying: boolean,
 }
 
-const Wave: NextPage<Props> = ({ data }) => {
+const Wave: NextPage<Props> = ({ data, isPlaying }) => {
   const waveformRef: any = useRef();
   const wavesurfer: { current: any, [key: string]: any }= useRef();
 
@@ -35,16 +37,16 @@ const Wave: NextPage<Props> = ({ data }) => {
 
   const create = debounce(async () => {
     const WaveSurfer = await require('wavesurfer.js');
-
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
-
-    wavesurfer.current.on('ready', function () {
-      wavesurfer.current.play();
-    });
-
     wavesurfer.current.load(data.trackAudio);
   });
+
+  if (isPlaying) {
+    wavesurfer.current.play();
+  } else {
+    wavesurfer.current.pause();
+  }
 
   return (
     <div id={`wave-${data.layerId}`} ref={waveformRef} />

@@ -1,10 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import LayerList from '../../components/projectEditor/LayerList';
-import ProjectHeader from '../../components/projectEditor/ProjectHeader'
-import AddLayer from '../../components/projectEditor/AddLayer'
-import NewProject from '../../components/projectEditor/NewProject'
-import ProjectList from '../../components/projectEditor/ProjectList'
+import ProjectHeader from '../../components/projectEditor/ProjectHeader';
+import AddLayer from '../../components/projectEditor/AddLayer';
+import NewProject from '../../components/projectEditor/NewProject';
+import ProjectList from '../../components/projectEditor/ProjectList';
+import SearchAppBar from '../../components/SearchBar';
 import project from '../../sample-data/project';
 import projects from '../../sample-data/projects';
 
@@ -20,6 +21,7 @@ const Editor: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <SearchAppBar />
       <h1>Edit Project</h1>
       <div className='main'>
         <div className='layers'>

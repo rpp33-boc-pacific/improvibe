@@ -38,7 +38,7 @@ export default function HomePage() {
         </Grid>
         <Grid item xs={8}>
           <Item>
-          <HorizontalCarousel/>
+          {/* <HorizontalCarousel/> */}
           </Item>
         </Grid>
         <Grid item xs={4}>

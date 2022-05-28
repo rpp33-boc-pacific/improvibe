@@ -3,28 +3,22 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-const LikeButton = () => {
+const LikeButton = ({ song, user, color }: any) => {
 
-  //stand in for prop that would be passed down
-  let prop = {
-    status: false
-  };
-
-  const [liked, updateLiked] = useState(prop.status);
+  const [liked, updateLiked] = useState(user.liked);
 
   useEffect(() => {
-    //update the database
-    console.log('The status', liked);
+    //update the database for songs liked by this user
   })
 
   return (
     liked === false ?
     <IconButton aria-label="like-song" onClick={() => {updateLiked(!liked)}}>
-      <FavoriteBorderIcon></FavoriteBorderIcon>
+      <FavoriteBorderIcon sx={{color: color}}></FavoriteBorderIcon>
     </IconButton>
     :
     <IconButton aria-label="unlike-song" onClick={() => {updateLiked(!liked)}}>
-      <FavoriteIcon></FavoriteIcon>
+      <FavoriteIcon sx={{color: color}}></FavoriteIcon>
     </IconButton>
   )
 };

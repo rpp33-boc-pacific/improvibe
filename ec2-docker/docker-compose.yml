@@ -1,10 +1,14 @@
 version: "3"
 services:
   improvibe:
+    container_name: improvibe
     image: happyboxes/improvibe
     ports:
       - 3000:3000
   watchtower:
+    container_name: watchtower
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    command: --interval 300 --debug true --cleanup true containernames

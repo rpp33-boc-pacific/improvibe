@@ -15,6 +15,8 @@ let artists = [
   likes: 129},
   {name: 'Izaan John',
   likes: 100},
+  {name: 'Izaan John',
+  likes: 100},
 ]
 
 export default artists

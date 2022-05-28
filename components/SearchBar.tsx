@@ -16,7 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import ProjectIcon from '@mui/icons-material/LibraryMusic';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -107,8 +107,12 @@ export default function SearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={(event) => {
+        event.preventDefault();
+        Router.push(`/profile/`);
+      }}
+      >Profile</MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
       <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
     </Menu>
   );
@@ -130,7 +134,10 @@ export default function SearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem onClick={(event) => {
+        event.preventDefault();
+        Router.push(`/projects`);
+      }}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={0} color="error">
             <ProjectIcon />
@@ -207,14 +214,23 @@ export default function SearchAppBar() {
                 if (event.key === "Enter") {
                   event.preventDefault();
                   // console.log(event.target.value);
-                  Router.push('/query');
+                  const element = event.currentTarget as HTMLInputElement;
+                  var value = element.value;
+                  // if (value === undefined) {
+                  //   value = '';
+                  // }
+                  Router.push(`/query/${value}`);
                 }
               }}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit"
+            onClick={(event) => {
+              event.preventDefault();
+              Router.push(`/projects`);
+            }}>
               <Badge badgeContent={0} color="error">
                 <ProjectIcon />
               </Badge>

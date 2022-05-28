@@ -34,7 +34,7 @@ const HorizontalCarousel = () => {
         }}
       >
         {items.map(item => {
-          console.log('item', item)
+          // console.log('item', item)
           return (
             <>
             <SplideSlide  key={item}>

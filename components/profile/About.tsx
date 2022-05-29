@@ -1,9 +1,15 @@
+import { Alert } from '@mui/material';
 import { Box } from '@mui/material';
+import { CircularProgress } from '@mui/material';
+// import { useProfile } from '../../lib/profile-helpers';
 
-const About = ({ about }) => {
+const About = (props: { aboutMe: string, userId: number }) => {
+  // const { profile, isLoading, isError } = useProfile(userId);
+  // if (isLoading) return <CircularProgress />;
+  // if (isError) return <Alert />;
   return (
     <Box>
-      {about}
+      {props.aboutMe}
     </Box>
   );
 };

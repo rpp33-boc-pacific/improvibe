@@ -1,4 +1,4 @@
-import Link from 'next/Link';
+import Link from 'next/link';
 import { NextPage } from 'next';
 import { Box } from '@mui/material';
 import { Container } from '@mui/material';

@@ -19,7 +19,7 @@ const Profile: NextPage = () => {
         <Grid item xs={4}>
           <Box>
             <Container>
-              <Photo photoUrl={profile.photoUrl} userId={1} />
+              <Photo photoUrl={profile.photoUrl} userId={'1'} />
             </Container>
           </Box>
         </Grid>
@@ -38,7 +38,7 @@ const Profile: NextPage = () => {
             <Typography>About Me</Typography>
           </Grid>
           <Grid item xs={12}>
-            <About aboutMe={profile.aboutMe} userId={1} />
+            <About aboutMe={profile.aboutMe} userId={'1'} />
           </Grid>
         </Grid>
         <Grid item xs={4}>
@@ -48,7 +48,7 @@ const Profile: NextPage = () => {
             <Typography>My Songs</Typography>
           </Grid>
           <Grid container item xs={12}>
-            <SongTiles songs={profile} userId={1} />
+            <SongTiles songs={profile} userId={'1'} />
           </Grid>
         </Grid>
       </Grid>

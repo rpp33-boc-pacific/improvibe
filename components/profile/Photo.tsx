@@ -3,7 +3,7 @@ import { Alert } from '@mui/material';
 import { CircularProgress } from '@mui/material';
 // import { useProfile } from '../../lib/profile-helpers';
 
-const Photo = (props: { photoUrl: string, userId: number }) => {
+const Photo = (props: { photoUrl: string, userId: string }) => {
   // const { profile, isLoading, isError } = useProfile(userId);
   // if (isLoading) return <CircularProgress />;
   // if (isError) return <Alert />;

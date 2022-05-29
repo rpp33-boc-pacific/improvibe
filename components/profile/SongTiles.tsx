@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 import SongTile from '../shared/SongTile';
 // import { useProfile } from '../../lib/profile-helpers';
 
-const SongTiles = (props: { songs: any, userId: number }) => {
+const SongTiles = (props: { songs: any, userId: string }) => {
   // const { profile, isLoading, isError } = useProfile(userId);
   // if (isLoading) return <CircularProgress />;
   // if (isError) return <Alert />;

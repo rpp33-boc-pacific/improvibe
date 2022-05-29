@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Box } from '@mui/material';
 import { Grid } from '@mui/material';
-import { ListItem } from '@mui/material';
-import { ListItemText } from '@mui/material';
 import { Lock } from '@mui/icons-material';
 import { LockOpen } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 
-const Songs = ({ song }) => {
-  const [ publicState, setpublicState ] = useState(song.public);
+const Songs = (props: { song: any }) => {
+
+  const [ publicState, setpublicState ] = useState(props.song.public);
 
   const handleLockClick = async () => {
     let err;
     try {
-      await fetch(`/api/songs/${song.id}/public`, { method: 'PUT' });
+      await fetch(`/api/songs/${props.song.id}/public`, { method: 'PUT' });
     } catch (error) {
-      err = error;
+      err = true;
     } finally {
       if (err === undefined) {
         setpublicState(!publicState);
       }
     }
   };
-
   const handleLockOpenClick = async () => {
     let err;
     try {
-      await fetch(`/api/songs/${song.id}/private`, { method: 'PUT' });
+      await fetch(`/api/songs/${props.song.id}/private`, { method: 'PUT' });
     } catch (error) {
-      err = error;
+      err = true;
     } finally {
       if (err === undefined) {
         setpublicState(!publicState);
@@ -36,29 +36,33 @@ const Songs = ({ song }) => {
 
   if (publicState) {
     return (
-      <ListItem>
+      <div>
         <Grid container>
           <Grid item>
-          <ListItemText primary={song.name} />
+            <Box>
+              <Typography>{props.song.name}</Typography>
+            </Box>
           </Grid>
           <Grid item>
             <LockOpen onClick={handleLockOpenClick} />
           </Grid>
         </Grid>
-      </ListItem>
+      </div>
     );
   } else {
     return (
-      <ListItem>
+      <div>
         <Grid container>
           <Grid item>
-          <ListItemText primary={song.name} />
+            <Box>
+              {props.song.name}
+            </Box>
           </Grid>
           <Grid item>
             <Lock onClick={handleLockClick} />
           </Grid>
         </Grid>
-      </ListItem>
+      </div>
     );
   }
 };

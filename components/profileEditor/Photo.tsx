@@ -1,34 +1,42 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from "next/image";
-import { Grid } from "@mui/material";
+// import { Alert } from '@mui/material';
+import { Box } from '@mui/material';
+// import { CircularProgress } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { Modal } from "@mui/material";
 import { Typography } from "@mui/material";
+// import { useEditProfile } from '../../lib/profile-helpers';
 
-const Photo = ({ userPhotoUrl }) => {
+const Photo = (props: { photoUrl: string, userId: string }) => {
 
-  const [ photoUrl, setphotoUrl ] = useState(userPhotoUrl);
-  const [ open, setOpen ] = useState(false);
+
+  const [url, setphotoUrl] = useState(props.photoUrl);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // const { editProfile, isLoading, isError } = useEditProfile(userId);
+  // const { profile, isLoading, isError } = useProfile(userId);
+  // if (isLoading) return <CircularProgress />;
+  // if (isError) return <Alert />;
   return (
-    <Grid container>
-      <Grid item>
-        <Image
-          alt='Profile picture'
-          src={photoUrl}
-          height='300px'
-          width='300px'
-        />
-      </Grid>
-      <Grid item>
-        <Typography onClick={handleOpen}>Upload image</Typography>
-      </Grid>
+    <div>
+      <Image
+        alt='Profile picture'
+        src={url}
+        height={300}
+        width={300}
+        style={{ borderRadius: '90%' }}
+      />
+      <Typography onClick={handleOpen}>Upload image</Typography>
       <Modal hideBackdrop open={open} onClose={handleClose}>
-        {/* TO DO */}
+        <Box>
+          <CloseIcon onClick={handleClose}/>
+        </Box>
       </Modal>
-    </Grid>
+    </div>
   );
 };
 

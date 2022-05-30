@@ -194,7 +194,7 @@ export default function SearchAppBar() {
           <HomeButton
             onClick={(event) => {
               event.preventDefault();
-              Router.push('/')
+              Router.push('/explorerpage')
             }}
           >
             improvibe
@@ -214,11 +214,11 @@ export default function SearchAppBar() {
                 if (event.key === "Enter") {
                   event.preventDefault();
                   // console.log(event.target.value);
-                  const element = event.currentTarget as HTMLInputElement;
+                  const element = event.target as HTMLInputElement;
                   var value = element.value;
-                  // if (value === undefined) {
-                  //   value = '';
-                  // }
+                  if (value === undefined) {
+                    value = '';
+                  }
                   Router.push(`/query/${value}`);
                 }
               }}

@@ -14,7 +14,7 @@ export default async function loginHandler(req: any, res: any) {
     if (user.rowCount === 0) {
       throw new Error('Invalid email or password');
     } else {
-      res.redirect('/');
+      res.redirect(302, '/');
     }
   }).catch((err: any) => {
     if (err.message === 'Invalid email or password') {

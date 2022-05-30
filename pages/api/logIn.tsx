@@ -2,6 +2,7 @@ import client from "../../sql/db";
 import hash from 'object-hash';
 
 export default async function loginHandler(req: any, res: any) {
+  console.log('The client', client);
   const email = req.body.email;
   const hashedPassword = hash({email: req.body.password});
 

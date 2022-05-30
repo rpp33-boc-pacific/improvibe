@@ -1,4 +1,3 @@
-import Link from 'next/Link';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Box } from '@mui/material';

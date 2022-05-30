@@ -11,6 +11,7 @@ jobs:
     environment:
       - POSTGRES_HOST: $POSTGRES_HOST
       - POSTGRES_USER: $POSTGRES_USER
+      - POSTGRES_USER: $POSTGRES_DATABASE
       - POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     steps:
       - checkout
@@ -27,6 +28,7 @@ jobs:
     environment:
       - POSTGRES_HOST: $POSTGRES_HOST
       - POSTGRES_USER: $POSTGRES_USER
+      - POSTGRES_USER: $POSTGRES_DATABASE
       - POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
@@ -45,6 +47,7 @@ jobs:
     environment:
       - POSTGRES_HOST: $POSTGRES_HOST
       - POSTGRES_USER: $POSTGRES_USER
+      - POSTGRES_USER: $POSTGRES_DATABASE
       - POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps

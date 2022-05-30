@@ -1,9 +1,9 @@
 import { Client } from 'pg';
 const client = new Client({
-  host: process.env.PGHOST,
-  database: process.env.PGDATABASE,
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
+  host: process.env.POSTGRES_HOST,
+  database: process.env.POSTGRES_DATABASE,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
 });
 
 client.connect(err => {
@@ -15,4 +15,3 @@ client.connect(err => {
 });
 
 export default client;
-

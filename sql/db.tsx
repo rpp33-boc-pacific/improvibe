@@ -6,11 +6,18 @@ const client = new Client({
   password: process.env.PGPASSWORD,
 });
 
+// const client = new Client({
+//   host: 'http://ec2-3-93-190-88.compute-1.amazonaws.com/',
+//   database: process.env.PGDATABASE,
+//   user: pos,
+//   password: process.env.PGPASSWORD,
+// });
+
 client.connect(err => {
   if (err) {
     console.error('connection error', err.stack);
   } else {
-    console.log('connected');
+    console.log('connected', client);
   }
 });
 

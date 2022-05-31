@@ -13,7 +13,7 @@ This guide explains how to use the routes within this API directory get get, pos
 Parameters should be inserted in POST requests via the body parameter. Query strings are appended to the end of a route
 
 ## Login API
-#### POST  /api/logIn<br>
+#### POST  `/api/logIn`<br>
 Retrieves user information and songs
 
 | Parameter      | Type |  Description      |
@@ -24,7 +24,7 @@ Retrieves user information and songs
 response status: 201
 
 ## Signup API
-#### POST  /api/signUp<br>
+#### POST  `/api/signUp`<br>
 Retrieves user information and songs
 
 | Parameter      | Type |  Description      |
@@ -36,7 +36,7 @@ response status: 201
 
 
 ## User API
-#### GET  /api/user/[id]<br>
+#### GET  `/api/user/[id]`<br>
 Retrieves user information and songs
 
 | Query String      | Description |
@@ -70,7 +70,7 @@ example response object:
   ]
 }`
 
-#### PUT  /api/user/update/[id]/<br>
+#### PUT  `/api/user/update/[id]`/<br>
 Retrieves user information and songs
 
 | Query String      | Description |

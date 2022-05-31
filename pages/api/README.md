@@ -10,5 +10,11 @@ This guide explains how to use the routes within this API directory get get, pos
   5. login
   6. signup
 
-#### User Service
-/api/user/[id]
+#### User API
+GET /api/user/[id]
+Retrieves user information and songs
+
+| Parameter      | Description |
+| ----------- | ----------- |
+| [id]      | The id of the current user       |
+

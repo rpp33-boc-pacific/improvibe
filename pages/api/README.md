@@ -11,16 +11,14 @@ This guide explains how to use the routes within this API directory get get, pos
   6. signup
 
 ##### User API
-#### GET <br>
-### /api/user/[id]<br>
+#### GET  /api/user/[id]<br>
 Retrieves user information and songs
 
 | Query String      | Description |
 | ----------- | ----------- |
 | [id]| The id of the current user |
 
-#### PUT <br>
-### /api/user/update/[id]/<br>
+#### PUT  /api/user/update/[id]/<br>
 Retrieves user information and songs
 
 | Query String      | Description |

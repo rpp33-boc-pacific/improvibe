@@ -1,5 +1,5 @@
 import Email from 'next-auth/providers/email';
-import client from '../../../sql/db';
+import client from '../../../../sql/db';
 
 export default function updateUser(req: any, res: any) {
   let keywords = ['email', 'about_me', 'password', 'photo_url', 'public'];

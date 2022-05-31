@@ -44,7 +44,6 @@ Retrieves user information and songs
 | [id]| The id of the current user appended to the route without brackets |
 
 response status: 200<br>
-example response object:
  ```
  {
   id: 9,
@@ -72,12 +71,11 @@ example response object:
 }
 ```
 
-#### PUT  `/api/user/update`/<br>
+#### PUT  `/api/user/update/[id]`/<br>
 Updates user information based on parameter. Possible parameters below.
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| id | integer | The current user's id|
 | public | boolean | Changes the valence availability to other users on improvibe |
 | photo_url | string | Updates url of profile picture |
 | about_me | string | Updates about me section of profile |
@@ -88,7 +86,7 @@ reponse status: 200
 
 
 ## Songs API
-#### GET  `/api/user/songs/?[parameter]=[value]`<br>
+#### GET  `/api/songs/?[parameter]=[value]`<br>
 Retrieves songs based on search
 
 | Parameter      | Type |  Description      |
@@ -96,11 +94,10 @@ Retrieves songs based on search
 | search | string | Returns all matches containing this string from artist name and song name|
 | filter | string | ?? |
 | likes | integer | Returns a maximum of x number of the most liked songs |
-| shares | string | Returns a maximum of x number of the most shared songs |
+| shares | integer | Returns a maximum of x number of the most shared songs |
 | created_since | string | Returns all songs created since this date |
 
 response status: 200<br>
-example response object:
  ```
 [
   {

@@ -23,29 +23,29 @@ Retrieves user information and songs
 response: 200
 
  `{
-    id: 9,
-    artist: 'David Bowe',
-    searched: 10,
-    photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-    songs: [
-      {
-        id: 1
-        name: 'Space Odity',
-        songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
-        liked: true,
-        totalLikes: 14,
-        genre: 'Rock'
-      },
-      {
-      id: 2
-      name: 'Golden Years'
-      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
-      liked: false,
-      totalLikes: 21,
-      genre: 'Smooth Rock'
-      }
-    ]
-  }`
+  id: 9,
+  artist: 'David Bowe',
+  searched: 10,
+  photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+  songs: [
+    {
+      id: 1,
+      name: 'Space Odity',
+      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+      liked: true,
+      totalLikes: 14,
+      genre: 'Rock'
+    },
+    {
+    id: 2,
+    name: 'Golden Years',
+    songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
+    liked: false,
+    totalLikes: 21,
+    genre: 'Smooth Rock'
+    }
+  ]
+}`
 
 #### PUT  /api/user/update/[id]/<br>
 Retrieves user information and songs

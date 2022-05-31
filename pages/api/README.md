@@ -10,11 +10,11 @@ This guide explains how to use the routes within this API directory get get, pos
   5. projects
   6. add
 
-Parameters should be inserted in POST requests via the body parameter. Query strings are appended to the end of a route
+Parameters should be inserted in POST requests via the fetch body parameter. Query strings are appended to the end of a route.
 
 ## Login API
-#### POST  `/api/logIn`<br>
-Retrieves user information and songs
+#### POST  `/api/login`<br>
+Checks login credentials
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
@@ -24,8 +24,8 @@ Retrieves user information and songs
 response status: 201
 
 ## Signup API
-#### POST  `/api/signUp`<br>
-Retrieves user information and songs
+#### POST  `/api/signup`<br>
+Adds user to database
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
@@ -43,7 +43,7 @@ Retrieves user information and songs
 | ----------- | ----------- |
 | [id]| The id of the current user appended to the route without brackets |
 
-response status: 200
+response status: 200<br>
 example response object:
  ```
  {
@@ -72,19 +72,57 @@ example response object:
 }
 ```
 
-#### PUT  `/api/user/update/[id]`/<br>
-Retrieves user information and songs
-
-| Query String      | Description |
-| ----------- | ----------- |
-| [id]| The id of the current user |
+#### PUT  `/api/user/update`/<br>
+Updates user information based on parameter. Possible parameters below.
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| id | string | The current user's id|
+| id | integer | The current user's id|
 | public | boolean | Changes the valence availability to other users on improvibe |
 | photo_url | string | Updates url of profile picture |
 | about_me | string | Updates about me section of profile |
 | email | string | Updates email for a user  |
 | password | string | Updates password for a user  |
 
+reponse status: 200
+
+
+## Songs API
+#### GET  `/api/user/songs/?[parameter]=[value]`<br>
+Retrieves songs based on search
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| search | string | Returns all matches containing this string from artist name and song name|
+| filter | string | ?? |
+| likes | integer | Returns a maximum of x number of the most liked songs |
+| shares | string | Returns a maximum of x number of the most shared songs |
+| created_since | string | Returns all songs created since this date |
+
+response status: 200<br>
+example response object:
+ ```
+[
+  {
+    song_id: 1,
+    name: 'Song Name1',
+    artist_name: 'Artist Name1',
+    user_id: 4,
+    in_projects: false,
+    genre: 'rock',
+    cumulative_likes: 40,
+    photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+    liked: true
+  }, {
+    song_id: 2,
+    name: 'Song Name2',
+    artist_name: 'Artist Name2',
+    user_id: 6,
+    in_projects: true,
+    genre: 'hip hop',
+    cumulative_likes: 58,
+    photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+    liked: true
+  }
+]
+```

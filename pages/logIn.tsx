@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import loginHandler from '/Users/caitlinwinters/Coding/Immersive/improvibe/pages/api/logIn';
 import { useRouter } from 'next/router';
 import { responseSymbol } from 'next/dist/server/web/spec-compliant/fetch-event';
 import AppContext from '../AppContext';
@@ -10,21 +9,35 @@ const LogIn = () => {
   const [userId, updateUser] = useState(-1);
   const router = useRouter();
 
-  //the userId state has been updated
+  //Listens for changes to userId variable then fetches user data and updates the global context.
   useEffect(() => {
-   console.log('User id from state in login page', userId)
-   userObject.id = userId;
-
+   if (userId > -1) {
+     fetch(`api/user/${userId}`, {
+       method: 'GET',
+       headers: {
+         'Content-Type': 'applicaton/json',
+       }
+     }).then ((res) => {
+      return res.json();
+     })
+     .then((res) => {
+      updateUser(res.fields);
+     })
+     .catch((err) => {
+      console.log('Error:', err);
+     })
+   }
   }, [userId])
 
+  //Checks login is value and then updates state with userId and redirects to explorer page
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const user:any = {email: e.target[0].value, password: e.target[1].value}
 
-    const response = fetch("/api/logIn", {
-      method: "POST",
+    const response = fetch('/api/logIn', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(user),
     })
@@ -40,8 +53,8 @@ const LogIn = () => {
       updateUser(id)
       router.push('/explorerpage')
     })
-    .catch((error) => {
-      console.log('Error:', error);
+    .catch((err) => {
+      console.log('Error:', err);
     })
   }
 

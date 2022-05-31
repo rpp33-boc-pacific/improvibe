@@ -2,7 +2,6 @@ import client from "../../sql/db";
 import hash from 'object-hash';
 
 export default function signUpHandler(req: any, res: any) {
-  console.log('The client', client);
   if (req.method !== 'POST') {
     res.status(405).send({ message: 'Only POST requests allowed' });
     return

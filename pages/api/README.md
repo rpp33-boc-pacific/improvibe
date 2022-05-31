@@ -35,7 +35,7 @@ Retrieves user information and songs
 response status: 201
 
 
-### User API
+## User API
 #### GET  /api/user/[id]<br>
 Retrieves user information and songs
 

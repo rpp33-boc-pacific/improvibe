@@ -44,7 +44,7 @@ Retrieves user information and songs
 | [id]| The id of the current user appended to the route without brackets |
 
 response status: 200
-example response object:
+example response object:<br>
  {<br>
   id: 9,<br>
   artist: 'David Bowe',<br>

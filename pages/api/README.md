@@ -11,11 +11,11 @@ This guide explains how to use the routes within this API directory get get, pos
   6. signup
 
 #### User API
-**GET** /api/user/[id]
-
+**GET**
+/api/user/[id]
 Retrieves user information and songs
 
 | Parameter      | Description |
 | ----------- | ----------- |
-| [id]      | The id of the current user       |
+| [id]    | The id of the current user       |
 

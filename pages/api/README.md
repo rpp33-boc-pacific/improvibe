@@ -44,31 +44,33 @@ Retrieves user information and songs
 | [id]| The id of the current user appended to the route without brackets |
 
 response status: 200
-example response object:<br>
- {<br>
-  id: 9,<br>
-  artist: 'David Bowe',<br>
-  searched: 10,<br>
-  photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',<br>
-  songs: [<br>
-    {<br>
-      id: 1,<br>
-      name: 'Space Odity',<br>
-      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',<br>
-      liked: true,<br>
-      totalLikes: 14,<br>
-      genre: 'Rock'<br>
-    },<br>
-    {<br>
-    id: 2,<br>
-    name: 'Golden Years',<br>
-    songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',<br>
-    liked: false,<br>
-    totalLikes: 21,<br>
-    genre: 'Smooth Rock'<br>
-    }<br>
-  ]<br>
+example response object:
+ ```
+ {
+  id: 9,
+  artist: 'David Bowe',
+  searched: 10,
+  photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+  songs: [
+    {
+      id: 1,
+      name: 'Space Odity',
+      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+      liked: true,
+      totalLikes: 14,
+      genre: 'Rock'
+    },
+    {
+    id: 2,
+    name: 'Golden Years',
+    songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
+    liked: false,
+    totalLikes: 21,
+    genre: 'Smooth Rock'
+    }
+  ]
 }
+```
 
 #### PUT  `/api/user/update/[id]`/<br>
 Retrieves user information and songs

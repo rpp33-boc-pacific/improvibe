@@ -22,7 +22,7 @@ Retrieves user information and songs
 
 response: 200
 
-  {
+ `{
     id: 9,
     artist: 'David Bowe',
     searched: 10,
@@ -45,7 +45,7 @@ response: 200
       genre: 'Smooth Rock'
       }
     ]
-  }
+  }`
 
 #### PUT  /api/user/update/[id]/<br>
 Retrieves user information and songs

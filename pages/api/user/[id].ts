@@ -12,23 +12,28 @@ export default function userHandler(req: any, res: any) {
   let fakeUser = {
     id: 9,
     artist: 'David Bowe',
-    song: 'Space Odity',
     searched: 10,
     photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-    songs: {
-      1: {
-      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
-      liked: true,
-      totalLikes: 14,
-      genre: 'Rock'
+    songs: [
+      {
+        id: 1,
+        name: 'Space Odity',
+        songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+        totalLikes: 14,
+        liked: true,
+        genre: 'Rock'
       },
-      2: {
-      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
-      liked: true,
-      totalLikes: 14,
-      genre: 'Rock'
+      {
+      id: 2,
+      name: 'Golden Years',
+      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
+      totalLikes: 21,
+      liked: false,
+      genre: 'Smooth Rock'
       }
-    }
+    ]
   }
   res.send(fakeUser)
 }
+
+

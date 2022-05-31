@@ -45,7 +45,7 @@ Retrieves user information and songs
 
 response status: 200
 example response object:
- `{<br>
+ {<br>
   id: 9,<br>
   artist: 'David Bowe',<br>
   searched: 10,<br>
@@ -68,7 +68,7 @@ example response object:
     genre: 'Smooth Rock'<br>
     }<br>
   ]<br>
-}`
+}
 
 #### PUT  `/api/user/update/[id]`/<br>
 Retrieves user information and songs

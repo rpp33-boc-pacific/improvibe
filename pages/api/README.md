@@ -12,7 +12,7 @@ This guide explains how to use the routes within this API directory get get, pos
 
 ##### User API
 #### GET <br>
-##### /api/user/[id]<br>
+### /api/user/[id]<br>
 Retrieves user information and songs
 
 | Query String      | Description |
@@ -20,7 +20,7 @@ Retrieves user information and songs
 | [id]| The id of the current user |
 
 #### PUT <br>
-##### /api/user/update/[id]/<br>
+### /api/user/update/[id]/<br>
 Retrieves user information and songs
 
 | Query String      | Description |

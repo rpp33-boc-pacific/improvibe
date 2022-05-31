@@ -1,12 +1,15 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
+import AppContext from '../AppContext';
+import user from '../userObject';
 
-export function reportWebVitals({metric}: any) {
-  console.log('metric', metric)
-}
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <AppContext.Provider value={user}>
+        <Component {...pageProps} />
+    </AppContext.Provider>
+  )
 }
 
 export default MyApp;

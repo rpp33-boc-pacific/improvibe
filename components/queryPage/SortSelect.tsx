@@ -13,7 +13,7 @@ export default function SortSelect() {
   };
 
   return (
-    <Box>
+    <Box role='sort-select'>
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="demo-simple-select-label">Sort</InputLabel>
         <Select

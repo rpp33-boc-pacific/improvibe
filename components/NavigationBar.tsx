@@ -64,7 +64,7 @@ const HomeButton = styled('span')(({ theme }) => ({
  }
 }));
 
-export default function SearchAppBar() {
+export default function NavigationBar() {
   const Router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -173,7 +173,7 @@ export default function SearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} role='navigation-bar'>
       <AppBar position="static">
         <Toolbar>
           {/* <IconButton

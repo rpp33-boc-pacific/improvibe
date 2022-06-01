@@ -3,25 +3,15 @@
 
 #### Using This Guide
 This guide explains how to use the routes within this API directory using HTTP GET, POST and PUT methods. The data services for this API include:
-  1. Login
-  2. Signup
+  1. Signup
+  2. Login
+  3. Logout
   3. User
   4. Songs
   5. Song
   5. Projects
 
-Parameters should be inserted in POST requests via the body parameter. Query strings for GET requests are appended to the end of a route.
-
-## Login API
-#### POST  `/api/login`<br>
-Checks login credentials
-
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| email | string | Input email address |
-| password | string | Input password |
-
-response status: 201
+Parameters should be inserted in POST and PUT requests via the body parameter. Query strings for GET requests are appended to the end of a route.
 
 ## Signup API
 #### POST  `/api/signup`<br>
@@ -35,6 +25,28 @@ Adds user to database
 response status: 201
 
 
+## Login API
+#### POST  `/api/login`<br>
+Checks login credentials
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| email | string | Input email address |
+| password | string | Input password |
+
+response status: 201
+
+## Logout API
+#### PUT or DELETE?  `/api/logout`<br>
+Checks login credentials
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| user id | string | Numeric id of user |
+
+response status: ??
+
+
 ## User API
 #### GET  `/api/user/[id]`<br>
 Retrieves user information and user's song list
@@ -45,30 +57,31 @@ Retrieves user information and user's song list
 
 response status: 200<br>
  ```
- {
-  id: 9,
-  artist: 'David Bowe',
-  searched: 10,
-  photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-  songs: [
-    {
-      id: 1,
-      name: 'Space Odity',
-      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
-      liked: true,
-      totalLikes: 14,
-      genre: 'Rock'
-    },
-    {
-    id: 2,
-    name: 'Golden Years',
-    songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
-    liked: false,
-    totalLikes: 21,
-    genre: 'Smooth Rock'
-    }
-  ]
-}
+  {
+    id: 9,
+    artist: 'David Bowe',
+    searched: 10,
+    photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+    songs: [
+      {
+        id: 1,
+        name: 'Space Odity',
+        songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+        liked: true,
+        totalLikes: 14,
+        genre: 'Rock'
+      },
+      {
+      id: 2,
+      name: 'Golden Years',
+      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
+      liked: false,
+      totalLikes: 21,
+      genre: 'Smooth Rock'
+      }
+    ]
+  }
+
 ```
 
 #### PUT  `/api/user/update/[id]`/<br>
@@ -81,7 +94,7 @@ Updates user information based on parameter. Possible parameters given below.
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| public | boolean | Changes the valence availability to other users on improvibe |
+| public | boolean | Changes the availability to other users on improvibe |
 | photo_url | string | Updates url of profile picture |
 | about_me | string | Updates about me section of profile |
 | email | string | Updates email for a user  |
@@ -96,12 +109,13 @@ Retrieves songs based on search
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| search | string | Returns all matches containing this string from artist name and song name and genre|
-| artist_name | string | Artist name includes matches for parameter value string |
-| song_name | string | Song name includes matches for parameter value string |
+| search | string | Returns all matches containing this string from artist name, song name and genre|
+| artist_name | string | Returns all matches containing this string in artist name |
+| song_name | string | Returns all matches containing this string in song name |
+| genre | string | Returns all matches containing this string in genre |
 | likes | integer | Returns a maximum number of the most liked songs provided by parameter value |
 | shares | integer | Returns a maximum number of the most shared songs provided by parameter value |
-| created_since | string | Returns all songs created since this date |
+| most_recent | integer | Returns a maximum number of the most recent songs provided by parameter value |
 
 response status: 200<br>
  ```
@@ -130,23 +144,26 @@ response status: 200<br>
 ]
 ```
 ## Song API
-#### PUT  `/api/song/liked`<br>
+#### PUT  `/api/song/like`<br>
 Updates like boolean for current song
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| liked | boolean | Updates liked valence in database for current user|
+| userId | integer | Id for current user |
+| liked | boolean | Updates liked valence in database for current user |
 
 response status: 200<br>
 
-#### PUT  `/api/song/add`<br>
+#### PUT  `/api/song/add-to-projects`<br>
 Updates like boolean for current song
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
+| userId | integer | Id for current user |
 | liked | boolean | Adds this song to current users projects list and updates |
 
 response status: 200<br>
+
 
 ## Projects API
 #### GET  `/api/projects/[id]`<br>
@@ -234,3 +251,37 @@ response status: 200<br>
 }
 
 ```
+
+#### POST  `/api/project/track`<br>
+Saves to track database table
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| userId | integer | Id for current user |
+| liked | boolean | Adds this song to current users projects list and updates |
+
+response status: 201<br>
+
+
+#### POST  `/api/project/layer`<br>
+Saves to layer database table
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| userId | integer | Id for current user |
+| liked | boolean | Adds this song to current users projects list and updates |
+
+response status: 201<br>
+
+==Which of these makes the most sense?
+#### POST  `/api/project`<br>
+#### POST  `/api/project/song`<br>
+Saves project to song database table
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| userId | integer | Id for current user |
+| liked | boolean | Adds this song to current users projects list and updates |
+
+response status: 201<br>
+

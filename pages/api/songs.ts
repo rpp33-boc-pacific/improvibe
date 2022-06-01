@@ -1,11 +1,16 @@
+import artists from '../../components/explorerPage/topArtists-sampleData';
 import client from '../../sql/db';
 
 //Searching for Songs
 export default function userHandler(req: any, res: any) {
   const query = req.query
-  //likes
-  //shares
-  //date_created
+  console.log(req.query);
+  //most likes
+  //most shares
+  //date_created - most recent
+  //all artists that contain
+  //all songs that contain
+  //all genres that contain
 
   const fakeSongs = [
     {
@@ -30,8 +35,6 @@ export default function userHandler(req: any, res: any) {
       liked: true
     }
   ]
-  // GET: Songs matching query parameters. For each song displayed: song id, song name, artist name, user ID,  in current users song list, genre, cumulative likes, artist profile picture, liked by current user
-
   res.send(fakeSongs)
 }
 

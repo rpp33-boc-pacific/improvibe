@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD [ "npx", "next", "dev" ]
+CMD [ "npx", "next", "build". "&&", "npx", "next", "start" ]

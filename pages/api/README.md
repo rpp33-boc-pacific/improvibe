@@ -2,7 +2,7 @@
 # Improvibe API Guide
 
 #### Using This Guide
-This guide explains how to use the routes within this API directory using HTTP GET, POST and PUT methods. The different data services for this API include:
+This guide explains how to use the routes within this API directory using HTTP GET, POST and PUT methods. The data services for this API include:
   1. Login
   2. Signup
   3. User

@@ -22,7 +22,8 @@ export default function signUpHandler(req: any, res: any) {
           } else {
             pool.query(insertUser)
             .then(() => {
-              res.status(201).send('Your account has successfully been created')
+              res.status(201).send('Your account has successfully been created');
+              return resolve();
             })
             .catch((err: any) => {
               throw new Error('Internal error');
@@ -34,6 +35,7 @@ export default function signUpHandler(req: any, res: any) {
         } else {
           res.status(500).send('Error: please try again');
         }
+        return resolve();
       });
     }
   })

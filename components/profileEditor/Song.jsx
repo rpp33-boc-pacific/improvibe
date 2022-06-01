@@ -6,7 +6,7 @@ import { LockOpen } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import axios from 'axios';
 
-const Songs = (props: { song: any }) => {
+const Songs = ({ song }) => {
 
   const [publicState, setpublicState] = useState(props.song.public);
 

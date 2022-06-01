@@ -1,8 +1,15 @@
 import Link from 'next/link';
+import { signIn } from "next-auth/react";
 
 export default function LogIn() {
+
+  const login = async (e: any) => {
+    // e.preventDefault();
+    await signIn("credentials", {email: "hello", password: "password", callbackUrl: "/"});
+  }
+
   return (
-    <form method="post" action="/api/logIn">
+    <form>
       <h1>Login</h1>
       <label>
         Email
@@ -12,7 +19,7 @@ export default function LogIn() {
         Password
         <input name="password" type="password" />
       </label>
-      <button type="submit">Sign in</button>
+        <a onClick={(e) => login(e)}>Sign in</a>
       <p>Dont have an account yet?
         <Link href="/signUp">
           <a> Sign up</a>

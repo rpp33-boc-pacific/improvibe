@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 // import Context from '../AppContext';
+import Image from 'next/image';
 import Link from 'next/link';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -7,21 +8,24 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { Stack } from '@mui/material';
 import SearchBar from '../../components/SearchBar';
-import Photo from '../../components/profile/Photo';
-import About from '../../components/profile/About';
-import SongTiles from '../../components/profile/SongTiles';
+import SongTile from '../../components/shared/SongTile';
 import profile from '../../sample-data/profile'; // REMOVE LATER
 
 const Profile: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
 
   // const userInfo = useContext(Context);
-  // const userIdInState = userInfo.userId;
-  // const songs = useContext(Context);
+  // const userIdInState = userInfo.user.userId;
+  // const name = userInfo.user.name;
+  // const aboutMe = userInfo.user.aboutMe;
+  // const photoUrl = userInfo.user.photoUrl;
+  // const songs = userInfo.songs;
+
   const router = useRouter();
   const userId: string = router.query.userId as string || '1';
 
-  if (userId === '1' /* === userIdInState */ ) {
+  if (userId === '1' /* === userIdInState */) {
     return (
       <div>
         <SearchBar />
@@ -29,26 +33,34 @@ const Profile: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
           <Grid item xs={4}>
             <Box>
               <Container>
-                <Photo photoUrl={profile.photoUrl /* userInfo.photoUrl */ } userId={userId} />
+                <Image
+                  alt='Profile picture of the arist'
+                  src={profile.photoUrl /* photoUrl */}
+                  height={300}
+                  width={300}
+                  style={{ borderRadius: '90%' }}
+                />
               </Container>
             </Box>
           </Grid>
           <Grid container item xs={8}>
             <Grid item xs={9}>
               <Box>
-                <Typography>{profile.name}</Typography>
+                <Typography>{profile.name /* name */}</Typography>
               </Box>
             </Grid>
             <Grid item xs={3}>
               <Box>
-                <Link href='/profileeditor'><Typography><a>Edit Profile</a></Typography></Link>
+                <Link href={`/profileeditors/${userId}`}><Typography><a>Edit Profile</a></Typography></Link>
               </Box>
             </Grid>
             <Grid item xs={12}>
               <Typography>About Me</Typography>
             </Grid>
             <Grid item xs={12}>
-              <About aboutMe={profile.aboutMe /* userInfo.aboutMe */ } userId={userId} />
+              <Box>
+                {profile.aboutMe /* aboutMe */}
+              </Box>
             </Grid>
           </Grid>
           <Grid item xs={4}>
@@ -58,7 +70,12 @@ const Profile: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
               <Typography>My Songs</Typography>
             </Grid>
             <Grid container item xs={12}>
-            <SongTiles songs={profile /* songs */} userId={userId} />
+              <Stack direction='row' spacing={1}>
+                {/* {songs.map((song, index) => <Grid item key={index}><SongTile key={index} user={user} song={song} /></Grid>)} */}
+                <SongTile />
+                <SongTile />
+                <SongTile />
+              </Stack>
             </Grid>
           </Grid>
         </Grid>
@@ -72,21 +89,29 @@ const Profile: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
           <Grid item xs={4}>
             <Box>
               <Container>
-                <Photo photoUrl={profile.photoUrl /* userInfo.photoUrl */ } userId={userId} />
+                <Image
+                  alt='Profile picture of the arist'
+                  src={profile.photoUrl /* photoUrl */}
+                  height={300}
+                  width={300}
+                  style={{ borderRadius: '90%' }}
+                />
               </Container>
             </Box>
           </Grid>
           <Grid container item xs={8}>
             <Grid item xs={12}>
               <Box>
-                <Typography>{profile.name}</Typography>
+                <Typography>{profile.name /* name */}</Typography>
               </Box>
             </Grid>
             <Grid item xs={12}>
               <Typography>About Me</Typography>
             </Grid>
             <Grid item xs={12}>
-              <About aboutMe={profile.aboutMe /* userInfo.aboutMe */ } userId={userId} />
+              <Box>
+                {profile.aboutMe /* aboutMe */}
+              </Box>
             </Grid>
           </Grid>
           <Grid item xs={4}>
@@ -96,7 +121,12 @@ const Profile: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
               <Typography>My Songs</Typography>
             </Grid>
             <Grid container item xs={12}>
-              <SongTiles songs={profile /* songs */} userId={userId} />
+              <Stack direction='row' spacing={1}>
+                {/* {songs.map((song, index) => <Grid item key={index}><SongTile key={index} user={user} song={song} /></Grid>)} */}
+                <SongTile />
+                <SongTile />
+                <SongTile />
+              </Stack>
             </Grid>
           </Grid>
         </Grid>

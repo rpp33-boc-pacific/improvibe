@@ -3,13 +3,14 @@
 
 #### Using This Guide
 This guide explains how to use the routes within this API directory get get, post and update data. The different data services for this API are:
-  1. login
-  2. signup
-  3. user
-  4. songs
-  5. projects
+  1. Login
+  2. Signup
+  3. User
+  4. Songs
+  5. Song
+  5. Projects
 
-Parameters should be inserted in POST requests via the fetch body parameter. Query strings are appended to the end of a route.
+Parameters should be inserted in POST requests via the body parameter. Query strings are appended to the end of a route.
 
 ## Login API
 #### POST  `/api/login`<br>
@@ -73,6 +74,10 @@ response status: 200<br>
 #### PUT  `/api/user/update/[id]`/<br>
 Updates user information based on parameter. Possible parameters below.
 
+| Query String      | Description |
+| ----------- | ----------- |
+| [id]| The id of the current user appended to the route without brackets |
+
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
 | public | boolean | Changes the valence availability to other users on improvibe |
@@ -122,6 +127,24 @@ response status: 200<br>
   }
 ]
 ```
+## Song API
+#### PUT  `/api/song/liked`<br>
+Updates like boolean for current song
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| liked | boolean | Updates liked valence in database for current user|
+
+response status: 200<br>
+
+#### PUT  `/api/song/add`<br>
+Updates like boolean for current song
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| liked | boolean | Updates liked valence in database for current user|
+
+response status: 200<br>
 
 ## Projects API
 #### GET  `/api/projects/[id]`<br>

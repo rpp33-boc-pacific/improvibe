@@ -48,7 +48,7 @@ export default function FilterSelect() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ m: 1, width: 300 }} role='filter-select'>
         <InputLabel id="demo-multiple-name-label">Filter</InputLabel>
         <Select
           labelId="demo-multiple-name-label"

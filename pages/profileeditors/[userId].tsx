@@ -57,7 +57,7 @@ const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
         <SearchBar />
         <Grid container spacing={1}>
           <Grid item xs={4}>
-            <Photo photoUrl={editProfile.photoUrl} userId={editProfile.userId}></Photo>
+            <Photo photoUrl={editProfile.photoUrl} />
           </Grid>
           <Grid container item xs={8}>
             <Grid item xs={9}>
@@ -72,7 +72,7 @@ const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
                 <TextField type='password' placeholder='New password' value={password} onChange={handlePasswordChange} />
                 <TextField type='text' multiline value={editProfile.aboutMe} onChange={handleAboutMeChange} />
                 <Typography>Songs {editProfile.songs.length}</Typography>
-                <Songs songs={editProfile.songs} userId={editProfile.userId} />
+                <Songs songs={editProfile.songs} />
               </Stack>
             </Grid>
           </Grid>

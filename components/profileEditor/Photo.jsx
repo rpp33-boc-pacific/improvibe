@@ -1,15 +1,10 @@
 import { useState } from 'react';
 import Image from "next/image";
-// import { Alert } from '@mui/material';
 import { Box } from '@mui/material';
-// import { CircularProgress } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Modal } from "@mui/material";
 import { Typography } from "@mui/material";
-// import { useEditProfile } from '../../lib/profile-helpers';
 import axios from 'axios';
-
-const userId = '1';
 
 const style = {
   position: 'absolute',
@@ -23,8 +18,7 @@ const style = {
   p: 4,
 };
 
-const Photo = ({ photoUrl, userId }) => {
-
+const Photo = ({ photoUrl }) => {
 
   const [url, setphotoUrl] = useState(photoUrl);
   const [open, setOpen] = useState(false);
@@ -38,7 +32,8 @@ const Photo = ({ photoUrl, userId }) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      let error = false;
+      let imgbbError = false;
+      let apiError = false;
       let newUrl = '';
 
       const image = reader.result.slice(23);
@@ -48,23 +43,24 @@ const Photo = ({ photoUrl, userId }) => {
       axios({
         headers: { 'content-type': 'multipart/form-data' },
         method: 'post',
-        url: 'https://api.imgbb.com/1/upload?key=5f8e6e8e5a06455296bb232ce37227c4',
+        url: `https://api.imgbb.com/1/upload?key=${process.env.IMG_KEY}`,
         data: formData,
       }).catch((error)=> {
-        error = true;
+        imgbbError = true;
         // NOTIFY USER
       }).then((res) => {
-        if (!error) {
+        if (!imgbbError && res.status.toString()[0] === '2') {
           newUrl = res.data.data.url;
-          axios.post(`api/profileeditor/${userId}/photo`, {
-            userId: userId,
-            photoUrl: newUrl,
+          axios.put(`api/profiles/${userId}/photo`, {
+            photoUrl: newUrl
           })
           .catch((error) => {
-            error = true;
+            apiError = true;
           })
-          .then(() => {
-            setphotoUrl(newUrl);
+          .then((res) => {
+            if (!apiError && res.status.toString()[0] === '2') {
+              setphotoUrl(newUrl);
+            }
           });
         }
       });
@@ -75,10 +71,6 @@ const Photo = ({ photoUrl, userId }) => {
     }
   };
 
-  // const { editProfile, isLoading, isError } = useEditProfile(userId);
-  // const { profile, isLoading, isError } = useProfile(userId);
-  // if (isLoading) return <CircularProgress />;
-  // if (isError) return <Alert />;
   return (
     <div>
       <Image

@@ -4,34 +4,35 @@ import { Grid } from '@mui/material';
 import { Lock } from '@mui/icons-material';
 import { LockOpen } from '@mui/icons-material';
 import { Typography } from '@mui/material';
+import axios from 'axios';
 
 const Songs = (props: { song: any }) => {
 
-  const [ publicState, setpublicState ] = useState(props.song.public);
+  const [publicState, setpublicState] = useState(props.song.public);
 
-  const handleLockClick = async () => {
-    let err;
-    try {
-      await fetch(`/api/songs/${props.song.id}/public`, { method: 'PUT' });
-    } catch (error) {
-      err = true;
-    } finally {
-      if (err === undefined) {
-        setpublicState(!publicState);
-      }
-    }
+  const handleLockClick = () => {
+    let err = false;
+    axios.put(`/api/songs/${props.song.id}/public`)
+      .catch((error) => {
+        err = true;
+      })
+      .then((res) => {
+        if (!err && res.status.toString()[0] === '2') {
+          setpublicState(!publicState);
+        }
+      });
   };
-  const handleLockOpenClick = async () => {
-    let err;
-    try {
-      await fetch(`/api/songs/${props.song.id}/private`, { method: 'PUT' });
-    } catch (error) {
-      err = true;
-    } finally {
-      if (err === undefined) {
-        setpublicState(!publicState);
-      }
-    }
+  const handleLockOpenClick = () => {
+    let err = false;
+    axios.put(`/api/songs/${props.song.id}/private`)
+      .catch((error) => {
+        err = true;
+      })
+      .then((res) => {
+        if (!err && res.status.toString()[0] === '2') {
+          setpublicState(!publicState);
+        }
+      });
   };
 
   if (publicState) {
@@ -55,7 +56,7 @@ const Songs = (props: { song: any }) => {
         <Grid container>
           <Grid item>
             <Box>
-              {props.song.name}
+              <Typography>{props.song.name}</Typography>
             </Box>
           </Grid>
           <Grid item>

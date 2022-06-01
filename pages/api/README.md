@@ -37,7 +37,7 @@ response status: 201
 
 ## User API
 #### GET  `/api/user/[id]`<br>
-Retrieves user information and songs
+Retrieves user information and user's song list
 
 | Query String      | Description |
 | ----------- | ----------- |
@@ -72,7 +72,7 @@ response status: 200<br>
 ```
 
 #### PUT  `/api/user/update/[id]`/<br>
-Updates user information based on parameter. Possible parameters below.
+Updates user information based on parameter. Possible parameters given below.
 
 | Query String      | Description |
 | ----------- | ----------- |
@@ -96,10 +96,11 @@ Retrieves songs based on search
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| search | string | Returns all matches containing this string from artist name and song name|
-| filter | string | ?? |
-| likes | integer | Returns a maximum of x number of the most liked songs |
-| shares | integer | Returns a maximum of x number of the most shared songs |
+| search | string | Returns all matches containing this string from artist name and song name and genre|
+| artist_name | string | Artist name includes matches for parameter value string |
+| song_name | string | Song name includes matches for parameter value string |
+| likes | integer | Returns a maximum number of the most liked songs provided by parameter value |
+| shares | integer | Returns a maximum number of the most shared songs provided by parameter value |
 | created_since | string | Returns all songs created since this date |
 
 response status: 200<br>
@@ -143,7 +144,7 @@ Updates like boolean for current song
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| liked | boolean | Updates liked valence in database for current user|
+| liked | boolean | Adds this song to current users projects list and updates |
 
 response status: 200<br>
 

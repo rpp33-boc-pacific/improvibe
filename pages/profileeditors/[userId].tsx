@@ -1,7 +1,7 @@
 import { useState } from 'react';
-// import { Alert } from '@mui/material';
+import { Alert } from '@mui/material';
 import { Box } from '@mui/material';
-// import { CircularProgress } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { Grid } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Typography } from '@mui/material';
@@ -9,20 +9,21 @@ import { Stack } from '@mui/material';
 import axios from 'axios';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import Photo from '../components/profileEditor/Photo';
-import Songs from '../components/profileEditor/Songs';
-import SearchBar from '../components/SearchBar';
+import Photo from '../../components/profileEditor/Photo';
+import Songs from '../../components/profileEditor/Songs';
+import SearchBar from '../../components/SearchBar';
 // import { useEditProfile } from '../lib/profile-helpers';
-import editProfile from '../sample-data/profileeditor';
+import editProfile from '../../sample-data/profileeditor';
 
 const ProfileEditor: NextPage = () => {
+
+  const router = useRouter();
+  const userId: string = router.query.userId as string;
 
   const [ name, setName ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ aboutMe, setAbout ] = useState('');
-
-  const router = useRouter();
 
   const handleNameChange = (event: any) => setName(event.target.value);
   const handlePasswordChange = (event: any) => setPassword(event.target.value);

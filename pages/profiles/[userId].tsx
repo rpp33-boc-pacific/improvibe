@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+// import Context from '../AppContext';
 import Link from 'next/link';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -11,12 +13,15 @@ import About from '../../components/profile/About';
 import SongTiles from '../../components/profile/SongTiles';
 import profile from '../../sample-data/profile'; // REMOVE LATER
 
-const Profile: NextPage = () => {
-  const router = useRouter();
-  const userId: string = router.query.userId as string;
-  const owner: string = router.query.owner as string;
+const Profile: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
 
-  if (owner === 'false') {
+  // const userInfo = useContext(Context);
+  // const userIdInState = userInfo.userId;
+  // const songs = useContext(Context);
+  const router = useRouter();
+  const userId: string = router.query.userId as string || '1';
+
+  if (userId === '1' /* === userIdInState */ ) {
     return (
       <div>
         <SearchBar />
@@ -24,45 +29,7 @@ const Profile: NextPage = () => {
           <Grid item xs={4}>
             <Box>
               <Container>
-                <Photo photoUrl={profile.photoUrl} userId={userId} />
-              </Container>
-            </Box>
-          </Grid>
-          <Grid container item xs={8}>
-            <Grid item xs={12}>
-              <Box>
-                <Typography>{profile.name}</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography>About Me</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <About aboutMe={profile.aboutMe} userId={userId} />
-            </Grid>
-          </Grid>
-          <Grid item xs={4}>
-          </Grid>
-          <Grid container item xs={8}>
-            <Grid item xs={12}>
-              <Typography>My Songs</Typography>
-            </Grid>
-            <Grid container item xs={12}>
-              <SongTiles songs={profile} userId={userId} />
-            </Grid>
-          </Grid>
-        </Grid>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <SearchBar />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <Box>
-              <Container>
-                <Photo photoUrl={profile.photoUrl} userId={'1'} />
+                <Photo photoUrl={profile.photoUrl /* userInfo.photoUrl */ } userId={userId} />
               </Container>
             </Box>
           </Grid>
@@ -81,7 +48,7 @@ const Profile: NextPage = () => {
               <Typography>About Me</Typography>
             </Grid>
             <Grid item xs={12}>
-              <About aboutMe={profile.aboutMe} userId={'1'} />
+              <About aboutMe={profile.aboutMe /* userInfo.aboutMe */ } userId={userId} />
             </Grid>
           </Grid>
           <Grid item xs={4}>
@@ -91,7 +58,45 @@ const Profile: NextPage = () => {
               <Typography>My Songs</Typography>
             </Grid>
             <Grid container item xs={12}>
-              <SongTiles songs={profile} userId={'1'} />
+            <SongTiles songs={profile /* songs */} userId={userId} />
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <SearchBar />
+        <Grid container spacing={1}>
+          <Grid item xs={4}>
+            <Box>
+              <Container>
+                <Photo photoUrl={profile.photoUrl /* userInfo.photoUrl */ } userId={userId} />
+              </Container>
+            </Box>
+          </Grid>
+          <Grid container item xs={8}>
+            <Grid item xs={12}>
+              <Box>
+                <Typography>{profile.name}</Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>About Me</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <About aboutMe={profile.aboutMe /* userInfo.aboutMe */ } userId={userId} />
+            </Grid>
+          </Grid>
+          <Grid item xs={4}>
+          </Grid>
+          <Grid container item xs={8}>
+            <Grid item xs={12}>
+              <Typography>My Songs</Typography>
+            </Grid>
+            <Grid container item xs={12}>
+              <SongTiles songs={profile /* songs */} userId={userId} />
             </Grid>
           </Grid>
         </Grid>

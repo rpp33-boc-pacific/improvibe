@@ -8,7 +8,6 @@ This guide explains how to use the routes within this API directory get get, pos
   3. user
   4. songs
   5. projects
-  6. add
 
 Parameters should be inserted in POST requests via the fetch body parameter. Query strings are appended to the end of a route.
 
@@ -104,7 +103,7 @@ response status: 200<br>
     song_id: 1,
     name: 'Song Name1',
     artist_name: 'Artist Name1',
-    user_id: 4,
+    artist_id: 4,
     in_projects: false,
     genre: 'rock',
     cumulative_likes: 40,
@@ -114,7 +113,7 @@ response status: 200<br>
     song_id: 2,
     name: 'Song Name2',
     artist_name: 'Artist Name2',
-    user_id: 6,
+    artist_id: 6,
     in_projects: true,
     genre: 'hip hop',
     cumulative_likes: 58,
@@ -122,4 +121,91 @@ response status: 200<br>
     liked: true
   }
 ]
+```
+
+## Projects API
+#### GET  `/api/projects/[id]`<br>
+Retrieves projects list for the current user
+
+| Query String      | Description |
+| ----------- | ----------- |
+| [id]| Retrieves all projects for current user |
+
+response status: 200<br>
+ ```
+{
+  artist: 'Fakey McFake',
+  songs: [{
+    song: {
+      tracks: {
+        1: {
+          track_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+          layers: {
+            1: {
+            tempo: 86,
+            pitch: 16,
+            volume: 80,
+            start_time: 0,
+            end_time: 100,
+            loop: false
+            },
+            2: {
+            tempo: 90,
+            pitch: 10,
+            volume: 70,
+            start_time: 0,
+            end_time: 60,
+            loop: false
+            }
+          }
+        },
+        2: {
+          track_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+          layers: {
+            1: {
+            tempo: 78,
+            pitch: 14,
+            volume: 50,
+            start_time: 0,
+            end_time: 90,
+            loop: true
+            }
+          }
+        }
+      }
+    }
+  }, {
+    song: {
+      tracks: {
+        1: {
+          track_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+          layers: {
+            1: {
+            tempo: 86,
+            pitch: 16,
+            volume: 80,
+            start_time: 0,
+            end_time: 100,
+            loop: false
+            }
+          }
+        },
+        2: {
+          track_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+          layers: {
+            1: {
+            tempo: 86,
+            pitch: 16,
+            volume: 80,
+            start_time: 0,
+            end_time: 100,
+            loop: false
+            }
+          }
+        }
+      }
+    }
+  }]
+}
+
 ```

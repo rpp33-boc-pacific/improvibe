@@ -2,7 +2,7 @@
 # Improvibe API Guide
 
 #### Using This Guide
-This guide explains how to use the routes within this API directory get get, post and update data. The different data services for this API are:
+This guide explains how to use the routes within this API directory using HTTP GET, POST and PUT methods. The different data services for this API include:
   1. Login
   2. Signup
   3. User
@@ -10,7 +10,7 @@ This guide explains how to use the routes within this API directory get get, pos
   5. Song
   5. Projects
 
-Parameters should be inserted in POST requests via the body parameter. Query strings are appended to the end of a route.
+Parameters should be inserted in POST requests via the body parameter. Query strings for GET requests are appended to the end of a route.
 
 ## Login API
 #### POST  `/api/login`<br>

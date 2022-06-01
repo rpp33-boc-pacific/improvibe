@@ -8,7 +8,7 @@ import axios from 'axios';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Photo from '../../components/profileEditor/Photo';
-import Songs from '../../components/profileEditor/Songs';
+import Song from '../../components/profileEditor/Song';
 import SearchBar from '../../components/SearchBar';
 import editProfile from '../../sample-data/profileeditor'; // REMOVE LATER
 import { useContext } from 'react';  // const userInfo = useContext(Context);
@@ -23,15 +23,16 @@ const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
   // const nameInState = context.user.name;
   // const emailInState = context.user.email;
   // const aboutMeInState = context.user.aboutMe;
+  // const photoUrl = context.user.photoUrl;
   // const songs = context.songs;
 
   const router = useRouter();
   const userId: string = router.query.userId as string;
 
-  const [ name, setName ] = useState(editProfile.name /* nameInState */ );
-  const [ email, setEmail ] = useState(editProfile.email /* emailInState */ );
-  const [ aboutMe, setAbout ] = useState(editProfile.aboutMe /* aboutMeInState */ );
-  const [ password, setPassword ] = useState('');
+  const [name, setName] = useState(editProfile.name /* nameInState */);
+  const [email, setEmail] = useState(editProfile.email /* emailInState */);
+  const [aboutMe, setAbout] = useState(editProfile.aboutMe /* aboutMeInState */);
+  const [password, setPassword] = useState('');
 
   const handleNameChange = (event: any) => setName(event.target.value);
   const handlePasswordChange = (event: any) => setPassword(event.target.value);
@@ -51,13 +52,13 @@ const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
     }
   };
 
-  if (userId === editProfile.userId /* userIdInState */ ) {
+  if (userId === editProfile.userId /* userIdInState */) {
     return (
       <div>
         <SearchBar />
         <Grid container spacing={1}>
           <Grid item xs={4}>
-            <Photo photoUrl={editProfile.photoUrl} />
+            <Photo photoUrl={editProfile.photoUrl /* photoUrl */ } />
           </Grid>
           <Grid container item xs={8}>
             <Grid item xs={9}>
@@ -68,11 +69,13 @@ const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
             </Grid>
             <Grid item xs={12}>
               <Stack>
-                <TextField type='text' value={editProfile.name} onChange={handleNameChange} />
+                <TextField type='text' value={editProfile.name /* name */} onChange={handleNameChange} />
                 <TextField type='password' placeholder='New password' value={password} onChange={handlePasswordChange} />
-                <TextField type='text' multiline value={editProfile.aboutMe} onChange={handleAboutMeChange} />
-                <Typography>Songs {editProfile.songs.length}</Typography>
-                <Songs songs={editProfile.songs} />
+                <TextField type='text' multiline value={editProfile.aboutMe /* aboutMe */ } onChange={handleAboutMeChange} />
+                <Typography>Songs {editProfile.songs.length /* songs */ }</Typography>
+                <Stack>
+                  {editProfile.songs.map((song, index) => <Song key={index} song={song} />)}
+                </Stack>
               </Stack>
             </Grid>
           </Grid>

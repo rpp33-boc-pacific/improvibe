@@ -78,6 +78,7 @@ Updates user information based on parameter. Possible parameters below.
 | ----------- | ----------- |
 | [id]| The id of the current user appended to the route without brackets |
 
+
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
 | public | boolean | Changes the valence availability to other users on improvibe |

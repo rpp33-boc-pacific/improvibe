@@ -11,7 +11,9 @@ import Photo from '../../components/profileEditor/Photo';
 import Songs from '../../components/profileEditor/Songs';
 import SearchBar from '../../components/SearchBar';
 import editProfile from '../../sample-data/profileeditor'; // REMOVE LATER
-import { useContext } from 'react';
+import { useContext } from 'react';  // const userInfo = useContext(Context);
+// const userIdInState = userInfo.userId;
+// const songs = useContext(Context);
 // import Context from '../AppContext';
 
 const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {

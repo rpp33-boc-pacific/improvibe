@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import Protect from '../components/Protect';
 
-export default function SignUp() {
+function SignUp() {
   return (
     <form method="post" action="/api/signUp">
       <h1>Sign Up</h1>
@@ -21,3 +22,6 @@ export default function SignUp() {
     </form>
   )
 }
+
+const ProtectedSignUp = Protect(SignUp);
+export default ProtectedSignUp;

@@ -273,9 +273,9 @@ Saves to layer database table
 
 response status: 201<br>
 
-<mark>Which of these makes the most sense?</mark>
 #### POST  `/api/project`<br>
 #### POST  `/api/project/song`<br>
+Which of these ^ makes the most sense?
 Saves project to song database table
 
 | Parameter      | Type |  Description      |
@@ -284,4 +284,10 @@ Saves project to song database table
 | liked | boolean | Adds this song to current users projects list and updates |
 
 response status: 201<br>
+
+//add route to delete layer
+//add route to post hashtag
+//PUT to update layer
+// Talk to joe about this one -> PUT: update path to flattened project url on project table - Wouldn't this just happen when the project is saved?
+//Talk to Joe about this one too -> PUT: update genre id on project table wouldn't that just be included when the song is saved?
 

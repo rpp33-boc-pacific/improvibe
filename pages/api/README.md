@@ -302,9 +302,6 @@ response example:
 }
 ```
 
-songs API
-
-
 ## Song API
 #### POST  `/api/song/add-to-projects`<br>
 Adds current song to signed in user's projects list

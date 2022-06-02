@@ -28,7 +28,6 @@ export default function LogIn({ providers }) {
 
   return (
     <form id="credentials" onSubmit={(e) => credentialsLogIn(e)}>
-      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
       <h1>Login</h1>
       <label>
         Email
@@ -56,7 +55,7 @@ export default function LogIn({ providers }) {
 LogIn.getInitialProps = async (context: any) => {
   const { req, res } = context;
   const session = await getSession({ req });
-
+  console.log(session)
   if (session && res && session.accessToken) {
     res.writeHead(302, {
       Location: "/",

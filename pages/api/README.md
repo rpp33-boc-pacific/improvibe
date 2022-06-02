@@ -149,7 +149,7 @@ Saves track to track table
 response status: 201<br>
 
 #### POST  `/api/project/layer`<br>
-Saves track to layer table
+Saves layer to layer table
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
@@ -304,6 +304,16 @@ songs API
 
 
 ## Song API
+#### POST  `/api/song/add-to-projects`<br>
+Adds current song to signed in user's projects list
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| user_id | integer | Id for current user |
+| song_id | integer | Adds as a project to user's list |
+
+response status: 200<br>
+
 #### PUT  `/api/song/liked`<br>
 Updates song as liked or unliked by current user
 
@@ -321,16 +331,6 @@ Updates total number of times project has been shared
 | Parameter      | Type |  Description      |  Required      |
 | ----------- | ----------- | ----------- | ----------- |
 | project_id | integer | Id for current song |    yes    |
-
-response status: 200<br>
-
-#### POST  `/api/song/add-to-projects`<br>
-Adds current song to signed in user's projects list
-
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| user_id | integer | Id for current user |
-| song_id | integer | Adds as a project to user's list |
 
 response status: 200<br>
 

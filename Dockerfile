@@ -10,4 +10,6 @@ COPY . .
 
 EXPOSE 3000
 
-CMD [ "npx", "next", "build", "&&", "npx", "next", "start" ]
+RUN npm run build
+
+CMD [ "npx", "next", "start" ]

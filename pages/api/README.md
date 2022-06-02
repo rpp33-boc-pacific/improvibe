@@ -64,7 +64,7 @@ response status: ??
 
 ## User API
 #### GET  `/api/user/[id]`<br>
-Retrieves user information and user's public songs
+Retrieves information and public songs for a given user
 
 | Query String      | Description |
 | ----------- | ----------- |
@@ -130,6 +130,7 @@ Saves project to project table
 | song_path | string | URL for flattened song file |
 
 response status: 201<br>
+
 example response:
 
 ```
@@ -163,6 +164,7 @@ Saves layer to layer table
 | trim_end | integer | ?? |
 
 response status: 201<br>
+
 example response:
 
 ```

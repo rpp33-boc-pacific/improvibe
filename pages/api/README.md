@@ -412,6 +412,7 @@ response example:
 #### GET  `/api/songs/most/?[parameter]=[value]`<br>
 Retrieves songs based on search
 | Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
 | liked | integer | Returns a maximum number of the most liked songs provided by parameter value |
 | shared | integer | Returns a maximum number of the most shared songs provided by parameter value |
 | recent | integer | Returns a maximum number of the most recent songs provided by parameter value |

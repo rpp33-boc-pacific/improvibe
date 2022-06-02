@@ -2,22 +2,11 @@ import pool from "../../sql/db";
 import hash from 'object-hash';
 
 export default function signUpHandler(req: any, res: any) {
-<<<<<<< HEAD
-  console.log('what is the client?', client);
-  if (req.method !== 'POST') {
-    res.status(405).send({ message: 'Only POST requests allowed' });
-    return
-  } else {
-    const email = req.body.email;
-    const hashedPassword = hash({email: req.body.password});
-=======
->>>>>>> main
-
+  
   return new Promise <void>((resolve) => {
     if (req.method !== 'POST') {
       res.status(405).send({ message: 'Only POST requests allowed' });
       return;
-
     } else {
       const email = req.body.email;
       const hashedPassword = hash({email: req.body.password});

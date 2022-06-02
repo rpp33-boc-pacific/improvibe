@@ -13,12 +13,13 @@ export default NextAuth({
       },
       authorize(credentials: any) {
       const email = credentials?.email;
-      const hashedPassword = hash(credentials?.password);
+      const hashedPassword = hash({email: credentials?.password});
 
       const checkUserCredentials = `SELECT email FROM users WHERE email='${email}' AND hash='${hashedPassword}'`;
-      pool.query(checkUserCredentials)
+
+      return pool.query(checkUserCredentials)
       .then((user: any) => {
-        console.log(user);
+        console.log(user)
         if (user.rowCount === 0) {
           throw new Error('Invalid email or password');
         } else {

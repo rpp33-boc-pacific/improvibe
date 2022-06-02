@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { getCsrfToken, getSession, getProviders, signIn } from "next-auth/react";
 import React, { useState } from 'react';
-import hash from 'object-hash';
+import { useRouter } from 'next/router';
+import { useFormControlUnstyledContext } from '@mui/base';
 
 export default function LogIn({ csrfToken, providers }) {
 
   const [logInError, setLogInError] = useState(false);
+  const router = useRouter();
 
   const credentialsLogIn = (e: any) => {
     e.preventDefault();
@@ -14,9 +16,10 @@ export default function LogIn({ csrfToken, providers }) {
 
     signIn('credentials', {email: email, password: password, redirect: false, callbackUrl: '/'})
     .then((status) => {
-      console.log(status)
       if (status.error) {
         setLogInError(true);
+      } else {
+        router.push('/');
       }
     })
     .catch((err) => {

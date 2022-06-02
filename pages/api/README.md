@@ -7,11 +7,17 @@ This guide explains how to use the routes within this API directory using HTTP G
   2. Login
   3. Logout
   3. User
-  4. Songs
-  5. Song
+  5. Project
   5. Projects
 
 Parameters should be inserted in POST and PUT requests via the body parameter. Query strings for GET requests are appended to the end of a route.
+
+Terminology:
+**Track** - a single audio file, or reference to the audio file uploaded to a project
+**Layer** - the audio adjustments for each track
+**Project** - a collection of all layers and their associated tracks
+**Song** - a flattened audio file, or reference to the audio file created from a project
+
 
 ## Signup API
 #### POST  `/api/signup`<br>
@@ -36,11 +42,11 @@ Checks login credentials
 
 response status: 201
 
+response example:
 ```
 {
   user: id
 }
-
 ```
 
 ## Logout API
@@ -49,47 +55,48 @@ Checks login credentials
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| user id | string | Numeric id of user |
+| user_id | integer | Numeric id of user |
 
 response status: ??
 
 
 ## User API
 #### GET  `/api/user/[id]`<br>
-Retrieves user information and user's song list
+Retrieves user information and user's public projects with relavent social data and flattened song URL
 
 | Query String      | Description |
 | ----------- | ----------- |
 | [id]| The id of the current user appended to the route without brackets |
 
 response status: 200<br>
+
+response example:
  ```
   {
     id: 9,
     artist_name: 'David Bowe',
     about_me: 'This is the about me section',
     searched: 10,
-    photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+    photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
     songs: [
       {
         id: 1,
         name: 'Space Odity',
-        songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+        song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
         liked: true,
-        totalLikes: 14,
+        total_ikes: 14,
         genre: 'Rock'
       },
       {
       id: 2,
       name: 'Golden Years',
-      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
       liked: false,
-      totalLikes: 21,
+      total_likes: 21,
       genre: 'Smooth Rock'
       }
     ]
   }
-
 ```
 
 #### PUT  `/api/user/update/[id]`/<br>
@@ -99,132 +106,140 @@ Updates user information based on parameter. Possible parameters given below.
 | ----------- | ----------- |
 | [id]| The id of the current user appended to the route without brackets |
 
-
+NOTE: I think the logic here would all be the same, so the same query can be used
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| public | boolean | Updates the availability to other users on improvibe |
-| photo_url | string | Updates url of profile picture |
-| about_me | string | Updates about me section of profile |
-| email | string | Updates email for a user  |
-| password | string | Updates password for a user  |
+| name | string | Updates the name of signed in user |
+| photo_url | string | Updates url of profile picture of signed in user|
+| about_me | string | Updates about me section of signed in user |
+| email | string | Updates email of signed in user  |
+| password | string | Updates password of signed in user  |
 
 reponse status: 200
 
 
-## Songs API
-#### GET  `/api/songs/?[search]=[value]`<br>
-Retrieves songs based on search
+
+## Project API
+#### POST  `/api/project`<br>
+Saves project to project table
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| search | string | Returns all matches containing this string from artist name, song name and genre|
+| name | string | Name of project |
+| user_id | integer | Id for current user |
+| genre_id | integer | Id for selected genre |
+| public | boolean | Whether project is public or private |
+| total_time | integer | Length of current project |
+| song_path | string | URL for flattened song file |
 
+response status: 201<br>
 
-#### GET  `/api/songs/?[artist_name]=[value]`<br>
-Retrieves songs based on search
+#### POST  `/api/project/track`<br>
+Saves track to track table
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| artist_name | string | Returns all matches containing this string in artist name |
+| name | string | Name of track | necessary?
+| track_path | string | URL for track file |
+
+response status: 201<br>
+
+#### POST  `/api/project/layer`<br>
+Saves track to track table
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| name | string | Name of layer | necessary?
+| track_id | integer | Track associated with this layer |
+| tempo | integer | Speed adjustment to track |
+| pitch | integer | Frequency adjustment to track |
+| volume | integer | Volume adjustment to track |
+| start_time | integer | Where to start track |
+| trim_start | integer | ?? |
+| trim_end | integer | ?? |
+
+response status: 201<br>
+
+#### POST  `/api/project/add-to-projects`<br>
+Adds current project to signed in user's projects list
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| user_id | integer | Id for current user |
+| song_id | integer | Adds as a project to user's list |
 
 response status: 200<br>
 
+#### PUT  `/api/project`<br>
+Updates project information
 
-#### GET  `/api/songs/?[song_name]=[value]`<br>
-Retrieves songs based on search
+| Parameter      | Type |  Description      |  Required      |
+| ----------- | ----------- | ----------- | ----------- |
+| name | string | Name of project |   no    |
+| project_id | integer | Id for current project |    yes    |
+| genre_id | integer | Id for selected genre |    no    |
+| public | boolean | Whether project is public or private |    no    |
+| total_time | integer | Length of current project |    no    |
+| song_path | string | URL for flattened song file |    no    |
 
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| song_name | string | Returns all matches containing this string in song name |
+#### PUT  `/api/project/layer`<br>
+Updates layer information
 
+| Parameter      | Type |  Description      |  Required      |
+| ----------- | ----------- | ----------- | ----------- |
+| project_id | integer | Id for current track layer was created from |   yes    |
+| name | string | Name of layer |    no    | necessary?
+| tempo | integer | Speed adjustment to track |    no    |
+| pitch | integer | Frequency adjustment to track |   no    |
+| volume | integer | Volume adjustment to track |   no    |
+| start_time | integer | Where to start track |   no    |
+| trim_start | integer | ?? |   no    |
+| trim_end | integer | ?? |   no    |
 
-#### GET  `/api/songs/?[genre]=[value]`<br>
-Retrieves songs based on search
+#### PUT  `/api/project/liked`<br>
+Updates song as liked or unliked by current user
 
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| genre | string | Returns all matches containing this string in genre |
-
-
-#### GET  `/api/songs/?[likes]=[value]`<br>
-Retrieves songs based on search
-
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| likes | integer | Returns a maximum number of the most liked songs provided by parameter value |
-
-
-#### GET  `/api/songs/?[shares]=[value]`<br>
-Retrieves songs based on search
-
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| shares | integer | Returns a maximum number of the most shared songs provided by parameter value |
-
-#### GET  `/api/songs/?[most_recent]=[value]`<br>
-Retrieves songs based on search
-
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| most_recent | integer | Returns a maximum number of the most recent songs provided by parameter value |
-
-Example response for ALL above songs GET routes
- ```
-[
-  {
-    song_id: 1,
-    name: 'Song Name1',
-    artist_name: 'Artist Name1',
-    artist_id: 4,
-    in_projects: false,
-    genre: 'rock',
-    cumulative_likes: 40,
-    photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-    liked: true
-  }, {
-    song_id: 2,
-    name: 'Song Name2',
-    artist_name: 'Artist Name2',
-    artist_id: 6,
-    in_projects: true,
-    genre: 'hip hop',
-    cumulative_likes: 58,
-    photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-    liked: true
-  }
-]
-```
-## Song API
-#### PUT  `/api/song/like`<br>
-Updates like boolean for current song
-
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| userId | integer | Id for current user |
-| liked | boolean | Updates liked in database for current user |
+| Parameter      | Type |  Description      |  Required      |
+| ----------- | ----------- | ----------- | ----------- |
+| user_id | integer | Id for current user |    yes    |
+| song_id | integer | Id for current song |    yes    |
+| liked | boolean | Whether to update as true or false |    yes    |
 
 response status: 200<br>
 
-#### POST  `/api/song/add-to-projects`<br>
-Updates like boolean for current song
+#### PUT  `/api/project/shared`<br>
+Updates total number of times project has been shared
+
+| Parameter      | Type |  Description      |  Required      |
+| ----------- | ----------- | ----------- | ----------- |
+| project_id | integer | Id for current song |    yes    |
+
+response status: 200<br>
+
+#### DELETE  `/api/project`<br>
+Deletes Project
+
+Saves project to project table
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| userId | integer | Id for current user |
-| songId | integer | Duplicates this song with current user as the userId |
+| project_id | string | Id for current song |
 
 response status: 200<br>
+
 
 
 ## Projects API
-#### GET  `/api/projects/[id]`<br>
+#### GET  `/api/projects/user/[id]`<br>
 Retrieves projects list for the current user
 
 | Query String      | Description |
 | ----------- | ----------- |
-| [id]| Retrieves all projects for current user |
+| [id]| The id of the current user appended to the route without brackets |
 
 response status: 200<br>
+
+response example:
  ```
 {
   artist: 'Fakey McFake',
@@ -300,44 +315,79 @@ response status: 200<br>
     }
   }]
 }
-
 ```
 
-#### POST  `/api/project/track`<br>
-Saves to track database table
+
+#### GET  `/api/projects/?[parameter]=[value]`<br>
+Retrieves songs based on search
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| userId | integer | Id for current user |
-| liked | boolean | Adds this song to current users projects list and updates |
+| any | string | Returns all matches containing this string from artist name, song name and genre |
+| artist_name | string | Returns all matches containing this string in artist name |
+| song_name | string | Returns all matches containing this string in song name |
+| genre | string | Returns all matches containing this string in genre |
 
-response status: 201<br>
+response status: 200
 
+response example:
+ ```
+[
+  {
+    song_id: 1,
+    song_name: 'Song Name1',
+    artist_name: 'Artist Name1',
+    artist_id: 4,
+    in_projects: false,
+    genre: 'rock',
+    cumulative_likes: 40,
+    photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+    liked: true
+  }, {
+    song_id: 2,
+    song_name: 'Song Name2',
+    artist_name: 'Artist Name2',
+    artist_id: 6,
+    in_projects: true,
+    genre: 'hip hop',
+    cumulative_likes: 58,
+    photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+    liked: true
+  }
+]
+```
 
-#### POST  `/api/project/layer`<br>
-Saves to layer database table
+#### GET  `/api/projects/most/?[parameter]=[value]`<br>
+Retrieves songs based on search
+| liked | integer | Returns a maximum number of the most liked songs provided by parameter value |
+| shared | integer | Returns a maximum number of the most shared songs provided by parameter value |
+| recent | integer | Returns a maximum number of the most recent songs provided by parameter value |
 
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| userId | integer | Id for current user |
-| liked | boolean | Adds this song to current users projects list and updates |
+response status: 200
 
-response status: 201<br>
-
-#### POST  `/api/project`<br>
-#### POST  `/api/project/song`<br>
-Which of these endpoints ^ makes the most sense?
-Saves project to song database table
-
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| userId | integer | Id for current user |
-| liked | boolean | Adds this song to current users projects list and updates |
-
-response status: 201<br>
-
-//add route to delete layer
-//add route to post hashtag
-//PUT to update layer
-// Talk to joe about this one -> PUT: update path to flattened project url on project table - Wouldn't this just happen when the project is saved?
-//Talk to Joe about this one too -> PUT: update genre id on project table wouldn't that just be included when the song is saved?
+response example:
+ ```
+[
+  {
+    song_id: 1,
+    song_name: 'Song Name1',
+    artist_name: 'Artist Name1',
+    artist_id: 4,
+    in_projects: false,
+    genre: 'rock',
+    cumulative_likes: 40,
+    photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+    liked: true
+  }, {
+    song_id: 2,
+    song_name: 'Song Name2',
+    artist_name: 'Artist Name2',
+    artist_id: 6,
+    in_projects: true,
+    genre: 'hip hop',
+    cumulative_likes: 58,
+    photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+    liked: true
+  }
+]
+```

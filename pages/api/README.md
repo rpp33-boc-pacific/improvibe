@@ -14,7 +14,7 @@ This guide explains how to use the routes within this API directory using HTTP G
 
 Parameters should be inserted in POST and PUT requests via the body parameter. Query strings for GET requests are appended to the end of a route.
 
-Terminology:
+## Terminology:<br>
 **Track** - a single audio file, or reference to the audio file uploaded to a project<br>
 **Layer** - the audio adjustments for each track<br>
 **Project** - a collection of all layers and their associated tracks<br>

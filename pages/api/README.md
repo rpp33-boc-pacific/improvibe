@@ -2,21 +2,23 @@
 # Improvibe API Guide
 
 #### Using This Guide
-This guide explains how to use the routes within this API directory using HTTP GET, POST and PUT methods. The data services for this API include:
+This guide explains how to use the routes within this API directory using HTTP GET, POST, PUT and DELETE methods. The data services for this API include:
   1. Signup
   2. Login
   3. Logout
   3. User
   5. Project
   5. Projects
+  6. Song
+  7. Songs
 
 Parameters should be inserted in POST and PUT requests via the body parameter. Query strings for GET requests are appended to the end of a route.
 
 Terminology:
-**Track** - a single audio file, or reference to the audio file uploaded to a project
-**Layer** - the audio adjustments for each track
-**Project** - a collection of all layers and their associated tracks
-**Song** - a flattened audio file, or reference to the audio file created from a project
+**Track** - a single audio file, or reference to the audio file uploaded to a project<br>
+**Layer** - the audio adjustments for each track<br>
+**Project** - a collection of all layers and their associated tracks<br>
+**Song** - specifically the flattened audio file version of a project that is created when a project is saved<br>
 
 
 ## Signup API
@@ -55,7 +57,7 @@ Checks login credentials
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| user_id | integer | Numeric id of user |
+| user_id | integer | Id of current user |
 
 response status: ??
 
@@ -76,7 +78,6 @@ response example:
     id: 9,
     artist_name: 'David Bowe',
     about_me: 'This is the about me section',
-    searched: 10,
     photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
     songs: [
       {
@@ -133,6 +134,13 @@ Saves project to project table
 | song_path | string | URL for flattened song file |
 
 response status: 201<br>
+example response:
+
+```
+{
+  project_id: 1
+}
+```
 
 #### POST  `/api/project/track`<br>
 Saves track to track table
@@ -145,7 +153,7 @@ Saves track to track table
 response status: 201<br>
 
 #### POST  `/api/project/layer`<br>
-Saves track to track table
+Saves track to layer table
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
@@ -159,24 +167,21 @@ Saves track to track table
 | trim_end | integer | ?? |
 
 response status: 201<br>
+example response:
 
-#### POST  `/api/project/add-to-projects`<br>
-Adds current project to signed in user's projects list
-
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| user_id | integer | Id for current user |
-| song_id | integer | Adds as a project to user's list |
-
-response status: 200<br>
+```
+{
+  layer_id: 1
+}
+```
 
 #### PUT  `/api/project`<br>
 Updates project information
 
 | Parameter      | Type |  Description      |  Required      |
 | ----------- | ----------- | ----------- | ----------- |
-| name | string | Name of project |   no    |
 | project_id | integer | Id for current project |    yes    |
+| name | string | Name of project |   no    |
 | genre_id | integer | Id for selected genre |    no    |
 | public | boolean | Whether project is public or private |    no    |
 | total_time | integer | Length of current project |    no    |
@@ -187,7 +192,7 @@ Updates layer information
 
 | Parameter      | Type |  Description      |  Required      |
 | ----------- | ----------- | ----------- | ----------- |
-| project_id | integer | Id for current track layer was created from |   yes    |
+| layer_id | integer | Id for current layer |   yes    |
 | name | string | Name of layer |    no    | necessary?
 | tempo | integer | Speed adjustment to track |    no    |
 | pitch | integer | Frequency adjustment to track |   no    |
@@ -196,30 +201,10 @@ Updates layer information
 | trim_start | integer | ?? |   no    |
 | trim_end | integer | ?? |   no    |
 
-#### PUT  `/api/project/liked`<br>
-Updates song as liked or unliked by current user
-
-| Parameter      | Type |  Description      |  Required      |
-| ----------- | ----------- | ----------- | ----------- |
-| user_id | integer | Id for current user |    yes    |
-| song_id | integer | Id for current song |    yes    |
-| liked | boolean | Whether to update as true or false |    yes    |
-
-response status: 200<br>
-
-#### PUT  `/api/project/shared`<br>
-Updates total number of times project has been shared
-
-| Parameter      | Type |  Description      |  Required      |
-| ----------- | ----------- | ----------- | ----------- |
-| project_id | integer | Id for current song |    yes    |
-
-response status: 200<br>
-
 #### DELETE  `/api/project`<br>
 Deletes Project
 
-Saves project to project table
+Deletes project from project table
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
@@ -317,8 +302,75 @@ response example:
 }
 ```
 
+songs API
 
-#### GET  `/api/projects/?[parameter]=[value]`<br>
+
+## Song API
+#### PUT  `/api/song/liked`<br>
+Updates song as liked or unliked by current user
+
+| Parameter      | Type |  Description      |  Required      |
+| ----------- | ----------- | ----------- | ----------- |
+| user_id | integer | Id for current user |    yes    |
+| song_id | integer | Id for current song |    yes    |
+| liked | boolean | Whether to update as true or false |    yes    |
+
+response status: 200<br>
+
+#### PUT  `/api/song/shared`<br>
+Updates total number of times project has been shared
+
+| Parameter      | Type |  Description      |  Required      |
+| ----------- | ----------- | ----------- | ----------- |
+| project_id | integer | Id for current song |    yes    |
+
+response status: 200<br>
+
+#### POST  `/api/song/add-to-projects`<br>
+Adds current song to signed in user's projects list
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| user_id | integer | Id for current user |
+| song_id | integer | Adds as a project to user's list |
+
+response status: 200<br>
+
+
+## Songs API
+#### GET  `/api/songs/[id]`
+Retrieves all songs for owned by current user
+
+| Query String      | Description |
+| ----------- | ----------- |
+| [id]| The id of the current user appended to the route without brackets |
+
+response status: 200<br>
+
+response example:
+
+```
+[
+      {
+        id: 1,
+        name: 'Space Odity',
+        song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+        liked: true,
+        total_ikes: 14,
+        genre: 'Rock'
+      },
+      {
+      id: 2,
+      name: 'Golden Years',
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
+      liked: false,
+      total_likes: 21,
+      genre: 'Smooth Rock'
+      }
+    ]
+```
+
+#### GET  `/api/songs/?[parameter]=[value]`<br>
 Retrieves songs based on search
 
 | Parameter      | Type |  Description      |
@@ -357,7 +409,7 @@ response example:
 ]
 ```
 
-#### GET  `/api/projects/most/?[parameter]=[value]`<br>
+#### GET  `/api/songs/most/?[parameter]=[value]`<br>
 Retrieves songs based on search
 | liked | integer | Returns a maximum number of the most liked songs provided by parameter value |
 | shared | integer | Returns a maximum number of the most shared songs provided by parameter value |

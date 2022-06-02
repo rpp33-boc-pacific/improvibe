@@ -36,6 +36,13 @@ Checks login credentials
 
 response status: 201
 
+```
+{
+  user: id
+}
+
+```
+
 ## Logout API
 #### PUT or DELETE?  `/api/logout`<br>
 Checks login credentials
@@ -59,7 +66,8 @@ response status: 200<br>
  ```
   {
     id: 9,
-    artist: 'David Bowe',
+    artist_name: 'David Bowe',
+    about_me: 'This is the about me section',
     searched: 10,
     photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
     songs: [
@@ -94,7 +102,7 @@ Updates user information based on parameter. Possible parameters given below.
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
-| public | boolean | Changes the availability to other users on improvibe |
+| public | boolean | Updates the availability to other users on improvibe |
 | photo_url | string | Updates url of profile picture |
 | about_me | string | Updates about me section of profile |
 | email | string | Updates email for a user  |
@@ -104,22 +112,63 @@ reponse status: 200
 
 
 ## Songs API
-#### GET  `/api/songs/?[parameter]=[value]`<br>
+#### GET  `/api/songs/?[search]=[value]`<br>
 Retrieves songs based on search
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
 | search | string | Returns all matches containing this string from artist name, song name and genre|
-| artist_name | string | Returns all matches containing this string in artist name |
-| song_name | string | Returns all matches containing this string in song name |
-| genre | string | Returns all matches containing this string in genre |
-| likes | integer | Returns a maximum number of the most liked songs provided by parameter value |
-| shares | integer | Returns a maximum number of the most shared songs provided by parameter value |
-| most_recent | integer | Returns a maximum number of the most recent songs provided by parameter value |
 
-//Should all of these ^ be separate routes?
+
+#### GET  `/api/songs/?[artist_name]=[value]`<br>
+Retrieves songs based on search
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| artist_name | string | Returns all matches containing this string in artist name |
 
 response status: 200<br>
+
+
+#### GET  `/api/songs/?[song_name]=[value]`<br>
+Retrieves songs based on search
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| song_name | string | Returns all matches containing this string in song name |
+
+
+#### GET  `/api/songs/?[genre]=[value]`<br>
+Retrieves songs based on search
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| genre | string | Returns all matches containing this string in genre |
+
+
+#### GET  `/api/songs/?[likes]=[value]`<br>
+Retrieves songs based on search
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| likes | integer | Returns a maximum number of the most liked songs provided by parameter value |
+
+
+#### GET  `/api/songs/?[shares]=[value]`<br>
+Retrieves songs based on search
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| shares | integer | Returns a maximum number of the most shared songs provided by parameter value |
+
+#### GET  `/api/songs/?[most_recent]=[value]`<br>
+Retrieves songs based on search
+
+| Parameter      | Type |  Description      |
+| ----------- | ----------- | ----------- |
+| most_recent | integer | Returns a maximum number of the most recent songs provided by parameter value |
+
+Example response for ALL above songs GET routes
  ```
 [
   {
@@ -152,17 +201,17 @@ Updates like boolean for current song
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
 | userId | integer | Id for current user |
-| liked | boolean | Updates liked valence in database for current user |
+| liked | boolean | Updates liked in database for current user |
 
 response status: 200<br>
 
-#### PUT  `/api/song/add-to-projects`<br>
+#### POST  `/api/song/add-to-projects`<br>
 Updates like boolean for current song
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
 | userId | integer | Id for current user |
-| liked | boolean | Adds this song to current users projects list and updates |
+| songId | integer | Duplicates this song with current user as the userId |
 
 response status: 200<br>
 

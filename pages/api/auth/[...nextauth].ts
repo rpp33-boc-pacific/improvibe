@@ -15,15 +15,19 @@ export default NextAuth({
       const email = credentials?.email;
       const hashedPassword = hash({email: credentials?.password});
 
-      const checkUserCredentials = `SELECT email FROM users WHERE email='${email}' AND hash='${hashedPassword}'`;
+      const checkUserCredentials = `SELECT id, email FROM users WHERE email='${email}' AND hash='${hashedPassword}'`;
 
       return pool.query(checkUserCredentials)
       .then((user: any) => {
-        console.log(user)
         if (user.rowCount === 0) {
           throw new Error('Invalid email or password');
         } else {
-          return user;
+          const loggedInUser = {
+            email: user.rows[0].email,
+            id: user.rows[0].id
+          }
+          console.log('user!', loggedInUser)
+          return loggedInUser;
         }
       }).catch((err: any) => {
         return null;
@@ -33,16 +37,19 @@ export default NextAuth({
   ],
 
   callbacks: {
-    jwt: ({ token, user }) => {
+    jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token.user = user;
       }
+      console.log('token', token, 'user', user)
       return token;
     },
-    session: ({ session, token }) => {
+
+    session: ({ session, token, user }) => {
       if (token) {
-        session.id = token.id;
+        session.user = token.user;
       }
+      console.log('user', token.user);
       console.log('session', session);
       return session;
     }

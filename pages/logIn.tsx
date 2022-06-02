@@ -55,14 +55,14 @@ export default function LogIn({ providers }) {
 LogIn.getInitialProps = async (context: any) => {
   const { req, res } = context;
   const session = await getSession({ req });
-  console.log(session)
-  if (session && res && session.accessToken) {
-    res.writeHead(302, {
-      Location: "/",
-    });
-    res.end();
-    return;
-  }
+  console.log(session);
+  // if (session && res && session.accessToken) {
+  //   res.writeHead(302, {
+  //     Location: "/",
+  //   });
+  //   res.end();
+  //   return;
+  // }
 
   return {
     session: undefined,

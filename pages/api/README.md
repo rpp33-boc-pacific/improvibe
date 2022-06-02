@@ -335,38 +335,6 @@ response status: 200<br>
 
 
 ## Songs API
-#### GET  `/api/songs/[id]`
-Retrieves all songs for owned by current user
-
-| Query String      | Description |
-| ----------- | ----------- |
-| [id]| The id of the current user appended to the route without brackets |
-
-response status: 200<br>
-
-response example:
-
-```
-[
-      {
-        id: 1,
-        name: 'Space Odity',
-        song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
-        liked: true,
-        total_ikes: 14,
-        genre: 'Rock'
-      },
-      {
-      id: 2,
-      name: 'Golden Years',
-      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
-      liked: false,
-      total_likes: 21,
-      genre: 'Smooth Rock'
-      }
-    ]
-```
-
 #### GET  `/api/songs/?[parameter]=[value]`<br>
 Retrieves songs based on search
 

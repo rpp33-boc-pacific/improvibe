@@ -2,9 +2,8 @@ import Link from 'next/link';
 import { getCsrfToken, getSession, getProviders, signIn } from "next-auth/react";
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useFormControlUnstyledContext } from '@mui/base';
 
-export default function LogIn({ csrfToken, providers }) {
+export default function LogIn({ providers }) {
 
   const [logInError, setLogInError] = useState(false);
   const router = useRouter();
@@ -69,6 +68,5 @@ LogIn.getInitialProps = async (context: any) => {
   return {
     session: undefined,
     providers: await getProviders(),
-    csrfToken: await getCsrfToken(),
   };
 };

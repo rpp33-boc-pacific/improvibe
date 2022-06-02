@@ -316,7 +316,7 @@ Adds current song to signed in user's projects list
 
 response status: 200<br>
 
-#### PUT  `/api/song/liked`<br>
+#### PUT  `/api/song/like`<br>
 Updates song as liked or unliked by current user
 
 | Parameter      | Type |  Description      |  Required      |
@@ -327,7 +327,7 @@ Updates song as liked or unliked by current user
 
 response status: 200<br>
 
-#### PUT  `/api/song/shared`<br>
+#### PUT  `/api/song/share-count`<br>
 Updates total number of times project has been shared
 
 | Parameter      | Type |  Description      |  Required      |

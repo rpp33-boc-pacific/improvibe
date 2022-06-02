@@ -26,7 +26,6 @@ export default NextAuth({
             email: user.rows[0].email,
             id: user.rows[0].id
           }
-          console.log('user!', loggedInUser)
           return loggedInUser;
         }
       }).catch((err: any) => {
@@ -37,7 +36,7 @@ export default NextAuth({
   ],
 
   callbacks: {
-    jwt({ token, user }) {
+    jwt({ token, user, account }) {
       if (user) {
         token.user = user;
       }

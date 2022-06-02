@@ -13,6 +13,8 @@ export default function Protect (WrappedComponent: any) {
       useEffect(() => {
         if (status === "unauthenticated" ) {
           router.push("/logIn");
+        } else if (status === "authenticated") {
+          // add API calls here
         }
       })
 

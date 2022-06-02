@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Protect from '../components/Protect';
 
-function SignUp() {
+function SignUp(props) {
+  console.log(props.session)
   return (
     <form method="post" action="/api/signUp">
       <h1>Sign Up</h1>

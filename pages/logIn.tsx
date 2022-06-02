@@ -1,14 +1,20 @@
 import Link from 'next/link';
 import { getCsrfToken, getSession, getProviders, signIn } from "next-auth/react";
 import React, { useState } from 'react';
+import hash from 'object-hash';
 
 export default function LogIn({ csrfToken, providers }) {
 
   const [logInError, setLogInError] = useState(false);
 
-  const credentialsLogIn = () => {
-    signIn('credentials', {email: 'email', password: 'password', redirect: false})
+  const credentialsLogIn = (e: any) => {
+    e.preventDefault();
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
+
+    signIn('credentials', {email: email, password: password, redirect: false, callbackUrl: '/'})
     .then((status) => {
+      console.log(status)
       if (status.error) {
         setLogInError(true);
       }
@@ -19,7 +25,7 @@ export default function LogIn({ csrfToken, providers }) {
   }
 
   return (
-    <form>
+    <form id="credentials" onSubmit={(e) => credentialsLogIn(e)}>
       <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
       <h1>Login</h1>
       <label>
@@ -30,7 +36,7 @@ export default function LogIn({ csrfToken, providers }) {
         Password
         <input name="password" type="password" />
       </label>
-        <button type="button" onClick={() => credentialsLogIn()}>Sign in</button>
+        <button type="submit" >Sign in</button>
         {logInError &&
         <div>
           Email or password invalid, please try again.

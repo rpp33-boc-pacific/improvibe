@@ -329,7 +329,7 @@ Updates total number of times project has been shared
 
 | Parameter      | Type |  Description      |  Required      |
 | ----------- | ----------- | ----------- | ----------- |
-| project_id | integer | Id for current song |    yes    |
+| song_id | integer | Id for current song |    yes    |
 
 response status: 200<br>
 

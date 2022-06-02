@@ -15,7 +15,7 @@ This guide explains how to use the routes within this API directory using HTTP G
 Parameters should be inserted in POST and PUT requests via the body parameter. Query strings for GET requests are appended to the end of a route.
 
 ## Terminology:<br>
-**Track** - a single audio file, or reference to the audio file uploaded to a project<br>
+**Track** - a single audio file uploaded to a project<br>
 **Layer** - the audio adjustments for each track<br>
 **Project** - a collection of all layers and their associated tracks<br>
 **Song** - specifically the flattened audio file version of a project that is created when a project is saved<br>
@@ -64,7 +64,7 @@ response status: ??
 
 ## User API
 #### GET  `/api/user/[id]`<br>
-Retrieves user information and user's public projects with relavent social data and flattened song URL
+Retrieves user information and user's public songs
 
 | Query String      | Description |
 | ----------- | ----------- |
@@ -103,18 +103,14 @@ response example:
 #### PUT  `/api/user/update/[id]`/<br>
 Updates user information based on parameter. Possible parameters given below.
 
-| Query String      | Description |
-| ----------- | ----------- |
-| [id]| The id of the current user appended to the route without brackets |
-
-NOTE: I think the logic here would all be the same, so the same query can be used
-| Parameter      | Type |  Description      |
-| ----------- | ----------- | ----------- |
-| name | string | Updates the name of signed in user |
-| photo_url | string | Updates url of profile picture of signed in user|
-| about_me | string | Updates about me section of signed in user |
-| email | string | Updates email of signed in user  |
-| password | string | Updates password of signed in user  |
+| Parameter      | Type |  Description      |  Required      |
+| ----------- | ----------- | ----------- | ----------- |
+| user_id | integer | Id of the current user | yes |
+| name | string | Updates the name of signed in user | no |
+| photo_url | string | Updates url of profile picture of signed in user| no |
+| about_me | string | Updates about me section of signed in user | no |
+| email | string | Updates email of signed in user  | no |
+| password | string | Updates password of signed in user  | no |
 
 reponse status: 200
 
@@ -187,6 +183,8 @@ Updates project information
 | total_time | integer | Length of current project |    no    |
 | song_path | string | URL for flattened song file |    no    |
 
+response status: 201<br>
+
 #### PUT  `/api/project/layer`<br>
 Updates layer information
 
@@ -201,16 +199,16 @@ Updates layer information
 | trim_start | integer | ?? |   no    |
 | trim_end | integer | ?? |   no    |
 
-#### DELETE  `/api/project`<br>
-Deletes Project
+response status: 201<br>
 
+#### DELETE  `/api/project`<br>
 Deletes project from project table
 
 | Parameter      | Type |  Description      |
 | ----------- | ----------- | ----------- |
 | project_id | string | Id for current song |
 
-response status: 200<br>
+response status: 204<br>
 
 
 

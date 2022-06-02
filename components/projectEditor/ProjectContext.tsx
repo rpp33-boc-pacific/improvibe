@@ -1,8 +1,8 @@
 import { createContext, useState } from 'react';
 
-const ProjectContext = createContext({});
+const ProjectContext = createContext();
 
-const ProjectContextProvider = ({ childrenComponents }: any) => {
+const ProjectContextProvider = ({ children }) => {
   const [layers, setLayers] = useState([]); //  [{ layerId: null, trackId: null, volume: 50, pitch: 50, tempo: 50, start: 0, end: 0, new: false }]
   const [projectName, setProjectName] = useState('new project');
   const [genre, setGenre] = useState('');
@@ -21,7 +21,7 @@ const ProjectContextProvider = ({ childrenComponents }: any) => {
 
   return (
     <ProjectContext.Provider value={projectContextValues}>
-      {childrenComponents}
+      {children}
     </ProjectContext.Provider>
   );
 };

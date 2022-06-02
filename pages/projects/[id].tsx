@@ -38,9 +38,9 @@ const Editor: NextPage = () => {
       <div className='main'>
         <div className='layers'>
           <ProjectContextProvider >
-            <ProjectHeader />
-            <LayerList layers={sammpleProject.layers} />
-            <AddLayer />
+              <ProjectHeader />
+              <LayerList />
+              <AddLayer />
           </ProjectContextProvider>
         </div>
         <div className='projects'>

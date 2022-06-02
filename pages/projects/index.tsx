@@ -47,7 +47,7 @@ const Projects: NextPage = () => {
                 <div className='layers'>
                   <ProjectContextProvider>
                     <ProjectHeader />
-                    <LayerList layers={[]}/>
+                    <LayerList />
                     <AddLayer />
                   </ProjectContextProvider>
                 </div>

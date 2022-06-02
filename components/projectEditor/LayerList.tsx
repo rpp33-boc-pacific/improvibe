@@ -4,18 +4,18 @@ import { Stack } from '@mui/material';
 import Layer from './Layer';
 import { ProjectContext } from './ProjectContext';
 
-// interface Props {
-//   layers: Array<{ layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, trackAudio: string, trackName: string, [key: string]: any }>,
-// }
-
 const LayerList : NextPage = () => {
-  const { layersValue } = useContext(ProjectContext);
-  const [layers, setLayers] = layersValue;
+  const { layersState } = useContext(ProjectContext);
+  const [layers, setLayers] = layersState;
+
+  let layerIndex = 0;
 
   return (
     <Stack spacing={2} role='list-layers' width={1150} margin={2}>
-      {layers.map((layer) => {
-        return <Layer key={layer.layerId} data={layer} />
+      {layers.map((layer: any) => {
+        let currentIndex = layerIndex;
+        layerIndex += 1;
+        return <Layer key={layer.layerId} layers={layers} layerIndex={currentIndex} setLayers={setLayers} />
       })}
     </Stack>
   )

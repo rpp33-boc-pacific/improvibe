@@ -1,4 +1,4 @@
-
+import { Layers } from '@mui/icons-material';
 import { Card, Stack } from '@mui/material';
 import { NextPage } from 'next';
 import { useState } from 'react';
@@ -7,10 +7,14 @@ import SoundControllerList from './SoundControllerList';
 import Wave from './Wave';
 
 interface Props {
-  data: { layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, trackAudio: string, trackName: string, [key: string]: any },
+  layers: [{ layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, trackAudio: string, trackName: string, [key: string]: any }],
+  layerIndex: number,
+  setLayers: Function,
 }
 
-const Layer : NextPage<Props> = ({ data }) => {
+const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
+  const data = layers[layerIndex];
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <Card role='layer'>

@@ -6,24 +6,15 @@ import AddLayer from '../../components/projectEditor/AddLayer';
 import NewProject from '../../components/projectEditor/NewProject';
 import ProjectList from '../../components/projectEditor/ProjectList';
 import SearchAppBar from '../../components/SearchBar';
-import project1 from '../../sample-data/project1';
-import project2 from '../../sample-data/project2';
-import project3 from '../../sample-data/project3';
-import projects from '../../sample-data/projects';
 import { useRouter } from 'next/router';
+import projects from '../../sample-data/projects';
 import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
 
-const sampleProjectOptions = [project1, project2, project3];
 const sampleProjects = projects;
 
 const Editor: NextPage = () => {
   const router = useRouter();
   let { id } = router.query;
-  if (id === undefined) {
-    id = '1';
-  }
-
-  const sammpleProject = sampleProjectOptions[Number(id) - 1];
 
   return (
       <>

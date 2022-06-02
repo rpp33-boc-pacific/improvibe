@@ -117,6 +117,8 @@ Retrieves songs based on search
 | shares | integer | Returns a maximum number of the most shared songs provided by parameter value |
 | most_recent | integer | Returns a maximum number of the most recent songs provided by parameter value |
 
+//Should all of these ^ be separate routes?
+
 response status: 200<br>
  ```
 [
@@ -275,7 +277,7 @@ response status: 201<br>
 
 #### POST  `/api/project`<br>
 #### POST  `/api/project/song`<br>
-Which of these ^ makes the most sense?
+Which of these endpoints ^ makes the most sense?
 Saves project to song database table
 
 | Parameter      | Type |  Description      |

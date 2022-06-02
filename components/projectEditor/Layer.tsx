@@ -2,7 +2,6 @@
 import { Card, Stack } from '@mui/material';
 import { NextPage } from 'next';
 import { useState } from 'react';
-import LayerContext from './LayerContext';
 import PlayLayer from './PlayLayer';
 import SoundControllerList from './SoundControllerList';
 import Wave from './Wave';
@@ -12,11 +11,6 @@ interface Props {
 }
 
 const Layer : NextPage<Props> = ({ data }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(data.volume);
-  const [pitch, setPitch] = useState(data.pitch);
-  const [tempo, setTempo] = useState(data.tempo);
-  const [loop, setLoop] = useState(data.loop);
 
   return (
     <Card role='layer'>

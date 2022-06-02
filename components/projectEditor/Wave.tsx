@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
 const { debounce } = require('lodash');
-import LayerContext from "./LayerContext";
 
 const formWaveSurferOptions = (ref: any) => ({
   container: ref,

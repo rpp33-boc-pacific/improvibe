@@ -14,6 +14,7 @@ import ProjectList from '../../components/projectEditor/ProjectList'
 import SearchAppBar from '../../components/SearchBar';
 import projects from '../../sample-data/projects';
 import { NextPage } from 'next';
+import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -44,11 +45,11 @@ const Projects: NextPage = () => {
             <Grid item xs={8}>
               <Item>
                 <div className='layers'>
-                  <div>
+                  <ProjectContextProvider>
                     <ProjectHeader />
                     <LayerList layers={[]}/>
                     <AddLayer />
-                  </div>
+                  </ProjectContextProvider>
                 </div>
               </Item>
             </Grid>

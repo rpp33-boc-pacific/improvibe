@@ -11,6 +11,7 @@ import project2 from '../../sample-data/project2';
 import project3 from '../../sample-data/project3';
 import projects from '../../sample-data/projects';
 import { useRouter } from 'next/router';
+import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
 
 const sampleProjectOptions = [project1, project2, project3];
 const sampleProjects = projects;
@@ -36,11 +37,11 @@ const Editor: NextPage = () => {
       <h1>Edit Project</h1>
       <div className='main'>
         <div className='layers'>
-          <div>
+          <ProjectContextProvider >
             <ProjectHeader />
             <LayerList layers={sammpleProject.layers} />
             <AddLayer />
-          </div>
+          </ProjectContextProvider>
         </div>
         <div className='projects'>
           <h2>My Projects</h2>

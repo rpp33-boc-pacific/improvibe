@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 import Layer from './Layer';
 import { ProjectContext } from './ProjectContext';
 
-const LayerList : NextPage = () => {
+const LayerList = () => {
   const { layersState } = useContext(ProjectContext);
   const [layers, setLayers] = layersState;
 
@@ -12,7 +12,7 @@ const LayerList : NextPage = () => {
 
   return (
     <Stack spacing={2} role='list-layers' width={1150} margin={2}>
-      {layers.map((layer: any) => {
+      {layers.map((layer) => {
         let currentIndex = layerIndex;
         layerIndex += 1;
         return <Layer key={layer.layerId} layers={layers} layerIndex={currentIndex} setLayers={setLayers} />

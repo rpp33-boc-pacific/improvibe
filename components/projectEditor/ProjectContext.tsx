@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react';
 import project1 from '../../sample-data/project1';
 
-const ProjectContext = createContext();
+const ProjectContext = createContext({});
 
 const ProjectContextProvider = ({ children }: any) => {
   const [layers, setLayers] = useState(project1.layers); //  [{ layerId: null, trackId: null, volume: 50, pitch: 50, tempo: 50, start: 0, end: 0, new: false }]

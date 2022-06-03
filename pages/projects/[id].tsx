@@ -25,18 +25,20 @@ const Editor: NextPage = () => {
       </Head>
 
       <SearchAppBar />
-      <h1>Edit Project</h1>
-      <div className='main'>
-        <div className='layers'>
+      <div className='project-editor-grid'>
+        <h1 className='page-title'>Edit Project</h1>
+        <div className='editor-container'>
           <ProjectContextProvider >
               <ProjectHeader />
               <LayerList />
               <AddLayer />
           </ProjectContextProvider>
         </div>
-        <div className='projects'>
-          <h2>My Projects</h2>
-          <NewProject />
+        <div className='projects-container'>
+          <div className='newproject-holder'>
+            <h2>My Projects</h2>
+            <NewProject />
+          </div>
           <ProjectList projects={sampleProjects}/>
         </div>
       </div>

@@ -53,7 +53,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying }) => {
   }
 
   return (
-    <div id={`wave-${data.layerId}`} ref={waveformRef} />
+    <div className='wave-card' id={`wave-${data.layerId}`} ref={waveformRef} />
   );
 }
 

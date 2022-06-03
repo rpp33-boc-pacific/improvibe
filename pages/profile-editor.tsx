@@ -7,10 +7,10 @@ import { Stack } from '@mui/material';
 import axios from 'axios';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import Photo from '../../components/profileEditor/Photo';
-import Song from '../../components/profileEditor/Song';
-import SearchBar from '../../components/SearchBar';
-import editProfile from '../../sample-data/profileeditor'; // REMOVE LATER
+import Photo from '../components/profileEditor/Photo';
+import Song from '../components/profileEditor/Song';
+import SearchBar from '../components/SearchBar';
+import editProfile from '../sample-data/profileeditor'; // REMOVE LATER
 import { useContext } from 'react';  // const userInfo = useContext(Context);
 // const userIdInState = userInfo.userId;
 // const songs = useContext(Context);
@@ -47,7 +47,7 @@ const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
       if (err) {
         // NOTIFY USER
       } else {
-        router.push(`/profiles/${userId}`);
+        router.push('/profile');
       }
     }
   };

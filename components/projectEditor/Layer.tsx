@@ -7,7 +7,7 @@ import SoundControllerList from './SoundControllerList';
 import Wave from './Wave';
 
 interface Props {
-  layers: [{ layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, trackAudio: string, trackName: string, [key: string]: any }],
+  layers: [{ layerId: number, volume: number, pitch: number, tempo: number, start: number, end: number, trackAudio: string, trackName: string, [key: string]: any }],
   layerIndex: number,
   setLayers: Function,
 }
@@ -24,7 +24,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
             <div className='layer-name'>{data.trackName}</div>
             <PlayLayer setIsPlaying={setIsPlaying} isPlaying={isPlaying}/>
           </Stack>
-          <SoundControllerList data={data}/>
+          <SoundControllerList layers={layers} layerIndex={layerIndex} setLayers={setLayers} />
         </Stack>
         <div className='wave-holder'>
           <div className='wave'>

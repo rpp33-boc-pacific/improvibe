@@ -28,8 +28,8 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
   }
 
   const waveView = (
-    <Card role='layer'>
-      <Stack spacing={2} direction="row" alignItems="center" m={2}>
+    <div role='layer' className='card-layer'>
+      <div className='settings-holder'>
         <Stack spacing={2} width={400}>
           <Stack direction="row" spacing={2}>
             <div className='layer-name'>{data.trackName}</div>
@@ -44,12 +44,12 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
             </Card>
           </div>
         </div>
-      </Stack>
-    </Card>
+      </div>
+    </div>
   );
 
   const settingsView = (
-    <Card role='layer'>
+    <div role='layer' className='card-layer'>
       <div className='settings-holder'>
         <div className='settings-view'>
           <div className='settings-button' onClick={changeView}>Back</div>
@@ -57,7 +57,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
           <div className='settings-button' onClick={deleteLayer}>Delete</div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 
   const display = (showWaveView) ? waveView : settingsView;

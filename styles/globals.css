@@ -21,11 +21,14 @@ a {
   justify-content: center;
   align-items: center;
   padding-left: 16px;
+  flex-grow: 5;
+  height: 100%;
+  overflow: hidden;
 }
 
 .wave-card {
-  height: fit-content;
-  width: 900px;
+  height: 100%;
+  width: 100%;
   border-style: solid;
   border-width: 1px;
   border-radius: 12px;
@@ -33,7 +36,7 @@ a {
   overflow: hidden;
 }
 
-.setting-label {
+.setting-label, .project-status {
   width: 80px;
   font-weight: lighter;
 }
@@ -60,12 +63,12 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 214px;
+  height: 14vh;
   width: 100%;
   padding: 16px;
 }
 
-.settings-button {
+.underlined-button {
   display: flex;
   font-weight: bold;
   flex-grow: 1;
@@ -80,10 +83,57 @@ a {
 }
 
 .card-layer {
-  height: 214px;
+  height: 14vh;
   border-style: solid;
   border-width: 1px;
   border-radius: 12px;
   border-color: #D3D3D3;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.project-editor-grid {
+  display: grid;
+  grid-template-columns: 5% 65% 5% 20% 5%
+}
+
+.editor-container, .page-title {
+  grid-column: 2;
+}
+
+.projects-container {
+  grid-column: 4;
+}
+
+.newproject-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.list-layers {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.layer-details-holder {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 16px;
+  height: 100%;
+}
+
+.project-card {
+  height: 4vh;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+  border-color: #D3D3D3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 16px;
 }

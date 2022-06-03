@@ -1,5 +1,4 @@
-import { Layers } from '@mui/icons-material';
-import { Card, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import PlayLayer from './PlayLayer';
@@ -30,13 +29,13 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
   const waveView = (
     <div role='layer' className='card-layer'>
       <div className='layer-holder'>
-        <Stack spacing={2} width={400}>
+        <div className='layer-details-holder'>
           <Stack direction="row" spacing={2}>
-            <div className='layer-name'>{data.trackName}</div>
             <PlayLayer setIsPlaying={setIsPlaying} isPlaying={isPlaying}/>
+            <div className='layer-name'>{data.trackName}</div>
           </Stack>
           <SoundControllerList changeView={changeView} layers={layers} layerIndex={layerIndex} setLayers={setLayers} isDisabled={true}/>
-        </Stack>
+        </div>
         <div className='wave-holder'>
           <Wave data={data} isPlaying={isPlaying}/>
         </div>
@@ -48,9 +47,9 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
     <div role='layer' className='card-layer'>
       <div className='layer-holder'>
         <div className='settings-view'>
-          <div className='settings-button' onClick={changeView}>Back</div>
+          <div className='underlined-button' onClick={changeView}>Back</div>
           <SoundControllerList layers={layers} layerIndex={layerIndex} setLayers={setLayers} changeView={() => {}} isDisabled={false}/>
-          <div className='settings-button' onClick={deleteLayer}>Delete</div>
+          <div className='underlined-button' onClick={deleteLayer}>Delete</div>
         </div>
       </div>
     </div>

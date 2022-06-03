@@ -26,7 +26,7 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers, c
   }
 
   const changeTempo = (event: any) => {
-    data.tempo = event.target.value / 100;
+    data.tempo = event.target.value;
     layers[layerIndex] = data;
     setLayers(layers);
   }

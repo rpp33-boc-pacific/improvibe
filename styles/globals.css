@@ -14,7 +14,6 @@ a {
 * {
   box-sizing: border-box;
 }
-
 .wave-holder {
   display: flex;
   justify-content: center;
@@ -65,4 +64,10 @@ a {
   flex-grow: 1;
   text-decoration: underline;
   justify-content: center;
+}
+
+.MuiSlider-thumb {
+  box-shadow: none;
+  width: 0px;
+  height: 0px;
 }

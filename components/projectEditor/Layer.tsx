@@ -38,11 +38,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
           <SoundControllerList changeView={changeView} layers={layers} layerIndex={layerIndex} setLayers={setLayers} isDisabled={true}/>
         </Stack>
         <div className='wave-holder'>
-          <div className='wave'>
-            <Card variant="outlined">
-              <Wave data={data} isPlaying={isPlaying}/>
-            </Card>
-          </div>
+          <Wave data={data} isPlaying={isPlaying}/>
         </div>
       </div>
     </div>

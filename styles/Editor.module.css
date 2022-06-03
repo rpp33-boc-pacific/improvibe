@@ -1,26 +1,7 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-/* Editor CSS */
 .wave-holder {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 16px;
 }
 
 .wave {
@@ -44,6 +25,7 @@ a {
   justify-content: space-between;
   flex-direction: row;
   width: 100%;
+  margin: 24px;
 }
 
 .controller-list {
@@ -58,7 +40,6 @@ a {
   align-items: center;
   height: 214px;
   width: 100%;
-  padding: 16px;
 }
 
 .settings-button {

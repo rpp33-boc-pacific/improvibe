@@ -27,7 +27,6 @@ const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
   // const songs = context.songs;
 
   const router = useRouter();
-  const userId: string = router.query.userId as string;
 
   const [name, setName] = useState(editProfile.name /* nameInState */);
   const [email, setEmail] = useState(editProfile.email /* emailInState */);
@@ -40,19 +39,19 @@ const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
   const handleSave = async () => {
     let err = false;
     try {
-      await axios.post(`/api/profiles/${userId}`, { name, email, password, aboutMe });
+      await axios.post('/api/user/update', { name, email, password, aboutMe });
     } catch (error) {
       err = true;
     } finally {
       if (err) {
         // NOTIFY USER
       } else {
-        router.push('/profile');
       }
+      router.push('/profile');
     }
   };
 
-  if (userId === editProfile.userId /* userIdInState */) {
+  if (editProfile.userId /* userIdInState */) {
     return (
       <div>
         <SearchBar />

@@ -52,7 +52,7 @@ a {
   flex-grow: 6;
 }
 
-.settings-holder {
+.layer-holder {
   display: flex;
   justify-content: center;
   align-items: center;

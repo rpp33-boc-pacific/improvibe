@@ -29,7 +29,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
 
   const waveView = (
     <div role='layer' className='card-layer'>
-      <div className='settings-holder'>
+      <div className='layer-holder'>
         <Stack spacing={2} width={400}>
           <Stack direction="row" spacing={2}>
             <div className='layer-name'>{data.trackName}</div>
@@ -50,7 +50,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
 
   const settingsView = (
     <div role='layer' className='card-layer'>
-      <div className='settings-holder'>
+      <div className='layer-holder'>
         <div className='settings-view'>
           <div className='settings-button' onClick={changeView}>Back</div>
           <SoundControllerList layers={layers} layerIndex={layerIndex} setLayers={setLayers} changeView={() => {}} isDisabled={false}/>

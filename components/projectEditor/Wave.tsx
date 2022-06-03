@@ -43,7 +43,10 @@ const Wave: NextPage<Props> = ({ data, isPlaying }) => {
 
   if (wavesurfer.current) {
     if (isPlaying) {
-      wavesurfer.current.play();
+      wavesurfer.current.setVolume(data.volume);
+      wavesurfer.current.setPlaybackRate(data.tempo);
+      wavesurfer.current.setPlaybackRate(data.tempo);
+      wavesurfer.current.play(data.start, data.end);
     } else {
       wavesurfer.current.pause();
     }

@@ -28,7 +28,7 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers })
   }
 
   const changeTempo = (event: any) => {
-    data.tempo = event.target.value;
+    data.tempo = event.target.value / 100;
     layers[layerIndex] = data;
     setLayers(layers);
   }
@@ -44,7 +44,7 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers })
     <Stack spacing={1} role='sound-controller-list' onClick={openSettingsEditor}>
       <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 100 }} changeSetting={changeVolume}/>
       <SoundController settings={{ label: 'pitch', value: data.pitch, min: 0, max: 100 }} changeSetting={changePitch}/>
-      <SoundController settings={{ label: 'tempo', value: data.tempo, min: 0, max: 100 }} changeSetting={changeTempo}/>
+      <SoundController settings={{ label: 'tempo', value: data.tempo, min: 0, max: 500 }} changeSetting={changeTempo}/>
       <SoundController settings={{ label: 'interval', value: [data.start, data.end], min: 0, max: 100 }} changeSetting={changeInterval}/>
     </Stack>
   )

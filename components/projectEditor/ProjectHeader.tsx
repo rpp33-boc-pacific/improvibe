@@ -1,3 +1,4 @@
+import {useState, useRef } from 'react';
 import PlayProject from "./PlayProject";
 import GenreSelector from "./GenreSelector";
 import SaveProject from "./SaveProject";
@@ -11,6 +12,9 @@ function ProjectHeader() {
     height: 60,
     backgroundColor: '#fff',
   };
+
+  const songName = useRef(null);
+  console.log(songName.current)
 
   return (
     <>
@@ -27,7 +31,8 @@ function ProjectHeader() {
             justifyContent="flex-start"
             alignItems="center">
               <PlayProject />
-              <h3>Song Name</h3>
+              {/* this will become editable component */}
+              <h3 ref={songName}>Song Name</h3>
             </Grid>
           </div>
           <div>

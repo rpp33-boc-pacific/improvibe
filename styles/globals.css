@@ -36,3 +36,33 @@ a {
   font-weight: bold;
   font-size: 150%;
 }
+
+.settings-view {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  margin: 24px;
+}
+
+.controller-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 6;
+}
+
+.settings-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 214px;
+  width: 100%;
+}
+
+.settings-button {
+  display: flex;
+  font-weight: bold;
+  flex-grow: 1;
+  text-decoration: underline;
+  justify-content: center;
+}

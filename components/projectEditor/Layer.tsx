@@ -15,8 +15,13 @@ interface Props {
 const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
   const data = layers[layerIndex];
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showWaveView, setWaveView] = useState(true);
 
-  return (
+  const changeView = () => {
+    setWaveView(!showWaveView);
+  }
+
+  const waveView = (
     <Card role='layer'>
       <Stack spacing={2} direction="row" alignItems="center" m={2}>
         <Stack spacing={2} width={400}>
@@ -24,7 +29,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
             <div className='layer-name'>{data.trackName}</div>
             <PlayLayer setIsPlaying={setIsPlaying} isPlaying={isPlaying}/>
           </Stack>
-          <SoundControllerList layers={layers} layerIndex={layerIndex} setLayers={setLayers} />
+          <SoundControllerList changeView={changeView} layers={layers} layerIndex={layerIndex} setLayers={setLayers} isDisabled={true}/>
         </Stack>
         <div className='wave-holder'>
           <div className='wave'>
@@ -35,6 +40,24 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
         </div>
       </Stack>
     </Card>
+  );
+
+  const settingsView = (
+    <Card role='layer'>
+      <div className='settings-holder'>
+        <div className='settings-view'>
+          <div className='settings-button' onClick={changeView}>Back</div>
+          <SoundControllerList layers={layers} layerIndex={layerIndex} setLayers={setLayers} changeView={() => {}} isDisabled={false}/>
+          <div className='settings-button'>Delete</div>
+        </div>
+      </div>
+    </Card>
+  );
+
+  const display = (showWaveView) ? waveView : settingsView;
+
+  return (
+    display
   )
 }
 

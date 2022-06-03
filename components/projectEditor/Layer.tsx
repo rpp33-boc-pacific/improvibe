@@ -21,6 +21,12 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
     setWaveView(!showWaveView);
   }
 
+  const deleteLayer = () => {
+    // make a call to the api to delete
+    const remainingLayers = layers.filter((item, index) => index !== layerIndex)
+    setLayers(remainingLayers);
+  }
+
   const waveView = (
     <Card role='layer'>
       <Stack spacing={2} direction="row" alignItems="center" m={2}>
@@ -48,7 +54,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
         <div className='settings-view'>
           <div className='settings-button' onClick={changeView}>Back</div>
           <SoundControllerList layers={layers} layerIndex={layerIndex} setLayers={setLayers} changeView={() => {}} isDisabled={false}/>
-          <div className='settings-button'>Delete</div>
+          <div className='settings-button' onClick={deleteLayer}>Delete</div>
         </div>
       </div>
     </Card>

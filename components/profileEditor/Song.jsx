@@ -8,30 +8,30 @@ import axios from 'axios';
 
 const Songs = ({ song }) => {
 
-  const [publicState, setpublicState] = useState(props.song.public);
+  const [publicState, setpublicState] = useState(song.public);
 
   const handleLockClick = () => {
     let err = false;
-    axios.put(`/api/songs/${props.song.id}/public`)
+    axios.put(`/api/songs/${song.id}/public`)
       .catch((error) => {
         err = true;
       })
       .then((res) => {
-        if (!err && res.status.toString()[0] === '2') {
-          setpublicState(!publicState);
-        }
+        // if (!err && res.status.toString()[0] === '2') {
+        setpublicState(!publicState);
+        // }
       });
   };
   const handleLockOpenClick = () => {
     let err = false;
-    axios.put(`/api/songs/${props.song.id}/private`)
+    axios.put(`/api/songs/${song.id}/private`)
       .catch((error) => {
         err = true;
       })
       .then((res) => {
-        if (!err && res.status.toString()[0] === '2') {
-          setpublicState(!publicState);
-        }
+        // if (!err && res.status.toString()[0] === '2') {
+        setpublicState(!publicState);
+        // }
       });
   };
 
@@ -41,7 +41,7 @@ const Songs = ({ song }) => {
         <Grid container>
           <Grid item>
             <Box>
-              <Typography>{props.song.name}</Typography>
+              <Typography>{song.name}</Typography>
             </Box>
           </Grid>
           <Grid item>
@@ -56,7 +56,7 @@ const Songs = ({ song }) => {
         <Grid container>
           <Grid item>
             <Box>
-              <Typography>{props.song.name}</Typography>
+              <Typography>{song.name}</Typography>
             </Box>
           </Grid>
           <Grid item>

@@ -2,17 +2,15 @@ import { Stack } from '@mui/material'
 import { NextPage } from 'next'
 import SoundController from './SoundController'
 
-const openSettingsEditor = (event: any) => {
-  // change out the interface for just the sound controller but larger and not disabled
-};
-
 interface Props {
   layers: [{ layerId: number, volume: number, pitch: number, tempo: number, start: number, end: number, trackAudio: string, trackName: string, [key: string]: any }],
   layerIndex: number,
   setLayers: Function,
+  changeView: any,
+  isDisabled: boolean,
 }
 
-const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
+const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers, changeView, isDisabled }) => {
   const data = layers[layerIndex];
 
   const changeVolume = (event: any) => {
@@ -39,14 +37,14 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers })
     layers[layerIndex] = data;
     setLayers(layers);
   }
-
+  // spacing={1} role='sound-controller-list' onClick={openSettingsEditor}
   return (
-    <Stack spacing={1} role='sound-controller-list' onClick={openSettingsEditor}>
-      <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 100 }} changeSetting={changeVolume}/>
-      <SoundController settings={{ label: 'pitch', value: data.pitch, min: 0, max: 100 }} changeSetting={changePitch}/>
-      <SoundController settings={{ label: 'tempo', value: data.tempo, min: 0, max: 500 }} changeSetting={changeTempo}/>
-      <SoundController settings={{ label: 'interval', value: [data.start, data.end], min: 0, max: 100 }} changeSetting={changeInterval}/>
-    </Stack>
+    <div className='controller-list' onClick={changeView}>
+      <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 100 }} changeSetting={changeVolume} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'pitch', value: data.pitch, min: 0, max: 100 }} changeSetting={changePitch} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'tempo', value: data.tempo, min: 0, max: 500 }} changeSetting={changeTempo} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'interval', value: [data.start, data.end], min: 0, max: 100 }} changeSetting={changeInterval} isDisabled={isDisabled}/>
+    </div>
   )
 }
 

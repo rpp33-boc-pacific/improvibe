@@ -20,7 +20,7 @@ export default function LogIn() {
 
     signIn('credentials', {email: email, password: password, redirect: false, callbackUrl: '/'})
     .then((status) => {
-      if (status!.error) {
+      if (status.error !== undefined) {
         setLogInError(true);
       } else {
         router.push('/');

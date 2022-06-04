@@ -11,14 +11,14 @@ export default NextAuth({
         email: { label: "Email", type: "email", placeholder: "jsmith@test.com" },
         password: {  label: "Password", type: "password" }
       },
-      authorize(credentials: any) {
+      authorize(credentials) {
       const email = credentials?.email;
       const hashedPassword = hash({email: credentials?.password});
 
       const checkUserCredentials = `SELECT id, email FROM users WHERE email='${email}' AND hash='${hashedPassword}'`;
 
       return pool.query(checkUserCredentials)
-      .then((user: any) => {
+      .then((user) => {
         if (user.rowCount === 0) {
           throw new Error('Invalid email or password');
         } else {
@@ -29,7 +29,7 @@ export default NextAuth({
           }
           return loggedInUser;
         }
-      }).catch((err: any) => {
+      }).catch((err) => {
         return null;
       });
       }

@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import FilterSelect from '../../components/queryPage/FilterSelect';
-import SortSelect from '../../components/queryPage/SortSelect';
-import SongResult from '../../components/queryPage/SongResult';
-import NavigationBar from '../../components/NavigationBar';
+// import FilterSelect from '../../components/queryPage/FilterSelect';
+// import { useState } from 'react';
+// import SortSelect from '../../components/queryPage/SortSelect';
+// import SongResult from '../../components/queryPage/SongResult';
+// import NavigationBar from '../../components/NavigationBar';
+import Query from '../../pages/query/index';
 
 const userProp = {
   userId: 1,
@@ -20,7 +22,8 @@ const songProp = {
 
 describe('Components', () => {
   // it('Renders filter select', () => {
-  //   render(<FilterSelect/>);
+  //   const [filterParams, setFilterParams] = useState<string[]>([]);
+  //   render(<FilterSelect filterParams={filterParams} setFilterParams={setFilterParams}/>);
   //   const list = screen.getByRole('filter-select');
   //   expect(list).toBeInTheDocument();
   // });
@@ -44,10 +47,10 @@ describe('Components', () => {
   // });
 });
 
-describe('Query Page', () => {
-  // it('Has a UL to hold layers', () => {
-  //   render(<FilterSelect/>);
-  //   const list = screen.getByRole('filter-select');
-  //   expect(list).toBeInTheDocument();
-  // });
+describe('Query Index Page', () => {
+  it('Renders filter select', () => {
+    render(<Query/>);
+    const filterSelect = screen.getByRole('filter-select');
+    expect(filterSelect).toBeInTheDocument();
+  });
 });

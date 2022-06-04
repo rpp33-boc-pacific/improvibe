@@ -1,42 +1,64 @@
-
-import { Card, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { NextPage } from 'next';
 import { useState } from 'react';
-import LayerContext from './LayerContext';
 import PlayLayer from './PlayLayer';
 import SoundControllerList from './SoundControllerList';
 import Wave from './Wave';
 
 interface Props {
-  data: { layerId: number, volume: number, pitch: number, tempo: number, loop: boolean, trackAudio: string, trackName: string, [key: string]: any },
+  layers: [{ layerId: number, volume: number, pitch: number, tempo: number, start: number, end: number, trackAudio: string, trackName: string, [key: string]: any }],
+  layerIndex: number,
+  setLayers: Function,
 }
 
-const Layer : NextPage<Props> = ({ data }) => {
+const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
+  const data = layers[layerIndex];
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(data.volume);
-  const [pitch, setPitch] = useState(data.pitch);
-  const [tempo, setTempo] = useState(data.tempo);
-  const [loop, setLoop] = useState(data.loop);
+  const [showWaveView, setWaveView] = useState(true);
+
+  const changeView = () => {
+    setWaveView(!showWaveView);
+  }
+
+  const deleteLayer = () => {
+    // make a call to the api to delete
+    const remainingLayers = layers.filter((item, index) => index !== layerIndex)
+    setLayers(remainingLayers);
+  }
+
+  const waveView = (
+    <div role='layer' className='card-layer'>
+      <div className='layer-holder'>
+        <div className='layer-details-holder'>
+          <Stack direction="row" spacing={2}>
+            <PlayLayer setIsPlaying={setIsPlaying} isPlaying={isPlaying}/>
+            <div className='layer-name'>{data.trackName}</div>
+          </Stack>
+          <SoundControllerList changeView={changeView} layers={layers} layerIndex={layerIndex} setLayers={setLayers} isDisabled={true}/>
+        </div>
+        <div className='wave-holder'>
+          <Wave data={data} isPlaying={isPlaying}/>
+        </div>
+      </div>
+    </div>
+  );
+
+  const settingsView = (
+    <div role='layer' className='card-layer'>
+      <div className='layer-holder'>
+        <div className='settings-view'>
+          <div className='underlined-button' onClick={changeView}>Back</div>
+          <SoundControllerList layers={layers} layerIndex={layerIndex} setLayers={setLayers} changeView={() => {}} isDisabled={false}/>
+          <div className='underlined-button' onClick={deleteLayer}>Delete</div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const display = (showWaveView) ? waveView : settingsView;
 
   return (
-    <Card role='layer'>
-      <Stack spacing={2} direction="row" alignItems="center" m={2}>
-        <Stack spacing={2} width={400}>
-          <Stack direction="row" spacing={2}>
-            <div className='layer-name'>{data.trackName}</div>
-            <PlayLayer setIsPlaying={setIsPlaying} isPlaying={isPlaying}/>
-          </Stack>
-          <SoundControllerList data={data}/>
-        </Stack>
-        <div className='wave-holder'>
-          <div className='wave'>
-            <Card variant="outlined">
-              <Wave data={data} isPlaying={isPlaying}/>
-            </Card>
-          </div>
-        </div>
-      </Stack>
-    </Card>
+    display
   )
 }
 

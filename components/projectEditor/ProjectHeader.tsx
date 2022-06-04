@@ -1,9 +1,10 @@
-import {useState, useRef } from 'react';
+import {useState, useRef, SetStateAction } from 'react';
 import PlayProject from "./PlayProject";
 import GenreSelector from "./GenreSelector";
 import SaveProject from "./SaveProject";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import EditableElement from '../shared/EditableElement';
 
 function ProjectHeader() {
 
@@ -13,8 +14,11 @@ function ProjectHeader() {
     backgroundColor: '#fff',
   };
 
-  const songName = useRef(null);
-  console.log(songName.current)
+  const initialValue = "Type Project Name Here";
+  const [value, setValue] = useState(initialValue);
+  const handleChange = (value: any) => {
+    setValue(value);
+  };
 
   return (
     <>
@@ -31,8 +35,11 @@ function ProjectHeader() {
             justifyContent="flex-start"
             alignItems="center">
               <PlayProject />
-              {/* this will become editable component */}
-              <h3 ref={songName}>Song Name</h3>
+              <EditableElement onChange={handleChange}>
+                <div style={{ outline: "none" }}>
+                  <p>{initialValue}</p>
+                </div>
+              </EditableElement>
             </Grid>
           </div>
           <div>

@@ -1,19 +1,15 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
 import LayerList from '../../components/projectEditor/LayerList'
 import ProjectHeader from '../../components/projectEditor/ProjectHeader'
 import AddLayer from '../../components/projectEditor/AddLayer'
 import NewProject from '../../components/projectEditor/NewProject'
 import ProjectList from '../../components/projectEditor/ProjectList'
-import SearchAppBar from '../../components/SearchBar';
+import NavigationBar from '../../components/NavigationBar';
 import projects from '../../sample-data/projects';
 import { NextPage } from 'next';
+import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -29,44 +25,33 @@ const sampleProjects = projects;
 const Projects: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>improvibe</title>
-        <meta name="project editor" content="page to edit songs" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <SearchAppBar />
+    <Head>
+      <title>improvibe</title>
+      <meta name="project editor" content="page to edit songs" />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
 
-      <CssBaseline />
-      <Container maxWidth="xl">
-        <h1>Edit Project</h1>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={8}>
-              <Item>
-                <div className='layers'>
-                  <div>
-                    <ProjectHeader />
-                    <LayerList layers={[]}/>
-                    <AddLayer />
-                  </div>
-                </div>
-              </Item>
-            </Grid>
-            <Grid item xs={4}>
-              <Item>
-                <div className='projects'>
-                  <h2>My Projects</h2>
-                  <ProjectList projects={sampleProjects}/>
-                  <NewProject />
-                </div>
-              </Item>
-            </Grid>
-          </Grid>
-        </Box>
-      </Container>
-    </>
-  );
-}
+    <NavigationBar />
+    <div className='project-editor-grid'>
+      <h1 className='page-title'>Edit Project</h1>
+      <div className='editor-container'>
+        <ProjectContextProvider >
+            <ProjectHeader />
+            <LayerList />
+            <AddLayer />
+        </ProjectContextProvider>
+      </div>
+      <div className='projects-container'>
+        <div className='newproject-holder'>
+          <h2>My Projects</h2>
+          <NewProject />
+        </div>
+        <ProjectList projects={sampleProjects}/>
+      </div>
+    </div>
+  </>
+)
+};
 
 export default Projects;
 

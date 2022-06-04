@@ -19,29 +19,27 @@ const MenuProps = {
 
 const types = [
   'Artists',
-  'Tracks',
+  'Genres',
   'Projects',
 ];
 
-function getStyles(name: string, personName: string[], theme: Theme) {
+function getStyles(param: string, filterParams: string[], theme: Theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      filterParams.indexOf(param) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
-export default function FilterSelect() {
+export default function FilterSelect({filterParams, setFilterParams}) {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  const handleChange = (event: SelectChangeEvent<typeof filterParams>) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
+    setFilterParams(
       typeof value === 'string' ? value.split(',') : value,
     );
   };
@@ -54,7 +52,7 @@ export default function FilterSelect() {
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
-          value={personName}
+          value={filterParams}
           onChange={handleChange}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
@@ -63,7 +61,7 @@ export default function FilterSelect() {
             <MenuItem
               key={type}
               value={type}
-              style={getStyles(type, personName, theme)}
+              style={getStyles(type, filterParams, theme)}
             >
               {type}
             </MenuItem>

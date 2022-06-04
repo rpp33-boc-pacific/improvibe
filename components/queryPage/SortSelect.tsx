@@ -5,22 +5,20 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-export default function SortSelect() {
-  const [sort, setSort] = React.useState('');
+export default function SortSelect({sortParam, setSortParam}) {
 
   const handleChange = (event: SelectChangeEvent) => {
-    setSort(event.target.value as string);
+    setSortParam(event.target.value as string);
   };
 
   return (
     <Box role='sort-select'>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+        <InputLabel id="sort-simple-select-label">Sort</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={sort}
-          label="Sort"
+          id="sort-simple-select"
+          value={sortParam}
+          label="Sort Parameter"
           onChange={handleChange}
         >
           <MenuItem value={'Most Popular'}>Most Popular</MenuItem>

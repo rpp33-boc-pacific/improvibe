@@ -9,8 +9,7 @@ import LikeButton from '../components/shared/LikeButton';
 import AddToProjects from '../components/shared/AddToProjects';
 import HomePage from '../components/explorerPage/homePage';
 
-const Home: NextPage = () => {
-
+const Home: NextPage = (props) => {
   return (
     <div>
       <Head>

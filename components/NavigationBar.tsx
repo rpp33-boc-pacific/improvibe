@@ -115,7 +115,6 @@ export default function NavigationBar() {
         Router.push(`/profile/`);
       }}
       >Profile</MenuItem>
-      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
       <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
     </Menu>
   );
@@ -167,18 +166,6 @@ export default function NavigationBar() {
           <p>Dark Mode</p>
         }
       </MenuItem>
-      {/* <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -198,15 +185,6 @@ export default function NavigationBar() {
     <Box sx={{ flexGrow: 1 }} role='navigation-bar'>
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
           <Typography
             variant="h6"
             noWrap
@@ -231,17 +209,14 @@ export default function NavigationBar() {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
               multiline={false}
-              // Submit on enter
               onKeyPress={(event) => {
                 if (event.key === "Enter") {
                   event.preventDefault();
-                  // console.log(event.target.value);
                   const element = event.target as HTMLInputElement;
                   var value = element.value;
-                  if (value === undefined) {
-                    value = '';
+                  if (value !== '') {
+                    Router.push(`/query/${value}`);
                   }
-                  Router.push(`/query/${value}`);
                 }
               }}
             />
@@ -270,15 +245,6 @@ export default function NavigationBar() {
                 }
               </Badge>
             </IconButton>
-            {/* <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
             <IconButton
               size="large"
               edge="end"

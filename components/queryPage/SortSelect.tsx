@@ -21,8 +21,10 @@ export default function SortSelect({sortParam, setSortParam}: any) {
           label="Sort Parameter"
           onChange={handleChange}
         >
-          <MenuItem value={'Most Popular'}>Most Popular</MenuItem>
-          <MenuItem value={'Least Popular'}>Least Popular</MenuItem>
+          <MenuItem value={'Most Liked'}>Most Liked</MenuItem>
+          <MenuItem value={'Least Liked'}>Least Liked</MenuItem>
+          <MenuItem value={'Most Shared'}>Most Shared</MenuItem>
+          <MenuItem value={'Least Shared'}>Least Shared</MenuItem>
           <MenuItem value={'Most Recent'}>Most Recent</MenuItem>
           <MenuItem value={'Least Recent'}>Least Recent</MenuItem>
         </Select>

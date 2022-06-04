@@ -47,8 +47,7 @@ export default function SongResult({ song, user }: any) {
           </Typography>
         </GenreContainer>
       </CardContent>
-      <CardActions sx={{flexDirection: 'row-reverse', padding: 0}}>
-        <Button size="small">Learn More</Button>
+      <CardActions sx={{flexDirection: 'row-reverse', padding: 0, pr: 3}}>
         <Button size="small">Share</Button>
         <LikeButton song={song} user={user} color='red'/>
       </CardActions>

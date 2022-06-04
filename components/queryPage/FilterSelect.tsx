@@ -20,7 +20,7 @@ const MenuProps = {
 const types = [
   'Artists',
   'Genres',
-  'Projects',
+  'Songs',
 ];
 
 function getStyles(param: string, filterParams: string[], theme: Theme) {

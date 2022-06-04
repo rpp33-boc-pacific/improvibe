@@ -32,7 +32,7 @@ function getStyles(param: string, filterParams: string[], theme: Theme) {
   };
 }
 
-export default function FilterSelect({filterParams, setFilterParams}) {
+export default function FilterSelect({filterParams, setFilterParams}: any) {
   const theme = useTheme();
 
   const handleChange = (event: SelectChangeEvent<typeof filterParams>) => {

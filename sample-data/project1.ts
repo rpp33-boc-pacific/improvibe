@@ -13,9 +13,8 @@ const project = {
       tempo: 10,
       pitch: 50,
       volume: 65,
-      start_time: 'start time',
-      trim_start: 'trim start',
-      trim_end: 'trim end',
+      start: 0,
+      end: 75,
       loop: false
     },
     {
@@ -26,9 +25,8 @@ const project = {
       tempo: 40,
       pitch: 100,
       volume: 25,
-      start_time: 'start time',
-      trim_start: 'trim start',
-      trim_end: 'trim end',
+      start: 25,
+      end: 60,
       loop: true
     }
   ]

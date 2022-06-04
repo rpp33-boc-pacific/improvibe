@@ -15,7 +15,7 @@ const ProjectList: NextPage<Props> = ({ projects }) => {
         return (
           <div className='project-card' key={project.id}>
             <Link href={`/projects/${project.id}`}>
-              <a>{project.projectName}</a>
+              <a className='project-link'>{project.projectName}</a>
             </Link>
             <div className='project-status'>{status}</div>
           </div>

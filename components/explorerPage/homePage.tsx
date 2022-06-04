@@ -5,7 +5,7 @@ import PopularGenres from './popularGenres';
 import TopArtists from './topArtists';
 import YourContributions from './yourContributions';
 import HorizontalCarousel from './horizontalCarousel';
-import SearchBar from '../SearchBar';
+import NavigationBar from '../NavigationBar';
 import GenreData from './genres-sampleData';
 import Artists from './topArtists-sampleData';
 import Songs from './topContributions-sampleData';
@@ -28,7 +28,7 @@ export default function HomePage() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Item>
-            <SearchBar/>
+            <NavigationBar/>
           </Item>
         </Grid>
         <Grid item xs={12}>

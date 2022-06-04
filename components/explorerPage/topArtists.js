@@ -51,7 +51,7 @@ const TopArtists = (props) => {
                       <ListItemAvatar>
                         <Avatar src="/broken-image.jpg" />
                       </ListItemAvatar>
-                      <Link href="/profile" passHref>
+                      <Link href=" /profile/:userId" passHref>
                         <MyButton artistName = {artist.name}/>
                       </Link>
                   </ListItem>

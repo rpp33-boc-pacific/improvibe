@@ -28,7 +28,7 @@ export default function HomePage() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Item>
-            <div className = 'searchBar' >
+            <div className = 'NavigationBar' >
               <SearchBar/>
             </div>
           </Item>

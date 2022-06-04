@@ -16,7 +16,7 @@ function ProjectHeader() {
 
   const initialValue = "Type Project Name Here";
   const [value, setValue] = useState(initialValue);
-  const handleChange = (value: any) => {
+  const handleChange = (value) => {
     setValue(value);
   };
 

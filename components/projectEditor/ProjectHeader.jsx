@@ -22,7 +22,6 @@ function ProjectHeader() {
 
   return (
     <>
-      <Box sx={style}>
         <Grid
         container
         direction="row"
@@ -53,7 +52,6 @@ function ProjectHeader() {
             </Grid>
           </div>
         </Grid>
-      </Box>
     </>
   );
 }

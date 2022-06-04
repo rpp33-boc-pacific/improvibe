@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Modal } from "@mui/material";
 import { Typography } from "@mui/material";
 import axios from 'axios';
+import IMG_KEY from '../../config';
 
 const style = {
   position: 'absolute',
@@ -43,26 +44,28 @@ const Photo = ({ photoUrl }) => {
       axios({
         headers: { 'content-type': 'multipart/form-data' },
         method: 'post',
-        url: `https://api.imgbb.com/1/upload?key=${process.env.IMG_KEY}`,
+        url: `https://api.imgbb.com/1/upload?key=${IMG_KEY}`,
         data: formData,
       }).catch((error)=> {
         imgbbError = true;
         // NOTIFY USER
       }).then((res) => {
-        if (!imgbbError && res.status.toString()[0] === '2') {
-          newUrl = res.data.data.url;
-          axios.put(`api/profiles/${userId}/photo`, {
-            photoUrl: newUrl
-          })
-          .catch((error) => {
-            apiError = true;
-          })
-          .then((res) => {
-            if (!apiError && res.status.toString()[0] === '2') {
-              setphotoUrl(newUrl);
-            }
-          });
-        }
+        newUrl = res.data.data.url;
+        setphotoUrl(newUrl);
+        // if (!imgbbError && res.status.toString()[0] === '2') {
+        //   newUrl = res.data.data.url;
+        //   axios.put(`api/profiles/${userId}/photo`, {
+        //     photoUrl: newUrl
+        //   })
+        //   .catch((error) => {
+        //     apiError = true;
+        //   })
+        //   .then((res) => {
+        //     if (!apiError && res.status.toString()[0] === '2') {
+        //       setphotoUrl(newUrl);
+        //     }
+        //   });
+        // }
       });
     };
 

@@ -1,7 +1,11 @@
 import Link from 'next/link';
-import { getCsrfToken, getSession, getProviders, signIn, useSession } from "next-auth/react";
+import { getSession, getProviders, signIn } from "next-auth/react";
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
 export default function LogIn() {
 
@@ -26,34 +30,35 @@ export default function LogIn() {
       console.log(err)
     });
   }
-  if (status === "authenticated") {
-    router.push('/');
-  } else {
     return (
+      <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      style={{ minHeight: '100vh' }}>
       <form id="credentials" onSubmit={(e) => credentialsLogIn(e)}>
-        <h1>Login</h1>
-        <label>
-          Email
-          <input name="email" type="text" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" />
-        </label>
-          <button type="submit" >Sign in</button>
-          {logInError &&
-          <div>
-            Email or password invalid, please try again.
-          </div>
-          }
-        <p>Dont have an account yet?
-          <Link href="/signUp">
-            <a> Sign up</a>
-          </Link>
-          </p>
+        <FormControl>
+          <h1>Login</h1>
+          <label>Email</label>
+          <TextField required name="email" type="text" variant="outlined"/>
+          <label>Password</label>
+          <TextField required name="password" type="password" variant="outlined"/>
+          <Button variant="contained" type="submit" >Sign in</Button>
+            {logInError &&
+            <div>
+              Email or password invalid, please try again.
+            </div>
+            }
+          <p>Dont have an account yet?
+            <Link href="/signUp">
+              <a> Sign up</a>
+            </Link>
+            </p>
+        </FormControl>
       </form>
+      </Grid>
     )
-  }
 }
 
 LogIn.getInitialProps = async (context: any) => {

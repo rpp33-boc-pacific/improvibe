@@ -1,11 +1,12 @@
-import * as React from 'react';
+import { useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 function GenreSelector() {
-  const [genre, setGenre] = React.useState('');
+  // genre selection available in genre
+  const [genre, setGenre] = useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
     setGenre(event.target.value);

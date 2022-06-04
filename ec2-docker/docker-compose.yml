@@ -11,4 +11,4 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
-    command: --interval 300 --debug true --cleanup true containernames
+    command: --interval 300 --debug true --cleanup true improvibe

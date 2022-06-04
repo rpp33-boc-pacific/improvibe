@@ -5,7 +5,7 @@ import TopGenres from './topGenres';
 import TopArtists from './topArtists';
 import YourContributions from './yourContributions';
 import HorizontalCarousel from './horizontalCarousel';
-import SearchBar from '../SearchBar';
+import NavigationBar from '../NavigationBar';
 import GenreData from './genres-sampleData';
 import Artists from './topArtists-sampleData';
 import Songs from './topContributions-sampleData';
@@ -29,7 +29,7 @@ export default function HomePage() {
         <Grid item xs={12}>
           <Item>
             <div className = 'NavigationBar' >
-              <SearchBar/>
+              <NavigationBar/>
             </div>
           </Item>
         </Grid>

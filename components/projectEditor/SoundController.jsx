@@ -1,11 +1,11 @@
 import { Slider, Stack, ThemeProvider, createTheme, withStyles } from '@mui/material';
 import { NextPage } from 'next';
 
-const SoundController = ({ settings, changeSetting }) => {
+const SoundController = ({ settings, changeSetting, isDisabled }) => {
   return (
     <Stack spacing={3} direction='row' justifyContent="space-between">
       <div className='setting-label'>{settings.label}</div>
-      <Slider defaultValue={settings.value} min={settings.min} max={settings.max} onChange={changeSetting}/>
+      <Slider defaultValue={settings.value} min={settings.min} max={settings.max} onChange={changeSetting} valueLabelDisplay="auto" disabled={isDisabled}/>
     </Stack>
   )
 };

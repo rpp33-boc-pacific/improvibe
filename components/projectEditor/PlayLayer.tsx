@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState } from "react"
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 interface Props {
   isPlaying: boolean,
@@ -12,7 +12,7 @@ const PlayLayer: NextPage<Props> = ({ isPlaying, setIsPlaying }) => {
   }
 
   return (
-    <div className='play-layer' onClick={handleClick}>&#8883;</div>
+    <PlayCircleIcon onClick={handleClick} />
   )
 }
 

@@ -25,7 +25,7 @@ const MyButton = forwardRef(({onClick, href, artistName}, ref) => {
   )
 })
 
-const TopArtists = (props: { Artists: any[]; }) => {
+const TopArtists = (props) => {
   const [dense, setDense] = useState(false);
   const TopArtists = props.Artists.slice(0,3);
 

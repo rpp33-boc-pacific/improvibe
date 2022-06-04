@@ -21,6 +21,12 @@ interface Props {
   isPlaying: boolean,
 }
 
+declare global {
+  interface Window {
+    soundtouch: any;
+  }
+}
+
 let audioNode: any;
 
 const Wave: NextPage<Props> = ({ data, isPlaying }) => {

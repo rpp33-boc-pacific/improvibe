@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useFilePicker } from 'use-file-picker';
 import { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
@@ -21,26 +20,25 @@ const style = {
   p: 4,
 };
 
-
-const BUCKET_URL = "https://testyhyrasz1312.s3.eu-central-1.amazonaws.com/";
+const BUCKET_URL = "https://improvibe-tracks.s3.amazonaws.com/"
 
 function AddLayer() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [open, setOpen] = useState(false);
+  const [file, setFile] = useState(null);
+  const [fileURL, setURL] = useState(null);
 
+  // file selector config
   const [openFileSelector, { filesContent, loading }] = useFilePicker({
     accept: '.mp3',
   });
-
-  const [file, setFile] = useState(null);
-
 
   useEffect(() => {
     setFile(filesContent[0]);
   });
 
-  console.log('file', file);
+  // open / close modal
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleClick = () => {
     openFileSelector();
@@ -48,18 +46,15 @@ function AddLayer() {
 
   const saveToS3 = () => {
     uploadFile();
+    setURL(BUCKET_URL + file.name)
     handleClose();
   };
 
   const uploadFile = async () => {
-    // setUploadingStatus("Uploading the file to AWS S3");
-
     let { data } = await axios.post("/api/s3/uploadFile", {
       name: file.name,
       type: file.type,
     });
-
-    console.log(data);
 
     const url = data.url;
     let { data: newData } = await axios.put(url, file, {
@@ -69,14 +64,8 @@ function AddLayer() {
       },
     });
 
-    // setUploadedFile(BUCKET_URL + file.name);
     setFile(null);
   };
-
-  // if (file && file !== 'undefined') {
-  //   uploadFile();
-  // }
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -84,9 +73,7 @@ function AddLayer() {
 
   return (
     <Stack spacing={2} direction="row">
-      {/* <Button variant="outlined" onClick={handleClick}>Add Layer</Button> */}
-      {/* <input type='file'/> */}
-      <Button onClick={handleOpen}>Add Layer</Button>
+      <Button variant="outlined" onClick={handleOpen}>Add Layer</Button>
         <Modal
           open={open}
           onClose={handleClose}

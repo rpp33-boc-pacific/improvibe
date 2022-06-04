@@ -13,14 +13,15 @@ export default function LogIn() {
 
   const router = useRouter();
 
+
   const credentialsLogIn = (e: any) => {
     e.preventDefault();
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
 
     signIn('credentials', {email: email, password: password, redirect: false, callbackUrl: '/'})
-    .then((status) => {
-      if (status.error !== undefined) {
+    .then((status: any) => {
+      if (status && status.error) {
         setLogInError(true);
       } else {
         router.push('/');

@@ -41,10 +41,10 @@ export default function LogIn() {
       <form id="credentials" onSubmit={(e) => credentialsLogIn(e)}>
         <FormControl>
           <h1>Login</h1>
-          <label>Email</label>
-          <TextField required name="email" type="text" variant="outlined"/>
-          <label>Password</label>
-          <TextField required name="password" type="password" variant="outlined"/>
+          <label htmlFor="email">Email</label>
+          <TextField required id="email" name="email" type="text" variant="outlined"/>
+          <label htmlFor="password">Password</label>
+          <TextField required id="password" name="password" type="password" variant="outlined"/>
           <Button variant="contained" type="submit" >Sign in</Button>
             {logInError &&
             <div>

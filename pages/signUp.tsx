@@ -15,10 +15,10 @@ function SignUp() {
       <form method="post" action="/api/signUp">
         <FormControl>
         <h1>Sign Up</h1>
-        <label>Email</label>
-        <TextField name="email" type="text" />
-        <label>Password</label>
-        <TextField name="password" type="password" />
+        <label htmlFor="email">Email</label>
+        <TextField required id="email" name="email" type="text" />
+        <label htmlFor="password">Password</label>
+        <TextField required id="password" name="password" type="password" />
         <Button variant="contained" type="submit">Sign Up</Button>
         <p>Already have an account?
           <Link href="/logIn">

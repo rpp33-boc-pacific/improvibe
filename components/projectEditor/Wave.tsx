@@ -11,7 +11,7 @@ const formWaveSurferOptions = (ref: any) => ({
   barWidth: 4,
   barRadius: 4,
   responsive: true,
-  height: 175,
+  height: 150,
   normalize: true,
   partialRender: true,
 });

@@ -12,7 +12,7 @@ const PlayLayer: NextPage<Props> = ({ isPlaying, setIsPlaying }) => {
   }
 
   return (
-    <PlayCircleIcon onClick={handleClick} />
+    <PlayCircleIcon onClick={handleClick} sx={{ fontSize: '2.3vh' }}/>
   )
 }
 

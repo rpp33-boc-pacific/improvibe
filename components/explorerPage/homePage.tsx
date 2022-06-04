@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Dashboard from './dashboard';
-import PopularGenres from './popularGenres';
+import TopGenres from './topGenres';
 import TopArtists from './topArtists';
 import YourContributions from './yourContributions';
 import HorizontalCarousel from './horizontalCarousel';
@@ -28,42 +28,58 @@ export default function HomePage() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Item>
-            <NavigationBar/>
+            <div className = 'NavigationBar' >
+              <NavigationBar/>
+            </div>
           </Item>
         </Grid>
         <Grid item xs={12}>
           <Item>
-          <PopularGenres GenreData = {GenreData}/>
+            <div className = 'top-genres'>
+              <TopGenres GenreData = {GenreData}/>
+            </div>
           </Item>
         </Grid>
         <Grid item xs={8}>
           <Item>
-          <HorizontalCarousel/>
+            <div className = 'carousel'>
+              <HorizontalCarousel/>
+            </div>
           </Item>
         </Grid>
         <Grid item xs={4}>
           <Item>
-            <Dashboard Performance = {Performance}/>
+            <div className = 'dashboard'>
+              <Dashboard Performance = {Performance}/>
+            </div>
           </Item>
         </Grid>
         <Grid item xs={8}>
           <Item>
-            <HorizontalCarousel/>
+            <div className = 'carousel'>
+              <HorizontalCarousel/>
+            </div>
           </Item>
         </Grid>
         <Grid item xs={4}>
           <Item>
-            <YourContributions Songs = {Songs}/>
+            <div className = 'your-contributions'>
+              <YourContributions Songs = {Songs}/>
+            </div>
           </Item>
         </Grid>
         <Grid item xs={8}>
           <Item>
-            <HorizontalCarousel/>
+            <div className = 'carousel'>
+              <HorizontalCarousel/>
+            </div>
           </Item>
         </Grid>
         <Grid item xs={4}>
           <Item>
-            <TopArtists Artists = {Artists}/>
+            <div className = 'top-artists'>
+              <TopArtists Artists = {Artists}/>
+            </div>
           </Item>
         </Grid>
       </Grid>

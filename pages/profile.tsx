@@ -35,6 +35,7 @@ const Profile: NextPage = (/* { Component, pageProps }: AppProps */) => {
                 height={300}
                 width={300}
                 style={{ borderRadius: '90%' }}
+                data-testid='picture'
               />
             </Container>
           </Box>

@@ -8,7 +8,6 @@ export default function LogIn() {
   const [logInError, setLogInError] = useState(false);
 
   const router = useRouter();
-  const { data: session, status } = useSession();
 
   const credentialsLogIn = (e: any) => {
     e.preventDefault();

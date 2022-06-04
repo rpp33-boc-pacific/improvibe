@@ -22,6 +22,7 @@ export default NextAuth({
         if (user.rowCount === 0) {
           throw new Error('Invalid email or password');
         } else {
+          // change this to pull in all user data
           const loggedInUser = {
             email: user.rows[0].email,
             id: user.rows[0].id

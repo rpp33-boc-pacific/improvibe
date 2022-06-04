@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import Protect from '../components/Protect';
 
-function SignUp(props) {
-  console.log(props.session)
+function SignUp() {
   return (
     <form method="post" action="/api/signUp">
       <h1>Sign Up</h1>
@@ -24,5 +23,4 @@ function SignUp(props) {
   )
 }
 
-const ProtectedSignUp = Protect(SignUp);
-export default ProtectedSignUp;
+export default SignUp;

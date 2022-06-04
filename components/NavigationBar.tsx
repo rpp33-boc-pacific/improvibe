@@ -216,7 +216,7 @@ export default function NavigationBar() {
           <HomeButton
             onClick={(event) => {
               event.preventDefault();
-              Router.push('/explorerpage')
+              Router.push('/')
             }}
           >
             improvibe

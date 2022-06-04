@@ -16,6 +16,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import ProjectIcon from '@mui/icons-material/LibraryMusic';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useRouter } from 'next/router';
 
 const Search = styled('div')(({ theme }) => ({
@@ -69,6 +71,7 @@ export default function NavigationBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
+  const [darkMode, setDarkMode] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -144,6 +147,25 @@ export default function NavigationBar() {
           </Badge>
         </IconButton>
         <p>Projects</p>
+      </MenuItem>
+      <MenuItem onClick={(event) => {
+        event.preventDefault();
+        setDarkMode(!darkMode);
+      }}>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={0} color="error">
+            {darkMode === false ?
+              <LightModeIcon/>
+              :
+              <DarkModeIcon/>
+            }
+          </Badge>
+        </IconButton>
+        {darkMode === false ?
+          <p>Light Mode</p>
+          :
+          <p>Dark Mode</p>
+        }
       </MenuItem>
       {/* <MenuItem>
         <IconButton
@@ -226,13 +248,26 @@ export default function NavigationBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit"
+            <IconButton size="large" color="inherit"
             onClick={(event) => {
               event.preventDefault();
               Router.push(`/projects`);
             }}>
               <Badge badgeContent={0} color="error">
                 <ProjectIcon />
+              </Badge>
+            </IconButton>
+            <IconButton size="large" color="inherit"
+            onClick={(event) => {
+              event.preventDefault();
+              setDarkMode(!darkMode);
+            }}>
+              <Badge badgeContent={0} color="error">
+                {darkMode === false ?
+                  <LightModeIcon/>
+                  :
+                  <DarkModeIcon/>
+                }
               </Badge>
             </IconButton>
             {/* <IconButton

@@ -9,7 +9,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Photo from '../components/profileEditor/Photo';
 import Song from '../components/profileEditor/Song';
-import SearchBar from '../components/SearchBar';
+import NavigationBar from '../components/NavigationBar';
 import editProfile from '../sample-data/profileeditor'; // REMOVE LATER
 import { useContext } from 'react';  // const userInfo = useContext(Context);
 // const userIdInState = userInfo.userId;
@@ -54,7 +54,7 @@ const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
   if (editProfile.userId /* userIdInState */) {
     return (
       <div>
-        <SearchBar />
+        <NavigationBar />
         <Grid container spacing={1}>
           <Grid item xs={4}>
             <Photo photoUrl={editProfile.photoUrl /* photoUrl */ } />

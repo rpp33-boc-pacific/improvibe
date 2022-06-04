@@ -35,21 +35,8 @@ const Query: NextPage = () => {
     cumulativeLikes: 234,
   }
 
-  var [loadedData, setLoadedData] = useState(['Not Loaded']);
   const [filterParams, setFilterParams] = useState<string[]>([]);
   const [sortParam, setSortParam] = useState('');
-
-  const query = useQuery();
-
-  useEffect(() => {
-    if (!query) {
-      return;
-    }
-    console.log(query.queryString);
-    console.log(filterParams);
-    console.log(sortParam);
-    setLoadedData(['1']);
-  }, [query, filterParams, sortParam])
 
   return (
     <div>
@@ -66,43 +53,9 @@ const Query: NextPage = () => {
             <SortSelect sortParam={sortParam} setSortParam={setSortParam}/>
           </Grid>
         </Grid>
-      {loadedData[0] === 'Not Loaded' ?
       <Grid container spacing={1} direction="column">
-        <Grid item xs={12}>
-          <Skeleton variant="text" animation="wave" height={30} width="25%"/>
-        </Grid>
-        <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave"/>
-        </Grid>
-        <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave"/>
-        </Grid>
-        <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave"/>
-        </Grid>
-        <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave"/>
-        </Grid>
-        <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave"/>
-        </Grid>
+
       </Grid>
-      :
-      <Grid container spacing={1} direction="column">
-        <Grid item xs={12}>
-          <Item>Showing 3 results</Item>
-        </Grid>
-        <Grid item xs={12}>
-          <SongResult song={songProp} user={userProp}/>
-        </Grid>
-        <Grid item xs={12}>
-          <SongResult song={songProp} user={userProp}/>
-        </Grid>
-        <Grid item xs={12}>
-          <SongResult song={songProp} user={userProp}/>
-        </Grid>
-      </Grid>
-      }
     </div>
   )
 };

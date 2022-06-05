@@ -141,9 +141,3 @@ a {
   justify-content: center;
   padding-left: 16px;
 }
-
-.MuiSlider-thumb {
-  box-shadow: none;
-  width: 0px;
-  height: 0px;
-}

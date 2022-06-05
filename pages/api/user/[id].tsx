@@ -9,6 +9,7 @@ export default function getUser(req: any, res: any) {
   let example = {
     id: 9,
     artist: 'David Bowe',
+    aboutMe: 'About David Bowe',
     photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
     songs: [
       {
@@ -17,7 +18,9 @@ export default function getUser(req: any, res: any) {
         songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
         totalLikes: 14,
         liked: true,
-        genre: 'Rock'
+        genre: 'Rock',
+        artistPic: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+        artist: 'David Bowe'
       },
       {
       id: 2,
@@ -25,7 +28,9 @@ export default function getUser(req: any, res: any) {
       songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
       totalLikes: 21,
       liked: false,
-      genre: 'Smooth Rock'
+      genre: 'Smooth Rock',
+      artistPic: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+      artist: 'David Bowe'
       }
     ]
   }

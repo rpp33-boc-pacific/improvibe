@@ -142,8 +142,15 @@ a {
   padding-left: 16px;
 }
 
-.MuiSlider-thumb {
-  box-shadow: none;
-  width: 0px;
-  height: 0px;
+.song-name {
+  border: 0;
+  outline: 0;
+  font-size: 2.2vh;
+  color: #000;
+  font-weight: bold;
+  background: transparent;
+}
+
+.song-name::placeholder {
+  color: #000;
 }

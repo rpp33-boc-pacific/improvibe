@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import IconButton from '@mui/material/IconButton';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 interface Props {
@@ -12,7 +13,9 @@ const PlayLayer: NextPage<Props> = ({ isPlaying, setIsPlaying }) => {
   }
 
   return (
-    <PlayCircleIcon onClick={handleClick} sx={{ fontSize: '2.3vh' }}/>
+    <IconButton sx={ {padding: '0.1vh' }}>
+      <PlayCircleIcon onClick={handleClick} sx={{ fontSize: '2.3vh', color: 'black' }} aria-label="play-layer"/>
+    </IconButton>
   )
 }
 

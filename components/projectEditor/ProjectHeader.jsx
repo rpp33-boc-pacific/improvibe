@@ -34,11 +34,7 @@ function ProjectHeader() {
             justifyContent="flex-start"
             alignItems="center">
               <PlayProject />
-              <EditableElement onChange={handleChange}>
-                <div style={{ outline: "none" }}>
-                  <p>{initialValue}</p>
-                </div>
-              </EditableElement>
+              <input className='song-name' placeholder="Enter Song Name" onChange={handleChange}></input>
             </Grid>
           </div>
           <div>

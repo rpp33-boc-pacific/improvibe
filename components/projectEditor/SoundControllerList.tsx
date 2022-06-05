@@ -37,13 +37,21 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers, c
     layers[layerIndex] = data;
     setLayers(layers);
   }
-  // spacing={1} role='sound-controller-list' onClick={openSettingsEditor}
+
+  const tempoLabelFormat = (value: number) => {
+    return Math.round(value * 100) + '%';
+  }
+
+  const numberLabelFormat = (value: number) => {
+    return value;
+  }
+
   return (
     <div className='controller-list' onClick={changeView}>
-      <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 100 }} changeSetting={changeVolume} isDisabled={isDisabled}/>
-      <SoundController settings={{ label: 'pitch', value: data.pitch, min: 0, max: 100 }} changeSetting={changePitch} isDisabled={isDisabled}/>
-      <SoundController settings={{ label: 'tempo', value: data.tempo, min: 0, max: 500 }} changeSetting={changeTempo} isDisabled={isDisabled}/>
-      <SoundController settings={{ label: 'interval', value: [data.start, data.end], min: 0, max: 100 }} changeSetting={changeInterval} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 100, step: 1 }} labelFormat={numberLabelFormat} changeSetting={changeVolume} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'pitch', value: data.pitch, min: 0, max: 100, step: 1 }} labelFormat={numberLabelFormat} changeSetting={changePitch} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'tempo', value: data.tempo, min: 0.1, max: 4, step: 0.1 }} labelFormat={tempoLabelFormat} changeSetting={changeTempo} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'interval', value: [data.start, data.end], min: 0, max: 100, step: 1 }} labelFormat={numberLabelFormat} changeSetting={changeInterval} isDisabled={isDisabled}/>
     </div>
   )
 }

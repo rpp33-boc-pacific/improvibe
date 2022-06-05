@@ -8,11 +8,11 @@ const CustomSlider = styled(Slider)({
   },
 });
 
-const SoundController = ({ settings, changeSetting, isDisabled }) => {
+const SoundController = ({ settings, changeSetting, isDisabled, labelFormat }) => {
   return (
     <Stack spacing={3} direction='row' justifyContent="space-between" sx={{ height: '2.8vh' }}>
       <div className='setting-label'>{settings.label}</div>
-      <CustomSlider defaultValue={settings.value} min={settings.min} max={settings.max} onChange={changeSetting} valueLabelDisplay="auto" disabled={isDisabled}/>
+      <CustomSlider valueLabelFormat={labelFormat} step={settings.step} defaultValue={settings.value} min={settings.min} max={settings.max} onChange={changeSetting} valueLabelDisplay="auto" disabled={isDisabled}/>
     </Stack>
   )
 };

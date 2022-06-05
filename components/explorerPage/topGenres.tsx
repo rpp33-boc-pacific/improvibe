@@ -2,17 +2,17 @@ import * as React from 'react';
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: '#1976d2',
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
-  color: theme.palette.text.secondary,
+  color: alpha(theme.palette.common.white, 1),
 }));
 
-const PopularGenres = (props: any) => {
+const TopGenres = (props: any) => {
 
   let k = 5;
 
@@ -36,4 +36,4 @@ const PopularGenres = (props: any) => {
   );
 }
 
-export default PopularGenres;
+export default TopGenres;

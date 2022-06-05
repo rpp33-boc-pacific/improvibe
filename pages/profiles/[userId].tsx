@@ -3,13 +3,13 @@ import { useContext } from 'react';
 import Image from 'next/image';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
+// import useSWR from 'swr';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import SearchBar from '../../components/SearchBar';
+import NavigationBar from '../../components/NavigationBar';
 import SongTile from '../../components/shared/SongTile';
 import profile from '../../sample-data/profile';
 
@@ -26,7 +26,7 @@ const Profile: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
   // if (!data) return <div>Loading...</div>
   return (
     <div>
-      <SearchBar />
+      <NavigationBar />
       <Grid container spacing={1}>
         <Grid item xs={4}>
           <Box>

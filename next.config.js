@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['artscimedia.case.edu', 'i.ibb.co', 'ychef.files.bbci.co.uk'],
+    domains: ['artscimedia.case.edu', 'i.ibb.co', 'image.shutterstock.com', 'ychef.files.bbci.co.uk'],
   }
 }
 

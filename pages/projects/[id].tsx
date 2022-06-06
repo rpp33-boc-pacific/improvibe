@@ -5,7 +5,7 @@ import ProjectHeader from '../../components/projectEditor/ProjectHeader';
 import AddLayer from '../../components/projectEditor/AddLayer';
 import NewProject from '../../components/projectEditor/NewProject';
 import ProjectList from '../../components/projectEditor/ProjectList';
-import SearchAppBar from '../../components/SearchBar';
+import NavigationBar from '../../components/NavigationBar';
 import { useRouter } from 'next/router';
 import projects from '../../sample-data/projects';
 import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
@@ -24,7 +24,7 @@ const Editor: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <SearchAppBar />
+      <NavigationBar />
       <div className='project-editor-grid'>
         <h1 className='page-title'>Edit Project</h1>
         <div className='editor-container'>

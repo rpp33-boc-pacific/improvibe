@@ -21,7 +21,7 @@ a {
   justify-content: center;
   align-items: center;
   padding-left: 16px;
-  flex-grow: 5;
+  flex-grow: 8;
   height: 100%;
   overflow: hidden;
 }
@@ -147,7 +147,7 @@ a {
   padding-left: 16px;
 }
 
-.song-name {
+.song-name, .layer-name {
   border: 0;
   outline: 0;
   font-size: 2.2vh;
@@ -156,7 +156,12 @@ a {
   background: transparent;
 }
 
-.song-name::placeholder {
+.layer-name {
+  font-size: 2vh;
+  width: fit-content;
+}
+
+::placeholder {
   color: #000;
 }
 
@@ -164,5 +169,5 @@ a {
   width: 100%;
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: left;
 }

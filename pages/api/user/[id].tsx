@@ -6,9 +6,13 @@ export default function getUser(req: any, res: any) {
   //Select * from songs table where userId = userId
   //For each song add whether userId has liked this song and the genre associated with the genre_id and all the likes by all the users
 
+  // Accommodate profile-editor request
+
   let example = {
     id: 9,
     artist: 'David Bowe',
+    email: 'email',
+    aboutMe: 'About David Bowe',
     photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
     songs: [
       {

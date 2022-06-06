@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import AppContext from '../../AppContext';
 import Image from "next/image";
 import { Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -21,6 +22,8 @@ const style = {
 
 const Photo = ({ photoUrl }) => {
 
+  const context = useContext(AppContext);
+  const userId = context.user;
   const [url, setphotoUrl] = useState(photoUrl);
   const [open, setOpen] = useState(false);
 
@@ -33,14 +36,13 @@ const Photo = ({ photoUrl }) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      let imgbbError = false;
-      let apiError = false;
-      let newUrl = '';
-
       const image = reader.result.slice(23);
       const formData = new FormData();
       formData.append('image', image);
 
+      let imgbbError = false;
+      let apiError = false;
+      let newUrl = '';
       axios({
         headers: { 'content-type': 'multipart/form-data' },
         method: 'post',
@@ -50,22 +52,24 @@ const Photo = ({ photoUrl }) => {
         imgbbError = true;
         // NOTIFY USER
       }).then((res) => {
-        newUrl = res.data.data.url;
-        setphotoUrl(newUrl);
-        // if (!imgbbError && res.status.toString()[0] === '2') {
-        //   newUrl = res.data.data.url;
-        //   axios.put(`api/profiles/${userId}/photo`, {
-        //     photoUrl: newUrl
-        //   })
-        //   .catch((error) => {
-        //     apiError = true;
-        //   })
-        //   .then((res) => {
-        //     if (!apiError && res.status.toString()[0] === '2') {
-        //       setphotoUrl(newUrl);
-        //     }
-        //   });
-        // }
+        if (!imgbbError && res.status === 200) {
+          newUrl = res.data.data.url;
+          axios.put(`api/user/${userId}?photo=true`, {
+            photoUrl: newUrl
+          })
+          .catch((error) => {
+            apiError = true;
+          })
+          .then((res) => {
+            if (!apiError && res.status === 200) {
+              setphotoUrl(newUrl);
+            } else {
+              // NOTIFY USER
+            }
+          });
+        } else {
+          // NOTIFY USER
+        }
       });
     };
 

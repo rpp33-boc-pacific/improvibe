@@ -1,4 +1,3 @@
-import { useFilePicker } from 'use-file-picker';
 import { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -24,17 +23,8 @@ const BUCKET_URL = "https://improvibe-tracks.s3.amazonaws.com/"
 
 function AddLayer() {
   const [open, setOpen] = useState(false);
-  const [file, setFile] = useState(null);
   const [fileURL, setURL] = useState(null);
-
-  // file selector config
-  const [openFileSelector, { filesContent, loading }] = useFilePicker({
-    accept: '.mp3',
-  });
-
-  useEffect(() => {
-    setFile(filesContent[0]);
-  });
+  const [selectedFile, setSelectedFile] = useState(null);
 
   // open / close modal
   const handleOpen = () => setOpen(true);
@@ -46,30 +36,26 @@ function AddLayer() {
 
   const saveToS3 = () => {
     uploadFile();
-    setURL(BUCKET_URL + file.name)
+    setURL(BUCKET_URL + selectedFile.name)
     handleClose();
   };
 
   const uploadFile = async () => {
     let { data } = await axios.post("/api/s3/uploadFile", {
-      name: file.name,
-      type: file.type,
+      name: selectedFile.name,
+      type: selectedFile.type,
     });
 
     const url = data.url;
-    let { data: newData } = await axios.put(url, file, {
+    let { data: newData } = await axios.put(url, selectedFile, {
       headers: {
-        "Content-type": file.type,
+        "Content-type": selectedFile.type,
         "Access-Control-Allow-Origin": "*",
       },
     });
 
-    setFile(null);
+    setSelectedFile(null);
   };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <Stack spacing={2} direction="row">
@@ -84,14 +70,11 @@ function AddLayer() {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Select an MP3 file to add to project
             </Typography>
-            <Button variant="outlined" onClick={handleClick}>Select File</Button>
-            <br />
-            {filesContent.map((file, index) => (
-              <div>
-                <h2>{file.name}</h2>
-                <br />
-              </div>
-            ))}
+              <input
+                type="file"
+                // value={selectedFile}
+                onChange={(e) => setSelectedFile(e.target.files[0])}
+              /><br /><br />
             <Button variant="outlined" onClick={saveToS3}>Add MP3 to new layer</Button>
           </Box>
         </Modal>

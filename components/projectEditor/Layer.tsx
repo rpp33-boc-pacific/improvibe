@@ -15,9 +15,20 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
   const data = layers[layerIndex];
   const [isPlaying, setIsPlaying] = useState(false);
   const [showWaveView, setWaveView] = useState(true);
+  const [layerName, setLayerName] = useState(data.trackName);
 
   const changeView = () => {
     setWaveView(!showWaveView);
+  }
+
+  const updateAudioNode = (audioNode: any) => {
+    layers[layerIndex].audioNode = audioNode;
+    setLayers(layers);
+  }
+
+  const updateReadyState = () => {
+    layers[layerIndex].isReady = true;
+    setLayers(layers);
   }
 
   const deleteLayer = () => {
@@ -26,18 +37,25 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
     setLayers(remainingLayers);
   }
 
+  const changeLayerName = (event: any) => {
+    data.trackName = event.target.value;
+    layers[layerIndex] = data;
+    setLayers(layers);
+    setLayerName(event.target.value);
+  }
+
   const waveView = (
     <div role='layer' className='card-layer'>
       <div className='layer-holder'>
         <div className='layer-details-holder'>
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2} sx={{ width: '6vw' }}>
             <PlayLayer setIsPlaying={setIsPlaying} isPlaying={isPlaying}/>
-            <div className='layer-name'>{data.trackName}</div>
+            <input className='layer-name' placeholder="Enter Layer Name" value={layerName} onInput={changeLayerName}></input>
           </Stack>
           <SoundControllerList changeView={changeView} layers={layers} layerIndex={layerIndex} setLayers={setLayers} isDisabled={true}/>
         </div>
         <div className='wave-holder'>
-          <Wave data={data} isPlaying={isPlaying}/>
+          <Wave data={data} isPlaying={isPlaying} layerIndex={layerIndex} updateAudioNode={updateAudioNode} updateReadyState={updateReadyState}/>
         </div>
       </div>
     </div>

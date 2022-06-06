@@ -58,8 +58,8 @@ function AddLayer() {
   };
 
   return (
-    <Stack spacing={2} direction="row">
-      <Button variant="outlined" onClick={handleOpen}>Add Layer</Button>
+    <div className='add-layer-holder'>
+      <Button variant="contained" onClick={handleOpen} sx={{ width: '16vw', height: '5vh', fontSize: '1.7vh'}}>Add Layer</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -72,13 +72,12 @@ function AddLayer() {
             </Typography>
               <input
                 type="file"
-                // value={selectedFile}
                 onChange={(e) => setSelectedFile(e.target.files[0])}
               /><br /><br />
             <Button variant="outlined" onClick={saveToS3}>Add MP3 to new layer</Button>
           </Box>
         </Modal>
-    </Stack>
+    </div>
   );
 }
 

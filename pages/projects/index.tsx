@@ -33,7 +33,7 @@ const Projects: NextPage = () => {
 
     <NavigationBar />
     <div className='project-editor-grid'>
-      <h1 className='page-title'>Edit Project</h1>
+      <div className='page-title'>Edit Project</div>
       <div className='editor-container'>
         <ProjectContextProvider >
             <ProjectHeader />
@@ -43,7 +43,7 @@ const Projects: NextPage = () => {
       </div>
       <div className='projects-container'>
         <div className='newproject-holder'>
-          <h2>My Projects</h2>
+          <div className='project-header'>My Projects</div>
           <NewProject />
         </div>
         <ProjectList projects={sampleProjects}/>

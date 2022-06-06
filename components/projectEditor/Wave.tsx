@@ -74,12 +74,12 @@ const Wave: NextPage<Props> = ({ data, isPlaying }) => {
     if (isPlaying) {
       audioNode.connect(wavesurfer.current.backend.ac.destination);
       wavesurfer.current.setVolume(data.volume);
-      wavesurfer.current.play(data.start, data.end);
+      let songTime = wavesurfer.current.getDuration();
+      wavesurfer.current.play(data.start * songTime, data.end * songTime);
     } else {
       wavesurfer.current.pause();
     }
   }
-
 
   return (
     <div className='wave-card' id={`wave-${data.layerId}`} ref={waveformRef} />

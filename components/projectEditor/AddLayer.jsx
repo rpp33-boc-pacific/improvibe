@@ -72,30 +72,30 @@ function AddLayer() {
   }
 
   return (
-    <Stack spacing={2} direction="row">
-      <Button variant="outlined" onClick={handleOpen}>Add Layer</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Select an MP3 file to add to project
-            </Typography>
-            <Button variant="outlined" onClick={handleClick}>Select File</Button>
-            <br />
-            {filesContent.map((file, index) => (
-              <div>
-                <h2>{file.name}</h2>
-                <br />
-              </div>
-            ))}
-            <Button variant="outlined" onClick={saveToS3}>Add MP3 to new layer</Button>
-          </Box>
-        </Modal>
-    </Stack>
+    <div className='add-layer-holder'>
+      <Button variant="contained" onClick={handleOpen} sx={{ width: '16vw', height: '5vh', fontSize: '1.7vh'}}>Add Layer</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Select an MP3 file to add to project
+          </Typography>
+          <Button variant="outlined" onClick={handleClick}>Select File</Button>
+          <br />
+          {filesContent.map((file, index) => (
+            <div>
+              <h2>{file.name}</h2>
+              <br />
+            </div>
+          ))}
+          <Button variant="outlined" onClick={saveToS3}>Add MP3 to new layer</Button>
+        </Box>
+      </Modal>
+    </div>
   );
 }
 

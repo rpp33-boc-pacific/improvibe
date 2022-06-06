@@ -20,6 +20,16 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
     setWaveView(!showWaveView);
   }
 
+  const updateAudioNode = (audioNode: any) => {
+    layers[layerIndex].audioNode = audioNode;
+    setLayers(layers);
+  }
+
+  const updateReadyState = () => {
+    layers[layerIndex].isReady = true;
+    setLayers(layers);
+  }
+
   const deleteLayer = () => {
     // make a call to the api to delete
     const remainingLayers = layers.filter((item, index) => index !== layerIndex)
@@ -37,7 +47,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
           <SoundControllerList changeView={changeView} layers={layers} layerIndex={layerIndex} setLayers={setLayers} isDisabled={true}/>
         </div>
         <div className='wave-holder'>
-          <Wave data={data} isPlaying={isPlaying}/>
+          <Wave data={data} isPlaying={isPlaying} layerIndex={layerIndex} updateAudioNode={updateAudioNode} updateReadyState={updateReadyState}/>
         </div>
       </div>
     </div>

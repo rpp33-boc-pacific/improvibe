@@ -15,12 +15,14 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers, c
 
   const changeVolume = (event: any) => {
     data.volume = event.target.value;
+    data.isReady = false;
     layers[layerIndex] = data;
     setLayers(layers);
   }
 
   const changePitch = (event: any) => {
     data.pitch = event.target.value;
+    data.isReady = false;
     layers[layerIndex] = data;
     setLayers(layers);
   }
@@ -28,12 +30,14 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers, c
   const changeTempo = (event: any) => {
     data.tempo = event.target.value;
     layers[layerIndex] = data;
+    data.isReady = false;
     setLayers(layers);
   }
 
   const changeInterval = (event: any) => {
     data.start = event.target.value[0];
     data.end = event.target.value[1];
+    data.isReady = false;
     layers[layerIndex] = data;
     setLayers(layers);
   }

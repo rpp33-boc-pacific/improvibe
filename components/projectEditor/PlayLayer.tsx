@@ -13,8 +13,8 @@ const PlayLayer: NextPage<Props> = ({ isPlaying, setIsPlaying }) => {
   }
 
   return (
-    <IconButton sx={ {padding: '0.1vh' }}>
-      <PlayCircleIcon onClick={handleClick} sx={{ fontSize: '2.3vh', color: 'black' }} aria-label="play-layer"/>
+    <IconButton sx={ {padding: '0.1vh' }} onClick={handleClick}>
+      <PlayCircleIcon sx={{ fontSize: '2.3vh', color: 'black' }} aria-label="play-layer"/>
     </IconButton>
   )
 }

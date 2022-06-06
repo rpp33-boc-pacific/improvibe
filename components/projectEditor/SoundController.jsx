@@ -5,6 +5,7 @@ const CustomSlider = styled(Slider)({
   "& .MuiSlider-thumb": {
     width: '0px',
     height: '0px',
+    backgroundColor: '#f50057',
   },
   padding: 0,
 });

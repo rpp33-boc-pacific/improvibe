@@ -6,9 +6,9 @@ const { debounce } = require('lodash');
 
 const formWaveSurferOptions = (ref: any, height: number | undefined) => ({
   container: ref,
-  waveColor: "#2877cc",
-  progressColor: "#accbeb",
-  cursorColor: "#f50057",
+  waveColor: '#2877cc',
+  progressColor: '#accbeb',
+  cursorColor: '#f50057',
   barWidth: 4,
   barRadius: 4,
   responsive: true,

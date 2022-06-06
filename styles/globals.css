@@ -36,14 +36,23 @@ a {
   overflow: hidden;
 }
 
+.project-link {
+  font-size: 1.7vh;
+}
+
 .setting-label, .project-status {
   width: 80px;
   font-weight: lighter;
+  font-size: 1.7vh;
+}
+
+.setting-label {
+  align-self: center;
 }
 
 .play-layer, .layer-name {
   font-weight: bold;
-  font-size: 150%;
+  font-size: 2.2vh;
 }
 
 .settings-view {
@@ -63,7 +72,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 14vh;
+  height: 20vh;
   width: 100%;
   padding: 16px;
 }
@@ -71,19 +80,14 @@ a {
 .underlined-button {
   display: flex;
   font-weight: bold;
+  font-size: 1.7vh;
   flex-grow: 1;
   text-decoration: underline;
   justify-content: center;
 }
 
-.MuiSlider-thumb {
-  box-shadow: none;
-  width: 0px;
-  height: 0px;
-}
-
 .card-layer {
-  height: 14vh;
+  height: 20vh;
   border-style: solid;
   border-width: 1px;
   border-radius: 12px;
@@ -122,12 +126,12 @@ a {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: 16px;
+  gap: 2vh;
   height: 100%;
 }
 
 .project-card {
-  height: 4vh;
+  height: 6vh;
   border-style: solid;
   border-width: 1px;
   border-radius: 12px;
@@ -136,4 +140,17 @@ a {
   flex-direction: column;
   justify-content: center;
   padding-left: 16px;
+}
+
+.song-name {
+  border: 0;
+  outline: 0;
+  font-size: 2.2vh;
+  color: #000;
+  font-weight: bold;
+  background: transparent;
+}
+
+.song-name::placeholder {
+  color: #000;
 }

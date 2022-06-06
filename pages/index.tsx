@@ -7,10 +7,9 @@ import SongTile from '../components/shared/SongTile';
 import NavigationBar from '../components/NavigationBar';
 import LikeButton from '../components/shared/LikeButton';
 import AddToProjects from '../components/shared/AddToProjects';
+import HomePage from '../components/explorerPage/homePage';
 
-const Home: NextPage = () => {
-
-
+const Home: NextPage = (props) => {
   return (
     <div>
       <Head>
@@ -18,13 +17,7 @@ const Home: NextPage = () => {
         <meta name="keywords" content="music, app, audio editing, social" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavigationBar/>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to improvibe!
-        </h1>
-        <SongTile />
-      </main>
+      <HomePage/>
     </div>
   )
 };

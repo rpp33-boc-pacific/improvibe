@@ -9,7 +9,7 @@ function PlayProject() {
       aria-label="play-project"
       // onClick={}
       >
-        <PlayCircleIcon/>
+        <PlayCircleIcon sx={{ fontSize: '2.3vh', color: 'black' }}/>
       </IconButton>
     </>
   );

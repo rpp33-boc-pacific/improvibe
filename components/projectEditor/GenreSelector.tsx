@@ -14,23 +14,23 @@ function GenreSelector() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-      <InputLabel id="genre-select-label">Genre</InputLabel>
-      <Select
-        labelId="genre-select-label"
-        id="genre-select"
-        value={genre}
-        label="Genre"
-        onChange={handleChange}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={'pop'}>Pop</MenuItem>
-        <MenuItem value={'rock'}>Rock</MenuItem>
-        <MenuItem value={'hip-hop'}>Hip-Hop</MenuItem>
-        <MenuItem value={'country'}>Country</MenuItem>
-      </Select>
+      <FormControl sx={{ mr: 1, width: '6vw', height: '4vh', fontSize: '1.7vh' }} size='small'>
+        <InputLabel id="genre-select-label" sx={{ height: '4vh', width: '6vw', fontSize: '1.5vh '}}>Genre</InputLabel>
+        <Select
+          labelId="genre-select-label"
+          id="genre-select"
+          value={genre}
+          label="Genre"
+          onChange={handleChange}
+        >
+          <MenuItem value="" sx={{ fontSize: '1.7vh '}}>
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={'pop'} sx={{ fontSize: '1.7vh '}}>Pop</MenuItem>
+          <MenuItem value={'rock'} sx={{ fontSize: '1.7vh '}}>Rock</MenuItem>
+          <MenuItem value={'hip-hop'} sx={{ fontSize: '1.7vh '}}>Hip-Hop</MenuItem>
+          <MenuItem value={'country'} sx={{ fontSize: '1.7vh '}}>Country</MenuItem>
+        </Select>
     </FormControl>
     </div>
   );

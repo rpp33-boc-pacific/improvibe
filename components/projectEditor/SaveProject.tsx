@@ -8,7 +8,7 @@ export default function SaveProject() {
       alert('save clicked');
     }}
     variant="contained"
-    size="small"
+    sx={{ width: '6vw', height: '4vh', fontSize: '1.7vh'}}
     >Save</Button>
   );
 }

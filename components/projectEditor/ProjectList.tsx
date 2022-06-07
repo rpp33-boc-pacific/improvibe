@@ -8,7 +8,7 @@ interface Props {
 
 const ProjectList: NextPage<Props> = ({ projects }) => {
   return (
-    <Stack spacing={2} mt={2}>
+    <Stack spacing={2}>
       {projects.map((project: { id: number, [key: string]: any }) => {
         const status = (project.isPublic) ? 'public' : 'private'
 

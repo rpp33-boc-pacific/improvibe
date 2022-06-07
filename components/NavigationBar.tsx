@@ -19,6 +19,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useRouter } from 'next/router';
+import { signOut } from "next-auth/react"
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -115,7 +116,7 @@ export default function NavigationBar() {
         Router.push(`/profile/`);
       }}
       >Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+      <MenuItem onClick={() => signOut({ callbackUrl: '/logIn' }) }>Log Out</MenuItem>
     </Menu>
   );
 

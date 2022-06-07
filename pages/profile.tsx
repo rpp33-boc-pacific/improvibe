@@ -17,10 +17,10 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const Profile: NextPage = () => {
 
   const context: any = useContext(Context);
-  const user = context.user;
+  const userId = context.user;
   const songs = context.songs;
 
-  const { data, error } = useSWR(`/api/user/${user.userId}`, fetcher);
+  const { data, error } = useSWR(`/api/profiles/${userId}?owner=true`, fetcher);
 
   if (error) {
     return (
@@ -56,7 +56,7 @@ const Profile: NextPage = () => {
           <Grid container item xs={8}>
             <Grid item xs={9}>
               <Box>
-                <Typography>{data.artist}</Typography>
+                <Typography>{data.name}</Typography>
               </Box>
             </Grid>
             <Grid item xs={3}>
@@ -81,7 +81,7 @@ const Profile: NextPage = () => {
             </Grid>
             <Grid container item xs={12}>
               <Stack direction='row' spacing={1}>
-                {data.songs.map((song: any, index: number) => <Grid item key={index}><SongTile key={index} userProp={{ userId: user.userId, liked: song.liked }} songProp={song} /></Grid>)}
+                {data.songs.map((song: any, index: number) => <Grid item key={index}><SongTile key={index} song={song} user={userId} color='white' /></Grid>)}
               </Stack>
             </Grid>
           </Grid>

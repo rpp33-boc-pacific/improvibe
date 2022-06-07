@@ -43,6 +43,19 @@ export default function LogIn() {
       console.log(err)
     });
   }
+
+  const githubLogIn = (e: any) => {
+    e.preventDefault();
+
+    signIn('github', {callbackUrl: '/'})
+    .then((status: any) => {
+      console.log(status)
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+  }
+
     return (
       <Grid
       container
@@ -67,6 +80,8 @@ export default function LogIn() {
             }
 
           <Button variant="contained" type="button" onClick={(e) => googleLogIn(e)} >Sign in with Google</Button>
+
+          <Button variant="contained" type="button" onClick={(e) => githubLogIn(e)} >Sign in with Github</Button>
           <p>Dont have an account yet?
             <Link href="/signUp">
               <a> Sign up</a>

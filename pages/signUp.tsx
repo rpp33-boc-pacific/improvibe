@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import { getSession } from "next-auth/react";
 import axios from 'axios';
 
 function SignUp() {
@@ -74,3 +75,19 @@ function SignUp() {
 }
 
 export default SignUp;
+
+SignUp.getInitialProps = async (context: any) => {
+  const { req, res } = context;
+  const session = await getSession({ req });
+  if (session && res) {
+    res.writeHead(302, {
+      Location: "/",
+    });
+    res.end();
+    return;
+  }
+
+  return {
+    session: undefined
+  };
+};

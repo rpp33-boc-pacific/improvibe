@@ -60,13 +60,17 @@ const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, u
       soundTouchObj.tempo = data.tempo;
       soundTouchObj.pitchSemitones = data.pitch;
 
+      const start = wavesurfer.current.backend.source.buffer.length * data.start;
+      const end = wavesurfer.current.backend.source.buffer.length * data.end;
       wavesurfer.current.backend.source.buffer.extract = function(target: [any], numFrames: number, position: number) {
         let left = wavesurfer.current.backend.source.buffer.getChannelData(0);
         let right = wavesurfer.current.backend.source.buffer.getChannelData(1);
 
-        for (var i = 0; i < numFrames; i++) {
-          target[i * 2] = left[i + position];
-          target[i * 2 + 1] = right[i + position];
+        if (position > start && position < end) {
+          for (var i = 0; i < numFrames; i++) {
+            target[i * 2] = left[i + position];
+            target[i * 2 + 1] = right[i + position];
+          }
         }
 
         return Math.min(numFrames, left.length - position);
@@ -87,7 +91,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, u
         data.audioNode.connect(wavesurfer.current.backend.ac.destination);
         let songTime = wavesurfer.current.getDuration();
         wavesurfer.current.setVolume(data.volume);
-        wavesurfer.current.play(data.start * songTime, data.end * songTime);
+        wavesurfer.current.play(0, data.end * songTime);
       } else {
         wavesurfer.current.pause();
         data.audioNode.disconnect();

@@ -31,6 +31,18 @@ export default function LogIn() {
       console.log(err)
     });
   }
+
+  const googleLogIn = (e: any) => {
+    e.preventDefault();
+
+    signIn('google', {callbackUrl: '/'})
+    .then((status: any) => {
+      console.log(status)
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+  }
     return (
       <Grid
       container
@@ -53,6 +65,8 @@ export default function LogIn() {
               Email or password invalid, please try again.
             </div>
             }
+
+          <Button variant="contained" type="button" onClick={(e) => googleLogIn(e)} >Sign in with Google</Button>
           <p>Dont have an account yet?
             <Link href="/signUp">
               <a> Sign up</a>

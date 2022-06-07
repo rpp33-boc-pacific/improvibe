@@ -9,13 +9,14 @@ const formWaveSurferOptions = (ref: any, height: number | undefined) => ({
   waveColor: '#2877cc',
   progressColor: '#accbeb',
   cursorColor: '#f50057',
-  barWidth: 4,
-  barRadius: 4,
+  barWidth: 3,
+  barRadius: 3,
   responsive: true,
   height: height,
   minPxPerSec: 1,
   partialRender: true,
   hideScrollbar: true,
+  interact: false,
 });
 
 interface Props {
@@ -32,10 +33,6 @@ declare global {
   }
 }
 
-
-const audioNode: any[] = []; // save as props
-//let audioReady: any[] = []; // save as props
-
 const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, updateReadyState }) => {
   const waveformRef: any = useRef();
   const wavesurfer: { current: any, [key: string]: any } = useRef();
@@ -50,23 +47,6 @@ const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, u
     };
   }, []);
 
-  useEffect(() => {
-    if (wavesurfer.current && data.isReady) {
-      if (isPlaying) {
-        data.audioNode.connect(wavesurfer.current.backend.ac.destination);
-        //audioNode[layerIndex].connect(wavesurfer.current.backend.ac.destination);
-        wavesurfer.current.setVolume(data.volume);
-        let songTime = wavesurfer.current.getDuration();
-        wavesurfer.current.play(data.start * songTime, data.end * songTime);
-      } else {
-        wavesurfer.current.pause();
-        // wavesurfer.current.seekTo(0);
-        data.audioNode.disconnect();
-        // audioNode[layerIndex].disconnect();
-      }
-    }
-  }, [isPlaying]);
-
   const create = debounce(async () => {
     const WaveSurfer = await require('wavesurfer.js');
     SoundTouch(window);
@@ -76,29 +56,44 @@ const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, u
     wavesurfer.current.load(data.trackAudio);
 
     wavesurfer.current.on('ready', function() {
-      const soundTouchObj = new window.soundtouch.SoundTouch(44100);
+      const soundTouchObj = new window.soundtouch.SoundTouch(wavesurfer.current.backend.ac.sampleRate);
       soundTouchObj.tempo = data.tempo;
       soundTouchObj.pitchSemitones = data.pitch;
+
       wavesurfer.current.backend.source.buffer.extract = function(target: [any], numFrames: number, position: number) {
-        var l = wavesurfer.current.backend.source.buffer.getChannelData(0),
-          r = wavesurfer.current.backend.source.buffer.getChannelData(1);
+        let left = wavesurfer.current.backend.source.buffer.getChannelData(0);
+        let right = wavesurfer.current.backend.source.buffer.getChannelData(1);
+
         for (var i = 0; i < numFrames; i++) {
-          target[i * 2] = l[i + position];
-          target[i * 2 + 1] = r[i + position];
+          target[i * 2] = left[i + position];
+          target[i * 2 + 1] = right[i + position];
         }
-        return Math.min(numFrames, l.length - position);
+
+        return Math.min(numFrames, left.length - position);
       };
+
       const filter = new window.soundtouch.SimpleFilter(wavesurfer.current.backend.source.buffer, soundTouchObj);
       const audioNode = window.soundtouch.getWebAudioNode(wavesurfer.current.backend.ac, filter);
       wavesurfer.current.backend.setFilter(audioNode);
-      // audioNode[layerIndex] = window.soundtouch.getWebAudioNode(wavesurfer.current.backend.ac, filter);
-      // wavesurfer.current.backend.setFilter(audioNode[layerIndex]);
       wavesurfer.current.backend.filters[0].disconnect();
-      updateReadyState();
       updateAudioNode(audioNode);
-      //audioReady[layerIndex] = true;
+      updateReadyState();
     });
   });
+
+  useEffect(() => {
+    if (wavesurfer.current && data.isReady) {
+      if (isPlaying) {
+        data.audioNode.connect(wavesurfer.current.backend.ac.destination);
+        let songTime = wavesurfer.current.getDuration();
+        wavesurfer.current.setVolume(data.volume);
+        wavesurfer.current.play(data.start * songTime, data.end * songTime);
+      } else {
+        wavesurfer.current.pause();
+        data.audioNode.disconnect();
+      }
+    }
+  }, [isPlaying]);
 
   return (
     <div className='wave-card' id={`wave-${data.layerId}`} ref={waveformRef} />

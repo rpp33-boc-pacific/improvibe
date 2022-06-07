@@ -12,7 +12,7 @@ const project = {
       trackTime: 'track time',
       tempo: 1,
       pitch: 0,
-      volume: 65,
+      volume: 0.65,
       start: 0,
       end: 1,
       loop: false
@@ -24,7 +24,7 @@ const project = {
       trackTime: 'track time',
       tempo: 2,
       pitch: 4,
-      volume: 25,
+      volume: 0.25,
       start: 0.25,
       end: 0.60,
       loop: true

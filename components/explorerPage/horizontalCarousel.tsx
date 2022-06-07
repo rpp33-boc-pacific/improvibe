@@ -5,6 +5,7 @@ import AppContext from '../../AppContext';
 import '../../styles/Explorer.module.css';
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import Tile from '../shared/SongTile';
+import axios from 'axios';
 
 let uniqueKey = 0;
 
@@ -22,12 +23,9 @@ const HorizontalCarousel = () => {
 
   useEffect(() => {
     // The songs will come from the api call
-    fetch('api/songs')
+    axios.get('api/songs')
     .then((response) => {
-      return response.json();
-    })
-    .then((result) => {
-      setSongs(result);
+      setSongs(response.data);
       setLoading(false);
     })
     .catch((err) => {

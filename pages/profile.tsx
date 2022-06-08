@@ -68,9 +68,9 @@ const Profile: NextPage = (/* { Component, pageProps }: AppProps */) => {
           <Grid container item xs={12}>
             <Stack direction='row' spacing={1}>
               {/* {songs.map((song, index) => <Grid item key={index}><SongTile key={index} user={user} song={song} /></Grid>)} */}
+              {/* <SongTile />
               <SongTile />
-              <SongTile />
-              <SongTile />
+              <SongTile /> */}
             </Stack>
           </Grid>
         </Grid>

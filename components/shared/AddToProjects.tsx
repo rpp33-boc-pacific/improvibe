@@ -5,19 +5,11 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from 'axios';
 
 const AddToProjects = ({ song, user}: any) => {
-  const [inProjects, addToProjects] = useState(user.liked);
+  const [inProjects, addToProjects] = useState(song.in_projects);
 
-  // useEffect(() => {
-  //   //update the database
-  // })
+ const handleAddToProjects = () => {
 
-  const handleAddToProjects = () => {
-      console.log( user.userId);
-    //change the state of inProjects
-      addToProjects(!inProjects);
-    //API call
-    // axios.post('api/song/add-to-projects', {use})
-  }
+ }
   return (
     inProjects === false ?
     <Button

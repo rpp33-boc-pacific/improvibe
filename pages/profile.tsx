@@ -13,12 +13,11 @@ import NavigationBar from '../components/NavigationBar';
 import SongTile from '../components/shared/SongTile';
 import profile from '../sample-data/profile'; // REMOVE LATER
 
-console.log('Host: ', process.env.POSTGRES_HOST);
-console.log('Host: ', process.env.POSTGRES_USER);
-console.log('Host: ', process.env.POSTGRES_PASSWORD);
-
-
 const Profile: NextPage = (/* { Component, pageProps }: AppProps */) => {
+
+  console.log('Host: ', process.env.POSTGRES_HOST);
+  console.log('Host: ', process.env.POSTGRES_USER);
+  console.log('Host: ', process.env.POSTGRES_PASSWORD);
 
   // const userInfo = useContext(Context);
   // const userIdInState = userInfo.user.userId;

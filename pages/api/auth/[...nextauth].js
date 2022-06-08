@@ -63,6 +63,30 @@ export default NextAuth({
         session.accessToken = token.accessToken;
       }
       return session;
+    },
+
+    async signIn({ user, account, profile, email, credentials }) {
+      if (account.provider === 'google' || account.provider === 'github') {
+        console.log(user)
+        const sessionToken = account.access_token;
+        const checkUserCredentials = `SELECT user_id FROM sessions WHERE sessionToken='${sessionToken}'`;
+        return pool.query(checkUserCredentials)
+        .then((user) => {
+          if (user.rowCount === 0) {
+            const addUser = ``
+
+          } else {
+
+          }
+          return true;
+        })
+      }
+      const isAllowedToSignIn = true
+      if (isAllowedToSignIn) {
+        return true
+      } else {
+        return false
+      }
     }
 
   },

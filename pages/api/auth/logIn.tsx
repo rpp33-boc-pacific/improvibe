@@ -1,4 +1,4 @@
-import pool from "../../sql/db";
+import pool from "../../../sql/db";
 import hash from 'object-hash';
 
 export default async function loginHandler(req: any, res: any) {

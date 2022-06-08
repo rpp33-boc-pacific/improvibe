@@ -26,7 +26,8 @@ function ProjectHeader() {
         container
         direction="row"
         justifyContent="space-between"
-        alignItems="center">
+        alignItems="center"
+        sx={{ height: '5vh' }}>
           <div>
             <Grid
             container

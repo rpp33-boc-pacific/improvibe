@@ -21,7 +21,7 @@ a {
   justify-content: center;
   align-items: center;
   padding-left: 16px;
-  flex-grow: 5;
+  flex-grow: 8;
   height: 100%;
   overflow: hidden;
 }
@@ -41,18 +41,23 @@ a {
 }
 
 .setting-label, .project-status {
-  width: 80px;
+  width: 10vh;
   font-weight: lighter;
   font-size: 1.7vh;
 }
 
 .setting-label {
-  align-self: center;
+  padding-top: 0.2vh;
 }
 
 .play-layer, .layer-name {
   font-weight: bold;
   font-size: 2.2vh;
+}
+
+.setting-holder {
+  display: flex;
+  flex-direction: row;
 }
 
 .settings-view {
@@ -104,6 +109,13 @@ a {
   grid-column: 2;
 }
 
+.page-title {
+  font-size: 2.5vh;
+  font-weight: bold;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+}
+
 .projects-container {
   grid-column: 4;
 }
@@ -112,6 +124,9 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  height: 5vh;
 }
 
 .list-layers {
@@ -119,7 +134,7 @@ a {
   flex-direction: column;
   margin-top: 24px;
   margin-bottom: 24px;
-  gap: 16px;
+  gap: 24px;
 }
 
 .layer-details-holder {
@@ -142,15 +157,39 @@ a {
   padding-left: 16px;
 }
 
-.song-name {
+.song-name, .layer-name {
   border: 0;
   outline: 0;
-  font-size: 2.2vh;
+  font-size: 2vh;
   color: #000;
   font-weight: bold;
   background: transparent;
 }
 
-.song-name::placeholder {
+.layer-name {
+  font-size: 1.8vh;
+  width: fit-content;
+}
+
+::placeholder {
   color: #000;
+}
+
+.slider-holder {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: left;
+}
+
+.add-layer-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3vh;
+}
+
+.project-header {
+  font-size: 2vh;
+  font-weight: bold;
 }

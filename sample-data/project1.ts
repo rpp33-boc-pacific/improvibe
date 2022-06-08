@@ -11,10 +11,10 @@ const project = {
       trackName: 'piano',
       trackTime: 'track time',
       tempo: 1,
-      pitch: 50,
-      volume: 65,
+      pitch: 0,
+      volume: 0.65,
       start: 0,
-      end: 75,
+      end: 1,
       loop: false
     },
     {
@@ -23,10 +23,10 @@ const project = {
       trackName: 'beat',
       trackTime: 'track time',
       tempo: 2,
-      pitch: 100,
-      volume: 25,
-      start: 25,
-      end: 60,
+      pitch: 4,
+      volume: 0.25,
+      start: 0.25,
+      end: 0.60,
       loop: true
     }
   ]

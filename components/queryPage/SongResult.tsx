@@ -17,7 +17,7 @@ export default function SongResult({ song, user }: any) {
     backgroundSize: 'contain'
   }));
   const PlayerContainer = styled('div')(({ theme }) => ({
-    top: '50px',
+    top: '20px',
   }));
   const GenreContainer = styled('div')(({ theme }) => ({
     width: "60%",
@@ -31,7 +31,7 @@ export default function SongResult({ song, user }: any) {
       <CardContent sx={{display: 'flex', flexDirection: 'row', pb: 0}}>
         <Image src="https://image.shutterstock.com/image-photo/linked-blocks-bank-world-currencies-600w-1926421151.jpg" alt='https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif' width='80px' height='80px'/>
         <div>
-          <Typography gutterBottom variant="h5" sx={{mt: 1, ml: 1, mb: 0, textAlign: 'justify'}}>
+          <Typography gutterBottom variant="h5" sx={{mt: 0, ml: 1, mb: 0, textAlign: 'justify'}}>
             {song.songName}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ml: 1}}>

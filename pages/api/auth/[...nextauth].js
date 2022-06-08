@@ -43,14 +43,15 @@ export default NextAuth({
     }),
 
     GitHubProvider({
-    clientId: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET
-  })
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET
+    })
   ],
 
   callbacks: {
     jwt({ token, user, account }) {
-      if (user) {
+      if (user && account) {
+        token.accessToken = account.access_token
         token.user = user;
       }
       return token;
@@ -59,6 +60,7 @@ export default NextAuth({
     session: ({ session, token, user }) => {
       if (token) {
         session.user = token.user;
+        session.accessToken = token.accessToken;
       }
       return session;
     }

@@ -8,10 +8,8 @@ import NavigationBar from '../components/NavigationBar';
 import LikeButton from '../components/shared/LikeButton';
 import AddToProjects from '../components/shared/AddToProjects';
 import HomePage from '../components/explorerPage/homePage';
-import Protect from '../components/Protect';
 
 const Home: NextPage = (props) => {
-  console.log(props);
   return (
     <div>
       <Head>
@@ -24,6 +22,4 @@ const Home: NextPage = (props) => {
   )
 };
 
-const ProtectedHome = Protect(Home);
-
-export default ProtectedHome;
+export default Home;

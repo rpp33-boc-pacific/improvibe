@@ -20,9 +20,7 @@ function Protect (WrappedComponent: any) {
         return;
       }
 
-      return {
-        session: session
-      };
+      return { session };
     };
 
     return ProtectedComponent;

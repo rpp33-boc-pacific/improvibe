@@ -15,12 +15,6 @@ CREATE TABLE sessions (
   sessionToken varchar(255)
 );
 
-CREATE TABLE senres (
-  id serial,
-  name varchar(255),
-  searched integer
-);
-
 CREATE TABLE layers (
   id serial,
   name varchar,
@@ -56,7 +50,7 @@ CREATE TABLE users (
 CREATE TABLE projects (
   id serial,
   name varchar(255),
-  genre_id integer,
+  genre varchar(255),
   likes integer,
   shares integer,
   public boolean,

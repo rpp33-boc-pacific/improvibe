@@ -10,7 +10,11 @@ export default function SaveProject() {
   return (
     <Button
     onClick={() => {
-      saveSong(layers, user);
+      saveSong(layers, user)
+      .then((id) => {
+        //update some state variable
+        console.log('The id from the song button', id);
+      })
     }}
     variant="contained"
     sx={{ width: '6vw', height: '4vh', fontSize: '1.7vh'}}

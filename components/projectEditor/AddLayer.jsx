@@ -72,6 +72,7 @@ function AddLayer() {
             </Typography>
               <input
                 type="file"
+                accept=".mp3,.wav"
                 onChange={(e) => setSelectedFile(e.target.files[0])}
               /><br /><br />
             <Button variant="outlined" onClick={saveToS3}>Add MP3 to new layer</Button>

@@ -5,7 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const LikeButton = ({ song, user, color }: any) => {
 
-  const [liked, updateLiked] = useState(user.liked);
+  const [liked, updateLiked] = useState(song.liked);
 
   useEffect(() => {
     //update the database for songs liked by this user

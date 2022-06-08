@@ -19,8 +19,8 @@ function ProjectHeader() {
 
   const [newContext, updatedContext] = useState(context);
 
-  const [value, setValue] = useState(initialValue);
   const initialValue = "Initial Value";
+  const [value, setValue] = useState(initialValue);
 
   const handleChange = (e) => {
     setValue(e.target.value)

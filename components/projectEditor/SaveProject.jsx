@@ -1,22 +1,24 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import saveSong from './saveSong';
 import { ProjectContext } from './ProjectContext';
 import AppContext from '../../AppContext';
+import dynamic from 'next/dynamic';
+import Crunker from 'crunker';
 
-export default function SaveProject() {
+export default function SaveProject({ crunker }) {
   const context = useContext(ProjectContext);
-  const user = useContext(AppContext)
+  const user = useContext(AppContext);
 
   return (
     <ProjectContext.Provider value={context}>
       <Button
-      onClick={() => {
-        saveSong(context, user)
-        .then((id) => {
-          context.isSavedState = true;
-          console.log('The context', context);
-        })
+      onClick={ () => {
+        //Save song on click then get back id
+        // saveSong(context, user)
+        // .then((id) => {
+        //   context.isSavedState = true;
+        // })
       }}
       variant="contained"
       sx={{ width: '6vw', height: '4vh', fontSize: '1.7vh'}}
@@ -24,3 +26,4 @@ export default function SaveProject() {
     </ProjectContext.Provider>
   );
 }
+

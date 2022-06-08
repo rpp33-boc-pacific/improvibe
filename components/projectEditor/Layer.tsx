@@ -1,9 +1,10 @@
 import { Stack } from '@mui/material';
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import PlayLayer from './PlayLayer';
 import SoundControllerList from './SoundControllerList';
 import Wave from './Wave';
+import { ProjectContext } from './ProjectContext';
 
 interface Props {
   layers: [{ layerId: number, volume: number, pitch: number, tempo: number, start: number, end: number, trackAudio: string, trackName: string, [key: string]: any }],
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
+  const { playAllState } = useContext(ProjectContext);
+  const [playAll, setPlayAll] = playAllState;
   const data = layers[layerIndex];
   const [isPlaying, setIsPlaying] = useState(false);
   const [showWaveView, setWaveView] = useState(true);
@@ -23,6 +26,11 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
 
   const updateAudioNode = (audioNode: any) => {
     layers[layerIndex].audioNode = audioNode;
+    setLayers(layers);
+  }
+
+  const updateLayerAudioNode = (audioNode: any) => {
+    layers[layerIndex].layerAudioNode = audioNode;
     setLayers(layers);
   }
 
@@ -55,7 +63,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
           <SoundControllerList changeView={changeView} layers={layers} layerIndex={layerIndex} setLayers={setLayers} isDisabled={true}/>
         </div>
         <div className='wave-holder'>
-          <Wave data={data} isPlaying={isPlaying} layerIndex={layerIndex} updateAudioNode={updateAudioNode} updateReadyState={updateReadyState}/>
+          <Wave data={data} isPlaying={isPlaying} playAll={playAll} layerIndex={layerIndex} updateAudioNode={updateAudioNode} updateReadyState={updateReadyState} updateLayerAudioNode={updateLayerAudioNode}/>
         </div>
       </div>
     </div>

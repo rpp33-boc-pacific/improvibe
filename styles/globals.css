@@ -17,13 +17,15 @@ a {
 
 /* Editor CSS */
 .wave-holder {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1% 1%;
   padding-left: 16px;
   flex-grow: 8;
   height: 100%;
   overflow: hidden;
+  background-image:
+  repeating-linear-gradient(90deg, #ccc 0 1px, transparent 1px 100%);
+  background-size: 71px 71px;
 }
 
 .wave-card {
@@ -141,7 +143,7 @@ a {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: 2vh;
+  gap: 1vh;
   height: 100%;
 }
 

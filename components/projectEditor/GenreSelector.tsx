@@ -12,7 +12,7 @@ function GenreSelector() {
 
   const handleChange = (event: SelectChangeEvent) => {
     setGenre(event.target.value);
-    //this needs to be fixed
+    //TODO: Fix this:
     context.genreState = event.target.value
   };
 

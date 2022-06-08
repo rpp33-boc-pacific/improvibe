@@ -11,10 +11,9 @@ export default function SaveProject() {
     <Button
     onClick={() => {
       saveSong(layers, user)
-      .then((id) => {
-        //update some state variable
-        console.log('The id from the song button', id);
-      })
+      // .then((id) => {
+      //   //this project now has an id, important for POST vs PUT
+      // })
     }}
     variant="contained"
     sx={{ width: '6vw', height: '4vh', fontSize: '1.7vh'}}

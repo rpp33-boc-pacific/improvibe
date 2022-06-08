@@ -11,40 +11,38 @@ import { useRouter } from 'next/router';
 import Photo from '../components/profileEditor/Photo';
 import Song from '../components/profileEditor/Song';
 import NavigationBar from '../components/NavigationBar';
-
-const userInfo = {
-  id: 9,
-  artist: 'David Bowe',
-  email: 'email',
-  aboutMe: 'About David Bowe',
-  photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-  songs: [
-    {
-      id: 1,
-      name: 'Space Odity',
-      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
-      totalLikes: 14,
-      liked: true,
-      genre: 'Rock',
-      artistPic: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-      artist: 'David Bowe'
-    },
-    {
-      id: 2,
-      name: 'Golden Years',
-      songPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
-      totalLikes: 21,
-      liked: false,
-      genre: 'Smooth Rock',
-      artistPic: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-      artist: 'David Bowe'
-    }
-  ]
-}
+import pool from '../sql/db';
 
 const getServerSideProps = /*async*/ (context: any) => {
   return {
-    props: userInfo,
+    props: { // = RESULTS OF DB QUERY
+      userId: 1,
+      name: 'David Bowe',
+      aboutMe: 'All about David Bowe...',
+      photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+      // songs: [
+      //   {
+      //     song_id: 1,
+      //     song_name: 'Song Name1',
+      //     artist_name: 'Artist Name1',
+      //     in_projects: false,
+      //     genre: 'rock',
+      //     photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+      //     song_path: 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav',
+      //     liked: true,
+      //   },
+      //   {
+      //     song_id: 2,
+      //     song_name: 'Song Name2',
+      //     artist_name: 'Artist Name2',
+      //     in_projects: true,
+      //     genre: 'hip hop',
+      //     photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      //     song_path: 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav',
+      //     liked: true
+      //   },
+      // ]
+    }
   }
 };
 
@@ -56,7 +54,7 @@ const ProfileEditor: NextPage = (props: any) => {
 
   const router = useRouter();
 
-  const [name, setName] = useState(props.artist);
+  const [name, setName] = useState(props.name);
   const [email, setEmail] = useState(props.email);
   const [aboutMe, setAbout] = useState(props.aboutMe);
   const [password, setPassword] = useState('');
@@ -68,7 +66,7 @@ const ProfileEditor: NextPage = (props: any) => {
   const handleSave = async () => {
     let err = false;
     try {
-      await axios.post(`/api/user/update?userId=${userId}`, { name, email, password, aboutMe });
+      await axios.post(`/api/profiles/update?userId=${userId}`, { name, email, password, aboutMe });
     } catch (error) {
       err = true;
     } finally {

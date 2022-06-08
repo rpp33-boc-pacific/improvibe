@@ -5,7 +5,7 @@ import SaveProject from "./SaveProject";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import EditableElement from '../shared/EditableElement';
-import { ProjectContextProvider, ProjectContext } from './ProjectContext';
+import { ProjectContext } from './ProjectContext';
 
 function ProjectHeader() {
 
@@ -14,15 +14,17 @@ function ProjectHeader() {
     height: 60,
     backgroundColor: '#fff',
   };
+
   const context = useContext(ProjectContext);
 
   const [newContext, updatedContext] = useState(context);
 
-  const initialValue = "Type Project Name Here";
   const [value, setValue] = useState(initialValue);
-  const handleChange = (value) => {
-    setValue(value.target.value)
-    context.projectNameState = value.target.value
+  const initialValue = "Initial Value";
+
+  const handleChange = (e) => {
+    setValue(e.target.value)
+    context.projectNameState = e.target.value
   };
 
   return (
@@ -40,7 +42,7 @@ function ProjectHeader() {
             justifyContent="flex-start"
             alignItems="center">
               <PlayProject />
-              <input className='song-name' placeholder={value} onChange={handleChange}></input>
+              <input className='song-name' placeholder='Type Name Here' onChange={handleChange}></input>
             </Grid>
           </div>
           <div>
@@ -54,7 +56,7 @@ function ProjectHeader() {
             </Grid>
           </div>
         </Grid>
-     </ProjectContext.Provider>
+      </ProjectContext.Provider>
   );
 }
 

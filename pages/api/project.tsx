@@ -1,14 +1,11 @@
 import client from '../../sql/db';
 
 export default function alterProject(req: any, res: any) {
-  //TODO: Genre ID should be getting passed down, not the string name
+  //TODO: Update insertSong statement to include the genre string instead of hardcoded integer once the database gets fixed
   if (req.method === 'POST') {
     let project = req.body
 
     const insertSong = `INSERT INTO projects (name, genre_id, likes, shares, public, user_id, song_path, date_created) VALUES ('${project.name}', 1, 0, 0, false, ${project.user_id}, '${project.song_path}', CURRENT_TIMESTAMP) RETURNING id`;
-
-    // const find = 'SELECT * from projects where user_id=8';
-    // const undo = 'DELETE from projects where user_id=8';
 
     client.query(insertSong)
     .then((result:any) => {

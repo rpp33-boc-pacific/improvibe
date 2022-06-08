@@ -3,17 +3,18 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { ProjectContext, ProjectContextProvider } from './ProjectContext';
+import { ProjectContext } from './ProjectContext';
 
 function GenreSelector() {
-  // genre selection available in genre
   const context = useContext(ProjectContext);
-  const [genre, setGenre] = useState(' ');
+  const [newContext, updatedContext] = useState(context);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setGenre(event.target.value);
-    //TODO: Fix this:
-    context.genreState = event.target.value
+  const initialValue = '';
+  const [genre, setGenre] = useState(initialValue)
+
+  const handleChange = (e) => {
+    setGenre(e.target.value);
+    context.genreState = e.target.value;
   };
 
   return (

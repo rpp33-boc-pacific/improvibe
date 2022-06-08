@@ -1,34 +1,25 @@
 import Crunker from 'crunker';
 import axios from 'axios';
 
-const saveSong = (layers, user) => {
-  const user_id = user.user.id
-  const name = layers.projectNameState
-  const genre = layers.genreState
-  const id = layers.songId
-  layers = layers.layersState[0];
+const saveSong = (context, user) => {
+  const isSaved = context.isSavedState[0];
+  const user_id = user.user.id;
+  const name = context.projectNameState[0];
+  const genre = context.genreState[0];
+  const layers = context.layersState[0];
 
+
+  //returns unmodified tracks
   let tracks = layers.map((layer) => {
-   //First Step
-   //For each layer, apply modifications and upload to s3 bucket
-   //Return the URL for each layer to get an array of URLs
-
-   //for now trackAudio is being returned unmodified
     return layer.trackAudio
   });
 
+  //returns modified ScriptProcessorNode
   let buffers = layers.map((layer) => {
-    //First Step
-    //For each layer, apply modifications and upload to s3 bucket
-    //Return the URL for each layer to get an array of URLs
-
-    //for now trackAudio is being returned unmodified
      return layer.audioNode
    });
 
-
-  console.log('The Tracks', tracks, 'The buffers', buffers);
-
+  //FOR THIS TO WORK NEED TO TURN ScriptProcessorNode into AudioBuffer
   // let crunker = new Crunker()
   // return new Promise((resolve, reject) => {
   //   resolve(buffers);
@@ -50,8 +41,7 @@ const saveSong = (layers, user) => {
     crunker
       .fetchAudio(...tracks)
       .then((buffers) => {
-        console.log('The Buffers inside the promise', buffers);
-        //Apply modifications to buffers? Is this possible?
+        //Apply modifications to buffers here? Is this possible?
         return crunker.mergeAudio(buffers);
       })
       .then((merged) => {
@@ -66,10 +56,10 @@ const saveSong = (layers, user) => {
         return song
       })
       .then((url) => {
-        //TODO: Song path should be = to the url parameter
+        //TODO: Song path should be = to the url parameter not hard coded
         let song_path = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'
-        if (song) {
-          //PUT request
+        if (isSaved) {
+          //If song is saved PUT request
         } else {
           //POST request
           axios.post('api/project', { user_id, name, song_path, genre })

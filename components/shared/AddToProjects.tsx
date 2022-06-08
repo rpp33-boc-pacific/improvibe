@@ -4,10 +4,10 @@ import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const AddToProjects = ({ song, user}: any) => {
-  const [inProjects, addToProjects] = useState(user.liked);
+  const [inProjects, addToProjects] = useState(song.in_projects);
 
   useEffect(() => {
-    //update the database
+    //update the database for this user
   })
   return (
     inProjects === false ?

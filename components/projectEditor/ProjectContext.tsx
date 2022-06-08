@@ -5,7 +5,7 @@ const ProjectContext = createContext({});
 
 const ProjectContextProvider = ({ children }: any) => {
   const [layers, setLayers] = useState(project1.layers);
-  const [projectName, setProjectName] = useState('new project');
+  const [projectName, setProjectName] = useState('');
   const [genre, setGenre] = useState('');
   const [playAll, setPlayAll] = useState(false);
   const [isSaved, setIsSaved] = useState(false);

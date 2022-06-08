@@ -4,6 +4,7 @@ const pool = new Pool({
   database: 'improvibe',
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
+  port: 5432,
 });
 
 export default pool;

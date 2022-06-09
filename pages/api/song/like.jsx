@@ -3,7 +3,7 @@ import client from '../../../sql/db';
 export default function likeSong(req, res) {
   const song = req.body.song.song_id;
   const user = req.body.user.user.id;
-  const liked = req.body.likeStatus;
+  const liked = req.body.liked;
 
 
   if (liked) {

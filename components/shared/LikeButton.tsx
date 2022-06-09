@@ -9,13 +9,8 @@ const LikeButton = ({ song, user, color }: any) => {
   const [liked, updateLiked] = useState(song.liked);
 
   const handleLike = () => {
-    let likeStatus = !liked;
-    console.log(likeStatus);
-    axios.put('api/song/like', {song, user, likeStatus})
-    .then((res) => {
-      console.log(res);
-      updateLiked(!liked)
-    })
+    updateLiked(!liked)
+    axios.put('api/song/like', {song, user, liked})
     .catch((err) => {
       alert('Unable to update like');
       console.log('Error updating like:', err);

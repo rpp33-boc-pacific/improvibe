@@ -19,7 +19,7 @@ function ProjectHeader() {
 
   const [newContext, updatedContext] = useState(context);
 
-  const initialValue = "Initial Value";
+  const initialValue = "Song Name";
   const [value, setValue] = useState(initialValue);
 
   const handleChange = (e) => {
@@ -42,7 +42,7 @@ function ProjectHeader() {
             justifyContent="flex-start"
             alignItems="center">
               <PlayProject />
-              <input className='song-name' placeholder='Type Name Here' onChange={handleChange}></input>
+              <input className='song-name' value={value} onInput={handleChange}></input>
             </Grid>
           </div>
           <div>

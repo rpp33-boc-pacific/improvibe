@@ -1,5 +1,4 @@
 import { Stack } from '@mui/material';
-import { NextPage } from 'next';
 import { useContext, useState } from 'react';
 import PlayLayer from './PlayLayer';
 import SoundControllerList from './SoundControllerList';
@@ -7,13 +6,7 @@ import Wave from './Wave';
 import { ProjectContext } from './ProjectContext';
 import TimeLine from './TimeLine';
 
-interface Props {
-  layers: [{ layerId: number, volume: number, pitch: number, tempo: number, start: number, end: number, trackAudio: string, trackName: string, [key: string]: any }],
-  layerIndex: number,
-  setLayers: Function,
-}
-
-const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
+const Layer = ({ layers, layerIndex, setLayers }) => {
   const { playAllState } = useContext(ProjectContext);
   const [playAll, setPlayAll] = playAllState;
   const data = layers[layerIndex];
@@ -25,12 +18,12 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
     setWaveView(!showWaveView);
   }
 
-  const updateAudioNode = (audioNode: any) => {
+  const updateAudioNode = (audioNode) => {
     layers[layerIndex].audioNode = audioNode;
     setLayers(layers);
   }
 
-  const updateLayerAudioNode = (audioNode: any) => {
+  const updateLayerAudioNode = (audioNode) => {
     layers[layerIndex].layerAudioNode = audioNode;
     setLayers(layers);
   }
@@ -46,7 +39,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
     setLayers(remainingLayers);
   }
 
-  const changeLayerName = (event: any) => {
+  const changeLayerName = (event) => {
     data.trackName = event.target.value;
     layers[layerIndex] = data;
     setLayers(layers);

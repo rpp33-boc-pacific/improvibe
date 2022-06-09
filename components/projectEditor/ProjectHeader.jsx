@@ -1,10 +1,11 @@
-import {useState, useRef, SetStateAction } from 'react';
+import {useState, useRef, useContext, SetStateAction } from 'react';
 import PlayProject from "./PlayProject";
 import GenreSelector from "./GenreSelector";
 import SaveProject from "./SaveProject";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import EditableElement from '../shared/EditableElement';
+import { ProjectContext } from './ProjectContext';
 
 function ProjectHeader() {
 
@@ -14,14 +15,20 @@ function ProjectHeader() {
     backgroundColor: '#fff',
   };
 
-  const initialValue = "Type Project Name Here";
+  const context = useContext(ProjectContext);
+
+  const [newContext, updatedContext] = useState(context);
+
+  const initialValue = "Initial Value";
   const [value, setValue] = useState(initialValue);
-  const handleChange = (value) => {
-    setValue(value);
+
+  const handleChange = (e) => {
+    setValue(e.target.value)
+    context.projectNameState = e.target.value
   };
 
   return (
-    <>
+    <ProjectContext.Provider value={context}>
         <Grid
         container
         direction="row"
@@ -35,7 +42,7 @@ function ProjectHeader() {
             justifyContent="flex-start"
             alignItems="center">
               <PlayProject />
-              <input className='song-name' placeholder="Enter Song Name" onChange={handleChange}></input>
+              <input className='song-name' placeholder='Type Name Here' onChange={handleChange}></input>
             </Grid>
           </div>
           <div>
@@ -49,7 +56,7 @@ function ProjectHeader() {
             </Grid>
           </div>
         </Grid>
-    </>
+      </ProjectContext.Provider>
   );
 }
 

@@ -3,6 +3,7 @@ import LikeButton from './LikeButton';
 import AddToProjects from './AddToProjects';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import Link from '@mui/material/Link';
@@ -11,6 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import IconButton from '@mui/material/IconButton';
 import { borderRadius } from '@mui/system';
+import Player from 'material-ui-audio-player';
 
 const AudioPlayer = ({ song, user, color }: any) => {
   const style = {
@@ -22,12 +24,13 @@ const AudioPlayer = ({ song, user, color }: any) => {
     border: '1px solid #000',
     p: 4,
   };
-
   const ProfileImage = () => {
     return (
       <Image src={song.photo_url} alt="artist-profile-picture" layout={"fixed"} width="125px" height="125px"/>
-    )
-  }
+      )
+    }
+
+  const muiTheme = createMuiTheme({});
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -64,7 +67,10 @@ const AudioPlayer = ({ song, user, color }: any) => {
                 <AddToProjects song={song} user={user}/>
               </Grid>
             </Grid>
-            <audio role="audio-player" controls src={song.song_path}></audio>
+            <ThemeProvider theme={muiTheme}>
+              <Player src={song.song_path} />
+            </ThemeProvider>
+            {/* <audio role="audio-player" controls src={song.song_path}></audio> */}
             <IconButton
               aria-label="close-player-modal"
               sx={{color: 'white', position: 'absolute', top: '2%', right: '1%'}}

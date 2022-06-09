@@ -10,7 +10,6 @@ import NavigationBar from '../components/NavigationBar';
 import SongTile from '../components/shared/SongTile';
 import Context from '../AppContext';
 
-<<<<<<< HEAD
 const tempContext = {
   user: {
     userId: '1',
@@ -55,24 +54,6 @@ const tempContext = {
 const Profile: NextPage = () => {
 
   const context: any = useContext(Context);
-=======
-const PGHOST: any = process.env.POSTGRES_HOST;
-const PGUSER: any = process.env.POSTGRES_USER;
-const PGPW: any = process.env.POSTGRES_PASSWORD;
-
-const Profile: NextPage = (/* { Component, pageProps }: AppProps */) => {
-
-  process.stdout.write(PGHOST);
-  process.stdout.write(PGUSER);
-  process.stdout.write(PGPW);
-
-  // const userInfo = useContext(Context);
-  // const userIdInState = userInfo.user.userId;
-  // const name = userInfo.user.name;
-  // const aboutMe = userInfo.user.aboutMe;
-  // const photoUrl = userInfo.user.photoUrl;
-  // const songs = userInfo.songs;
->>>>>>> 1e62747b0a30a039e535b14b685d55722923a3f9
 
   return (
     <div>
@@ -120,14 +101,7 @@ const Profile: NextPage = (/* { Component, pageProps }: AppProps */) => {
           </Grid>
           <Grid container item xs={12}>
             <Stack direction='row' spacing={1}>
-<<<<<<< HEAD
               {tempContext.songs.map((song: any, index: number) => <Grid item key={index}><SongTile key={index} song={song} user={tempContext.user.userId} color='white' /></Grid>)}
-=======
-              {/* {songs.map((song, index) => <Grid item key={index}><SongTile key={index} user={user} song={song} /></Grid>)} */}
-              {/* <SongTile />
-              <SongTile />
-              <SongTile /> */}
->>>>>>> 1e62747b0a30a039e535b14b685d55722923a3f9
             </Stack>
           </Grid>
         </Grid>

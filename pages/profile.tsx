@@ -13,15 +13,7 @@ import NavigationBar from '../components/NavigationBar';
 import SongTile from '../components/shared/SongTile';
 import profile from '../sample-data/profile'; // REMOVE LATER
 
-const PGHOST: any = process.env.POSTGRES_HOST;
-const PGUSER: any = process.env.POSTGRES_USER;
-const PGPW: any = process.env.POSTGRES_PASSWORD;
-
 const Profile: NextPage = (/* { Component, pageProps }: AppProps */) => {
-
-  process.stdout.write(PGHOST);
-  process.stdout.write(PGUSER);
-  process.stdout.write(PGPW);
 
   // const userInfo = useContext(Context);
   // const userIdInState = userInfo.user.userId;

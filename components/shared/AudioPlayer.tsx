@@ -3,7 +3,8 @@ import LikeButton from './LikeButton';
 import AddToProjects from './AddToProjects';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import Stack from '@mui/material/Stack';
+// import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import Link from '@mui/material/Link';
@@ -12,7 +13,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import IconButton from '@mui/material/IconButton';
 import { borderRadius } from '@mui/system';
-import Player from 'material-ui-audio-player';
+// import Player from 'material-ui-audio-player';
+import Player from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 const AudioPlayer = ({ song, user, color }: any) => {
   const style = {
@@ -26,14 +29,14 @@ const AudioPlayer = ({ song, user, color }: any) => {
   };
 
   // const [navigator, setNavigator] = useState({});
-  const [isSet, set] = useState(false);
+  // const [isSet, set] = useState(false);
 
-  useEffect(() => {
-    // setNavigator(navigator);
-    set(true);
-    console.log(window);
-    console.log(navigator);
-  }, []);
+  // useEffect(() => {
+  //   // setNavigator(navigator);
+  //   set(true);
+  //   console.log(window);
+  //   console.log(navigator);
+  // }, []);
 
   const ProfileImage = () => {
     return (
@@ -41,14 +44,14 @@ const AudioPlayer = ({ song, user, color }: any) => {
       )
     }
 
-  const muiTheme = createMuiTheme({});
+  // const muiTheme = createMuiTheme({});
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
     return (
-      isSet === false ? <></> :
+      // isSet === false ? <></> :
       <div id="play-song-container">
         <IconButton
           aria-label="open-player-modal"
@@ -71,19 +74,21 @@ const AudioPlayer = ({ song, user, color }: any) => {
                 <Link href="./profile" sx={{color: "white"}}>{song.artist_name}</Link>
               </Grid>
               <Grid item xs={3}>
-                <Typography sx={{color: "white", textAlign: "center"}}>
+                <Typography sx={{color: "white", textAlign: "right"}}>
                     {song.genre}
                     {/* insert component to display list here */}
                 </Typography>
-                <LikeButton color={color} song={song} user={user}/>
-                <AddToProjects song={song} user={user}/>
+                <Grid item xs={4}>
+                  <LikeButton color={color} song={song} user={user}/>
+                  <AddToProjects song={song} user={user}/>
+                </Grid>
               </Grid>
             </Grid>
             {/* <audio role="audio-player" controls src={song.song_path}></audio> */}
             <div style={{width: '100%'}}>
-              <ThemeProvider theme={muiTheme}>
-                <Player src={song.song_path} style={{color: "white"}} />
-              </ThemeProvider>
+              {/* <ThemeProvider theme={muiTheme}> */}
+                <Player src={song.song_path} style={{color: 'white', backgroundColor: '#333', border:'none'}}/>
+              {/* </ThemeProvider> */}
             </div>
             <IconButton
               aria-label="close-player-modal"

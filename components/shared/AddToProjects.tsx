@@ -9,11 +9,8 @@ const AddToProjects = ({ song, user}: any) => {
 
  const handleAddToProjects = () => {
    //TODO Update to user id and song id to come from props
+  addToProjects(true);
   axios.post('api/song/add-to-projects', {userId: 9, songId:4})
-  .then(() => {
-    addToProjects(true);
-  })
-  .catch((err) => {console.log('Song not added to project', err)})
  }
   return (
     inProjects === false ?

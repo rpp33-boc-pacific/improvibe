@@ -223,6 +223,6 @@ a {
 }
 
 .time-marker {
-  width: 1px;
+  width: 100%;
   background-color: #f50057;
 }

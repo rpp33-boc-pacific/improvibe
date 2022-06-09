@@ -65,8 +65,9 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
       soundTouchObj.tempo = data.tempo;
       soundTouchObj.pitchSemitones = data.pitch;
 
-      const startInterval = wavesurfer.current.backend.source.buffer.length * data.startInterval / data.trackTime;
-      const endInterval = wavesurfer.current.backend.source.buffer.length * data.endInterval / data.trackTime;
+      const bufferLength = wavesurfer.current.backend.source.buffer.length;
+      let startInterval = bufferLength * data.startInterval / data.trackTime;
+      let endInterval = bufferLength * data.endInterval / data.trackTime;
       const delay = data.start * 1000;
       let waitingToStart = true;
       let playAudio = false;
@@ -94,7 +95,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
 
           return Math.min(numFrames, left.length - newPosition);
         } else {
-          adjustPosition = position;
+          adjustPosition = (delay > 0) ? position : 0;
           return numFrames;
         }
       }}
@@ -145,7 +146,6 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
       pauseTimes.markerLayer[data.layerId] = current;
       let oldTickDiv = document?.getElementsByClassName(`layer-${data.layerId}`)[0].getElementsByClassName(`time-marker`)[0];
       let newTickDiv = document?.getElementsByClassName(`layer-${data.layerId}`)[0].getElementsByClassName(`marker-${current}`)[0];
-      console.log(newTickDiv);
 
       if (oldTickDiv !== undefined) {
         oldTickDiv.classList.remove("time-marker");
@@ -170,22 +170,11 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
       }
 
       pauseTimes.markerAll = current;
-      let oldTickDiv = document?.getElementsByClassName(`time-marker`);
-      let newTickDiv = document?.getElementsByClassName(`marker-${current}`);
+      let oldTickDiv = document.querySelectorAll(`.time-marker`);
+      let newTickDiv = document.querySelectorAll(`.marker-${current}`);
 
-      if (oldTickDiv !== undefined) {
-        for (let elementInd = 0; elementInd < oldTickDiv.length; elementInd++) {
-          let element = oldTickDiv[elementInd];
-          element.classList.remove("time-marker");
-        }
-      }
-
-      if (newTickDiv !== undefined) {
-        for (let elementInd = 0; elementInd < newTickDiv.length; elementInd++) {
-          let element = newTickDiv[elementInd];
-          element.classList.add("time-marker");
-        }
-      }
+      Array.from(oldTickDiv).forEach((element) => element.classList.remove('time-marker'));
+      Array.from(newTickDiv).forEach((element) => element.classList.add('time-marker'));
 
       current++;
     }, 1000);
@@ -203,7 +192,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
         wavesurfer.current.setVolume(0);
         wavesurfer.current.setPlaybackRate(data.tempo);
         let markerTime = (pauseTimes.markerLayer[data.layerId] > data.start) ? pauseTimes.markerLayer[data.layerId] : data.start;
-        startTimeLineLayer(markerTime, data.endInterval);
+        startTimeLineLayer(markerTime, data.endInterval + data.start);
         let pausedTime = pauseTimes.playLayer[data.layerId] || 0;
         wavesurfer.current.play(pausedTime, data.endInterval);
       } else {
@@ -234,7 +223,6 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
         wavesurfer.current.setPlaybackRate(data.tempo);
         let pausedTime = pauseTimes.playAll[data.layerId] || 0;
         if (layerIndex === 0) {
-          console.log(pauseTimes.markerAll);
           startTimeLineAll(Math.round(pauseTimes.markerAll));
         }
 

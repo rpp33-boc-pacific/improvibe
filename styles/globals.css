@@ -23,20 +23,12 @@ a {
   overflow: hidden;
 }
 
-.tick {
-  width: 1px;
-  background-color: #ccc;
-  height: 100%;
-}
-
 .wave-holder {
   flex-grow: 8;
 }
 
 .marker-holder {
   height: 5%;
-  /* background-image: repeating-linear-gradient(90deg, #ccc 0 1px, transparent 1px 100%);
-  background-size: 3px 3px; */
 }
 
 .wave-time-holder {
@@ -52,7 +44,7 @@ a {
   width: 100%;
   border-style: solid;
   border-width: 1px;
-  border-radius: 12px;
+  border-radius: 6px;
   border-color: #D3D3D3;
   overflow: hidden;
 }
@@ -116,7 +108,7 @@ a {
   height: 20vh;
   border-style: solid;
   border-width: 1px;
-  border-radius: 12px;
+  border-radius: 6px;
   border-color: #D3D3D3;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
@@ -170,7 +162,7 @@ a {
   height: 6vh;
   border-style: solid;
   border-width: 1px;
-  border-radius: 12px;
+  border-radius: 6px;
   border-color: #D3D3D3;
   display: flex;
   flex-direction: column;
@@ -222,4 +214,15 @@ a {
   border-right: 5px solid transparent;
   border-bottom: 5px solid black;
   z-index: 5;
+}
+
+.tick {
+  width: 1px;
+  background-color: #D3D3D3;
+  height: 100%;
+}
+
+.time-marker {
+  width: 1px;
+  background-color: #f50057;
 }

@@ -21,7 +21,7 @@ export default function SaveProject({ crunker }) {
         // })
       }}
       variant="contained"
-      sx={{ width: '6vw', height: '4vh', fontSize: '1.7vh'}}
+      sx={{ width: '6vw', height: '4vh', fontSize: '1.5vh'}}
       >Save</Button>
     </ProjectContext.Provider>
   );

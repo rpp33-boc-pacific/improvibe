@@ -25,7 +25,7 @@ const project = {
       trackTime: 12,
       tempo: 2,
       pitch: 4,
-      volume: 0.25,
+      volume: 0.50,
       startInterval: 5,
       endInterval: 8,
       start: 4,

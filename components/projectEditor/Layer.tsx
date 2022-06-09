@@ -67,7 +67,7 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
           <div className='wave-holder'>
             <Wave data={data} isPlaying={isPlaying} playAll={playAll} layerIndex={layerIndex} updateAudioNode={updateAudioNode} updateReadyState={updateReadyState} updateLayerAudioNode={updateLayerAudioNode}/>
           </div>
-          <TimeLine startMarker={Math.round(data.startInterval / data.tempo) + data.start + 1} endMarker={Math.round(data.endInterval / data.tempo) + data.start + 1}/>
+          <TimeLine startMarker={Math.round(data.startInterval / data.tempo) + data.start} endMarker={Math.round(data.endInterval / data.tempo) + data.start}/>
         </div>
 
       </div>

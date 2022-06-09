@@ -68,7 +68,7 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers, c
 
   return (
     <div className='controller-list' onClick={changeView}>
-      {/* <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 1, step: 0.01 }} labelFormat={volumeLabelFormat} changeSetting={changeVolume} isDisabled={isDisabled}/> */}
+      <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 1, step: 0.01 }} labelFormat={volumeLabelFormat} changeSetting={changeVolume} isDisabled={isDisabled}/>
       <SoundController settings={{ label: 'pitch', value: data.pitch, min: -12, max: 12, step: 0.5 }} labelFormat={pitchLabelFormat} changeSetting={changePitch} isDisabled={isDisabled}/>
       <SoundController settings={{ label: 'tempo', value: data.tempo, min: 0.1, max: 4, step: 0.01 }} labelFormat={tempoLabelFormat} changeSetting={changeTempo} isDisabled={isDisabled}/>
       <SoundController settings={{ label: 'interval', value: [data.startInterval, data.endInterval], min: 0, max: data.trackTime, step: 1 }} labelFormat={timeLabelFormat} changeSetting={changeInterval} isDisabled={isDisabled}/>

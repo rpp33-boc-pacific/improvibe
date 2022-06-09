@@ -12,7 +12,7 @@ const TimeLine: NextPage<Props> = ({ startMarker, endMarker }) => {
   return (
     <div className='marker-holder'>
       {markers.map((column) => {
-        if (column === startMarker) {
+        if (column === startMarker || (column - 1 === startMarker && startMarker === 0)) {
           return <div className='start-marker' style={{ gridColumn: startMarker }}></div>
         }
 

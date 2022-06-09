@@ -75,7 +75,6 @@ export default NextAuth({
             const addUser = `INSERT INTO users(email) VALUES ('${email}')`
             pool.query(addUser)
             .then((user) =>{
-              console.log(addUser, user)
               return;
             })
           }

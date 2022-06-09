@@ -2,6 +2,8 @@
 import {forwardRef, useState} from 'react';
 import Link from 'next/link'
 import { styled } from '@mui/material/styles';
+import useSWR from 'swr';
+import { useContext } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -12,6 +14,9 @@ import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import Fetcher from './fetcher';
+// import Context from './'
+// let userId = useContext(Context);
 
 const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -25,9 +30,13 @@ const MyButton = forwardRef(({onClick, href, artistName}, ref) => {
   )
 })
 
-const TopArtists = (props) => {
+const TopArtists = () => {
   const [dense, setDense] = useState(false);
-  const TopArtists = props.Artists.slice(0,3);
+  const { data, error } = useSWR('/api/artists/topArtists', Fetcher)
+
+  if (!data) return <div>loading...</div>
+
+  const TopArtists = data.slice(0,3);
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752}}>

@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { useContext } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
@@ -8,8 +9,11 @@ import NavigationBar from '../components/NavigationBar';
 import LikeButton from '../components/shared/LikeButton';
 import AddToProjects from '../components/shared/AddToProjects';
 import HomePage from '../components/explorerPage/homePage';
+import AppContext from '../AppContext';
 
 const Home: NextPage = (props) => {
+  const theme = useContext(AppContext);
+  console.log(theme)
   return (
     <div>
       <Head>

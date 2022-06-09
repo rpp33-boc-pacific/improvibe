@@ -34,7 +34,10 @@ function AddLayer() {
 
   // open / close modal
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedFile(null);
+  }
 
   const handleClick = () => {
     openFileSelector();
@@ -95,14 +98,14 @@ function AddLayer() {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Select an MP3 file to add to project
+              Select an MP3 or WAV file to add to project
             </Typography>
               <input
                 type="file"
                 accept=".mp3,.wav"
                 onChange={(e) => setSelectedFile(e.target.files[0])}
               /><br /><br />
-            <Button variant="outlined" onClick={saveToS3}>Add MP3 to new layer</Button>
+            <Button variant="outlined" onClick={saveToS3} disabled={!selectedFile}>Add file to new layer</Button>
           </Box>
         </Modal>
     </div>

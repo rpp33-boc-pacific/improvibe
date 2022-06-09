@@ -29,8 +29,6 @@ function AddLayer() {
 
   const { layersState } = useContext(ProjectContext);
   const [layers, setLayers] = layersState;
-  console.log('layers', layers);
-  console.log('file url', fileURL);
 
   // open / close modal
   const handleOpen = () => setOpen(true);

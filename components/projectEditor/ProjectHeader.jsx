@@ -19,12 +19,17 @@ function ProjectHeader() {
 
   const [newContext, updatedContext] = useState(context);
 
-  const initialValue = "Initial Value";
+  const initialValue = "Song Name";
   const [value, setValue] = useState(initialValue);
 
   const handleChange = (e) => {
     setValue(e.target.value)
     context.projectNameState = e.target.value
+
+    // data.trackName = event.target.value;
+    // layers[layerIndex] = data;
+    // setLayers(layers);
+    // setLayerName(event.target.value);
   };
 
   return (
@@ -42,7 +47,7 @@ function ProjectHeader() {
             justifyContent="flex-start"
             alignItems="center">
               <PlayProject />
-              <input className='song-name' placeholder='Type Name Here' onChange={handleChange}></input>
+              <input className='song-name' value={value} onInput={handleChange}></input>
             </Grid>
           </div>
           <div>

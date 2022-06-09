@@ -23,13 +23,15 @@ export default function LogIn() {
     }
   }, [user]);
 
-  const checkSession = async () => {
+  const checkSession = async (credentials) => {
     const session = await getSession();
-      if (session) {
+      if (session && !credentials) {
         axios.post('/api/auth/logIn', session)
         .then(async (response) => {
           setUser(response.data);
         })
+      } else {
+        setUser(session.user);
       }
   }
 
@@ -43,7 +45,7 @@ export default function LogIn() {
       if (status && status.error) {
         setLogInError(true);
       } else {
-        checkSession();
+        checkSession(true);
       }
     })
     .catch((err) => {

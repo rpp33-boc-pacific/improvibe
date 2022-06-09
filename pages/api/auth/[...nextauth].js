@@ -62,19 +62,21 @@ export default NextAuth({
       return session;
     },
 
-    async signIn({ user, account }) {
+    async signIn({ user, account, profile }) {
       if (account.provider === 'google' || account.provider === 'github') {
         const email = user.email;
         const checkUserCredentials = `SELECT * FROM users WHERE email='${email}'`;
         return pool.query(checkUserCredentials)
-        .then((user) => {
-          if (user.rowCount === 0) {
+        .then((loggedInUser) => {
+          if (loggedInUser.rowCount === 0) {
             const addUser = `INSERT INTO users(email) VALUES ('${email}')`
             pool.query(addUser)
             .then((user) =>{
               return;
             })
           }
+          profile = loggedInUser.rows[0];
+          delete profile.hash;
           return true;
         })
       } else if (account.provider === 'credentials') {

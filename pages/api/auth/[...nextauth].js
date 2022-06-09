@@ -17,18 +17,15 @@ export default NextAuth({
       const email = credentials?.email;
       const hashedPassword = hash({email: credentials?.password});
 
-      const checkUserCredentials = `SELECT id, email FROM users WHERE email='${email}' AND hash='${hashedPassword}'`;
+      const checkUserCredentials = `SELECT * FROM users WHERE email='${email}' AND hash='${hashedPassword}'`;
 
       return pool.query(checkUserCredentials)
       .then((user) => {
         if (user.rowCount === 0) {
           throw new Error('Invalid email or password');
         } else {
-          // change this to pull in all user data
-          const loggedInUser = {
-            email: user.rows[0].email,
-            id: user.rows[0].id
-          }
+          const loggedInUser = user.rows[0];
+          delete loggedInUser.hash;
           return loggedInUser;
         }
       }).catch((err) => {
@@ -80,6 +77,8 @@ export default NextAuth({
           }
           return true;
         })
+      } else if (account.provider === 'credentials') {
+        return true;
       }
     }
 

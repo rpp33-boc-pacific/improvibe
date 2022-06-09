@@ -16,7 +16,7 @@ function SignUp() {
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
 
-    axios.post('/api/signUp', {
+    axios.post('/api/auth/signUp', {
       email: email,
       password: password
     })

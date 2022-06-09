@@ -1,4 +1,4 @@
-import pool from "../../sql/db";
+import pool from "../../../sql/db";
 import hash from 'object-hash';
 
 export default function signUpHandler(req: any, res: any) {
@@ -11,7 +11,7 @@ export default function signUpHandler(req: any, res: any) {
     } else {
       const email = req.body.email;
       const hashedPassword = hash({email: req.body.password});
-
+      console.log(email, hashedPassword)
       const checkUserExists = `SELECT email FROM users WHERE email='${email}'`
       const insertUser = `INSERT INTO users(email, hash) VALUES ('${email}', '${hashedPassword}');`
 

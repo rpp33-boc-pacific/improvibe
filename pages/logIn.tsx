@@ -21,6 +21,7 @@ export default function LogIn() {
 
     signIn('credentials', {email: email, password: password, redirect: false, callbackUrl: '/'})
     .then((status: any) => {
+      console.log(status)
       if (status && status.error) {
         setLogInError(true);
       } else {

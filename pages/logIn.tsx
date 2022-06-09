@@ -23,6 +23,16 @@ export default function LogIn() {
     }
   }, [user]);
 
+  const checkSession = async () => {
+    const session = await getSession();
+      if (session) {
+        axios.post('/api/auth/logIn', session)
+        .then(async (response) => {
+          setUser(response.data);
+        })
+      }
+  }
+
   const credentialsLogIn = (e: any) => {
     e.preventDefault();
     const email = e.target.elements.email.value;
@@ -33,7 +43,7 @@ export default function LogIn() {
       if (status && status.error) {
         setLogInError(true);
       } else {
-        router.push('/');
+        checkSession();
       }
     })
     .catch((err) => {
@@ -44,16 +54,9 @@ export default function LogIn() {
   const googleLogIn = (e: any) => {
     e.preventDefault();
 
-    signIn('google', {redirect: false})
+    signIn('google', {callbackUrl: '/'})
     .then( async () => {
-      const session = await getSession();
-      console.log('session', session)
-      if (session) {
-        axios.post('/api/auth/logIn', session)
-        .then(async (response) => {
-          setUser(response.data);
-        })
-      }
+      checkSession();
     }).catch((err) => {
       console.log(err);
     })
@@ -64,7 +67,7 @@ export default function LogIn() {
 
     signIn('github')
     .then((status: any) => {
-      console.log(status)
+      checkSession();
     })
     .catch((err) => {
       console.log(err)

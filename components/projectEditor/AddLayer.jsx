@@ -38,6 +38,7 @@ function AddLayer() {
     uploadFile();
     setURL(BUCKET_URL + selectedFile.name)
     handleClose();
+    console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
   };
 
   const uploadFile = async () => {

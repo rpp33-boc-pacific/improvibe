@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import NavigationBar from '../../components/NavigationBar';
-import SongTile from '../../components/shared/SongTile';
+// import SongTile from '../../components/shared/SongTile';
 import profile from '../../sample-data/profile';
 
 const fetcher = (...args: any) => fetch(args).then((res) => res.json())
@@ -65,9 +65,9 @@ const Profile: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
           <Grid container item xs={12}>
             <Stack direction='row' spacing={1}>
               {/* {data.map((song, index) => <Grid item key={index}><SongTile key={index} user={user} song={song} /></Grid>)} */}
+              {/* <SongTile />
               <SongTile />
-              <SongTile />
-              <SongTile />
+              <SongTile /> */}
             </Stack>
           </Grid>
         </Grid>

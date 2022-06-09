@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
+import { ProjectContext } from './ProjectContext';
 
 const style = {
   // position: 'absolute' as 'absolute',
@@ -26,6 +27,11 @@ function AddLayer() {
   const [fileURL, setURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const { layersState } = useContext(ProjectContext);
+  const [layers, setLayers] = layersState;
+  console.log('layers', layers);
+  console.log('file url', fileURL);
+
   // open / close modal
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -36,7 +42,27 @@ function AddLayer() {
 
   const saveToS3 = () => {
     uploadFile();
-    setURL(BUCKET_URL + selectedFile.name)
+    const trackURL = BUCKET_URL + selectedFile.name;
+    setURL(trackURL)
+
+    const newLayer = {
+      layerId: layers.length + 1,
+      trackAudio: trackURL,
+      trackName: 'Track Name',
+      trackTime: 'track time',
+      tempo: 1,
+      pitch: 0,
+      volume: 0.65,
+      startInterval: 0,
+      endInterval: 1,
+      start: 0,
+      loop: false
+    }
+
+    const layersCopy = JSON.parse(JSON.stringify(layers));
+    layersCopy.push(newLayer);
+    setLayers(layersCopy);
+
     handleClose();
     console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
   };

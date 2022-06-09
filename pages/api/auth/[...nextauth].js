@@ -65,27 +65,22 @@ export default NextAuth({
       return session;
     },
 
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account }) {
       if (account.provider === 'google' || account.provider === 'github') {
-        console.log(user)
-        const sessionToken = account.access_token;
-        const checkUserCredentials = `SELECT user_id FROM sessions WHERE sessionToken='${sessionToken}'`;
+        const email = user.email;
+        const checkUserCredentials = `SELECT * FROM users WHERE email='${email}'`;
         return pool.query(checkUserCredentials)
         .then((user) => {
           if (user.rowCount === 0) {
-            const addUser = ``
-
-          } else {
-
+            const addUser = `INSERT INTO users(email) VALUES ('${email}')`
+            pool.query(addUser)
+            .then((user) =>{
+              console.log(addUser, user)
+              return;
+            })
           }
           return true;
         })
-      }
-      const isAllowedToSignIn = true
-      if (isAllowedToSignIn) {
-        return true
-      } else {
-        return false
       }
     }
 

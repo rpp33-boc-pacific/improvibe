@@ -25,11 +25,6 @@ function ProjectHeader() {
   const handleChange = (e) => {
     setValue(e.target.value)
     context.projectNameState = e.target.value
-
-    // data.trackName = event.target.value;
-    // layers[layerIndex] = data;
-    // setLayers(layers);
-    // setLayerName(event.target.value);
   };
 
   return (

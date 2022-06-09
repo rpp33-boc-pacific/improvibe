@@ -72,17 +72,11 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
       let adjustPosition = 0;
 
       const delayStart = { extract: (target: [any], numFrames: number, position: number) => {
-        if (data.layerId === 2) {
-          console.log('position:', position);
-          console.log('adjustPosition:', adjustPosition);
-          console.log(wavesurfer.current.backend.source.buffer.getChannelData(0).length);
-        }
         const newPosition = position - adjustPosition;
         if (waitingToStart) {
           waitingToStart = false;
           setTimeout(() => {
             playAudio = true
-            console.log('ready', data.layerId);
           }, delay);
         }
 
@@ -90,11 +84,6 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
         let right = wavesurfer.current.backend.source.buffer.getChannelData(1);
 
         if (playAudio) {
-          if (data.layerId === 2) {
-            console.log('newPosition:', newPosition);
-            console.log('startInterval:', startInterval);
-            console.log('endInterval:', endInterval);
-          }
           if (newPosition > startInterval && newPosition < endInterval) {
             for (var i = 0; i < numFrames; i++) {
               target[i * 2] = left[i + newPosition];
@@ -135,7 +124,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
     });
   });
 
-  useEffect(() => { // THIS WORKS
+  useEffect(() => {
     if (wavesurfer.current && data.isReady) {
       if (isPlaying) {
         if (playAll) {
@@ -154,13 +143,12 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
     }
   }, [isPlaying]);
 
-  useEffect(() => { // THIS IS BROKEN
+  useEffect(() => {
     if (wavesurfer.current && data.isReady) {
       if (playAll) {
         if (isPlaying) {
           data.layerAudioNode.disconnect();
         }
-        // data.audioNode.connect(wavesurfer.current.backend.ac.destination);
         wavesurfer.current.backend.setFilter(data.audioNode);
         wavesurfer.current.setVolume(data.volume);
         wavesurfer.current.setPlaybackRate(data.tempo);

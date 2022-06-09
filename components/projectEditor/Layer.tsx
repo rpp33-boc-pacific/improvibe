@@ -5,6 +5,7 @@ import PlayLayer from './PlayLayer';
 import SoundControllerList from './SoundControllerList';
 import Wave from './Wave';
 import { ProjectContext } from './ProjectContext';
+import TimeLine from './TimeLine';
 
 interface Props {
   layers: [{ layerId: number, volume: number, pitch: number, tempo: number, start: number, end: number, trackAudio: string, trackName: string, [key: string]: any }],
@@ -62,9 +63,13 @@ const Layer : NextPage<Props> = ({ layers, layerIndex, setLayers }) => {
           </Stack>
           <SoundControllerList changeView={changeView} layers={layers} layerIndex={layerIndex} setLayers={setLayers} isDisabled={true}/>
         </div>
-        <div className='wave-holder'>
-          <Wave data={data} isPlaying={isPlaying} playAll={playAll} layerIndex={layerIndex} updateAudioNode={updateAudioNode} updateReadyState={updateReadyState} updateLayerAudioNode={updateLayerAudioNode}/>
+        <div className='wave-time-holder'>
+          <div className='wave-holder'>
+            <Wave data={data} isPlaying={isPlaying} playAll={playAll} layerIndex={layerIndex} updateAudioNode={updateAudioNode} updateReadyState={updateReadyState} updateLayerAudioNode={updateLayerAudioNode}/>
+          </div>
+          <TimeLine startMarker={Math.round(data.startInterval / data.tempo) + data.start + 1} endMarker={Math.round(data.endInterval / data.tempo) + data.start + 1}/>
         </div>
+
       </div>
     </div>
   );

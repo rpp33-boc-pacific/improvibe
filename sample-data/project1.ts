@@ -13,8 +13,8 @@ const project = {
       tempo: 1,
       pitch: 0,
       volume: 0.65,
-      startInterval: 0,
-      endInterval: 1,
+      startInterval: 3,
+      endInterval: 80,
       start: 0,
       loop: false
     },
@@ -22,13 +22,13 @@ const project = {
       layerId: 2,
       trackAudio: 'https://improvibe-tracks.s3.amazonaws.com/fin.mp3',
       trackName: 'beat',
-      trackTime: 8,
+      trackTime: 12,
       tempo: 2,
       pitch: 4,
       volume: 0.25,
-      startInterval: 0.25,
-      endInterval: 0.75,
-      start: 0.4,
+      startInterval: 5,
+      endInterval: 8,
+      start: 4,
       loop: true
     }
   ]

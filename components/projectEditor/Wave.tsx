@@ -5,16 +5,17 @@ const { debounce } = require('lodash');
 
 const formWaveSurferOptions = (ref: any, height: number | undefined) => ({
   container: ref,
-  waveColor: '#2877cc',
+  waveColor: '#fff',
   progressColor: '#accbeb',
   cursorColor: '#f50057',
-  barWidth: 3,
-  barRadius: 3,
+  barWidth: 2,
+  barRadius: 2,
   responsive: true,
   height: height,
   partialRender: true,
   hideScrollbar: true,
   interact: false,
+  backgroundColor: '#2877cc',
 });
 
 interface Props {
@@ -58,7 +59,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
     wavesurfer.current.load(data.trackAudio);
 
     wavesurfer.current.on('ready', function() {
-      const duration = wavesurfer.current.getDuration();
+      const duration = 60 * 4;
       const soundTouchObj = new window.soundtouch.SoundTouch(wavesurfer.current.backend.ac.sampleRate);
       soundTouchObj.tempo = data.tempo;
       soundTouchObj.pitchSemitones = data.pitch;
@@ -114,10 +115,22 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
         return Math.min(numFrames, left.length - position);
       }}
 
-      const delayFilter = new window.soundtouch.SimpleFilter(delayStart, soundTouchObj);
+      const standardBuffer = { extract: (target: [any], numFrames: number, position: number) => {
+        let left = wavesurfer.current.backend.source.buffer.getChannelData(0);
+        let right = wavesurfer.current.backend.source.buffer.getChannelData(1);
+
+        for (var i = 0; i < numFrames; i++) {
+          target[i * 2] = left[i + position];
+          target[i * 2 + 1] = right[i + position];
+        }
+
+        return Math.min(numFrames, left.length - position);
+      }}
+
+      const delayFilter = new window.soundtouch.SimpleFilter(standardBuffer, soundTouchObj);
       const audioNode = window.soundtouch.getWebAudioNode(wavesurfer.current.backend.ac, delayFilter);
 
-      const noDelayFilter = new window.soundtouch.SimpleFilter(delayStart, soundTouchObj);
+      const noDelayFilter = new window.soundtouch.SimpleFilter(standardBuffer, soundTouchObj);
       const layerAudioNode = window.soundtouch.getWebAudioNode(wavesurfer.current.backend.ac, noDelayFilter);
 
       updateAudioNode(audioNode);
@@ -129,8 +142,12 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
   useEffect(() => {
     if (wavesurfer.current && data.isReady) {
       if (isPlaying) {
-        data.audioNode.disconnect();
-        wavesurfer.current.backend.setFilter(data.layerAudioNode);
+        if (playAll) {
+          data.audioNode.disconnect();
+        }
+        data.layerAudioNode.connect(wavesurfer.current.backend.ac.destination);
+        // wavesurfer.current.backend.setFilter(data.layerAudioNode);
+        // wavesurfer.current.backend.setFilter(data.audioNode);
         let songTime = wavesurfer.current.getDuration();
         wavesurfer.current.setVolume(data.volume);
         wavesurfer.current.setPlaybackRate(data.tempo);
@@ -147,13 +164,18 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
   useEffect(() => {
     if (wavesurfer.current && data.isReady) {
       if (playAll) {
-        data.layerAudioNode.disconnect();
+        if (isPlaying) {
+          data.layerAudioNode.disconnect();
+          // data.audioNode.disconnect();
+        }
+
         data.audioNode.connect(wavesurfer.current.backend.ac.destination);
+        // wavesurfer.current.backend.setFilter(data.audioNode);
         let songTime = wavesurfer.current.getDuration();
         wavesurfer.current.setVolume(data.volume);
         wavesurfer.current.setPlaybackRate(data.tempo);
         let pausedTime = pauseTimes[data.layerId] || 0;
-        wavesurfer.current.play(pausedTime, data.endInterval * songTime);
+        wavesurfer.current.play(data.startInterval * songTime, data.endInterval * songTime);
       } else {
         pauseTimes[data.layerId] = wavesurfer.current.getCurrentTime();
         wavesurfer.current.pause();
@@ -162,10 +184,10 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
     }
   }, [playAll]);
 
-  let gridColumn = data.start * 100 || 1;
+  let gridColumn = data.start + 1;
 
   return (
-    <div className='wave-card' style={{ gridColumn: `${gridColumn} / ${Math.round(data.trackTime / 240 * 100) + gridColumn}` }} id={`wave-${data.layerId}`} ref={waveformRef} />
+    <div className='wave-card' style={{ gridColumn: `${gridColumn} / ${Math.round(data.trackTime / data.tempo) + gridColumn}` }} id={`wave-${data.layerId}`} ref={waveformRef} />
   );
 }
 

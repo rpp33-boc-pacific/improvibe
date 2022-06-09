@@ -6,7 +6,6 @@ import { ProjectContext } from './ProjectContext';
 const LayerList = () => {
   const { layersState } = useContext(ProjectContext);
   const [layers, setLayers] = layersState;
-
   let layerIndex = 0;
 
   return (

@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Image from 'next/image';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -9,15 +10,18 @@ import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import NavigationBar from '../../components/NavigationBar';
 import SongTile from '../../components/shared/SongTile';
+import AppContext from '../../AppContext';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Profile: NextPage = () => {
 
   const router = useRouter();
-  let { id } = router.query;
+  const { id } = router.query;
+  // const context: any = useContext(AppContext);
+  // const clientId = context.user.id;
 
-  const { data, error } = useSWR(`/api/user/${id}`, fetcher);
+  const { data, error } = useSWR(`/api/user/public${id}?client=${1}`, fetcher);
 
   if (error) {
     return (
@@ -41,7 +45,7 @@ const Profile: NextPage = () => {
               <Container>
                 <Image
                   alt='Profile picture of the arist'
-                  src={data.photoUrl}
+                  src={data.user.photoUrl}
                   height={300}
                   width={300}
                   style={{ borderRadius: '90%' }}
@@ -53,7 +57,7 @@ const Profile: NextPage = () => {
           <Grid container item xs={8}>
             <Grid item xs={12}>
               <Box>
-                <Typography>{data.name}</Typography>
+                <Typography>{data.user.name}</Typography>
               </Box>
             </Grid>
             <Grid item xs={12}>
@@ -61,7 +65,7 @@ const Profile: NextPage = () => {
             </Grid>
             <Grid item xs={12}>
               <Box>
-                {data.aboutMe}
+                {data.user.aboutMe}
               </Box>
             </Grid>
           </Grid>
@@ -73,7 +77,7 @@ const Profile: NextPage = () => {
             </Grid>
             <Grid container item xs={12}>
               <Stack direction='row' spacing={1}>
-                {data.songs.map((song: any, index: number) => <Grid item key={index}><SongTile key={index} song={song} user={data.userId} color='white' /></Grid>)}
+                {data.songs.map((song: any, index: number) => <Grid item key={index}><SongTile key={index} song={song} user={data.user.id} color='white' /></Grid>)}
               </Stack>
             </Grid>
           </Grid>

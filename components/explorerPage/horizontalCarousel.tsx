@@ -18,7 +18,7 @@ const HorizontalCarousel = () => {
 
   useEffect(() => {
     // The songs will come from the api call
-    axios.get('api/songs/most')
+    axios.get('api/top/songs')
     .then((response) => {
       setSongs(response.data);
       setLoading(false);

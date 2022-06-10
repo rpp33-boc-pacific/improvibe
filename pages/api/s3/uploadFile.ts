@@ -23,6 +23,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       ContentType: type,
     };
 
+    console.log('file', fileParams);
+
     const url = await s3.getSignedUrlPromise("putObject", fileParams);
 
     res.status(200).json({ url });

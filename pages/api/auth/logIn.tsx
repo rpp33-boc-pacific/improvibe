@@ -23,7 +23,6 @@ export default function logInHandler(req: any, res: any) {
         }
         user = loggedInUser.rows[0];
         delete user.hash;
-        console.log(user)
         res.status(201).send(user);
         return resolve();
       })

@@ -15,6 +15,11 @@ const Layer = ({ layers, layerIndex, setLayers }) => {
   const [layerName, setLayerName] = useState(data.trackName);
 
   const changeView = () => {
+    if (layers[layerIndex].audioNode) {
+      layers[layerIndex].layerAudioNode.disconnect();
+      layers[layerIndex].audioNode.disconnect();
+    }
+
     setWaveView(!showWaveView);
   }
 
@@ -33,6 +38,11 @@ const Layer = ({ layers, layerIndex, setLayers }) => {
     setLayers(layers);
   }
 
+  const updateFilter = (filter) => {
+    layers[layerIndex].audioFilter = filter;
+    setLayers(layers);
+  }
+
   const deleteLayer = () => {
     // make a call to the api to delete
     const remainingLayers = layers.filter((item, index) => index !== layerIndex)
@@ -47,7 +57,7 @@ const Layer = ({ layers, layerIndex, setLayers }) => {
   }
 
   const waveView = (
-    <div role='layer' className='card-layer'>
+    <div role='layer' className={`card-layer layer-${data.layerId}`}>
       <div className='layer-holder'>
         <div className='layer-details-holder'>
           <Stack direction="row" spacing={2} sx={{ width: '6vw' }}>

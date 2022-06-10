@@ -4,10 +4,10 @@ import hash from 'object-hash';
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import PostgresAdapter from "./PostgresAdapter"
+import PostgresAdapter from "./PostgresAdapter";
+import axios from 'axios';
 
 export default NextAuth({
-  adapter: PostgresAdapter(pool),
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -23,6 +23,7 @@ export default NextAuth({
 
       return pool.query(checkUserCredentials)
       .then((user) => {
+        console.log(user)
         if (user.rowCount === 0) {
           throw new Error('Invalid email or password');
         } else {
@@ -30,6 +31,7 @@ export default NextAuth({
           return loggedInUser;
         }
       }).catch((err) => {
+        console.log(err)
         return null;
       });
       }
@@ -56,7 +58,6 @@ export default NextAuth({
     },
 
     session: ({ session, token, user }) => {
-      console.log('THIS IS THE USER', user);
       if (token) {
         session.user = token.user;
         session.accessToken = token.accessToken;
@@ -65,8 +66,7 @@ export default NextAuth({
     },
 
     async signIn({ user, account, profile }) {
-      console.log(user)
-        return true
+      return true
     }
 
   },

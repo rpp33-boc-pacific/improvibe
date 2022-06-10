@@ -97,6 +97,7 @@ export default function PostgresAdapter(pool: { query: (arg0: string) => Promise
     },
     async createSession({ sessionToken, userId }) {
       const addSession = `INSERT INTO sessions (user_id, sessionToken) VALUES (${userId}, '${sessionToken}');`;
+      console.log(addSession)
       return pool.query(addSession)
         .then((session: any) =>{
           if (session) {

@@ -13,6 +13,7 @@ export default function LogIn() {
 
   const [logInError, setLogInError] = useState(false);
   const {user, setUser} = useContext(AppContext);
+  const {songs, setSongs} = useContext(AppContext);
 
   const router = useRouter();
 
@@ -115,7 +116,6 @@ export default function LogIn() {
 LogIn.getInitialProps = async (context) => {
   const { req, res } = context;
   const session = await getSession({ req });
-  console.log('front end', session)
   if (session && res) {
     res.writeHead(302, {
       Location: "/",

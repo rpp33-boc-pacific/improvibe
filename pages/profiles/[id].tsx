@@ -21,7 +21,7 @@ const Profile: NextPage = () => {
   // const context: any = useContext(AppContext);
   // const clientId = context.user.id;
 
-  const { data, error } = useSWR(`/api/user/public${id}?client=${1}`, fetcher);
+  const { data, error } = useSWR(`/api/user/public/${id}?client=${1}`, fetcher);
 
   if (error) {
     return (
@@ -41,8 +41,8 @@ const Profile: NextPage = () => {
         <NavigationBar />
         <Grid container spacing={1}>
           <Grid item xs={4}>
-            <Box>
-              <Container>
+            <Container>
+              <Box sx={{ marginLeft: '40px', marginTop: '40px' }}>
                 <Image
                   alt='Profile picture of the arist'
                   src={data.user.photoUrl}
@@ -51,16 +51,16 @@ const Profile: NextPage = () => {
                   style={{ borderRadius: '90%' }}
                   data-testid='picture'
                 />
-              </Container>
-            </Box>
+              </Box>
+            </Container>
           </Grid>
-          <Grid container item xs={8}>
+          <Grid container item xs={8} sx={{ marginTop: '40px' }}>
             <Grid item xs={12}>
               <Box>
                 <Typography>{data.user.name}</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ marginRight: '60px' }}>
               <Typography>About Me</Typography>
             </Grid>
             <Grid item xs={12}>
@@ -76,7 +76,7 @@ const Profile: NextPage = () => {
               <Typography>My Songs</Typography>
             </Grid>
             <Grid container item xs={12}>
-              <Stack direction='row' spacing={1}>
+              <Stack direction='row' spacing={1.5}>
                 {data.songs.map((song: any, index: number) => <Grid item key={index}><SongTile key={index} song={song} user={data.user.id} color='white' /></Grid>)}
               </Stack>
             </Grid>

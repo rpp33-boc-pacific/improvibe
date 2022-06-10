@@ -12,13 +12,18 @@ import CloseIcon from '@mui/icons-material/Close';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import IconButton from '@mui/material/IconButton';
 import { borderRadius } from '@mui/system';
-import Player from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
-import dynamic from 'next/dynamic'
+// import Player from 'react-h5-audio-player';
+// import 'react-h5-audio-player/lib/styles.css';
+import dynamic from 'next/dynamic';
+// import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+// import Player from 'material-ui-audio-player';
 
+// const Player = dynamic(() => import('material-ui-audio-player'))
 // const Player = dynamic(() => import('react-h5-audio-player'))
 
-const AudioPlayer = ({ song, user, color }: any) => {
+
+const AudioPlayer = ({ song, user, color }) => {
+
   const style = {
     position: 'absolute',
     bottom: '0%',
@@ -30,12 +35,14 @@ const AudioPlayer = ({ song, user, color }: any) => {
     p: 4,
   };
 
+
   const ProfileImage = () => {
     return (
       <Image src={song.photo_url} alt="artist-profile-picture" layout={"fixed"} width="125px" height="125px"/>
       )
     }
 
+  const [liked, updateLiked] = useState(song.liked);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -66,18 +73,17 @@ const AudioPlayer = ({ song, user, color }: any) => {
               </Grid>
               <Grid item xs={3}>
                 <Typography sx={{color: "#333", textAlign: "right"}}>
-                    {song.genre}
+                    #{song.genre}
                     {/* insert component to display list here */}
                 </Typography>
                 <Grid item xs={4}>
-                  <LikeButton color={color} song={song} user={user}/>
+                  <LikeButton color={color} song={song} user={user} liked={liked} updateLiked={updateLiked}/>
                   <AddToProjects song={song} user={user}/>
                 </Grid>
               </Grid>
             </Grid>
               <audio controls src={song.song_path} style={{width: "100%"}}></audio>
-              {/* <Player autoPlay src={song.song_path}  style={{boxShadow: 'none', color: 'white', backgroundColor: '#333', border:'none'}}/> */}
-              {/* <audio controls></audio> */}
+              {/* <Player autoPlay src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" style={{backgroundColor: '#333'}}/> */}
             <IconButton
               aria-label="close-player-modal"
               sx={{color: '#333', position: 'absolute', top: '2%', right: '1%'}}

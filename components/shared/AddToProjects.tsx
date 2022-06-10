@@ -23,7 +23,7 @@ const AddToProjects = ({ song, user}: any) => {
     <>
     <Button
       onClick={() => {}}
-      sx={{color: "white"}}>
+      sx={{color: "#333"}}>
         In Your Projects
     </Button>
     </>

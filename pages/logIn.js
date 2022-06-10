@@ -55,7 +55,7 @@ export default function LogIn() {
   const googleLogIn = (e) => {
     e.preventDefault();
 
-    signIn('google')
+    signIn('google', {callbackUrl: '/'})
     .then( async () => {
       checkSession(false);
     }).catch((err) => {
@@ -66,9 +66,9 @@ export default function LogIn() {
   const githubLogIn = (e) => {
     e.preventDefault();
 
-    signIn('github')
+    signIn('github', {callbackUrl: '/'})
     .then((status) => {
-      checkSession(false);
+
     })
     .catch((err) => {
       console.log(err)

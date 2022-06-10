@@ -4,8 +4,10 @@ import hash from 'object-hash';
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
+import PostgresAdapter from "./PostgresAdapter"
 
 export default NextAuth({
+  adapter: PostgresAdapter(pool),
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -62,6 +64,7 @@ export default NextAuth({
     },
 
     async signIn({ user, account, profile }) {
+      console.log(user)
         return true
     }
 

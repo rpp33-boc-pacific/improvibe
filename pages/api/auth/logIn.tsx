@@ -6,8 +6,8 @@ export default function logInHandler(req: any, res: any) {
     if (req.method !== 'POST') {
       res.status(405).send({ message: 'Only POST requests allowed' });
       return;
-
     } else {
+
       const email =req.body.user.email;
       let user;
 

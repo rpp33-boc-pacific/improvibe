@@ -44,7 +44,8 @@ CREATE TABLE users (
   hash varchar(255),
   about_me text,
   searched integer,
-  emailVerified timestamp
+  emailVerified timestamp,
+  photo_url varchar(255)
 );
 
 CREATE TABLE projects (

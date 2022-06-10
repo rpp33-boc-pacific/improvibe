@@ -4,17 +4,17 @@ import project1 from '../../sample-data/project1';
 const ProjectContext = createContext({});
 
 const ProjectContextProvider = ({ children }: any) => {
-  const [layers, setLayers] = useState(project1.layers); //  [{ layerId: null, trackId: null, volume: 50, pitch: 50, tempo: 50, start: 0, end: 0, new: false }]
-  const [projectName, setProjectName] = useState('new project');
+  const [layers, setLayers] = useState(project1.layers);
+  const [projectName, setProjectName] = useState('');
   const [genre, setGenre] = useState('');
-  const [hashtags, setHashtags] = useState([]);
+  const [playAll, setPlayAll] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
   const projectContextState = {
     layersState: [layers, setLayers],
     projectNameState: [projectName, setProjectName],
     genreState: [genre, setGenre],
-    hashtagsState: [hashtags, setHashtags],
+    playAllState: [playAll, setPlayAll],
     isSavedState: [isSaved, setIsSaved],
   }
 

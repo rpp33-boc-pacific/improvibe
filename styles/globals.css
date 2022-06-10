@@ -16,14 +16,35 @@ a {
 }
 
 /* Editor CSS */
-.wave-holder {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.wave-holder, .marker-holder {
+  display: grid;
+  grid-template-columns: 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4%;
   padding-left: 16px;
-  flex-grow: 5;
-  height: 100%;
   overflow: hidden;
+}
+
+.tick {
+  width: 1px;
+  background-color: #ccc;
+  height: 100%;
+}
+
+.wave-holder {
+  flex-grow: 8;
+}
+
+.marker-holder {
+  height: 5%;
+  /* background-image: repeating-linear-gradient(90deg, #ccc 0 1px, transparent 1px 100%);
+  background-size: 3px 3px; */
+}
+
+.wave-time-holder {
+  display: flex;
+  padding-left: 16px;
+  flex-grow: 8;
+  height: 100%;
+  flex-direction: column;
 }
 
 .wave-card {
@@ -41,18 +62,23 @@ a {
 }
 
 .setting-label, .project-status {
-  width: 80px;
+  width: 10vh;
   font-weight: lighter;
   font-size: 1.7vh;
 }
 
 .setting-label {
-  align-self: center;
+  padding-top: 0.2vh;
 }
 
 .play-layer, .layer-name {
   font-weight: bold;
   font-size: 2.2vh;
+}
+
+.setting-holder {
+  display: flex;
+  flex-direction: row;
 }
 
 .settings-view {
@@ -104,6 +130,13 @@ a {
   grid-column: 2;
 }
 
+.page-title {
+  font-size: 2.5vh;
+  font-weight: bold;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+}
+
 .projects-container {
   grid-column: 4;
 }
@@ -112,6 +145,9 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  height: 5vh;
 }
 
 .list-layers {
@@ -119,14 +155,14 @@ a {
   flex-direction: column;
   margin-top: 24px;
   margin-bottom: 24px;
-  gap: 16px;
+  gap: 24px;
 }
 
 .layer-details-holder {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: 2vh;
+  gap: 1vh;
   height: 100%;
 }
 
@@ -142,15 +178,48 @@ a {
   padding-left: 16px;
 }
 
-.song-name {
+.song-name, .layer-name {
   border: 0;
   outline: 0;
-  font-size: 2.2vh;
+  font-size: 2vh;
   color: #000;
   font-weight: bold;
   background: transparent;
 }
 
-.song-name::placeholder {
+.layer-name {
+  font-size: 1.8vh;
+  width: fit-content;
+}
+
+::placeholder {
   color: #000;
+}
+
+.slider-holder {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: left;
+}
+
+.add-layer-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3vh;
+}
+
+.project-header {
+  font-size: 2vh;
+  font-weight: bold;
+}
+
+.start-marker, .end-marker {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  z-index: 5;
 }

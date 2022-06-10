@@ -2,38 +2,41 @@ import { getByTestId, render, screen, fireEvent } from '@testing-library/react';
 import AudioPlayer from '../../components/shared/AudioPlayer';
 import LikeButton from '../../components/shared/LikeButton';
 import AddToProjects from '../../components/shared/AddToProjects';
+import axios from 'axios';
+
 
 const userProp = {
-  userId: 1,
-  liked: false, //liked by current user
+  user: 1
 }
 const songProp = {
-  songName: 'Song Name',
-  artistName: 'Artist Name',
-  songPath: 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav',
+  song_name: 'Song Name',
+  artist_name: 'Artist Name',
+  song_path: 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav',
   genre: 'rock',
   tags: ['smooth', 'funky'],
-  artistPic: "https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif",
-  cumulativeLikes: 234,
+  in_projects: false,
+  photo_url: "https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif",
+  cumulative_likes: 234,
+  liked: false, //liked by current user
 }
 
 describe('Audio Player', () => {
   it('Has an icon button', () => {
-    render(<AudioPlayer  color={'white'} song={songProp} user={userProp}/>);
+    render(<AudioPlayer  color={'white'} song={songProp} user={userProp.user}/>);
     const button = screen.getByRole('button');
     const icon = screen.getByTestId("PlayCircleIcon");
     expect(icon).toBeInTheDocument();
     expect(button).toBeInTheDocument();
   });
   it('Opens audio player modal when icon is clicked', async () => {
-    render(<AudioPlayer color={'white'} song={songProp} user={userProp}/>);
+    render(<AudioPlayer color={'white'} song={songProp} user={userProp.user}/>);
     fireEvent.click(screen.getByRole('button', {
       name: /open-player-modal/i
     }));
     expect(screen.getByRole('audio-player')).toBeInTheDocument()
   });
   it('Closes audio player modal when icon is clicked', async () => {
-    render(<AudioPlayer color={'white'} song={songProp} user={userProp}/>);
+    render(<AudioPlayer color={'white'} song={songProp} user={userProp.user}/>);
     fireEvent.click(screen.getByRole('button', {
       name: /open-player-modal/i
     }));

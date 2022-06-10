@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import LikeButton from './LikeButton';
 import AddToProjects from './AddToProjects';
 import Box from '@mui/material/Box';
@@ -13,7 +13,6 @@ import IconButton from '@mui/material/IconButton';
 import { borderRadius } from '@mui/system';
 
 const AudioPlayer = ({ song, user, color }: any) => {
-
   const style = {
     position: 'absolute',
     bottom: '0%',
@@ -26,11 +25,11 @@ const AudioPlayer = ({ song, user, color }: any) => {
 
   const ProfileImage = () => {
     return (
-      <Image src={song.artistPic} alt="artist-profile-picture" layout={"fixed"} width="125px" height="125px"/>
+      <Image src={song.photo_url} alt="artist-profile-picture" layout={"fixed"} width="125px" height="125px"/>
     )
   }
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -53,8 +52,8 @@ const AudioPlayer = ({ song, user, color }: any) => {
               </Link>
               </Grid>
               <Grid item xs={3} sx={{paddingBotton: ".5em"}}>
-                <Typography variant="h4"sx={{color: "white"}}>{song.songName}</Typography>
-                <Link href="./profile" sx={{color: "white"}}>{song.artistName}</Link>
+                <Typography variant="h4"sx={{color: "white"}}>{song.song_name}</Typography>
+                <Link href="./profile" sx={{color: "white"}}>{song.artist_name}</Link>
               </Grid>
               <Grid item xs={3}>
                 <Typography sx={{color: "white", textAlign: "center"}}>
@@ -65,7 +64,7 @@ const AudioPlayer = ({ song, user, color }: any) => {
                 <AddToProjects song={song} user={user}/>
               </Grid>
             </Grid>
-            <audio role="audio-player" controls src={song.songPath}></audio>
+            <audio role="audio-player" controls src={song.song_path}></audio>
             <IconButton
               aria-label="close-player-modal"
               sx={{color: 'white', position: 'absolute', top: '2%', right: '1%'}}

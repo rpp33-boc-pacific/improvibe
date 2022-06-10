@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import Button  from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import axios from 'axios';
 
 const AddToProjects = ({ song, user}: any) => {
-  const [inProjects, addToProjects] = useState(user.liked);
+  const [inProjects, addToProjects] = useState(song.in_projects);
 
-  useEffect(() => {
-    //update the database
-  })
+ const handleAddToProjects = () => {
+   addToProjects(!inProjects);
+ }
   return (
     inProjects === false ?
     <Button
       aria-label="add-project"
-      onClick={() => {addToProjects(!inProjects)}}
+      onClick={() => {handleAddToProjects()}}
       sx={{color: "white"}}
       startIcon={<AddCircleIcon></AddCircleIcon>}>
         Add To Projects
@@ -21,9 +22,9 @@ const AddToProjects = ({ song, user}: any) => {
     :
     <>
     <Button
-      onClick={() => {addToProjects(!inProjects)}}
+      onClick={() => {}}
       sx={{color: "white"}}>
-        Added To Your Projects
+        In Your Projects
     </Button>
     </>
   )

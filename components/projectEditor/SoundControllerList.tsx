@@ -35,8 +35,15 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers, c
   }
 
   const changeInterval = (event: any) => {
+    data.startInterval = event.target.value[0];
+    data.endInterval = event.target.value[1];
+    data.isReady = false;
+    layers[layerIndex] = data;
+    setLayers(layers);
+  }
+
+  const changeStart = (event: any) => {
     data.start = event.target.value[0];
-    data.end = event.target.value[1];
     data.isReady = false;
     layers[layerIndex] = data;
     setLayers(layers);
@@ -52,21 +59,20 @@ const SoundControllerList: NextPage<Props> = ({ layers, layerIndex, setLayers, c
   }
 
   const volumeLabelFormat = (value: number) => {
-    return value;
+    return Math.round(value * 100);
   }
 
   const timeLabelFormat = (value: number) => {
-    if (value === 0 || value === 1) return `${value * 100}%`;
-    const percent = value * 100;
-    return percent.toFixed(1) + '%';;
+    return `${value} seconds`;
   }
 
   return (
     <div className='controller-list' onClick={changeView}>
-      <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 100, step: 1 }} labelFormat={volumeLabelFormat} changeSetting={changeVolume} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'volume', value: data.volume, min: 0, max: 1, step: 0.01 }} labelFormat={volumeLabelFormat} changeSetting={changeVolume} isDisabled={isDisabled}/>
       <SoundController settings={{ label: 'pitch', value: data.pitch, min: -12, max: 12, step: 0.5 }} labelFormat={pitchLabelFormat} changeSetting={changePitch} isDisabled={isDisabled}/>
       <SoundController settings={{ label: 'tempo', value: data.tempo, min: 0.1, max: 4, step: 0.01 }} labelFormat={tempoLabelFormat} changeSetting={changeTempo} isDisabled={isDisabled}/>
-      <SoundController settings={{ label: 'interval', value: [data.start, data.end], min: 0, max: 1, step: 0.001 }} labelFormat={timeLabelFormat} changeSetting={changeInterval} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'interval', value: [data.startInterval, data.endInterval], min: 0, max: data.trackTime, step: 1 }} labelFormat={timeLabelFormat} changeSetting={changeInterval} isDisabled={isDisabled}/>
+      <SoundController settings={{ label: 'start', value: [data.start], min: 0, max: 249, step: 1 }} labelFormat={timeLabelFormat} changeSetting={changeStart} isDisabled={isDisabled}/>
     </div>
   )
 }

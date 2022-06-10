@@ -16,14 +16,35 @@ a {
 }
 
 /* Editor CSS */
+.wave-holder, .marker-holder {
+  display: grid;
+  grid-template-columns: 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4% 0.4%;
+  padding-left: 16px;
+  overflow: hidden;
+}
+
+.tick {
+  width: 1px;
+  background-color: #ccc;
+  height: 100%;
+}
+
 .wave-holder {
+  flex-grow: 8;
+}
+
+.marker-holder {
+  height: 5%;
+  /* background-image: repeating-linear-gradient(90deg, #ccc 0 1px, transparent 1px 100%);
+  background-size: 3px 3px; */
+}
+
+.wave-time-holder {
   display: flex;
-  justify-content: center;
-  align-items: center;
   padding-left: 16px;
   flex-grow: 8;
   height: 100%;
-  overflow: hidden;
+  flex-direction: column;
 }
 
 .wave-card {
@@ -134,14 +155,14 @@ a {
   flex-direction: column;
   margin-top: 24px;
   margin-bottom: 24px;
-  gap: 16px;
+  gap: 24px;
 }
 
 .layer-details-holder {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: 2vh;
+  gap: 1vh;
   height: 100%;
 }
 
@@ -192,4 +213,13 @@ a {
 .project-header {
   font-size: 2vh;
   font-weight: bold;
+}
+
+.start-marker, .end-marker {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  z-index: 5;
 }

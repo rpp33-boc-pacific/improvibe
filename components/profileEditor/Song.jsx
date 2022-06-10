@@ -18,9 +18,9 @@ const Songs = ({ song }) => {
         err = true;
       })
       .then((res) => {
-        if (err || res.status === 500) {
+        if (err) {
           setUpdateError(true);
-        } else if (!err && res.status === 201) {
+        } else {
           setUpdateError(false);
           setpublicState(true);
         }
@@ -33,10 +33,9 @@ const Songs = ({ song }) => {
         err = true;
       })
       .then((res) => {
-        if (err || res.status === 500) {
+        if (err) {
           setUpdateError(true);
-        }
-        if (!err && res.status === 201) {
+        } else {
           setUpdateError(false);
           setpublicState(false);
         }

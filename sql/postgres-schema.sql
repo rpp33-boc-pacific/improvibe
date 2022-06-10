@@ -2,6 +2,18 @@ CREATE DATABASE improvibe;
 
 \c improvibe;
 
+DROP TABLE IF EXISTS project_hashtag;
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS layers;
+DROP TABLE IF EXISTS hashtags;
+DROP TABLE IF EXISTS senres;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS tracks;
+DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS past_searches;
+
 CREATE TABLE project_hashtag (
   id serial,
   project_id integer,
@@ -15,6 +27,24 @@ CREATE TABLE sessions (
   sessionToken varchar(255)
 );
 
+-- CREATE TABLE layers (
+--   id serial,
+--   name varchar,
+--   track_id integer,
+--   shares integer,
+--   project_id integer,
+--   searched integer,
+--   tempo integer,
+--   pitch integer,
+--   volume integer,
+--   start_time integer,
+--   trim_start integer,
+--   trim_end integer,
+--   loop boolean
+-- );
+
+-- This should be new layers table schema
+-- TODO: make sure we update deployed db to reflect
 CREATE TABLE layers (
   id serial,
   name varchar,
@@ -63,13 +93,14 @@ CREATE TABLE projects (
   date_created timestamp
 );
 
-CREATE TABLE tracks (
-  id serial,
-  name varchar(255),
-  track_path varchar(255),
-  date_created timestamp,
-  searched integer
-);
+-- No longer needed
+-- CREATE TABLE tracks (
+--   id serial,
+--   name varchar(255),
+--   track_path varchar(255),
+--   date_created timestamp,
+--   searched integer
+-- );
 
 CREATE TABLE account (
   id serial,

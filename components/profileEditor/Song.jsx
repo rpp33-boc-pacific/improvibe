@@ -8,63 +8,104 @@ import axios from 'axios';
 
 const Songs = ({ song }) => {
 
-  const [publicState, setpublicState] = useState(song.public);
+  const [ publicState, setpublicState ] = useState(song.public);
+  const [ updateError, setUpdateError ] = useState(false);
 
   const handleLockClick = () => {
     let err = false;
-    axios.put(`/api/songs/${song.id}/public`)
+    axios.put(`/api/song/public?id=${song.song_id}&publicize=true`)
       .catch((error) => {
         err = true;
       })
       .then((res) => {
-        // if (!err && res.status.toString()[0] === '2') {
-        setpublicState(!publicState);
-        // }
+        if (err) {
+          setUpdateError(true);
+        } else {
+          setUpdateError(false);
+          setpublicState(true);
+        }
       });
   };
   const handleLockOpenClick = () => {
     let err = false;
-    axios.put(`/api/songs/${song.id}/private`)
+    axios.put(`/api/song/public?id=${song.song_id}&publicize=false`)
       .catch((error) => {
         err = true;
       })
       .then((res) => {
-        // if (!err && res.status.toString()[0] === '2') {
-        setpublicState(!publicState);
-        // }
+        if (err) {
+          setUpdateError(true);
+        } else {
+          setUpdateError(false);
+          setpublicState(false);
+        }
       });
   };
 
   if (publicState) {
-    return (
-      <div>
-        <Grid container>
-          <Grid item>
-            <Box>
-              <Typography>{song.name}</Typography>
-            </Box>
+    if (updateError) {
+      return (
+        <div>
+          <Grid container>
+            <Grid item>
+              <Box>
+                <Typography>{song.song_name}</Typography>
+              </Box>
+            </Grid>
+            <Grid item>
+              <LockOpen onClick={handleLockOpenClick} />Try again
+            </Grid>
           </Grid>
-          <Grid item>
-            <LockOpen onClick={handleLockOpenClick} />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Grid container>
+            <Grid item>
+              <Box>
+                <Typography>{song.song_name}</Typography>
+              </Box>
+            </Grid>
+            <Grid item>
+              <LockOpen onClick={handleLockOpenClick} />
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
-    );
+        </div>
+      );
+    }
   } else {
-    return (
-      <div>
-        <Grid container>
-          <Grid item>
-            <Box>
-              <Typography>{song.name}</Typography>
-            </Box>
+    if (updateError) {
+      return (
+        <div>
+          <Grid container>
+            <Grid item>
+              <Box>
+                <Typography>{song.song_name}</Typography>Try again
+              </Box>
+            </Grid>
+            <Grid item>
+              <Lock onClick={handleLockClick} />
+            </Grid>
           </Grid>
-          <Grid item>
-            <Lock onClick={handleLockClick} />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Grid container>
+            <Grid item>
+              <Box>
+                <Typography>{song.song_name}</Typography>
+              </Box>
+            </Grid>
+            <Grid item>
+              <Lock onClick={handleLockClick} />
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
-    );
+        </div>
+      );
+    }
   }
 };
 

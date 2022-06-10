@@ -40,4 +40,5 @@ __snapshots__
 
 package-lock.json
 
-config.js
+# local database
+/localdb

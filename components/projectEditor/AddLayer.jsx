@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import { ProjectContext } from './ProjectContext';
+import { v4 } from "uuid";
+
+let AudioContext;
 
 const style = {
   // position: 'absolute' as 'absolute',
@@ -26,9 +29,13 @@ function AddLayer() {
   const [open, setOpen] = useState(false);
   const [fileURL, setURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-
-  const { layersState } = useContext(ProjectContext);
+  const { layersState, productIdState } = useContext(ProjectContext);
   const [layers, setLayers] = layersState;
+  const [projectId, setProductId] = productIdState;
+
+  useEffect(() => {
+    AudioContext = new (window.AudioContext || window.webkitAudioContext)()
+  }, []);
 
   // open / close modal
   const handleOpen = () => setOpen(true);
@@ -37,46 +44,65 @@ function AddLayer() {
     setSelectedFile(null);
   }
 
-  const handleClick = () => {
-    openFileSelector();
+  // TODO: update this with deployed URL to work in production
+  const currentProject = projectId
+  const addLayerToDB = (newLayer) => {
+    axios({
+      method: 'POST',
+      url: `/api/project/layers/${currentProject}`,
+      data: newLayer
+    })
   }
 
   const saveToS3 = () => {
-    uploadFile();
-    const trackURL = BUCKET_URL + selectedFile.name;
-    setURL(trackURL)
+    let audio = document.createElement('audio');
+    var reader = new FileReader();
 
-    const newLayer = {
-      layerId: layers.length + 1,
-      trackAudio: trackURL,
-      trackName: 'Track Name',
-      trackTime: 100,
-      tempo: 1,
-      pitch: 0,
-      volume: 0.65,
-      startInterval: 8,
-      endInterval: 80,
-      start: 0,
-      loop: false
-    }
+    reader.onload = (event) => {
+        audio.src = event.target.result;
+        audio.addEventListener('loadedmetadata', async function(){
+          let duration = Math.round(audio.duration);
+          console.log("The duration of the song is of: " + duration + " seconds");
 
-    let newLayers = layers.map((layer) => layer);
-    newLayers[layers.length] = newLayer
-    console.log(newLayers);
-    setLayers(newLayers);
+          const trackURL = BUCKET_URL + selectedFile.name;
+          setURL(trackURL)
 
-    handleClose();
-    console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
+          const newLayer = {
+            layerId: layers.length + 1,
+            trackAudio: trackURL,
+            trackName: 'Layer Name',
+            trackTime: duration,
+            tempo: 1,
+            pitch: 0,
+            volume: 0.50,
+            startInterval: 0,
+            endInterval: duration,
+            start: 0,
+            loop: false
+          }
+
+          await uploadFile();
+
+          let newLayers = layers.map((layer) => layer);
+          newLayers[layers.length] = newLayer
+          setLayers(newLayers);
+          addLayerToDB(newLayer); // need to make sure we are submitting with field names corresponding to db
+          handleClose();
+          console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
+        },false);
+    };
+
+    reader.readAsDataURL(selectedFile);
   };
 
   const uploadFile = async () => {
-    console.log('type', selectedFile.type);
     let { data } = await axios.post("/api/s3/uploadFile", {
-      name: selectedFile.name,
+      name: `${selectedFile.name.slice(0, -4)}_${v4() + selectedFile.name.slice(-4)}`,
       type: selectedFile.type,
     });
 
     const url = data.url;
+    console.log(url);
     let { data: newData } = await axios.put(url, selectedFile, {
       headers: {
         "Content-type": selectedFile.type,

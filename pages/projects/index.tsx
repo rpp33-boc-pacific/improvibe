@@ -21,6 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const sampleProjects = projects;
 
+// TODO: bring in user context to get current user id list of songs and replace in get route
 
 const Projects: NextPage = () => {
   return (
@@ -35,7 +36,7 @@ const Projects: NextPage = () => {
     <div className='project-editor-grid'>
       <div className='page-title'>Edit Project</div>
       <div className='editor-container'>
-        <ProjectContextProvider >
+        <ProjectContextProvider project_id={null}>
             <ProjectHeader />
             <LayerList />
             <AddLayer />
@@ -46,6 +47,7 @@ const Projects: NextPage = () => {
           <div className='project-header'>My Projects</div>
           <NewProject />
         </div>
+        {/* TODO: replace with projects list from global context */}
         <ProjectList projects={sampleProjects}/>
       </div>
     </div>

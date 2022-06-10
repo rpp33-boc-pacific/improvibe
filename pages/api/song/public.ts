@@ -1,16 +1,44 @@
 import pool from '../../../sql/db';
 
-export default /* async */ function togglePublic(req: any, res: any) {
-  const song = req.query.song_id;
-  const publicState = req.query.public === 'true' ? true : false;
+export default async function updateUser(req: any, res: any) {
+  if (req.method === 'PUT') {
+    const { id, publicize } = req.query;
 
-  if (publicState) {
-    // Update public boolean to true
-    // If error, send 500 response
-    res.status(201).send();
-  } else {
-    // Update public boolean to false
-    // If error, send 500 response
-    res.status(201).send();
+    let error = false;
+    if (publicize === 'true') {
+      const updateSongToPublic = `
+        UPDATE public.projects
+        SET public = true
+        WHERE id = ${id}
+      ;`;
+      try {
+        await pool.query(updateSongToPublic);
+      } catch (err) {
+        res.status(500).send();
+        error = true;
+      } finally {
+        if (!error) {
+          res.status(201).send('Song made public');
+        }
+      }
+
+    } else if (publicize === 'false') {
+      console.log('here');
+      const updateSongToPrivate = `
+        UPDATE public.projects
+        SET public = false
+        WHERE id = ${id}
+      ;`;
+      try {
+        await pool.query(updateSongToPrivate);
+      } catch (err) {
+        res.status(500).send();
+        error = true;
+      } finally {
+        if (!error) {
+          res.status(201).send('Song made private');
+        }
+      }
+    }
   }
-};
+}

@@ -27,10 +27,11 @@ const AudioPlayer = ({ song, user, color }) => {
   const style = {
     position: 'absolute',
     bottom: '0%',
-    height: '300px',
+    color: 'white',
+    height: '350px',
     width: '100%',
-    // bgcolor: '#333',
-    bgcolor: '#F1F3F4',
+    bgcolor: '#333',
+    // bgcolor: '#F1F3F4',
     border: '1px solid #000',
     p: 4,
   };
@@ -38,7 +39,7 @@ const AudioPlayer = ({ song, user, color }) => {
 
   const ProfileImage = () => {
     return (
-      <Image src={song.photo_url} alt="artist-profile-picture" layout={"fixed"} width="125px" height="125px"/>
+      <Image src={song.photo_url} alt="artist-profile-picture" objectFit={"cover"} layout={"fixed"}width="125px" height="125px"/>
       )
     }
 
@@ -59,7 +60,13 @@ const AudioPlayer = ({ song, user, color }) => {
           open={open}
           onClose={handleClose}>
           <Box sx={style}>
-            <Grid container direction="row" spacing={2} sx={{paddingBottom: '.5em'}}>
+            <Grid container sx={{height: "20px"}}>
+              <Grid item xs={10.5}></Grid>
+              <Grid item xs={1}>
+              <LikeButton color={color} song={song} user={user} liked={liked} updateLiked={updateLiked} />
+              </Grid>
+            </Grid>
+            <Grid container direction="row" spacing={2} sx={{paddingBottom: '.5em', paddingTop: '1em'}}>
               <Grid item xs={1.5}>
               <Link href="./profile">
                 <div style={{borderRadius:"8px", overflow: "hidden", width:"125px"}}>
@@ -67,26 +74,27 @@ const AudioPlayer = ({ song, user, color }) => {
                 </div>
               </Link>
               </Grid>
-              <Grid item xs={3} sx={{paddingBotton: ".5em"}}>
-                <Typography variant="h4"sx={{color: "#333"}}>{song.song_name}</Typography>
-                <Link href="./profile" sx={{color: "#333"}}>{song.artist_name}</Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography sx={{color: "#333", textAlign: "right"}}>
-                    #{song.genre}
-                    {/* insert component to display list here */}
-                </Typography>
-                <Grid item xs={4}>
-                  <LikeButton color={color} song={song} user={user} liked={liked} updateLiked={updateLiked}/>
-                  <AddToProjects song={song} user={user}/>
-                </Grid>
+              <Grid item xs={10} sx={{paddingBotton: ".5em"}}>
+                <Typography variant="h4"sx={{color: style.color}}>{song.song_name}</Typography>
+                <Link href="./profile" sx={{color: style.color}}>{song.artist_name}</Link>
+                <div style={{paddingTop: "2em"}}>
+                <audio controls src={song.song_path} style={{width: "100%", textAlign:"center"}}></audio>
+              </div>
               </Grid>
             </Grid>
-              <audio controls src={song.song_path} style={{width: "100%"}}></audio>
-              {/* <Player autoPlay src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" style={{backgroundColor: '#333'}}/> */}
+            <Grid container spacing={5} sx={{paddingTop: '.5em'}}>
+              <Grid item xs={8}>
+                <Typography sx={{color: style.color, textAlign:"center"}}>
+                      #{song.genre},  fresh,  popular
+                  </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <AddToProjects song={song} user={user} color={color}/>
+              </Grid>
+            </Grid>
             <IconButton
               aria-label="close-player-modal"
-              sx={{color: '#333', position: 'absolute', top: '2%', right: '1%'}}
+              sx={{color: style.color, position: 'absolute', top: '2%', right: '1%'}}
               onClick={handleClose}>
                 <CloseIcon></CloseIcon>
             </IconButton>

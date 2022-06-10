@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from 'axios';
 
-const AddToProjects = ({ song, user}: any) => {
+const AddToProjects = ({ song, user, color}: any) => {
   const [inProjects, addToProjects] = useState(song.in_projects);
 
  const handleAddToProjects = () => {
@@ -15,7 +15,7 @@ const AddToProjects = ({ song, user}: any) => {
     <Button
       aria-label="add-project"
       onClick={() => {handleAddToProjects()}}
-      sx={{color: "#333"}}
+      sx={{color: color}}
       startIcon={<AddCircleIcon></AddCircleIcon>}>
         Add To Projects
     </Button>
@@ -23,7 +23,7 @@ const AddToProjects = ({ song, user}: any) => {
     <>
     <Button
       onClick={() => {}}
-      sx={{color: "#333"}}>
+      sx={{color: color}}>
         In Your Projects
     </Button>
     </>

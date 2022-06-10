@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 const SongTile = ({song, user, color}) => {
 
   const [liked, setLiked] = useState(song.liked)
+  const [likes, setLikes] = useState(song.cumulative_likes)
 
   const ProfileImage = () => {
     return (
@@ -20,7 +21,7 @@ const SongTile = ({song, user, color}) => {
   }
 
   return(
-    <SongTileContext.Provider value={{liked, setLiked}}>
+    <SongTileContext.Provider value={{liked, setLiked, likes, setLikes}}>
       <Card sx={{ width: 200, height: 200, padding: "1em", marginLeft:"4em" }}>
         <Stack direction="row">
           <ProfileImage></ProfileImage>

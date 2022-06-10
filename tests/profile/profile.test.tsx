@@ -1,12 +1,23 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Profile from '../../pages/profile';
+import ProfileEditor from '../../pages/profile-editor';
 
-describe.only('Profile page', () => {
+describe('Profile page', () => {
 
-  it.only('Renders an image', () => {
+  it('Renders an image', () => {
 
     const { container } = render(<Profile />);
     const picture = screen.getByTestId('picture');
     expect(container).toContainElement(picture);
   });
+});
+
+describe('Profile edit page', () => {
+
+  // it.only('Renders an image', () => {
+
+  //   const { container } = render(<ProfileEditor />);
+  //   const uploadLink = screen.getByText('Upload image');
+  //   expect(uploadLink).toBeInTheDocument();
+  // });
 });

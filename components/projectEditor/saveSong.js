@@ -63,7 +63,7 @@ const saveSong = (context, user, Crunker) => {
         if (isSaved) {
           axios.put('api/project', { projectId, name, url, genre, track })
           .then((id) => {
-            // resolve();
+            console.log(`project ${id} saved`);
           })
           .catch((error) => {
             console.log('Error updating project in the database', error);

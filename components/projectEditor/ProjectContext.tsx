@@ -30,6 +30,7 @@ const ProjectContextProvider = ({ children }: any, project_id: any) => {
         // setLayers(res.data.layers);
         // setProjectName(res.data.projectName);
         // setGenre(res.data.genre);
+        // setIsSaved(true);
     })
     .catch((err) => {
       console.log('ERROR FROM GET LAYERS', err);

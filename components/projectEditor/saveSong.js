@@ -36,7 +36,6 @@ const saveSong = (context, user, Crunker) => {
       .then((buffers) => {
         let modified = buffers.map((buffer, index) => {
           const modifiedBuffer = crunker.padAudio(buffer, 0, layers[index].start);
-          console.log(modifiedBuffer);
           return modifiedBuffer;
         })
         return crunker.mergeAudio(modified);
@@ -49,6 +48,7 @@ const saveSong = (context, user, Crunker) => {
         return output
       })
       .then(async (song) => {
+        console.log(song);
         let song_path = `https://improvibe-tracks.s3.amazonaws.com/${name}.mp3`
         await uploadFile(name, song_path, song)
         return song_path

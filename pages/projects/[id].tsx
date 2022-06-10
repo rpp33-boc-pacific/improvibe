@@ -28,7 +28,7 @@ const Editor: NextPage = () => {
       <div className='project-editor-grid'>
         <div className='page-title'>Edit Project</div>
         <div className='editor-container'>
-          <ProjectContextProvider >
+          <ProjectContextProvider project_id={id}>
               <ProjectHeader />
               <LayerList />
               <AddLayer />

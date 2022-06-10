@@ -9,11 +9,11 @@ import NavigationBar from '../components/NavigationBar';
 import LikeButton from '../components/shared/LikeButton';
 import AddToProjects from '../components/shared/AddToProjects';
 import HomePage from '../components/explorerPage/homePage';
-// import Context from './'
-
-// let userId = useContext(Context);
+import AppContext from '../AppContext';
 
 const Home: NextPage = (props) => {
+  const context = useContext(AppContext);
+
   return (
     <div>
       <Head>

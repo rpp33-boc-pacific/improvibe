@@ -1,8 +1,14 @@
-import client from '../../../sql/db';
+import pool from '../../../sql/db';
+// import pool from '../../../local/localdb';
+
+// pool.connect((err: { stack: any }) => {
+//   if (err) {
+//     return console.error('Error acquiring client', err.stack)
+//   }
+//   console.log('connected to db');
+// })
 
 export default function highestRankingBy(req: any, res: any) {
-  const category = Object.keys(req.query);
-  const count = Object.values(req.query);
 
   //SELECT count number of songs from the given category sorted by highest
   const example = [
@@ -13,21 +19,87 @@ export default function highestRankingBy(req: any, res: any) {
       artist_id: 6,
       in_projects: true,
       genre: 'hip hop',
-      cumulative_likes: 58,
-      photo_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&cover=crop&w=100&q=60',
-      liked: false
+      cumulative_likes: 980,
+      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      liked: true
     },
     {
       song_id: 1,
-      song_name: 'My Time',
-      artist_name: 'Andhar',
-      artist_id: 4,
+      song_name: 'Song Name1',
+      artist_name: 'Artist Name1',
+      artist_id: 6,
       in_projects: false,
       genre: 'rock',
-      cumulative_likes: 40,
-      photo_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTd8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&cover=crop&w=500&q=60',
-      liked: false
-    }
+      cumulative_likes: 934,
+      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      liked: true
+    },
+    {
+      song_id: 3,
+      song_name: 'Song Name3',
+      artist_name: 'Artist Name3',
+      artist_id: 6,
+      in_projects: false,
+      genre: 'rock',
+      cumulative_likes: 900,
+      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      liked: true
+    },
+    {
+      song_id: 5,
+      song_name: 'Song Name5',
+      artist_name: 'Artist Name5',
+      artist_id: 4,
+      in_projects: true,
+      genre: 'rock',
+      cumulative_likes: 750,
+      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      liked: true
+    },
+    {
+      song_id: 7,
+      song_name: 'Song Name7',
+      artist_name: 'Artist Name7',
+      artist_id: 4,
+      in_projects: true,
+      genre: 'rock',
+      cumulative_likes: 640,
+      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      liked: true
+    },
+    {
+      song_id: 6,
+      song_name: 'Song Name6',
+      artist_name: 'Artist Name6',
+      artist_id: 2,
+      in_projects: true,
+      genre: 'rock',
+      cumulative_likes: 500,
+      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      liked: true
+    },
+    {
+      song_id: 8,
+      song_name: 'Song Name8',
+      artist_name: 'Artist Name8',
+      artist_id: 1,
+      in_projects: true,
+      genre: 'rock',
+      cumulative_likes: 300,
+      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      liked: true
+    },
+    {
+      song_id: 9,
+      song_name: 'Song Name9',
+      artist_name: 'Artist Name9',
+      artist_id: 9,
+      in_projects: false,
+      genre: 'rock',
+      cumulative_likes: 220,
+      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      liked: true
+    },
   ]
     res.send(example);
 };

@@ -1,14 +1,13 @@
-import pool from '../../../sql/db';
+import pool from '../../../../sql/db';
 
-const exampleResponse = {
+const userExample = {
   user: {
     id: 1,
     name: 'David Bowe',
     about_me: 'All about David Bowe...',
-    email: 'email@email.com',
     photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
   },
-  songs: [ // public and private
+  songs: [ // public songs ONLY
     {
       song_id: 1,
       song_name: 'Song Name1',
@@ -19,7 +18,6 @@ const exampleResponse = {
       searched: 9,
       likes: 20,
       shares: 10,
-      public: true,
       total_time: 2,
       date_created: 'timestamp here',
       liked: true,
@@ -34,7 +32,6 @@ const exampleResponse = {
       searched: 9,
       likes: 20,
       shares: 10,
-      public: true,
       total_time: 2,
       date_created: 'timestamp here',
       liked: true,
@@ -44,10 +41,11 @@ const exampleResponse = {
 
 export default async function getUser(req: any, res: any) {
   if (req.method === 'GET') {
-    // res.status(200).send(exampleResponse);
+    // res.status(200).send(userExample);
     const userId = Number(req.query.id);
+    const clientUserId = Number(req.query.client);
 
-    const retrieveUserInfo = `SELECT id, name, about_me, email, photo_url FROM users WHERE id = ${userId};`;
+    const retrieveUserInfo = `SELECT id, name, about_me, photo_url FROM users WHERE id = ${userId};`;
     const retrieveSongs = `
       SELECT
         p.id as song_id,
@@ -59,15 +57,15 @@ export default async function getUser(req: any, res: any) {
         p.searched,
         p.likes,
         p.shares,
-        p.public,
         p.total_time,
         p.date_created
       FROM public.projects p
       INNER JOIN public.users u
       ON (p.user_id = u.id)
-      WHERE u.id = ${userId};
-      `;
-    const retrieveLikedSongs = `SELECT song_id FROM likes WHERE user_id = ${userId};`;
+      WHERE u.id = ${userId}
+      AND p.public = true;
+    `;
+    const retrieveLikedSongs = `SELECT song_id FROM likes WHERE user_id = ${clientUserId};`;
 
     let error = false;
     try {
@@ -113,7 +111,7 @@ export default async function getUser(req: any, res: any) {
       // convert likedSongs.rows (array) to object
       const likedSongIds: any = {};
       likedSongs.rows.forEach((song: any) => { likedSongIds[song.song_id] = true; });
-      // add liked property to each song
+      // add liked property to each song (client likes user's song)
       songsResult.rows.forEach((song: any) => {
         if (likedSongIds[song.song_id]) {
           song.liked = true;

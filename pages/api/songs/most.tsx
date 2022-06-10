@@ -14,8 +14,8 @@ export default function highestRankingBy(req: any, res: any) {
   const example = [
     {
       song_id: 2,
-      song_name: 'Song Name2',
-      artist_name: 'Artist Name2',
+      song_name: 'Hello Again',
+      artist_name: 'Caiwin',
       artist_id: 6,
       in_projects: true,
       genre: 'hip hop',

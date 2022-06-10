@@ -8,10 +8,10 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-const SongTile = ({song, user, color}:any) => {
+const SongTile = ({song, user, color}) => {
   const ProfileImage = () => {
     return (
-      <Image src={song.photo_url} alt="artist-profile-picture" layout={"fixed"} width="75px" height="75px"/>
+      <Image src={song.photo_url} alt="artist-profile-picture" objectFit={"cover"} layout={"fixed"} width="75px" height="75px"/>
     )
   }
 
@@ -25,7 +25,7 @@ const SongTile = ({song, user, color}:any) => {
         </Stack>
       </Stack>
       <Stack direction="row" spacing={8}>
-        <AudioPlayer color={color} song={song} user={song}/>
+        <AudioPlayer color={color} song={song} user={user}/>
         <LikeButton color={'#757575'} song={song} user={user}/>
       </Stack>
     </Card>

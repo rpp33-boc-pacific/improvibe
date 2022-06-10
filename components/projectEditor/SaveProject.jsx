@@ -8,7 +8,15 @@ import dynamic from 'next/dynamic';
 
 export default function SaveProject({ crunker }) {
   const context = useContext(ProjectContext);
+  const { isSavedState } = useContext(ProjectContext);
+  const [isSaved, setIsSaved] = isSavedState;
   const user = useContext(AppContext);
+
+  console.log('context', context);
+
+  const saveProject = () => {
+    setIsSaved(true);
+  }
 
   return (
     <ProjectContext.Provider value={context}>

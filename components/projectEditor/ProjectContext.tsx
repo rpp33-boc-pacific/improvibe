@@ -30,7 +30,8 @@ const ProjectContextProvider = ({ children }: any) => {
     .then((res) => {
       console.log('RESPONSE FROM GET LAYERS', res);
       // setLayers w/ layer data
-      setLayers(res.data)
+      // TODO: causes bug if empty
+      // setLayers(res.data)
     })
     .catch((err) => {
       console.log('ERROR FROM GET LAYERS', err);

@@ -37,8 +37,15 @@ function AddLayer() {
     setSelectedFile(null);
   }
 
-  const handleClick = () => {
-    openFileSelector();
+  // TODO: update this with deployed URL to work in production
+  const BASE_URL = 'http://localhost:3000'
+  const CURRENT_PROJECT = 1
+  const addLayerToDB = (newLayer) => {
+    axios({
+      method: 'POST',
+      url: `${BASE_URL}/api/project/layers/${CURRENT_PROJECT}`,
+      data: newLayer
+    })
   }
 
   const saveToS3 = () => {
@@ -60,12 +67,13 @@ function AddLayer() {
       loop: false
     }
 
+    // need to make sure we are submitting with field names corresponding to db
+    addLayerToDB(newLayer);
+
     const layersCopy = JSON.parse(JSON.stringify(layers));
     layersCopy.push(newLayer);
     setLayers(layersCopy);
-
     handleClose();
-    console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
   };
 
   const uploadFile = async () => {

@@ -7,37 +7,54 @@ export default function getTopSongsForUser(req: any, res: any) {
   // SELECT all project where user_id matches the userId in query.
   // Filters out only 'public' songs in a descending order and limits the results to 3
 
-  // let getTopSongsQuery = `SELECT * FROM projects WHERE user_id = ${userId} AND public = true LIMIT 3 DESC`;
+  let getTopSongsQuery = `SELECT * FROM projects WHERE user_id = ${userId} AND public = true LIMIT 3 DESC`;
 
-  // pool
-  // .query(getTopSongsQuery)
-  // .then((res: { rows: any[]; }) => {
-  //   console.log('user:', res.rows[0])
-  // })
-  // .catch((err: any) => {
-  //   res.status(400);
-  // }
-  // )
+  pool
+  .query(getTopSongsQuery)
+  .then((data: any) => {
+    res.send('data');
+    console.log('user:', res.rows[0])
+  })
+  .catch((err: any) => {
+    res.status(400);
+  }
+  )
 
   // SENDING SAMPLE DATA TO CHECK API END POINTS
-  console.log('request received')
 
-  res.status(200).send([
-    {name: 'Time For Broken Dreams',
-    likes: 840},
-    {name: 'Driver',
-    likes: 730},
-    {name: 'Heavy Feather',
-    likes: 139},
-    {name: 'I Found My Passion',
-    likes: 230},
-    {name: 'Earning Streets',
-    likes: 190},
-    {name: 'All In Heart',
-    likes: 80},
-    {name: 'Let Me Know',
-    likes: 10},
-    {name: 'It Will Take a Liftime',
-    likes: 60},
-  ]);
+  // res.status(200).send([
+  //   {
+  //     song_id: 2,
+  //     song_name: 'Song Name2',
+  //     artist_name: 'Artist Name2',
+  //     artist_id: 6,
+  //     in_projects: true,
+  //     genre: 'hip hop',
+  //     cumulative_likes: 980,
+  //     photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+  //     liked: true
+  //   },
+  //   {
+  //     song_id: 1,
+  //     song_name: 'Song Name1',
+  //     artist_name: 'Artist Name1',
+  //     artist_id: 6,
+  //     in_projects: false,
+  //     genre: 'rock',
+  //     cumulative_likes: 934,
+  //     photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+  //     liked: true
+  //   },
+  //   {
+  //     song_id: 3,
+  //     song_name: 'Song Name3',
+  //     artist_name: 'Artist Name3',
+  //     artist_id: 6,
+  //     in_projects: false,
+  //     genre: 'rock',
+  //     cumulative_likes: 900,
+  //     photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+  //     liked: true
+  //   }
+  // ]);
 }

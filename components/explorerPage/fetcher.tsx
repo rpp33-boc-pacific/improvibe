@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-export default function fetcher (url: string){
-  axios.get(url).then(res => res.data);
+export default function Fetcher (url: string){
+  return axios.get(url).then(res => res.data);
 }

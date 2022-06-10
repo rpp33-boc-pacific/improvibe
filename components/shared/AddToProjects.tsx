@@ -15,7 +15,7 @@ const AddToProjects = ({ song, user}: any) => {
     <Button
       aria-label="add-project"
       onClick={() => {handleAddToProjects()}}
-      sx={{color: "white"}}
+      sx={{color: "#333"}}
       startIcon={<AddCircleIcon></AddCircleIcon>}>
         Add To Projects
     </Button>

@@ -12,8 +12,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import IconButton from '@mui/material/IconButton';
 import { borderRadius } from '@mui/system';
-import Player from 'react-h5-audio-player';
+// import Player from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import dynamic from 'next/dynamic'
+
+const Player = dynamic(() => import('react-h5-audio-player'))
 
 const AudioPlayer = ({ song, user, color }: any) => {
   const style = {
@@ -21,7 +24,8 @@ const AudioPlayer = ({ song, user, color }: any) => {
     bottom: '0%',
     height: '300px',
     width: '100%',
-    bgcolor: '#333',
+    // bgcolor: '#333',
+    bgcolor: '#F1F3F4',
     border: '1px solid #000',
     p: 4,
   };
@@ -57,11 +61,11 @@ const AudioPlayer = ({ song, user, color }: any) => {
               </Link>
               </Grid>
               <Grid item xs={3} sx={{paddingBotton: ".5em"}}>
-                <Typography variant="h4"sx={{color: "white"}}>{song.song_name}</Typography>
-                <Link href="./profile" sx={{color: "white"}}>{song.artist_name}</Link>
+                <Typography variant="h4"sx={{color: "#333"}}>{song.song_name}</Typography>
+                <Link href="./profile" sx={{color: "#333"}}>{song.artist_name}</Link>
               </Grid>
               <Grid item xs={3}>
-                <Typography sx={{color: "white", textAlign: "right"}}>
+                <Typography sx={{color: "#333", textAlign: "right"}}>
                     {song.genre}
                     {/* insert component to display list here */}
                 </Typography>
@@ -71,11 +75,12 @@ const AudioPlayer = ({ song, user, color }: any) => {
                 </Grid>
               </Grid>
             </Grid>
-              <Player src={song.song_path}  style={{boxShadow: 'none', color: 'white', backgroundColor: '#333', border:'none'}}/>
+              <audio controls src={song.song_path} style={{width: "100%"}}></audio>
+              {/* <Player autoPlay src={song.song_path}  style={{boxShadow: 'none', color: 'white', backgroundColor: '#333', border:'none'}}/> */}
               {/* <audio controls></audio> */}
             <IconButton
               aria-label="close-player-modal"
-              sx={{color: 'white', position: 'absolute', top: '2%', right: '1%'}}
+              sx={{color: '#333', position: 'absolute', top: '2%', right: '1%'}}
               onClick={handleClose}>
                 <CloseIcon></CloseIcon>
             </IconButton>

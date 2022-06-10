@@ -14,11 +14,11 @@ const LikeButton = ({ song, user, color }: any) => {
   return (
     liked === false ?
     <IconButton aria-label="like-song" onClick={() => {updateLiked(!liked)}}>
-      <FavoriteBorderIcon sx={{color: color}}></FavoriteBorderIcon>
+      <FavoriteBorderIcon sx={{color: "#eb5e34"}}></FavoriteBorderIcon>
     </IconButton>
     :
     <IconButton aria-label="unlike-song" onClick={() => {updateLiked(!liked)}}>
-      <FavoriteIcon sx={{color: color}}></FavoriteIcon>
+      <FavoriteIcon sx={{color: "#eb5e34"}}></FavoriteIcon>
     </IconButton>
   )
 };

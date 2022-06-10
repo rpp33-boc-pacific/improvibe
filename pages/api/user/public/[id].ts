@@ -41,7 +41,7 @@ const userExample = {
 
 export default /* async */ function getUser(req: any, res: any) {
   if (req.method === 'GET') {
-    // res.status(200).send(userExample);
+    res.status(200).send(userExample);
     // const userId = Number(req.query.id);
     // const clientUserId = Number(req.query.client);
 

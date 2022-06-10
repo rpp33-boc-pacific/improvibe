@@ -18,19 +18,18 @@ export default function LogIn() {
 
   useEffect(() => {
     if (Object.keys(user).length) {
-      console.log('context', user)
       router.push('/');
     }
   }, [user]);
 
-  const checkSession = async (credentials) => {
+  const checkSession = async (credentials: boolean) => {
     const session = await getSession();
       if (session && !credentials) {
         axios.post('/api/auth/logIn', session)
         .then(async (response) => {
           setUser(response.data);
         })
-      } else {
+      } else if (session) {
         setUser(session.user);
       }
   }
@@ -56,9 +55,9 @@ export default function LogIn() {
   const googleLogIn = (e: any) => {
     e.preventDefault();
 
-    signIn('google', {callbackUrl: '/'})
+    signIn('google')
     .then( async () => {
-      checkSession();
+      return checkSession(false);
     }).catch((err) => {
       console.log(err);
     })
@@ -69,7 +68,7 @@ export default function LogIn() {
 
     signIn('github')
     .then((status: any) => {
-      checkSession();
+      checkSession(false);
     })
     .catch((err) => {
       console.log(err)
@@ -116,13 +115,13 @@ export default function LogIn() {
 LogIn.getInitialProps = async (context: any) => {
   const { req, res } = context;
   const session = await getSession({ req });
-  // if (session && res) {
-  //   res.writeHead(302, {
-  //     Location: "/",
-  //   });
-  //   res.end();
-  //   return;
-  // }
+  if (session && res) {
+    res.writeHead(302, {
+      Location: "/",
+    });
+    res.end();
+    return;
+  }
 
   return {
     session: undefined,

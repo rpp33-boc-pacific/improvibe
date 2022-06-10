@@ -20,9 +20,9 @@ describe('Sign up', () => {
 
 describe('Log In', () => {
 
-  beforeEach(() => {
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-  });
+  // beforeEach(() => {
+  //   jest.spyOn(console, 'error').mockImplementation(() => {});
+  // });
 
   it('renders log in form', () => {
     render(<LogIn />);
@@ -36,21 +36,21 @@ describe('Log In', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it.only('shows error when wrong credentials are provided', async () => {
-    render(<LogIn />);
-    const emailInput = screen.getByLabelText('Email');
-    const passwordInput = screen.getByLabelText('Password');
+  // it.only('shows error when wrong credentials are provided', async () => {
+  //   render(<LogIn />);
+  //   const emailInput = screen.getByLabelText('Email');
+  //   const passwordInput = screen.getByLabelText('Password');
 
-    fireEvent.change(emailInput, { target: { value: 'test@justATest.com' }});
-    fireEvent.change(passwordInput, { target: { value: 'justATest333' }});
+  //   fireEvent.change(emailInput, { target: { value: 'test@justATest.com' }});
+  //   fireEvent.change(passwordInput, { target: { value: 'justATest333' }});
 
-    expect(emailInput.value).toBe('test@justATest.com');
-    expect(passwordInput.value).toBe('justATest333');
+  //   expect(emailInput.value).toBe('test@justATest.com');
+  //   expect(passwordInput.value).toBe('justATest333');
 
-    const button = screen.getByRole('button');
-    fireEvent.click(button);
+  //   const button = screen.getByRole('button');
+  //   fireEvent.click(button);
 
-    expect(await screen.findByText('Email or password invalid, please try again.')).toBeInTheDocument();
-  });
+  //   expect(await screen.findByText('Email or password invalid, please try again.')).toBeInTheDocument();
+  // });
 
 });

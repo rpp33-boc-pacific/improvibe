@@ -12,8 +12,7 @@ import HomePage from '../components/explorerPage/homePage';
 import AppContext from '../AppContext';
 
 const Home: NextPage = (props) => {
-  const theme = useContext(AppContext);
-  console.log(theme)
+  const context = useContext(AppContext);
   return (
     <div>
       <Head>

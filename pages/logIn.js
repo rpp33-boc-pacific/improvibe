@@ -22,7 +22,7 @@ export default function LogIn() {
     }
   }, [user]);
 
-  const checkSession = async (credentials: boolean) => {
+  const checkSession = async (credentials) => {
     const session = await getSession();
       if (session && !credentials) {
         axios.post('/api/auth/logIn', session)
@@ -34,13 +34,13 @@ export default function LogIn() {
       }
   }
 
-  const credentialsLogIn = (e: any) => {
+  const credentialsLogIn = (e) => {
     e.preventDefault();
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
 
     signIn('credentials', {email: email, password: password, redirect: false, callbackUrl: '/'})
-    .then((status: any) => {
+    .then((status) => {
       if (status && status.error) {
         setLogInError(true);
       } else {
@@ -52,22 +52,22 @@ export default function LogIn() {
     });
   }
 
-  const googleLogIn = (e: any) => {
+  const googleLogIn = (e) => {
     e.preventDefault();
 
     signIn('google')
     .then( async () => {
-      return checkSession(false);
+      checkSession(false);
     }).catch((err) => {
       console.log(err);
     })
   }
 
-  const githubLogIn = (e: any) => {
+  const githubLogIn = (e) => {
     e.preventDefault();
 
     signIn('github')
-    .then((status: any) => {
+    .then((status) => {
       checkSession(false);
     })
     .catch((err) => {
@@ -112,7 +112,7 @@ export default function LogIn() {
     )
 }
 
-LogIn.getInitialProps = async (context: any) => {
+LogIn.getInitialProps = async (context) => {
   const { req, res } = context;
   const session = await getSession({ req });
   if (session && res) {

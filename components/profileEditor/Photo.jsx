@@ -76,7 +76,9 @@ const Photo = ({ photoUrl, handlePhotoUrlChange }) => {
         width={300}
         style={{ borderRadius: '90%' }}
       />
-      <Typography onClick={handleOpen}>Upload image</Typography>
+      <Box sx={{ marginLeft: '180px', marginTop: '20px' }}>
+        <Typography onClick={handleOpen}><u>Upload iamge</u></Typography>
+      </Box>
       <Modal
         hideBackdrop
         open={open}

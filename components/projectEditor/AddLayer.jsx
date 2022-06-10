@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import { ProjectContext } from './ProjectContext';
+import { v4 } from "uuid";
 
 let AudioContext;
 
@@ -90,11 +91,12 @@ function AddLayer() {
 
   const uploadFile = async () => {
     let { data } = await axios.post("/api/s3/uploadFile", {
-      name: selectedFile.name,
+      name: `${selectedFile.name.slice(0, -4)}_${v4() + selectedFile.name.slice(-4)}`,
       type: selectedFile.type,
     });
 
     const url = data.url;
+    console.log(url);
     let { data: newData } = await axios.put(url, selectedFile, {
       headers: {
         "Content-type": selectedFile.type,

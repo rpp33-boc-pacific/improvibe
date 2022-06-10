@@ -1,3 +1,5 @@
+export {}
+
 // export default function PostgresAdapter(pool: { query: (arg0: string) => Promise<any>; }, options = {}) {
 //   return {
 //     async createUser(user: { email: any; }) {

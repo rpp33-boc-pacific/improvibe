@@ -4,7 +4,6 @@ import hash from 'object-hash';
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import PostgresAdapter from "./PostgresAdapter";
 import axios from 'axios';
 
 export default NextAuth({

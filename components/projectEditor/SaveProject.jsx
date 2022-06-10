@@ -13,14 +13,12 @@ export default function SaveProject() {
 
   useEffect(() => {
     importCrunker();
-  }, []);
+  });
 
   const importCrunker = async () => {
-    const Crunker = (await import('crunker')).default
+    const Crunker = (await import('crunker')).default;
     crunker = Crunker;
   }
-
-  console.log('context', context);
 
   const saveProject = () => {
     setIsSaved(true);

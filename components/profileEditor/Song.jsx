@@ -13,7 +13,7 @@ const Songs = ({ song }) => {
 
   const handleLockClick = () => {
     let err = false;
-    axios.put(`/api/song/public?id=${song.song_id}&public=true`)
+    axios.put(`/api/song/public?id=${song.song_id}&publicize=true`)
       .catch((error) => {
         err = true;
       })
@@ -28,7 +28,7 @@ const Songs = ({ song }) => {
   };
   const handleLockOpenClick = () => {
     let err = false;
-    axios.put(`/api/song/public?id=${song.song_id}&public=false`)
+    axios.put(`/api/song/public?id=${song.song_id}&publicize=false`)
       .catch((error) => {
         err = true;
       })

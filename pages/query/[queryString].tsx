@@ -7,7 +7,8 @@ import { Grid, Skeleton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router';
 import SongResult from '../../components/queryPage/SongResult';
-import FilterSelect from '../../components/queryPage/FilterSelect';
+import ArtistResult from '../../components/queryPage/ArtistResult';
+import QueryTypeSelect from '../../components/queryPage/QueryTypeSelect';
 import SortSelect from '../../components/queryPage/SortSelect';
 import pool from '../../sql/db';
 import useQuery from '../../helper/query';
@@ -23,6 +24,9 @@ const Query: NextPage = () => {
 
   const userProp = {
     userId: 1,
+    name: 'Artist Name',
+    email: 'artistname@email.com',
+    about_me: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     liked: false, //liked by current user
   }
   const songProp = {
@@ -36,20 +40,43 @@ const Query: NextPage = () => {
   }
 
   var [loadedData, setLoadedData] = useState(['Not Loaded']);
-  const [filterParams, setFilterParams] = useState<string[]>([]);
-  const [sortParam, setSortParam] = useState('');
+  const [queryTypeParam, setQueryTypeParam] = useState('Songs');
+  var [sortParam, setSortParam] = useState('Most Liked');
+  var [menuItems, setMenuItems] = useState(['Most Liked', 'Least Liked', 'Most Shared', 'Least Shared', 'Most Recent', 'Least Recent']);
 
-  const query = useQuery();
+  const queryInput = useQuery() || {queryString: ''};
 
   useEffect(() => {
-    if (!query) {
+    if (queryTypeParam === 'Songs') {
+      setSortParam('Most Liked');
+      setMenuItems(['Most Liked', 'Least Liked', 'Most Shared', 'Least Shared', 'Most Recent', 'Least Recent']);
+    } else if (queryTypeParam === 'Artists') {
+      setSortParam('Most Popular');
+      setMenuItems(['Most Popular', 'Least Popular']);
+    } else if (queryTypeParam === 'Genres') {
+      setSortParam('Most Liked');
+      setMenuItems(['Most Liked', 'Least Liked', 'Most Shared', 'Least Shared', 'Most Recent', 'Least Recent', 'Alphabetical']);
+    }
+  }, [queryTypeParam]);
+
+  useEffect(() => {
+    setLoadedData(['Not Loaded']);
+    fetch(`/api/query/${queryInput.queryString}/${queryTypeParam}/${sortParam}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setLoadedData(data);
+    })
+    .catch((err) => {
+      console.log('Error with GET request: ', err);
+    });
+    if (!queryInput) {
       return;
     }
-    console.log(query.queryString);
-    console.log(filterParams);
+    console.log(queryInput.queryString);
+    console.log(queryTypeParam);
     console.log(sortParam);
-    setLoadedData(['1']);
-  }, [query, filterParams, sortParam])
+  }, [sortParam]);
 
   return (
     <div>
@@ -60,10 +87,10 @@ const Query: NextPage = () => {
       <NavigationBar/>
       <Grid container spacing={1}>
           <Grid item xs={6}>
-            <FilterSelect filterParams={filterParams} setFilterParams={setFilterParams}/>
+            <QueryTypeSelect queryTypeParam={queryTypeParam} setQueryTypeParam={setQueryTypeParam}/>
           </Grid>
           <Grid item xs={6}>
-            <SortSelect sortParam={sortParam} setSortParam={setSortParam}/>
+            <SortSelect sortParam={sortParam} setSortParam={setSortParam} menuItems={menuItems}/>
           </Grid>
         </Grid>
       {loadedData[0] === 'Not Loaded' ?
@@ -93,7 +120,7 @@ const Query: NextPage = () => {
           <Item>Showing 3 results</Item>
         </Grid>
         <Grid item xs={12}>
-          <SongResult song={songProp} user={userProp}/>
+          <ArtistResult user={userProp}/>
         </Grid>
         <Grid item xs={12}>
           <SongResult song={songProp} user={userProp}/>

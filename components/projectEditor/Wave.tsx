@@ -1,29 +1,30 @@
-import { Hidden } from "@mui/material";
 import { NextPage } from "next";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import SoundTouch from './soundtouch.js';
 const { debounce } = require('lodash');
 
 const formWaveSurferOptions = (ref: any, height: number | undefined) => ({
   container: ref,
-  waveColor: '#2877cc',
+  waveColor: '#fff',
   progressColor: '#accbeb',
   cursorColor: '#f50057',
-  barWidth: 3,
-  barRadius: 3,
+  barWidth: 2,
+  barRadius: 2,
   responsive: true,
   height: height,
-  minPxPerSec: 1,
   partialRender: true,
   hideScrollbar: true,
   interact: false,
+  backgroundColor: '#2877cc',
 });
 
 interface Props {
   data: { trackAudio: string, layerId: number, [key: string]: any },
   isPlaying: boolean,
+  playAll: boolean,
   layerIndex: number,
   updateAudioNode: Function,
+  updateLayerAudioNode: Function,
   updateReadyState: Function,
 }
 
@@ -33,7 +34,9 @@ declare global {
   }
 }
 
-const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, updateReadyState }) => {
+let pauseTimes: any = { playLayer: {}, playAll: {} };
+
+const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAudioNode, updateLayerAudioNode, updateReadyState }) => {
   const waveformRef: any = useRef();
   const wavesurfer: { current: any, [key: string]: any } = useRef();
 
@@ -48,6 +51,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, u
   }, []);
 
   const create = debounce(async () => {
+    pauseTimes = { playLayer: {}, playAll: {} };
     const WaveSurfer = await require('wavesurfer.js');
     SoundTouch(window);
     const height = document.getElementById(`wave-${data.layerId}`)?.clientHeight;
@@ -60,13 +64,45 @@ const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, u
       soundTouchObj.tempo = data.tempo;
       soundTouchObj.pitchSemitones = data.pitch;
 
-      const start = wavesurfer.current.backend.source.buffer.length * data.start;
-      const end = wavesurfer.current.backend.source.buffer.length * data.end;
-      wavesurfer.current.backend.source.buffer.extract = function(target: [any], numFrames: number, position: number) {
+      const startInterval = wavesurfer.current.backend.source.buffer.length * data.startInterval / data.trackTime;
+      const endInterval = wavesurfer.current.backend.source.buffer.length * data.endInterval / data.trackTime;
+      const delay = data.start * 1000;
+      let waitingToStart = true;
+      let playAudio = false;
+      let adjustPosition = 0;
+
+      const delayStart = { extract: (target: [any], numFrames: number, position: number) => {
+        const newPosition = position - adjustPosition;
+        if (waitingToStart) {
+          waitingToStart = false;
+          setTimeout(() => {
+            playAudio = true
+          }, delay);
+        }
+
         let left = wavesurfer.current.backend.source.buffer.getChannelData(0);
         let right = wavesurfer.current.backend.source.buffer.getChannelData(1);
 
-        if (position > start && position < end) {
+        if (playAudio) {
+          if (newPosition > startInterval && newPosition < endInterval) {
+            for (var i = 0; i < numFrames; i++) {
+              target[i * 2] = left[i + newPosition];
+              target[i * 2 + 1] = right[i + newPosition];
+            }
+          }
+
+          return Math.min(numFrames, left.length - newPosition);
+        } else {
+          adjustPosition = position;
+          return numFrames;
+        }
+      }}
+
+      const noStartDelay = { extract: (target: [any], numFrames: number, position: number) => {
+        let left = wavesurfer.current.backend.source.buffer.getChannelData(0);
+        let right = wavesurfer.current.backend.source.buffer.getChannelData(1);
+
+        if (position > startInterval && position < endInterval) {
           for (var i = 0; i < numFrames; i++) {
             target[i * 2] = left[i + position];
             target[i * 2 + 1] = right[i + position];
@@ -74,13 +110,16 @@ const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, u
         }
 
         return Math.min(numFrames, left.length - position);
-      };
+      }}
 
-      const filter = new window.soundtouch.SimpleFilter(wavesurfer.current.backend.source.buffer, soundTouchObj);
-      const audioNode = window.soundtouch.getWebAudioNode(wavesurfer.current.backend.ac, filter);
-      wavesurfer.current.backend.setFilter(audioNode);
-      wavesurfer.current.backend.filters[0].disconnect();
+      const delayFilter = new window.soundtouch.SimpleFilter(delayStart, soundTouchObj);
+      const audioNode = window.soundtouch.getWebAudioNode(wavesurfer.current.backend.ac, delayFilter);
+
+      const noDelayFilter = new window.soundtouch.SimpleFilter(noStartDelay, soundTouchObj);
+      const layerAudioNode = window.soundtouch.getWebAudioNode(wavesurfer.current.backend.ac, noDelayFilter);
+
       updateAudioNode(audioNode);
+      updateLayerAudioNode(layerAudioNode);
       updateReadyState();
     });
   });
@@ -88,19 +127,47 @@ const Wave: NextPage<Props> = ({ data, isPlaying, layerIndex, updateAudioNode, u
   useEffect(() => {
     if (wavesurfer.current && data.isReady) {
       if (isPlaying) {
-        data.audioNode.connect(wavesurfer.current.backend.ac.destination);
-        let songTime = wavesurfer.current.getDuration();
-        wavesurfer.current.setVolume(data.volume);
-        wavesurfer.current.play(0, data.end * songTime);
+        if (playAll) {
+          data.audioNode.disconnect();
+        }
+        data.layerAudioNode.connect(wavesurfer.current.backend.ac.destination);
+        wavesurfer.current.setVolume(0);
+        wavesurfer.current.setPlaybackRate(data.tempo);
+        let pausedTime = pauseTimes.playLayer[data.layerId] || 0;
+        wavesurfer.current.play(pausedTime, data.endInterval);
       } else {
+        pauseTimes.playLayer[data.layerId] = wavesurfer.current.getCurrentTime();
         wavesurfer.current.pause();
-        data.audioNode.disconnect();
+        data.layerAudioNode.disconnect();
       }
     }
   }, [isPlaying]);
 
+  useEffect(() => {
+    if (wavesurfer.current && data.isReady) {
+      if (playAll) {
+        if (isPlaying) {
+          data.layerAudioNode.disconnect();
+        }
+        wavesurfer.current.backend.setFilter(data.audioNode);
+        wavesurfer.current.setVolume(data.volume);
+        wavesurfer.current.setPlaybackRate(data.tempo);
+        let pausedTime = pauseTimes.playAll[data.layerId] || 0;
+        setTimeout(() => {
+          wavesurfer.current.play(pausedTime, data.endInterval);
+        }, data.start * 1000);
+      } else {
+        pauseTimes.playAll[data.layerId] = wavesurfer.current.getCurrentTime();
+        wavesurfer.current.pause();
+        data.audioNode.disconnect();
+      }
+    }
+  }, [playAll]);
+
+  let gridColumn = data.start + 1;
+
   return (
-    <div className='wave-card' id={`wave-${data.layerId}`} ref={waveformRef} />
+    <div className='wave-card' style={{ gridColumn: `${gridColumn} / ${Math.round(data.trackTime / data.tempo) + gridColumn}` }} id={`wave-${data.layerId}`} ref={waveformRef} />
   );
 }
 

@@ -8,12 +8,14 @@ export default function getTopSongsForUser(req: any, res: any) {
   // SELECT all project where user_id matches the userId in query.
   // Filters out only 'public' songs in a descending order and limits the results to 3
 
-  // let getTopSongsQuery = `SELECT * FROM projects WHERE user_id = ${userId} AND public = true LIMIT 3 DESC`;
+  // let getTopSongsForUserQuery = `SELECT * FROM projects WHERE user_id = ${userId} AND public = true LIMIT 3;`;
+  // let id = 8;
+  // const getTopGenreQuery = `Select genre, SUM(likes) totalLikes FROM projects GROUP BY genre ORDER BY totalLikes DESC;`
 
   // pool
   // .query(getTopSongsQuery)
   // .then((data: any) => {
-  //   console.log('user:', data);
+  //   console.log('user:', data.rows);
   //   res.status(200).send(data);
   // })
   // .catch((err: any) => {

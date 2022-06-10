@@ -21,7 +21,7 @@ export default function highestRankingBy(req: any, res: any) {
       genre: 'hip hop',
       cumulative_likes: 980,
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      liked: false
     },
     {
       song_id: 1,
@@ -32,7 +32,7 @@ export default function highestRankingBy(req: any, res: any) {
       genre: 'rock',
       cumulative_likes: 934,
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      liked: false
     },
     {
       song_id: 3,
@@ -43,7 +43,7 @@ export default function highestRankingBy(req: any, res: any) {
       genre: 'rock',
       cumulative_likes: 900,
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      liked: false
     },
     {
       song_id: 5,
@@ -54,7 +54,7 @@ export default function highestRankingBy(req: any, res: any) {
       genre: 'rock',
       cumulative_likes: 750,
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      liked: false
     },
     {
       song_id: 7,
@@ -65,7 +65,7 @@ export default function highestRankingBy(req: any, res: any) {
       genre: 'rock',
       cumulative_likes: 640,
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      liked: false
     },
     {
       song_id: 6,
@@ -76,7 +76,7 @@ export default function highestRankingBy(req: any, res: any) {
       genre: 'rock',
       cumulative_likes: 500,
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      liked: false
     },
     {
       song_id: 8,
@@ -87,7 +87,7 @@ export default function highestRankingBy(req: any, res: any) {
       genre: 'rock',
       cumulative_likes: 300,
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      liked: false
     },
     {
       song_id: 9,
@@ -98,7 +98,7 @@ export default function highestRankingBy(req: any, res: any) {
       genre: 'rock',
       cumulative_likes: 220,
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      liked: false
     },
   ]
     res.send(example);

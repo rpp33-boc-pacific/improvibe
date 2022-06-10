@@ -11,11 +11,6 @@ let uniqueKey = 0;
 
 const HorizontalCarousel = () => {
 
-  //I don't think this is necesary anymore?
-  // const initialItems = Array.apply(null, Array(6)).map(
-  //   (value, index) => index + 1
-  // );
-
   const ref = useRef();
   const [songs, setSongs] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -23,7 +18,7 @@ const HorizontalCarousel = () => {
 
   useEffect(() => {
     // The songs will come from the api call
-    axios.get('api/songs')
+    axios.get('api/songs/most')
     .then((response) => {
       setSongs(response.data);
       setLoading(false);

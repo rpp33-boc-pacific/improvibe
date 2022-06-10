@@ -8,7 +8,7 @@ const AddToProjects = ({ song, user}: any) => {
   const [inProjects, addToProjects] = useState(song.in_projects);
 
  const handleAddToProjects = () => {
-
+   addToProjects(!inProjects);
  }
   return (
     inProjects === false ?

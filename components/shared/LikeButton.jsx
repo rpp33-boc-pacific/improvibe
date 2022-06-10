@@ -23,15 +23,14 @@ const LikeButton = ({ song, user, color }) => {
     } else {
       setLikes(likes + 1);
     }
-    axios.post('api/project');
-    // axios.put('api/song/like', {song, user, liked})
-    // .then((res) => {
-    //   console.log(res)
-    // })
-    // .catch((err) => {
-    //   alert('Unable to update like');
-    //   console.log('Error updating like:', err);
-    // })
+    axios.put('api/song/like', {song, user, liked})
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      alert('Unable to update like');
+      console.log('Error updating like:', err);
+    })
   };
 
   return (

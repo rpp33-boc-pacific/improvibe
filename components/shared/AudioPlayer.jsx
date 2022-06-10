@@ -77,7 +77,7 @@ const AudioPlayer = ({ song, user, color }) => {
               <Grid item xs={10} sx={{paddingBotton: ".5em"}}>
                 <Typography variant="h4"sx={{color: style.color}}>{song.song_name}</Typography>
                 <Link href="./profile" sx={{color: style.color}}>{song.artist_name}</Link>
-                <div style={{paddingTop: "2em"}}>
+                <div style={{paddingTop: "2em", paddingLeft: "1.5em"}}>
                 <audio controls src={song.song_path} style={{width: "100%", textAlign:"center"}}></audio>
               </div>
               </Grid>

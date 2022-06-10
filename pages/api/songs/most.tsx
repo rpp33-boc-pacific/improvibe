@@ -20,7 +20,9 @@ export default function highestRankingBy(req: any, res: any) {
       in_projects: true,
       genre: 'hip hop',
       cumulative_likes: 980,
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+
       liked: false
     },
     {
@@ -31,6 +33,7 @@ export default function highestRankingBy(req: any, res: any) {
       in_projects: false,
       genre: 'rock',
       cumulative_likes: 934,
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
       liked: false
     },
@@ -42,6 +45,7 @@ export default function highestRankingBy(req: any, res: any) {
       in_projects: false,
       genre: 'rock',
       cumulative_likes: 900,
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
       liked: false
     },
@@ -53,6 +57,7 @@ export default function highestRankingBy(req: any, res: any) {
       in_projects: true,
       genre: 'rock',
       cumulative_likes: 750,
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
       liked: false
     },
@@ -64,6 +69,7 @@ export default function highestRankingBy(req: any, res: any) {
       in_projects: true,
       genre: 'rock',
       cumulative_likes: 640,
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
       liked: false
     },
@@ -75,6 +81,7 @@ export default function highestRankingBy(req: any, res: any) {
       in_projects: true,
       genre: 'rock',
       cumulative_likes: 500,
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
       liked: false
     },
@@ -86,6 +93,7 @@ export default function highestRankingBy(req: any, res: any) {
       in_projects: true,
       genre: 'rock',
       cumulative_likes: 300,
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
       liked: false
     },
@@ -97,6 +105,7 @@ export default function highestRankingBy(req: any, res: any) {
       in_projects: false,
       genre: 'rock',
       cumulative_likes: 220,
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
       photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
       liked: false
     },

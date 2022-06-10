@@ -6,79 +6,41 @@ export default function getProjects(req: any, res: any) {
   //Select project_id from projects where user_id = userId
   //For Each Layer SELECT * from LAYERS JOIN with tracks where project_id = projectId
 
-  let example = {
-    artist: 'Fakey McFake',
-    songs: [{
-      song: {
-        tracks: {
-          1: {
-            track_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
-            layers: {
-              1: {
-              tempo: 86,
-              pitch: 16,
-              volume: 80,
-              start_time: 0,
-              end_time: 100,
-              loop: false
-              },
-              2: {
-              tempo: 90,
-              pitch: 10,
-              volume: 70,
-              start_time: 0,
-              end_time: 60,
-              loop: false
-              }
-            }
-          },
-          2: {
-            track_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
-            layers: {
-              1: {
-              tempo: 78,
-              pitch: 14,
-              volume: 50,
-              start_time: 0,
-              end_time: 90,
-              loop: true
-              }
-            }
-          }
-        }
+  const example = [{
+    id: 1,
+    user: 'username',
+    projectName: 'classical jam',
+    genre: 'genre',
+    total_time: 'total time',
+    layers: [
+      {
+        layerId: 1,
+        trackAudio: 'https://www.mfiles.co.uk/mp3-downloads/faure-dolly-suite-1-berceuse-piano-solo.mp3',
+        trackName: 'piano',
+        trackTime: 165,
+        tempo: 1.25,
+        pitch: 0,
+        volume: 0.65,
+        startInterval: 8,
+        endInterval: 80,
+        start: 0,
+        loop: false
+      },
+      {
+        layerId: 2,
+        trackAudio: 'https://improvibe-tracks.s3.amazonaws.com/fin.mp3',
+        trackName: 'beat',
+        trackTime: 8,
+        tempo: 0.5,
+        pitch: 4,
+        volume: 0.50,
+        startInterval: 3,
+        endInterval: 8,
+        start: 6,
+        loop: true
       }
-    }, {
-      song: {
-        tracks: {
-          1: {
-            track_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
-            layers: {
-              1: {
-              tempo: 86,
-              pitch: 16,
-              volume: 80,
-              start_time: 0,
-              end_time: 100,
-              loop: false
-              }
-            }
-          },
-          2: {
-            track_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
-            layers: {
-              1: {
-              tempo: 86,
-              pitch: 16,
-              volume: 80,
-              start_time: 0,
-              end_time: 100,
-              loop: false
-              }
-            }
-          }
-        }
-      }
-    }]
-  }
+    ]
+  }];
+
   res.send(example)
 }

@@ -2,6 +2,18 @@ CREATE DATABASE improvibe;
 
 \c improvibe;
 
+DROP TABLE IF EXISTS project_hashtag;
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS layers;
+DROP TABLE IF EXISTS hashtags;
+DROP TABLE IF EXISTS senres;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS tracks;
+DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS past_searches;
+
 CREATE TABLE project_hashtag (
   id serial,
   project_id integer,
@@ -18,8 +30,7 @@ CREATE TABLE sessions (
 CREATE TABLE layers (
   id serial,
   name varchar,
-  track_time integer,
-  track_path varchar,
+  track_id integer,
   shares integer,
   project_id integer,
   searched integer,

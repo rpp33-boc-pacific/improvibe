@@ -6,6 +6,8 @@ import AppContext from '../../AppContext';
 
 export default function SaveProject() {
   const context = useContext(ProjectContext);
+  const { isSavedState } = useContext(ProjectContext);
+  const [isSaved, setIsSaved] = isSavedState;
   const user = useContext(AppContext);
   let crunker;
 
@@ -16,6 +18,12 @@ export default function SaveProject() {
   const importCrunker = async () => {
     const Crunker = (await import('crunker')).default
     crunker = Crunker;
+  }
+
+  console.log('context', context);
+
+  const saveProject = () => {
+    setIsSaved(true);
   }
 
   return (

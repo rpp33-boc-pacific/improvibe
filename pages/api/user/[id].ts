@@ -1,6 +1,6 @@
 import pool from '../../../sql/db';
 
-const userExample = {
+const exampleResponse = {
   user: {
     id: 1,
     name: 'David Bowe',
@@ -44,7 +44,7 @@ const userExample = {
 
 export default async function getUser(req: any, res: any) {
   if (req.method === 'GET') {
-    // res.status(200).send(userExample);
+    // res.status(200).send(exampleResponse);
     const userId = Number(req.query.id);
 
     const retrieveUserInfo = `SELECT id, name, about_me, email, photo_url FROM users WHERE id = ${userId};`;
@@ -53,8 +53,8 @@ export default async function getUser(req: any, res: any) {
         p.id as song_id,
         p.name as song_name,
         u.name as artist_name,
-        g.name as genre,
         u.photo_url,
+        p.genre,
         p.song_path,
         p.searched,
         p.likes,
@@ -62,20 +62,10 @@ export default async function getUser(req: any, res: any) {
         p.public,
         p.total_time,
         p.date_created
-      FROM
-          public.projects p
-      INNER JOIN
-          public.genres g
-      ON
-          (
-              p.genre_id = g.id)
-      INNER JOIN
-          public.users u
-      ON
-          (
-              p.user_id = u.id)
-      WHERE
-          u.id = ${userId};
+      FROM projects p
+      INNER JOIN users u
+      ON (p.user_id = u.id)
+      WHERE u.id = ${userId};
       `;
     const retrieveLikedSongs = `SELECT song_id FROM likes WHERE user_id = ${userId};`;
 

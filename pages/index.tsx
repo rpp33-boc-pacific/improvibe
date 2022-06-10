@@ -13,7 +13,7 @@ import AppContext from '../AppContext';
 
 const Home: NextPage = (props) => {
   const context = useContext(AppContext);
-  console.log('I am the context', context);
+
   return (
     <div>
       <Head>

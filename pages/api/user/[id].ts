@@ -62,8 +62,8 @@ export default async function getUser(req: any, res: any) {
         p.public,
         p.total_time,
         p.date_created
-      FROM public.projects p
-      INNER JOIN public.users u
+      FROM projects p
+      INNER JOIN users u
       ON (p.user_id = u.id)
       WHERE u.id = ${userId};
       `;

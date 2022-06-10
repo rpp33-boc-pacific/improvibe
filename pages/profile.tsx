@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { NextPage } from 'next';
 import Box from '@mui/material/Box';
@@ -60,9 +61,9 @@ const Profile: NextPage = () => {
       <NavigationBar />
       <Grid container spacing={1}>
         <Grid item xs={4}>
-          <Box>
-            <Container>
-              <img
+          <Container>
+            <Box sx={{ marginLeft: '40px', marginTop: '40px' }}>
+              <Image
                 alt='Profile picture of the artist'
                 src={tempContext.user.photoUrl}
                 height={300}
@@ -70,10 +71,10 @@ const Profile: NextPage = () => {
                 style={{ borderRadius: '90%' }}
                 data-testid='picture'
               />
-            </Container>
-          </Box>
+            </Box>
+          </Container>
         </Grid>
-        <Grid container item xs={8}>
+        <Grid container item xs={8} sx={{ marginTop: '40px' }}>
           <Grid item xs={9}>
             <Box>
               <Typography>{tempContext.user.name}</Typography>
@@ -81,13 +82,13 @@ const Profile: NextPage = () => {
           </Grid>
           <Grid item xs={3}>
             <Box>
-              <Link href={'/profile-editor'}><Typography><a>Edit Profile</a></Typography></Link>
+              <Link href={'/profile-editor'}><Typography><a><u>Edit Profile</u></a></Typography></Link>
             </Box>
           </Grid>
           <Grid item xs={12}>
             <Typography>About Me</Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{ marginRight: '60px' }}>
             <Box>
               {tempContext.user.aboutMe}
             </Box>
@@ -100,7 +101,7 @@ const Profile: NextPage = () => {
             <Typography>My Songs</Typography>
           </Grid>
           <Grid container item xs={12}>
-            <Stack direction='row' spacing={1}>
+            <Stack direction='row' spacing={1.5}>
               {tempContext.songs.map((song: any, index: number) => <Grid item key={index}><SongTile key={index} song={song} user={tempContext.user.userId} color='white' /></Grid>)}
             </Stack>
           </Grid>

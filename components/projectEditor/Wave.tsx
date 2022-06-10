@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import SoundTouch from './soundtouch.js';
 const { debounce } = require('lodash');
 

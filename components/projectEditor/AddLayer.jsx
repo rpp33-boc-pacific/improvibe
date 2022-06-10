@@ -50,25 +50,27 @@ function AddLayer() {
       layerId: layers.length + 1,
       trackAudio: trackURL,
       trackName: 'Track Name',
-      trackTime: 'track time',
+      trackTime: 100,
       tempo: 1,
       pitch: 0,
       volume: 0.65,
-      startInterval: 0,
-      endInterval: 1,
+      startInterval: 8,
+      endInterval: 80,
       start: 0,
       loop: false
     }
 
-    const layersCopy = JSON.parse(JSON.stringify(layers));
-    layersCopy.push(newLayer);
-    setLayers(layersCopy);
+    let newLayers = layers.map((layer) => layer);
+    newLayers[layers.length] = newLayer
+    console.log(newLayers);
+    setLayers(newLayers);
 
     handleClose();
     console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
   };
 
   const uploadFile = async () => {
+    console.log('type', selectedFile.type);
     let { data } = await axios.post("/api/s3/uploadFile", {
       name: selectedFile.name,
       type: selectedFile.type,

@@ -38,6 +38,11 @@ const Layer = ({ layers, layerIndex, setLayers }) => {
     setLayers(layers);
   }
 
+  const updateFilter = (filter) => {
+    layers[layerIndex].audioFilter = filter;
+    setLayers(layers);
+  }
+
   const deleteLayer = () => {
     // make a call to the api to delete
     const remainingLayers = layers.filter((item, index) => index !== layerIndex)

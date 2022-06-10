@@ -4,12 +4,13 @@ import axios from 'axios';
 
 const ProjectContext = createContext({});
 
-const ProjectContextProvider = ({ children }: any) => {
+const ProjectContextProvider = ({ children }: any, project_id: any) => {
   const [layers, setLayers] = useState(project1.layers);
   const [projectName, setProjectName] = useState('');
   const [genre, setGenre] = useState('');
   const [playAll, setPlayAll] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [projectId, setProductId] = useState(project_id);
 
   const projectContextState = {
     layersState: [layers, setLayers],
@@ -17,6 +18,7 @@ const ProjectContextProvider = ({ children }: any) => {
     genreState: [genre, setGenre],
     playAllState: [playAll, setPlayAll],
     isSavedState: [isSaved, setIsSaved],
+    productIdState: [projectId, setProductId],
   }
 
   // TODO: update this with deployed URL to work in production

@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import { ProjectContext } from './ProjectContext';
+import { v4 } from "uuid";
+
+let AudioContext;
 
 const style = {
   // position: 'absolute' as 'absolute',
@@ -26,9 +29,13 @@ function AddLayer() {
   const [open, setOpen] = useState(false);
   const [fileURL, setURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-
-  const { layersState } = useContext(ProjectContext);
+  const { layersState, productIdState } = useContext(ProjectContext);
   const [layers, setLayers] = layersState;
+  const [projectId, setProductId] = productIdState;
+
+  useEffect(() => {
+    AudioContext = new (window.AudioContext || window.webkitAudioContext)()
+  }, []);
 
   // open / close modal
   const handleOpen = () => setOpen(true);
@@ -38,51 +45,64 @@ function AddLayer() {
   }
 
   // TODO: update this with deployed URL to work in production
-  const BASE_URL = 'http://localhost:3000'
-  const CURRENT_PROJECT = 1
+  const currentProject = projectId
   const addLayerToDB = (newLayer) => {
     axios({
       method: 'POST',
-      url: `${BASE_URL}/api/project/layers/${CURRENT_PROJECT}`,
+      url: `/api/project/layers/${currentProject}`,
       data: newLayer
     })
   }
 
   const saveToS3 = () => {
-    uploadFile();
-    const trackURL = BUCKET_URL + selectedFile.name;
-    setURL(trackURL)
+    let audio = document.createElement('audio');
+    var reader = new FileReader();
 
-    const newLayer = {
-      layerId: layers.length + 1,
-      trackAudio: trackURL,
-      trackName: 'Track Name',
-      trackTime: 'track time',
-      tempo: 1,
-      pitch: 0,
-      volume: 0.65,
-      startInterval: 0,
-      endInterval: 1,
-      start: 0,
-      loop: false
-    }
+    reader.onload = (event) => {
+        audio.src = event.target.result;
+        audio.addEventListener('loadedmetadata', async function(){
+          let duration = Math.round(audio.duration);
+          console.log("The duration of the song is of: " + duration + " seconds");
 
-    // need to make sure we are submitting with field names corresponding to db
-    addLayerToDB(newLayer);
+          const trackURL = BUCKET_URL + selectedFile.name;
+          setURL(trackURL)
 
-    const layersCopy = JSON.parse(JSON.stringify(layers));
-    layersCopy.push(newLayer);
-    setLayers(layersCopy);
-    handleClose();
+          const newLayer = {
+            layerId: layers.length + 1,
+            trackAudio: trackURL,
+            trackName: 'Layer Name',
+            trackTime: duration,
+            tempo: 1,
+            pitch: 0,
+            volume: 0.50,
+            startInterval: 0,
+            endInterval: duration,
+            start: 0,
+            loop: false
+          }
+
+          await uploadFile();
+
+          let newLayers = layers.map((layer) => layer);
+          newLayers[layers.length] = newLayer
+          setLayers(newLayers);
+          addLayerToDB(newLayer); // need to make sure we are submitting with field names corresponding to db
+          handleClose();
+          console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
+        },false);
+    };
+
+    reader.readAsDataURL(selectedFile);
   };
 
   const uploadFile = async () => {
     let { data } = await axios.post("/api/s3/uploadFile", {
-      name: selectedFile.name,
+      name: `${selectedFile.name.slice(0, -4)}_${v4() + selectedFile.name.slice(-4)}`,
       type: selectedFile.type,
     });
 
     const url = data.url;
+    console.log(url);
     let { data: newData } = await axios.put(url, selectedFile, {
       headers: {
         "Content-type": selectedFile.type,
@@ -95,7 +115,7 @@ function AddLayer() {
 
   return (
     <div className='add-layer-holder'>
-      <Button variant="contained" onClick={handleOpen} sx={{ width: '16vw', height: '5vh', fontSize: '1.7vh'}}>Add Layer</Button>
+      <Button variant="contained" onClick={handleOpen} sx={{ width: '10vw', height: '4vh', fontSize: '1.5vh'}}>Add Layer</Button>
         <Modal
           open={open}
           onClose={handleClose}

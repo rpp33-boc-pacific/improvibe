@@ -1,4 +1,7 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import axios from 'axios';
+import { useContext } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -10,15 +13,32 @@ import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Player from './audioPlayer';
+import Player from '../shared/AudioPlayer';
+import Fetcher from './fetcher';
+import AppContext from '../../AppContext';
 
 const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-const YourContributions = (props: { Songs: any[]; }) => {
+const YourContributions = () => {
   const [dense, setDense] = React.useState(false);
-  const TopSongs = props.Songs.slice(0,3);
+  const [songs, setSongs] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const user = useContext(AppContext); //the user will come from the AppContext
+
+  useEffect(() => {
+    // The songs will come from the api call
+    axios.get('api/songs/1')
+    .then((response) => {
+      console.log('respone from db', response);
+      setSongs(response.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.log('Error:', err);
+    })
+  })
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752}}>
@@ -29,22 +49,22 @@ const YourContributions = (props: { Songs: any[]; }) => {
           </Typography>
           <Demo>
             <List dense={dense}>
-              {TopSongs.map((song) =>{
+              {songs.map((song: { cumulative_likes: string; song_name: string ; }) =>{
                 return (
                   <ListItem
                       secondaryAction={
                         <IconButton edge="end" aria-label="delete">
-                          <FavoriteIcon />{song.likes}
+                          <FavoriteIcon />{song.cumulative_likes}
                         </IconButton>
-                      } key = {song.name}
+                      }
                     >
                       <ListItemAvatar>
                         <Avatar>
-                          <Player />
+                          <Player song={song} user={user} color={'white'}/>
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
-                        primary={song.name}
+                        primary={song.song_name}
                       />
                   </ListItem>
                 )
@@ -58,3 +78,4 @@ const YourContributions = (props: { Songs: any[]; }) => {
 }
 
 export default YourContributions;
+

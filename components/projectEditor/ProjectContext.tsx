@@ -7,14 +7,14 @@ const ProjectContextProvider = ({ children }: any) => {
   const [layers, setLayers] = useState(project1.layers);
   const [projectName, setProjectName] = useState('');
   const [genre, setGenre] = useState('');
-  const [hashtags, setHashtags] = useState([]);
+  const [playAll, setPlayAll] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
   const projectContextState = {
     layersState: [layers, setLayers],
     projectNameState: [projectName, setProjectName],
     genreState: [genre, setGenre],
-    hashtagsState: [hashtags, setHashtags],
+    playAllState: [playAll, setPlayAll],
     isSavedState: [isSaved, setIsSaved],
   }
 

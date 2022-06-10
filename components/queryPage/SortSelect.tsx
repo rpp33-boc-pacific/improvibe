@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-export default function SortSelect({sortParam, setSortParam}: any) {
+export default function SortSelect({sortParam, setSortParam, menuItems}: any) {
 
   const handleChange = (event: SelectChangeEvent) => {
     setSortParam(event.target.value as string);
@@ -21,12 +21,9 @@ export default function SortSelect({sortParam, setSortParam}: any) {
           label="Sort Parameter"
           onChange={handleChange}
         >
-          <MenuItem value={'Most Liked'}>Most Liked</MenuItem>
-          <MenuItem value={'Least Liked'}>Least Liked</MenuItem>
-          <MenuItem value={'Most Shared'}>Most Shared</MenuItem>
-          <MenuItem value={'Least Shared'}>Least Shared</MenuItem>
-          <MenuItem value={'Most Recent'}>Most Recent</MenuItem>
-          <MenuItem value={'Least Recent'}>Least Recent</MenuItem>
+          {menuItems.map((item: string) => {
+            return <MenuItem key={item} value={item}>{item}</MenuItem>
+          })}
         </Select>
       </FormControl>
     </Box>

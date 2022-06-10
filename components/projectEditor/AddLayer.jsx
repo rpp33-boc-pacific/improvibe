@@ -96,7 +96,6 @@ function AddLayer() {
     });
 
     const url = data.url;
-    console.log(url);
     let { data: newData } = await axios.put(url, selectedFile, {
       headers: {
         "Content-type": selectedFile.type,

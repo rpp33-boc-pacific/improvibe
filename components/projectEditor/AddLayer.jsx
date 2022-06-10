@@ -64,8 +64,9 @@ function AddLayer() {
           let duration = Math.round(audio.duration);
           console.log("The duration of the song is of: " + duration + " seconds");
 
-          const trackURL = BUCKET_URL + selectedFile.name;
-          setURL(trackURL)
+          const trackName = `${selectedFile.name.slice(0, -4)}_${v4() + selectedFile.name.slice(-4)}`
+          const trackURL = BUCKET_URL + trackName;
+          setURL(trackURL);
 
           const newLayer = {
             layerId: layers.length + 1,
@@ -81,7 +82,7 @@ function AddLayer() {
             loop: false
           }
 
-          await uploadFile();
+          await uploadFile(trackName);
 
           let newLayers = layers.map((layer) => layer);
           newLayers[layers.length] = newLayer
@@ -95,9 +96,9 @@ function AddLayer() {
     reader.readAsDataURL(selectedFile);
   };
 
-  const uploadFile = async () => {
+  const uploadFile = async (name) => {
     let { data } = await axios.post("/api/s3/uploadFile", {
-      name: `${selectedFile.name.slice(0, -4)}_${v4() + selectedFile.name.slice(-4)}`,
+      name: name,
       type: selectedFile.type,
     });
 

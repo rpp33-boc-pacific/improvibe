@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { v4 } from "uuid";
 
 const saveSong = (context, user, Crunker) => {
   const isSaved = context.isSavedState[0];
@@ -6,6 +7,7 @@ const saveSong = (context, user, Crunker) => {
   const name = context.projectNameState[0];
   const genre = context.genreState[0];
   const layers = context.layersState[0];
+  const projectId = context.projectIdState[0];
 
   let tracks = layers.map((layer) => {
     return layer.trackAudio
@@ -15,18 +17,21 @@ const saveSong = (context, user, Crunker) => {
      return layer.filter
    });
 
-  const uploadFile = async (name, url, song) => {
+  const uploadFile = async (songName, song) => {
     let { data } = await axios.post("/api/s3/uploadFile", {
-      name: name,
+      name: songName,
       type: 'audio/mpeg',
     });
 
+    const url = data.url;
     let { data: newData } = await axios.put(url, song, {
       headers: {
         "Content-type": 'audio/mpeg',
         "Access-Control-Allow-Origin": "*",
       },
     });
+
+    return url;
   };
 
   return new Promise((resolve, reject) => {
@@ -49,13 +54,14 @@ const saveSong = (context, user, Crunker) => {
       })
       .then(async (song) => {
         console.log(song);
-        let song_path = `https://improvibe-tracks.s3.amazonaws.com/${name}.mp3`
-        await uploadFile(name, song_path, song)
-        return song_path
+        let songName = `${name}_${v4()}.mp3`;
+        const songUrl = await uploadFile(songName, song)
+        return songUrl;
       })
       .then((url) => {
+        console.log('url:', url);
         if (isSaved) {
-          axios.put('api/project', { id, name, song_path, genre, track })
+          axios.put('api/project', { projectId, name, url, genre, track })
           .then((id) => {
             // resolve();
           })
@@ -63,7 +69,7 @@ const saveSong = (context, user, Crunker) => {
             console.log('Error updating project in the database', error);
           });
         } else {
-          axios.post('api/project', { user_id, name, song_path, genre })
+          axios.post('api/project', { user_id, name, url, genre })
           .then((id) => {
             let songId = id.data
             resolve(songId);

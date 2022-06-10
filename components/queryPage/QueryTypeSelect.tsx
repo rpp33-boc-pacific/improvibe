@@ -13,13 +13,14 @@ export default function QueryTypeSelect({queryTypeParam, setQueryTypeParam}: any
 
   return (
     <Box role='query-type-select'>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ m: 1, width: 150 }}>
         <InputLabel id="query-type-simple-select-label">Query Type</InputLabel>
         <Select
           id="query-type-simple-select"
           value={queryTypeParam}
           label="Query Type Parameter"
           onChange={handleChange}
+          size="small"
         >
           <MenuItem value={'Songs'}>Songs</MenuItem>
           <MenuItem value={'Artists'}>Artists</MenuItem>

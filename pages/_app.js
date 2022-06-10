@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
 import '../styles/globals.css';
-import type { AppProps } from 'next/app';
+// import type { AppProps } from 'next/app';
 import AppContext from '../AppContext';
 import { SessionProvider } from "next-auth/react";
 import axios from 'axios';
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [user, setUser] = useState({});
   const [songs, setSongs] = useState([]);
   const value = { user, setUser , songs, setSongs};
+  const { id } = user;
 
   useEffect(() => {
     if (Object.keys(user).length) {
-      axios.get(`/api/user/${user.id}`)
+      axios.get(`/api/user/${id}`)
       .then((response) => {
         setSongs(response.data.songs);
       })

@@ -23,7 +23,6 @@ export default NextAuth({
 
       return pool.query(checkUserCredentials)
       .then((user) => {
-        console.log(user)
         if (user.rowCount === 0) {
           throw new Error('Invalid email or password');
         } else {

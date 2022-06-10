@@ -43,10 +43,10 @@ function SignUp() {
           <FormControl>
           <h1>Sign Up</h1>
           <label htmlFor="email">Email</label>
-          <TextField required id="email" name="email" type="text" />
+          <TextField required id="email" name="email" type="text" style={{ width: '350px' }} margin="normal"/>
           <label htmlFor="password">Password</label>
           <TextField required id="password" name="password" type="password" />
-          <Button variant="contained" type="submit">Sign Up</Button>
+          <Button variant="contained" type="submit" size="large" style={{ marginTop: "20px" }}>Sign Up</Button>
 
           {signUpMessage === "success" &&
             <div>

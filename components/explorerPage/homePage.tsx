@@ -25,23 +25,23 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function HomePage() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Item>
+          <Item elevation={0}>
             <div className = 'NavigationBar' >
               <NavigationBar/>
             </div>
           </Item>
         </Grid>
-        <Grid item xs={12}>
-          <Item>
+        <Grid item xs={12} sx={{padding: '1em'}}>
+          <Item elevation={0}>
             <div className = 'top-genres'>
               <TopGenres GenreData = {GenreData}/>
             </div>
           </Item>
         </Grid>
         <Grid item xs={8}>
-          <Item>
+          <Item elevation={0}>
             <div className = 'carousel'>
               <HorizontalCarousel/>
             </div>
@@ -55,7 +55,7 @@ export default function HomePage() {
           </Item>
         </Grid>
         <Grid item xs={8}>
-          <Item>
+          <Item elevation={0}>
             <div className = 'carousel'>
               <HorizontalCarousel/>
             </div>
@@ -69,7 +69,7 @@ export default function HomePage() {
           </Item>
         </Grid>
         <Grid item xs={8}>
-          <Item>
+          <Item elevation={0}>
             <div className = 'carousel'>
               <HorizontalCarousel/>
             </div>

@@ -12,11 +12,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import IconButton from '@mui/material/IconButton';
 import { borderRadius } from '@mui/system';
-// import Player from 'react-h5-audio-player';
+import Player from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import dynamic from 'next/dynamic'
 
-const Player = dynamic(() => import('react-h5-audio-player'))
+// const Player = dynamic(() => import('react-h5-audio-player'))
 
 const AudioPlayer = ({ song, user, color }: any) => {
   const style = {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
 import { styled } from '@mui/material/styles';
-// import Context from './'
+import AppContext from '../../AppContext';
 import Dashboard from './dashboard';
 import TopGenres from './topGenres';
 import TopArtists from './topArtists';
@@ -17,6 +17,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import highestRankingBy from '../../pages/api/songs/most';
 import fetch from 'node-fetch';
+// let userId = useContext(AppContext);
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

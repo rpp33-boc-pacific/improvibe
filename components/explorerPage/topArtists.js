@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
-import {forwardRef, useState} from 'react';
-import Link from 'next/link'
+import React, { useEffect, useState, forwardRef } from 'react';
+import Link from 'next/link';
+import axios from 'axios';
 import { styled } from '@mui/material/styles';
 import useSWR from 'swr';
 import { useContext } from 'react';
@@ -15,8 +16,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Fetcher from './fetcher';
-// import Context from './'
-// let userId = useContext(Context);
+import AppContext from '../../AppContext';
 
 const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -32,11 +32,22 @@ const MyButton = forwardRef(({onClick, href, artistName}, ref) => {
 
 const TopArtists = () => {
   const [dense, setDense] = useState(false);
-  const { data, error } = useSWR('/api/artists/topArtists', Fetcher)
+  const [artists, setArtists] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const user = useContext(AppContext); //the user will come from the AppContext
 
-  if (!data) return <div>loading...</div>
-
-  const TopArtists = data.slice(0,3);
+  useEffect(() => {
+    // The songs will come from the api call
+    axios.get('api/artists/topArtists')
+    .then((response) => {
+      console.log('respone from db', response);
+      setArtists(response.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.log('Error:', err);
+    })
+  })
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752}}>
@@ -47,7 +58,7 @@ const TopArtists = () => {
           </Typography>
           <Demo>
             <List dense={dense}>
-              {TopArtists.map((artist) =>{
+              {artists.map((artist) =>{
                 return (
                   <ListItem
                       secondaryAction={
@@ -60,7 +71,7 @@ const TopArtists = () => {
                       <ListItemAvatar>
                         <Avatar src="/broken-image.jpg" />
                       </ListItemAvatar>
-                      <Link href=" /profile/:userId" passHref>
+                      <Link href = {`profiles/${artist.id}`} passHref>
                         <MyButton artistName = {artist.name}/>
                       </Link>
                   </ListItem>

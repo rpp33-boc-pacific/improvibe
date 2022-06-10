@@ -11,8 +11,8 @@ export default function getTopArtists(req: any, res: any) {
 
   // pool
   // .query(getTopArtistsQuery)
-  // .then((res: { rows: any[]; }) => {
-  //   console.log('user:', res.rows[0])
+  // .then(data) => {
+  //   console.log('top artists', data])
   // })
   // .catch((err: any) => {
   //   res.status(400);
@@ -23,23 +23,26 @@ export default function getTopArtists(req: any, res: any) {
   // console.log('request received')
 
   res.status(200).send([
-    {name: 'Kendall Irwin',
-    likes: 932},
-    {name: 'Yvonne Lu',
-    likes: 798},
-    {name: 'Safiya Barnes',
-    likes: 539},
-    {name: 'Keon Holder',
-    likes: 452},
-    {name: 'Norah Mellor',
-    likes: 293},
-    {name: 'Cali Odonnell',
-    likes: 203},
-    {name: 'Aaliya Mansell',
-    likes: 129},
-    {name: 'Izaan John',
-    likes: 100},
-    {name: 'Izaan John',
-    likes: 100},
+    {id: 1,
+     name: 'Kendall Irwin',
+     email: 'test@hotmail.com',
+     hash: '120479012',
+     about_me: 'I am fabulous',
+     searched: 237,
+    },
+    {id: 2,
+      name: 'Yvonne Lu',
+      email: 'test@hotmail.com',
+      hash: '120479012',
+      about_me: 'I am fabulous',
+      searched: 639,
+     },
+     {id: 3,
+      name: 'Safiya Barnes',
+      email: 'test@hotmail.com',
+      hash: '120479012',
+      about_me: 'I am fabulous',
+      searched: 798,
+     }
   ]);
 }

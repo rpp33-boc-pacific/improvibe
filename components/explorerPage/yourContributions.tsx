@@ -26,17 +26,12 @@ const YourContributions = () => {
   const [songs, setSongs] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const user = useContext(AppContext); //the user will come from the AppContext
-  // const { data, error } = useSWR('/api/songs/1', Fetcher)
-
-  // if (!data) return <div>loading...</div>
-  // else {
-  //   setSongs(data)
-  // };
 
   useEffect(() => {
     // The songs will come from the api call
     axios.get('api/songs/1')
     .then((response) => {
+      console.log('respone from db', response);
       setSongs(response.data);
       setLoading(false);
     })

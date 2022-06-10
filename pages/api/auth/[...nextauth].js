@@ -17,7 +17,7 @@ export default NextAuth({
       const email = credentials?.email;
       const hashedPassword = hash({email: credentials?.password});
 
-      const checkUserCredentials = `SELECT * FROM users WHERE email='${email}' AND hash='${hashedPassword}'`;
+      const checkUserCredentials = `SELECT id, name, about_me, email, photo_url FROM users WHERE email='${email}' AND hash='${hashedPassword}'`;
 
       return pool.query(checkUserCredentials)
       .then((user) => {
@@ -25,7 +25,6 @@ export default NextAuth({
           throw new Error('Invalid email or password');
         } else {
           const loggedInUser = user.rows[0];
-          delete loggedInUser.hash;
           return loggedInUser;
         }
       }).catch((err) => {

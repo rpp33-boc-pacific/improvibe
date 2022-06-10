@@ -1,12 +1,12 @@
 import { NextPage } from "next";
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import SoundTouch from './soundtouch.js';
 const { debounce } = require('lodash');
 
 const formWaveSurferOptions = (ref: any, height: number | undefined) => ({
   container: ref,
   waveColor: '#fff',
-  progressColor: '#accbeb',
+  progressColor: '#93b7db',
   cursorColor: '#f50057',
   barWidth: 2,
   barRadius: 2,
@@ -34,7 +34,8 @@ declare global {
   }
 }
 
-let pauseTimes: any = { playLayer: {}, playAll: {} };
+let pauseTimes: any = { playLayer: {}, playAll: {}, markerLayer: {}, markerAll: 0 };
+let intervals: any = { allInterval: 0, layerIntervals: [] };
 
 const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAudioNode, updateLayerAudioNode, updateReadyState }) => {
   const waveformRef: any = useRef();
@@ -51,7 +52,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
   }, []);
 
   const create = debounce(async () => {
-    pauseTimes = { playLayer: {}, playAll: {} };
+    pauseTimes = { playLayer: {}, playAll: {}, markerLayer: {}, markerAll: 0 };
     const WaveSurfer = await require('wavesurfer.js');
     SoundTouch(window);
     const height = document.getElementById(`wave-${data.layerId}`)?.clientHeight;
@@ -64,8 +65,9 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
       soundTouchObj.tempo = data.tempo;
       soundTouchObj.pitchSemitones = data.pitch;
 
-      const startInterval = wavesurfer.current.backend.source.buffer.length * data.startInterval / data.trackTime;
-      const endInterval = wavesurfer.current.backend.source.buffer.length * data.endInterval / data.trackTime;
+      const bufferLength = wavesurfer.current.backend.source.buffer.length;
+      let startInterval = bufferLength * data.startInterval / data.trackTime;
+      let endInterval = bufferLength * data.endInterval / data.trackTime;
       const delay = data.start * 1000;
       let waitingToStart = true;
       let playAudio = false;
@@ -93,7 +95,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
 
           return Math.min(numFrames, left.length - newPosition);
         } else {
-          adjustPosition = position;
+          adjustPosition = (delay > 0) ? position : 0;
           return numFrames;
         }
       }}
@@ -124,21 +126,83 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
     });
   });
 
+  const clearMarkerInterval = (interval: number) => {
+    window.clearInterval(interval);
+    let oldTickDiv = document?.getElementsByClassName(`time-marker`);
+    for (let elementInd = 0; elementInd < oldTickDiv.length; elementInd++) {
+      let element = oldTickDiv[elementInd];
+      element.classList.remove("time-marker");
+    }
+  }
+
+  const startTimeLineLayer = (start: number, end: number) => {
+    let current = (start === 0) ? 2 : start + 1;
+    intervals.layerIntervals[data.layerId] = setInterval(() => {
+      if (current > end) {
+        clearMarkerInterval(intervals.layerIntervals[data.layerId]);
+        return;
+      }
+
+      pauseTimes.markerLayer[data.layerId] = current;
+      let oldTickDiv = document?.getElementsByClassName(`layer-${data.layerId}`)[0].getElementsByClassName(`time-marker`)[0];
+      let newTickDiv = document?.getElementsByClassName(`layer-${data.layerId}`)[0].getElementsByClassName(`marker-${current}`)[0];
+
+      if (oldTickDiv !== undefined) {
+        oldTickDiv.classList.remove("time-marker");
+      }
+
+      if (newTickDiv !== undefined) {
+        newTickDiv.classList.add("time-marker");
+      }
+
+      current++;
+    }, 1000);
+  }
+
+  let allInterval: any;
+
+  const startTimeLineAll = (start: number) => {
+    let current = (start === 0) ? 2 : start + 1;
+
+    intervals.allInterval = setInterval(() => {
+      if (current > 250) {
+        clearMarkerInterval(intervals.allInterval);
+      }
+
+      pauseTimes.markerAll = current;
+      let oldTickDiv = document.querySelectorAll(`.time-marker`);
+      let newTickDiv = document.querySelectorAll(`.marker-${current}`);
+
+      Array.from(oldTickDiv).forEach((element) => element.classList.remove('time-marker'));
+      Array.from(newTickDiv).forEach((element) => element.classList.add('time-marker'));
+
+      current++;
+    }, 1000);
+  }
+
   useEffect(() => {
     if (wavesurfer.current && data.isReady) {
       if (isPlaying) {
         if (playAll) {
           data.audioNode.disconnect();
         }
+
+        clearMarkerInterval(allInterval);
         data.layerAudioNode.connect(wavesurfer.current.backend.ac.destination);
         wavesurfer.current.setVolume(0);
         wavesurfer.current.setPlaybackRate(data.tempo);
+        let markerTime = (pauseTimes.markerLayer[data.layerId] > data.start) ? pauseTimes.markerLayer[data.layerId] : data.start;
+        startTimeLineLayer(markerTime, data.endInterval + data.start);
         let pausedTime = pauseTimes.playLayer[data.layerId] || 0;
         wavesurfer.current.play(pausedTime, data.endInterval);
       } else {
         pauseTimes.playLayer[data.layerId] = wavesurfer.current.getCurrentTime();
         wavesurfer.current.pause();
         data.layerAudioNode.disconnect();
+        clearMarkerInterval(allInterval);
+        intervals.layerIntervals.forEach((interval: number) => {
+          clearMarkerInterval(interval);
+        });
       }
     }
   }, [isPlaying]);
@@ -149,10 +213,19 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
         if (isPlaying) {
           data.layerAudioNode.disconnect();
         }
+
+        intervals.layerIntervals.forEach((interval: number) => {
+          clearMarkerInterval(interval);
+        });
+
         wavesurfer.current.backend.setFilter(data.audioNode);
         wavesurfer.current.setVolume(data.volume);
         wavesurfer.current.setPlaybackRate(data.tempo);
         let pausedTime = pauseTimes.playAll[data.layerId] || 0;
+        if (layerIndex === 0) {
+          startTimeLineAll(Math.round(pauseTimes.markerAll));
+        }
+
         setTimeout(() => {
           wavesurfer.current.play(pausedTime, data.endInterval);
         }, data.start * 1000);
@@ -160,6 +233,10 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
         pauseTimes.playAll[data.layerId] = wavesurfer.current.getCurrentTime();
         wavesurfer.current.pause();
         data.audioNode.disconnect();
+        clearMarkerInterval(intervals.allInterval);
+        intervals.layerIntervals.forEach((interval: number) => {
+          clearMarkerInterval(interval);
+        });
       }
     }
   }, [playAll]);

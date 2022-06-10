@@ -33,7 +33,7 @@ export default function HomePage() {
             </div>
           </Item>
         </Grid>
-        <Grid item xs={12} sx={{padding: '1em'}}>
+        <Grid item xs={12} sx={{padding: '1em', marginLeft:"2em"}}>
           <Item elevation={0}>
             <div className = 'top-genres'>
               <TopGenres GenreData = {GenreData}/>

@@ -16,7 +16,7 @@ const SongTile = ({song, user, color}) => {
   }
 
   return(
-    <Card sx={{ width: 200, height: 200, padding: "1em", marginLeft:"3em" }}>
+    <Card sx={{ width: 200, height: 200, padding: "1em", marginLeft:"4em" }}>
       <Stack direction="row">
         <ProfileImage></ProfileImage>
         <Stack sx={{textAlign: "right", paddingLeft: ".5em"}}>

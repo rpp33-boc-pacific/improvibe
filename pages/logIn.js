@@ -17,7 +17,7 @@ export default function LogIn() {
   const router = useRouter();
 
   useEffect(() => {
-    if (Object.keys(user).length) {
+    if (user && Object.keys(user).length) {
       router.push('/');
     }
   }, [user]);

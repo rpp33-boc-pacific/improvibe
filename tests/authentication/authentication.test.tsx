@@ -9,13 +9,10 @@ describe('Sign up', () => {
 
     const email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Password');
-    const button = screen.getByRole('button');
 
     expect(email).toBeInTheDocument();
     expect(password).toBeInTheDocument();
-    expect(button).toBeInTheDocument();
   });
-
 });
 
 describe('Log In', () => {
@@ -29,11 +26,9 @@ describe('Log In', () => {
 
     const email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Password');
-    const button = screen.getByRole('button');
 
     expect(email).toBeInTheDocument();
     expect(password).toBeInTheDocument();
-    expect(button).toBeInTheDocument();
   });
 
   // it.only('shows error when wrong credentials are provided', async () => {

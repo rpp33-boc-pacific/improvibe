@@ -30,25 +30,51 @@ export default function Query(req: any, res: any) {
       sort = 'ORDER BY name DESC';
     }
 
+    // REATE TABLE users (
+    //   id serial,
+    //   name varchar(255),
+    //   email varchar(255),
+    //   hash varchar(255),
+    //   about_me text,
+    //   searched integer,
+    //   emailVerified timestamp,
+    //   photo_url varchar(255)
+    // );
+
+    // CREATE TABLE projects (
+    //   id serial,
+    //   name varchar(255),
+    //   genre varchar(255),
+    //   likes integer,
+    //   shares integer,
+    //   public boolean,
+    //   user_id integer,
+    //   searched integer,
+    //   total_time integer,
+    //   song_path varchar(255),
+    //   date_created timestamp
+    // );
     if (queryTypeParam === 'Songs') {
       query =
-      `SELECT *
+      `SELECT projects.id, projects.name, projects.genre, projects.likes, projects.shares, projects.user_id, projects.song_path, projects.date_created
       FROM projects
-      WHERE name LIKE '${queryInput}%'
-      AND public
+      JOIN users
+      ON projects.user_id = users.id
+      WHERE projects.name LIKE '%${queryInput}%'
+      AND projects.public
       ${sort};`;
       console.log(query);
     } else if (queryTypeParam === 'Artists') {
       query =
       `SELECT *
       FROM users
-      WHERE name LIKE ${queryInput}%
+      WHERE name LIKE '${queryInput}%'
       ${sort};`;
     } else if (queryTypeParam === 'Genres') {
       query =
       `SELECT *
       FROM projects
-      WHERE genre LIKE %${queryInput}%
+      WHERE genre LIKE '${queryInput}%'
       AND public
       ${sort};`;
     }

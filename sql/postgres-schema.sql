@@ -18,7 +18,8 @@ CREATE TABLE sessions (
 CREATE TABLE layers (
   id serial,
   name varchar,
-  track_id integer,
+  track_time integer,
+  track_path varchar,
   shares integer,
   project_id integer,
   searched integer,

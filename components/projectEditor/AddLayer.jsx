@@ -50,25 +50,27 @@ function AddLayer() {
       layerId: layers.length + 1,
       trackAudio: trackURL,
       trackName: 'Track Name',
-      trackTime: 'track time',
+      trackTime: 100,
       tempo: 1,
       pitch: 0,
       volume: 0.65,
-      startInterval: 0,
-      endInterval: 1,
+      startInterval: 8,
+      endInterval: 80,
       start: 0,
       loop: false
     }
 
-    const layersCopy = JSON.parse(JSON.stringify(layers));
-    layersCopy.push(newLayer);
-    setLayers(layersCopy);
+    let newLayers = layers.map((layer) => layer);
+    newLayers[layers.length] = newLayer
+    console.log(newLayers);
+    setLayers(newLayers);
 
     handleClose();
     console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
   };
 
   const uploadFile = async () => {
+    console.log('type', selectedFile.type);
     let { data } = await axios.post("/api/s3/uploadFile", {
       name: selectedFile.name,
       type: selectedFile.type,
@@ -87,7 +89,7 @@ function AddLayer() {
 
   return (
     <div className='add-layer-holder'>
-      <Button variant="contained" onClick={handleOpen} sx={{ width: '16vw', height: '5vh', fontSize: '1.7vh'}}>Add Layer</Button>
+      <Button variant="contained" onClick={handleOpen} sx={{ width: '10vw', height: '4vh', fontSize: '1.5vh'}}>Add Layer</Button>
         <Modal
           open={open}
           onClose={handleClose}

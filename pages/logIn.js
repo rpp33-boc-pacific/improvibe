@@ -115,6 +115,7 @@ export default function LogIn() {
 LogIn.getInitialProps = async (context) => {
   const { req, res } = context;
   const session = await getSession({ req });
+  console.log('front end', session)
   if (session && res) {
     res.writeHead(302, {
       Location: "/",

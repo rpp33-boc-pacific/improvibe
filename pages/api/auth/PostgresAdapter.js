@@ -41,7 +41,6 @@ export default function PostgresAdapter(pool: { query: (arg0: string) => Promise
           if (user.rowCount === 0) {
             return null;
           } else {
-            console.log(user)
             return user.rows[0];
           }
         })
@@ -50,7 +49,13 @@ export default function PostgresAdapter(pool: { query: (arg0: string) => Promise
         })
     },
     async getUserByAccount({ providerAccountId, provider }) {
-      return pool.query(`SELECT * FROM account WHERE providerAccountId='${providerAccountId}' AND provider='${provider}'`)
+      const getUser =
+      `SELECT users.id, users.name, users.about_me, users.email, users.photo_url
+      FROM users INNER JOIN account ON users.id=account.user_id
+      WHERE users.id=(SELECT user_id
+        FROM account WHERE providerAccountId='${providerAccountId}'
+        AND provider='${provider}' LIMIT 1)`;
+      return pool.query(getUser)
       .then((user: any) =>{
         if (user.rowCount === 0) {
           return null;
@@ -85,14 +90,29 @@ export default function PostgresAdapter(pool: { query: (arg0: string) => Promise
         })
     },
     async unlinkAccount({ providerAccountId, provider }) {
-      return
+      return pool.query(`DELETE FROM accounts WHERE providerAccountId='${sessionToken}' AND provider=${provider}`)
+      .then(() => {
+        return null;
+      })
     },
     async createSession({ sessionToken, userId }) {
       const addSession = `INSERT INTO sessions (user_id, sessionToken) VALUES (${userId}, '${sessionToken}');`;
       return pool.query(addSession)
         .then((session: any) =>{
           if (session) {
-            return session;
+            const getByEmail = `SELECT id, name, about_me, email, photo_url FROM users WHERE id='${userId}'`;
+            return pool.query(getByEmail)
+              .then((user: any) =>{
+                if (user.rowCount === 0) {
+                  return null;
+                } else {
+                  session.user = user.rows[0];
+                  return session;
+                }
+              })
+              .catch((err) => {
+                console.log('Error getting user by email', err);
+              })
           } else {
             return null;
           }
@@ -108,7 +128,11 @@ export default function PostgresAdapter(pool: { query: (arg0: string) => Promise
       return
     },
     async deleteSession(sessionToken: any) {
-      return
+    return pool.query(`DELETE FROM session WHERE sessionToken='${sessionToken}'`)
+    .then(() => {
+      return null;
+    })
+
     },
     async createVerificationToken({ identifier, expires, token }) {
       return

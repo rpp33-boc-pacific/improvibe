@@ -15,16 +15,11 @@ CREATE TABLE sessions (
   sessionToken varchar(255)
 );
 
-CREATE TABLE senres (
-  id serial,
-  name varchar(255),
-  searched integer
-);
-
 CREATE TABLE layers (
   id serial,
   name varchar,
-  track_id integer,
+  track_time integer,
+  track_path varchar,
   shares integer,
   project_id integer,
   searched integer,
@@ -50,13 +45,14 @@ CREATE TABLE users (
   hash varchar(255),
   about_me text,
   searched integer,
-  emailVerified timestamp
+  emailVerified timestamp,
+  photo_url varchar(255)
 );
 
 CREATE TABLE projects (
   id serial,
   name varchar(255),
-  genre_id integer,
+  genre varchar(255),
   likes integer,
   shares integer,
   public boolean,

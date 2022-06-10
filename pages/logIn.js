@@ -87,21 +87,21 @@ export default function LogIn() {
           <FormControl>
             <h1>Login</h1>
             <label htmlFor="email" >Email</label>
-            <TextField required id="email" name="email" type="text" variant="outlined"/>
+            <TextField required id="email" name="email" type="text" variant="outlined" style={{ width: '350px' }} margin="normal"/>
 
             <label htmlFor="password" placeholder="yourPassword123">Password</label>
-            <TextField required id="password" name="password" type="password" variant="outlined"/>
+            <TextField required id="password" name="password" type="password" variant="outlined" margin="normal"/>
 
-            <Button variant="contained" type="submit" >Sign in</Button>
+            <Button variant="contained" type="submit" size="large" style={{ marginTop: "20px" }}>Sign in</Button>
               {logInError &&
               <div>
                 Email or password invalid, please try again.
               </div>
               }
 
-            <Button variant="contained" type="button" onClick={(e) => googleLogIn(e)} >Sign in with Google</Button>
+            <Button variant="contained" type="button" size="large" style={{ marginTop: "20px" }} onClick={(e) => googleLogIn(e)} >Sign in with Google</Button>
 
-            <Button variant="contained" type="button" onClick={(e) => githubLogIn(e)} >Sign in with Github</Button>
+            <Button variant="contained" type="button" size="large" style={{ marginTop: "20px" }} onClick={(e) => githubLogIn(e)} >Sign in with Github</Button>
             <p>Dont have an account yet?
               <Link href="/signUp">
                 <a> Sign up</a>

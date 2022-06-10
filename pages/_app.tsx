@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import AppContext from '../AppContext';
-import songsObject from '../songsObject';
-import userObject from '../userObject';
 import { SessionProvider } from "next-auth/react";
 import axios from 'axios';
 

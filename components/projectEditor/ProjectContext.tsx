@@ -31,13 +31,15 @@ const ProjectContextProvider = ({ children }: any) => {
     .then((res) => {
       console.log('RESPONSE FROM GET LAYERS', res);
       // if project exists then load data from project into state
-        // setLayers(res.data.layers);
+      if (res.data.length > 0) {
+        setLayers(res.data)
+      }
         // setProjectName(res.data.projectName);
         // setGenre(res.data.genre);
         // setIsSaved(true);
     })
     .catch((err) => {
-      // console.log('ERROR FROM GET LAYERS', err);
+      console.log('ERROR FROM GET LAYERS', err);
     })
 
   return (

@@ -88,7 +88,7 @@ const saveSong = (context, user, Crunker, projectId) => {
             likes: 0,
             shares: 0,
             publicStatus: false,
-            user_id: 1, // fix this
+            user_id: user_id,
             searched: 0,
             total_time: 250,
             song_path: url,
@@ -98,7 +98,7 @@ const saveSong = (context, user, Crunker, projectId) => {
           const postResult = await axios.post('/api/project/project', newProject);
 
           console.log('projectUserId.data.user_id', projectUserId.data.user_id);
-          if (projectUserId.data.user_id !== user_id && projectUserId.data.user_id !== undefined) {
+          if (projectUserId.data.user_id !== user_id && projectUserId.data.user_id !== undefined) { // second check is to see if there isnt a project in the database
             layers.forEach(async (layer) => {
               layer.project_id = postResult.data.productId;
               let postLayerResult = await axios.post('/api/project/layer', layer);

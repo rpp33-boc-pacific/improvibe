@@ -26,9 +26,9 @@ function AddLayer() {
   const [open, setOpen] = useState(false);
   const [fileURL, setURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const { layersState, productIdState } = useContext(ProjectContext);
+  const { layersState, projectIdState } = useContext(ProjectContext);
   const [layers, setLayers] = layersState;
-  const [projectId, setProductId] = productIdState;
+  const [projectId, setProductId] = projectIdState;
 
   const handleOpen = () => setOpen(true);
 

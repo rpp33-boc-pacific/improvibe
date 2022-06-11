@@ -1,7 +1,6 @@
 import pool from '../../../sql/db';
 
 export default function alterLayer(req: any, res: any) {
-  let layerId;
   if (req.method === 'POST') {
     const { name, track_time, track_path, shares, project_id, searched, tempo, pitch, volume, start_time, trim_start, trim_end, loop } = req.body;
     let sql = `INSERT INTO layers (name, track_time, track_path, shares, project_id, searched, tempo, pitch, volume, start_time, trim_start, trim_end, loop) VALUES ('${name}', ${track_time}, '${track_path}', ${shares}, ${project_id}, ${searched}, ${tempo}, ${pitch}, ${volume}, ${start_time}, ${trim_start}, ${trim_end}, ${loop}) RETURNING id`

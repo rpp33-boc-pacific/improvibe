@@ -17,7 +17,7 @@ const ProjectContextProvider = ({ children }: any, project_id: any) => {
     genreState: [genre, setGenre],
     playAllState: [playAll, setPlayAll],
     isSavedState: [isSaved, setIsSaved],
-    productIdState: [projectId, setProductId],
+    projectIdState: [projectId, setProductId],
   }
 
   axios({

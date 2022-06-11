@@ -59,8 +59,8 @@ CREATE TABLE projects (
   user_id integer,
   searched integer,
   total_time integer,
-  song_path varchar(255),
-  date_created timestamp
+  song_path varchar,
+  date_created bigint
 );
 
 CREATE TABLE account (

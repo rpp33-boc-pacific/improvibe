@@ -29,9 +29,9 @@ CREATE TABLE layers (
   shares integer,
   project_id integer,
   searched integer,
-  tempo integer,
-  pitch integer,
-  volume integer,
+  tempo decimal,
+  pitch decimal,
+  volume decimal,
   start_time integer,
   trim_start integer,
   trim_end integer,
@@ -59,8 +59,8 @@ CREATE TABLE projects (
   user_id integer,
   searched integer,
   total_time integer,
-  song_path varchar(255),
-  date_created timestamp
+  song_path varchar,
+  date_created bigint
 );
 
 CREATE TABLE account (

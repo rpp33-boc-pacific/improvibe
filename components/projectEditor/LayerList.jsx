@@ -13,7 +13,7 @@ const LayerList = () => {
       {layers.map((layer) => {
         let currentIndex = layerIndex;
         layerIndex += 1;
-        return <Layer key={layer.layerId} layers={layers} layerIndex={currentIndex} setLayers={setLayers} />
+        return <Layer key={layer.id} layers={layers} layerIndex={currentIndex} setLayers={setLayers} />
       })}
     </div>
   )

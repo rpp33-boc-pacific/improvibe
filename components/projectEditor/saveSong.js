@@ -10,12 +10,8 @@ const saveSong = (context, user, Crunker) => {
   const projectId = context.projectIdState[0];
 
   let tracks = layers.map((layer) => {
-    return layer.trackAudio
+    return layer.track_path
   });
-
-  let filters = layers.map((layer) => {
-     return layer.filter
-   });
 
   const uploadFile = async (songName, song) => {
     let { data } = await axios.post("/api/s3/uploadFile", {
@@ -37,10 +33,15 @@ const saveSong = (context, user, Crunker) => {
   return new Promise((resolve, reject) => {
     let crunker = new Crunker();
 
+    if (layers.length === 0) {
+      reject();
+      return;
+    }
+
     crunker.fetchAudio(...tracks)
       .then((buffers) => {
         let modified = buffers.map((buffer, index) => {
-          const modifiedBuffer = crunker.padAudio(buffer, 0, layers[index].start);
+          const modifiedBuffer = crunker.padAudio(buffer, 0, layers[index].start_time);
           return modifiedBuffer;
         })
         return crunker.mergeAudio(modified);
@@ -58,29 +59,38 @@ const saveSong = (context, user, Crunker) => {
         const songUrl = await uploadFile(songName, song)
         return songUrl;
       })
-      .then((url) => {
-        console.log('url:', url);
-        if (isSaved) {
-          axios.put('api/project', { projectId, name, url, genre, track })
-          .then((id) => {
-            // resolve();
-          })
-          .catch((error) => {
-            console.log('Error updating project in the database', error);
-          });
-        } else {
-          axios.post('api/project', { user_id, name, url, genre })
-          .then((id) => {
-            let songId = id.data
-            resolve(songId);
-          })
-          .catch((err) => {console.log('Error adding project to the database:', err)})
+      .then(async (url) => {
+        if (isSaved) { // TODO: also need to check user id
+          const updatedProject = {
+            id: projectId,
+            name,
+            genre,
+            song_path: url,
           }
-        })
-        .catch((err) => {
-          console.log('Error flattening layers:', err);
-        });
-    });
-  };
+
+          const putResult = await axios.put('/api/project/project', updatedProject);
+          console.log(putResult);
+          resolve(putResult);
+        } else {
+          const newProject = {
+            name,
+            genre,
+            likes: 0,
+            shares: 0,
+            publicStatus: false,
+            user_id: 1, // app context not working here
+            searched: 0,
+            total_time: 250,
+            song_path: url,
+            date_created: Date.now(),
+          }
+
+          const postResult = await axios.post('/api/project/project', newProject);
+          console.log(postResult);
+          resolve(postResult);
+        }
+      });
+  });
+};
 
   export default saveSong;

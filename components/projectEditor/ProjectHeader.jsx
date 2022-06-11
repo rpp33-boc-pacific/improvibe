@@ -19,7 +19,7 @@ function ProjectHeader() {
 
   const [newContext, updatedContext] = useState(context);
 
-  const initialValue = "Song Name";
+  const initialValue = context.projectNameState[0];
   const [value, setValue] = useState(initialValue);
 
   const handleChange = (e) => {

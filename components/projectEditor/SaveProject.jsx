@@ -28,10 +28,9 @@ export default function SaveProject() {
     <ProjectContext.Provider value={context}>
       <Button
       onClick={ () => {
-        // Save song on click then get back id
         saveSong(context, user, crunker)
         .then((id) => {
-          context.isSavedState.setIsSaved(true);
+          setIsSaved(true);
         })
       }}
       variant="contained"

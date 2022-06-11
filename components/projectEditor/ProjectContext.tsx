@@ -5,7 +5,7 @@ const ProjectContext = createContext({});
 
 const ProjectContextProvider = ({ children }: any, project_id: any) => {
   const [layers, setLayers] = useState([]);
-  const [projectName, setProjectName] = useState('');
+  const [projectName, setProjectName] = useState('New Project');
   const [genre, setGenre] = useState('');
   const [playAll, setPlayAll] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -17,7 +17,7 @@ const ProjectContextProvider = ({ children }: any, project_id: any) => {
     genreState: [genre, setGenre],
     playAllState: [playAll, setPlayAll],
     isSavedState: [isSaved, setIsSaved],
-    productIdState: [projectId, setProductId],
+    projectIdState: [projectId, setProductId],
   }
 
   axios({
@@ -30,6 +30,7 @@ const ProjectContextProvider = ({ children }: any, project_id: any) => {
         // setLayers(res.data.layers);
         // setProjectName(res.data.projectName);
         // setGenre(res.data.genre);
+        // setIsSaved(true);
     })
     .catch((err) => {
       // console.log('ERROR FROM GET LAYERS', err);

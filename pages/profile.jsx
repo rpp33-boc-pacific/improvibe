@@ -46,7 +46,7 @@ const Profile = (props) => {
               <Box sx={{ marginLeft: '60px', marginTop: '40px' }}>
                 <Image
                   alt='Profile picture of the artist'
-                  src={user.photoUrl || noPhotoUrl}
+                  src={data.user.photoUrl || noPhotoUrl}
                   height={270}
                   width={270}
                   style={{ borderRadius: '90%' }}

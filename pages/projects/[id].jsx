@@ -12,12 +12,26 @@ import AppContext from '../../AppContext';
 import { useContext, useEffect } from 'react';
 import Protect from '../../components/Protect';
 import { getSession } from "next-auth/react";
+import axios from 'axios';
 
 const Editor = (props) => {
-  const { songs, setUser } = useContext(AppContext);
+  const { songs, setUser, setSongs } = useContext(AppContext);
   const router = useRouter();
   let { id } = router.query;
   setUser(props.user.id);
+
+  useEffect(() => {
+    axios.get(`/api/projects/user/${props.user.id}`)
+    .then((res) => {
+      console.log(res.data);
+      if (res.data.songs.length > 0) {
+        setSongs(res.data.songs);
+      }
+    })
+    .catch((err) => {
+      console.log('error getting layers', err);
+    })
+  }, []);
 
   return (
       <>

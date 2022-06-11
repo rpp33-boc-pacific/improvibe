@@ -40,7 +40,7 @@ const TopArtists = () => {
     // The songs will come from the api call
     axios.get('api/artists/topArtists')
     .then((response) => {
-      console.log('respone from db', response);
+      // console.log('respone from db', response);
       setArtists(response.data);
       setLoading(false);
     })

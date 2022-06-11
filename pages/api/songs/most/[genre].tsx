@@ -1,4 +1,4 @@
-import pool from '../../../sql/db';
+import pool from '../../../../sql/db';
 // import pool from '../../../local/localdb';
 
 // pool.connect((err: { stack: any }) => {
@@ -9,6 +9,9 @@ import pool from '../../../sql/db';
 // })
 
 export default function highestRankingBy(req: any, res: any) {
+
+  let {genre} = req.query;
+  // console.log('genre', genre);
 
   //SELECT count number of songs from the given category sorted by highest
   const example = [

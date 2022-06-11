@@ -44,13 +44,13 @@ export default function SongResult({ song, user }: any) {
     <SongTileContext.Provider value={{liked, setLiked, likes, setLikes}}>
       <Card sx={{border: 1, margin: 0, padding: 0, borderColor: 'grey.500', ml: '200px', mr: '200px', height: '160px'}} role='song-search-result'>
         <CardContent sx={{display: 'flex', flexDirection: 'row', pb: 0}}>
-          <ArtistImage src={song.photo_url} alt='https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'/>
+          <ArtistImage src={song.photo_url || 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'} alt='https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif' width="85px" height="85px"/>
           <CardContent sx={{display: 'flex', flexDirection: 'column', pb: 0, margin: 0, padding: 0, width: "400px"}}>
             <Typography gutterBottom variant="h5" sx={{ mt: 0, ml: "30px", mb: 0, flexShrink:0}}>
               {song.song_name}
             </Typography>
             <Link href={artistProfileReference} variant="body1" underline="hover" color="text.secondary" sx={{ml: "30px", cursor: "pointer"}}>
-              {song.artist_name}
+              {song.artist_name || 'Unkown User'}
             </Link>
             <PlayerContainer>
             <Player song={song} user={user} color='red'/>

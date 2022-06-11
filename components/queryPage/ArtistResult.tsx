@@ -32,7 +32,7 @@ export default function ArtistResult({ user }: any) {
   return (
     <Card sx={{border: 1, margin: 0, borderColor: 'grey.500', ml: '200px', mr: '200px'}} role='artist-search-result'>
       <CardContent sx={{display: 'flex', flexDirection: 'row', pb: 0}}>
-        <ArtistImage src={user.photo_url} alt='https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'/>
+        <ArtistImage src={user.photo_url || 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'} alt='No Image'/>
         <CardContent sx={{display: 'flex', flexDirection: 'column', pb: 0, margin: 0, padding: 0}}>
           <Link href={artistProfileReference} gutterBottom underline="hover" variant="h5" sx={{mt: 0, ml: '30px', mb: 0, textAlign: 'justify', color: "black", cursor: "pointer"}}>
             {user.name}

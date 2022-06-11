@@ -1,21 +1,23 @@
 import type { NextPage } from 'next';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
 import NavigationBar from '../../components/NavigationBar';
 import { Grid, Skeleton } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useRouter } from 'next/router';
 import SongResult from '../../components/queryPage/SongResult';
 import ArtistResult from '../../components/queryPage/ArtistResult';
 import QueryTypeSelect from '../../components/queryPage/QueryTypeSelect';
 import SortSelect from '../../components/queryPage/SortSelect';
 import Typography from '@mui/material/Typography';
-import pool from '../../sql/db';
 import CardContent from '@mui/material/CardContent';
 import useQuery from '../../helper/query';
+import AppContext from '../../AppContext';
+import { getSession } from "next-auth/react";
 
-const Query: NextPage = () => {
+const Query: NextPage = (props: any) => {
+  const { setUser }: any = useContext(AppContext);
+  console.log(props.user.id);
+  setUser(props.user.id);
 
   const Item = styled('div')(({ theme }) => ({
     ...theme.typography.body2,
@@ -28,7 +30,7 @@ const Query: NextPage = () => {
     name: 'Artist Name',
     email: 'artistname@email.com',
     about_me: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    liked: false, //liked by current user
+    liked: false,
     photo_url: "https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif",
   }
   const songProp = {
@@ -103,8 +105,8 @@ const Query: NextPage = () => {
       </Head>
       <NavigationBar/>
       <CardContent sx={{display: 'flex', flexDirection: 'row-reverse', mr: "200px", padding:0}}>
-              <SortSelect sortParam={sortParam} setSortParam={setSortParam} menuItems={menuItems}/>
-              <QueryTypeSelect queryTypeParam={queryTypeParam} setQueryTypeParam={setQueryTypeParam}/>
+        <SortSelect sortParam={sortParam} setSortParam={setSortParam} menuItems={menuItems}/>
+        <QueryTypeSelect queryTypeParam={queryTypeParam} setQueryTypeParam={setQueryTypeParam}/>
       </CardContent>
       {loadedData[0] === 'Not Loaded' ?
       <Grid container spacing={1} direction="column">
@@ -133,11 +135,8 @@ const Query: NextPage = () => {
           <Item>Showing {loadedData.length} results</Item>
         </Grid>
         {/* <Grid item xs={12}>
-            <ArtistResult user={userProp}/>
-        </Grid>
-        <Grid item xs={12}>
-            <SongResult song={songProp} user={userProp}/>
-        </Grid> */}
+            <SongResult song={songProp} user={props}/>
+          </Grid> */}
         {queryTypeParam === 'Artists' ?
           loadedData.map((item: any) => {
             return <Grid item xs={12}>
@@ -155,6 +154,19 @@ const Query: NextPage = () => {
       }
     </div>
   )
+};
+
+export async function getServerSideProps (context: any) {
+  const { req, res } = context;
+  const session = await getSession({ req });
+  if (!session) {
+    res.writeHead(302, {
+      Location: "/logIn",
+    });
+    res.end();
+    return;
+  }
+  return { props: session };
 };
 
 export default Query;

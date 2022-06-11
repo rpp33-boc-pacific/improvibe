@@ -10,22 +10,33 @@ export default function alterProject(req: any, res: any) {
       res.send({ productId: results.rows[0].id });
     })
     .catch((error: any) => {
-      console.log(error);
       console.log('error posting project');
       res.send(error);
     });
-  } else if (req.method === 'PUT' ){
+  } else if (req.method === 'PUT') {
     const { id, name, genre, song_path } = req.body;
     console.log(req.body);
     let sql = `UPDATE projects SET name = '${name}', genre = '${genre}', song_path = '${song_path}' WHERE id = ${id}`
     pool.query(sql)
     .then((results: any) => {
-      console.log(results);
       res.send('success - updated layer!');
     })
     .catch((error: any) => {
-      console.log(error);
       console.log('error updating layer');
+      res.send(error);
+    });
+  } else if (req.method === 'GET') {
+    console.log('GET!!!!!!!');
+    console.log(req);
+    const { projectId } = req.query;
+    let sql = `SELECT * FROM projects WHERE id = ${projectId}`;
+    pool.query(sql)
+    .then((results: any) => {
+      console.log(results);
+      res.send(results.rows[0].user_id);
+    })
+    .catch((error: any) => {
+      console.log('error getting project');
       res.send(error);
     });
   }

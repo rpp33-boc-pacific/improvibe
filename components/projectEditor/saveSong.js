@@ -60,7 +60,9 @@ const saveSong = (context, user, Crunker) => {
         return songUrl;
       })
       .then(async (url) => {
-        if (isSaved) { // TODO: also need to check user id
+        const projectUserId = await axios.get('/api/project/project', { params: { projectId: projectId } });
+        console.log('projectUserId', projectUserId);
+        if (isSaved && (projectUserId === user_id)) {
           const updatedProject = {
             id: projectId,
             name,

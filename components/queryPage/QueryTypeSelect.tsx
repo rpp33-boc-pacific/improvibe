@@ -13,7 +13,7 @@ export default function QueryTypeSelect({queryTypeParam, setQueryTypeParam}: any
 
   return (
     <Box role='query-type-select'>
-      <FormControl sx={{ m: 1, width: 150 }}>
+      <FormControl sx={{ m: 1, width: 150, padding: 0 }}>
         <InputLabel id="query-type-simple-select-label">Query Type</InputLabel>
         <Select
           id="query-type-simple-select"

@@ -1,23 +1,18 @@
-import pool from "../../../sql/db";
+import pool from "../../../../sql/db";
 
 export default function getTopArtists(req: any, res: any) {
-  let { userId } = req.query;
-  let { method } = req.method;
 
-  // SELECT Top artists.
-  // returns artists in a descending order and limits the results to 3
+  // Returns a list of the artists with the most liked songs including their name, number of likes, and id
 
-  // let getTopArtistsQuery = `SELECT * FROM users LIMIT 3 DESC`;
+  const getTopArtistsQuery = `SELECT p.likes, u.name, u.id from projects p join users u ON p.user_id=u.id ORDER BY p.likes DESC LIMIT 4;`
 
-  // pool
-  // .query(getTopArtistsQuery)
-  // .then(data) => {
-  //   console.log('top artists', data])
+  // pool.query(getTopArtistsQuery)
+  // .then((data:any) => {
+  //   console.log('top artists', data)
   // })
   // .catch((err: any) => {
   //   res.status(400);
-  // }
-  // )
+  // });
 
   // SENDING SAMPLE DATA TO CHECK API END POINTS
   // console.log('request received')

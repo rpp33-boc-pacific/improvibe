@@ -2,11 +2,17 @@ CREATE DATABASE improvibe;
 
 \c improvibe;
 
-CREATE TABLE project_hashtag (
-  id serial,
-  project_id integer,
-  hashtag_id integer
-);
+DROP TABLE IF EXISTS project_hashtag;
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS layers;
+DROP TABLE IF EXISTS hashtags;
+DROP TABLE IF EXISTS senres;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS tracks;
+DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS past_searches;
 
 CREATE TABLE sessions (
   id serial,
@@ -18,7 +24,8 @@ CREATE TABLE sessions (
 CREATE TABLE layers (
   id serial,
   name varchar,
-  track_id integer,
+  track_time integer,
+  track_path varchar,
   shares integer,
   project_id integer,
   searched integer,
@@ -29,12 +36,6 @@ CREATE TABLE layers (
   trim_start integer,
   trim_end integer,
   loop boolean
-);
-
-CREATE TABLE hashtags (
-  id serial,
-  hashtag_name varchar,
-  searched integer
 );
 
 CREATE TABLE users (
@@ -60,14 +61,6 @@ CREATE TABLE projects (
   total_time integer,
   song_path varchar(255),
   date_created timestamp
-);
-
-CREATE TABLE tracks (
-  id serial,
-  name varchar(255),
-  track_path varchar(255),
-  date_created timestamp,
-  searched integer
 );
 
 CREATE TABLE account (

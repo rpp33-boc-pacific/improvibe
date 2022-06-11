@@ -47,10 +47,10 @@ const HorizontalCarousel = (props: any) => {
           rewind: false,
           perPage: 4,
           perMove: 1,
-          gap: '10em',
+          gap: '1px',
           padding: '1',
           // border: '2em',
-          heightRatio: 0.20,
+          heightRatio: 0.225,
           pagination: false,
           width: '100%',
           backgroundColor: '#1976d2'
@@ -59,7 +59,7 @@ const HorizontalCarousel = (props: any) => {
         {props.songs.map((song: React.Key | null | undefined) => {
           return (
             <>
-            <SplideSlide key={song}>
+            <SplideSlide key={song} style={{boxShadow: 'none'}}>
               <div className="slide" >
                 <Tile song={song} user={user} color={'white'}/>
               </div>

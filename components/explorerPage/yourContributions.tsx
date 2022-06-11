@@ -29,9 +29,8 @@ const YourContributions = () => {
 
   useEffect(() => {
     // The songs will come from the api call
-    axios.get('api/songs/1')
+    axios.get('api/top/songs/1')
     .then((response) => {
-      console.log('respone from db', response);
       setSongs(response.data);
       setLoading(false);
     })
@@ -44,7 +43,7 @@ const YourContributions = () => {
     <Box sx={{ flexGrow: 1, maxWidth: 752}}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12}>
-          <Typography sx={{ mt: 1, mb: 0.5 }} variant="h6" component="div">
+          <Typography sx={{ mt: 1, mb: 2 }} variant="h6" component="div">
             Your Top Contributions
           </Typography>
           <Demo>

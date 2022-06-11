@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import Image from "next/image";
+import { useContext, useState } from 'react';
+import AppContext from '../../AppContext';
 import { Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Modal } from "@mui/material";
 import { Typography } from "@mui/material";
 import axios from 'axios';
+
+if (process.env.IMG_KEY === undefined) {
+  var IMG_KEY = '8a652fbb22ae8e9e354f46db711dad79';
+}
 
 const style = {
   position: 'absolute',
@@ -18,9 +22,11 @@ const style = {
   p: 4,
 };
 
-const Photo = ({ photoUrl }) => {
+const Photo = ({ photoUrl, handlePhotoUrlChange }) => {
 
-  const [url, setphotoUrl] = useState(photoUrl);
+  // const context = useContext(AppContext);
+  const id = 1; // TEMPORARY
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -32,36 +38,26 @@ const Photo = ({ photoUrl }) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      let imgbbError = false;
-      let apiError = false;
-      let newUrl = '';
-
       const image = reader.result.slice(23);
       const formData = new FormData();
       formData.append('image', image);
 
+      let imgbbError = false;
+      let apiError = false;
+      let newUrl = '';
       axios({
         headers: { 'content-type': 'multipart/form-data' },
         method: 'post',
-        url: `https://api.imgbb.com/1/upload?key=${process.env.IMG_KEY}`,
+        url: `https://api.imgbb.com/1/upload?key=${IMG_KEY}`,
         data: formData,
       }).catch((error)=> {
         imgbbError = true;
-        // NOTIFY USER
       }).then((res) => {
-        if (!imgbbError && res.status.toString()[0] === '2') {
+        if (!imgbbError && res.status === 200) {
           newUrl = res.data.data.url;
-          axios.put(`api/profiles/${userId}/photo`, {
-            photoUrl: newUrl
-          })
-          .catch((error) => {
-            apiError = true;
-          })
-          .then((res) => {
-            if (!apiError && res.status.toString()[0] === '2') {
-              setphotoUrl(newUrl);
-            }
-          });
+          handlePhotoUrlChange(newUrl);
+        } else {
+          // NOTIFY USER - Couldn't upload to imgbb
         }
       });
     };
@@ -73,14 +69,16 @@ const Photo = ({ photoUrl }) => {
 
   return (
     <div>
-      <Image
+      <img
         alt='Profile picture'
-        src={url}
+        src={photoUrl}
         height={300}
         width={300}
         style={{ borderRadius: '90%' }}
       />
-      <Typography onClick={handleOpen}>Upload image</Typography>
+      <Box sx={{ marginLeft: '180px', marginTop: '20px' }}>
+        <Typography onClick={handleOpen}><u>Upload iamge</u></Typography>
+      </Box>
       <Modal
         hideBackdrop
         open={open}

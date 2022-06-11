@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import AppContext from '../../AppContext';
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
@@ -14,21 +16,35 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const TopGenres = (props: any) => {
 
-  let k = 5;
+  const [genres, setGenres] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const user = useContext(AppContext); //the user will come from the AppContext
 
-  const TopGenre = props.GenreData.slice(0, k);
+  useEffect(() => {
+
+    axios.get('api/top/genre/genre-list')
+    .then((response) => {
+      setGenres(response.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.log('Error:', err);
+    })
+  })
+
   // console.log(FiveLargest)
 
   return (
+    isLoading === true ? <>Loading...</> :
     <div>
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
       >
-        {TopGenre.map((genre: { name: string, likes: number}) => {
+        {genres.map((genre: { genre: string, totalLikes: number}) => {
           return (
-            <Item key = {genre.name}>{genre.name}</Item>
+            <Item key = {genre.genre}>{genre.genre}</Item>
           )
         })}
       </Stack>

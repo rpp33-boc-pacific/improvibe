@@ -38,9 +38,8 @@ const TopArtists = () => {
 
   useEffect(() => {
     // The songs will come from the api call
-    axios.get('api/artists/topArtists')
+    axios.get('api/top/artists/topArtists')
     .then((response) => {
-      // console.log('respone from db', response);
       setArtists(response.data);
       setLoading(false);
     })
@@ -53,7 +52,7 @@ const TopArtists = () => {
     <Box sx={{ flexGrow: 1, maxWidth: 752}}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12}>
-          <Typography sx={{ mt: 1, mb: 0.5 }} variant="h6" component="div">
+          <Typography sx={{ mt: 1, mb: 2 }} variant="h6" component="div">
             Top Artists
           </Typography>
           <Demo>

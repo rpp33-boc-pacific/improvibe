@@ -1,19 +1,15 @@
-import pool from "../../../sql/db";
+import pool from "../../../../sql/db";
 
 export default function getTopSongsForUser(req: any, res: any) {
   let { userId } = req.query;
-  // console.log('user Id', userId);
-  let { method } = req.method;
 
-  // SELECT all project where user_id matches the userId in query.
-  // Filters out only 'public' songs in a descending order and limits the results to 3
-
-  // let getTopSongsQuery = `SELECT * FROM projects WHERE user_id = ${userId} AND public = true LIMIT 3 DESC`;
+  //Returns the most liked songs for a given user
+  let getTopSongsForUserQuery = `SELECT * from projects WHERE user_id=${userId} ORDER BY likes DESC LIMIT 3;`
 
   // pool
-  // .query(getTopSongsQuery)
+  // .query(getTopSongsForUserQuery)
   // .then((data: any) => {
-  //   console.log('user:', data);
+  //   console.log('user:', data.rows);
   //   res.status(200).send(data);
   // })
   // .catch((err: any) => {
@@ -21,8 +17,7 @@ export default function getTopSongsForUser(req: any, res: any) {
   // }
   // )
 
-  // SENDING SAMPLE DATA TO CHECK API END POINTS
-
+  // // Send Back Sample Data
   res.status(200).send([
     {
       song_id: 2,

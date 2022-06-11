@@ -26,7 +26,7 @@ const Dashboard = (props: { Performance: any }) => {
     <Box sx={{ flexGrow: 1, maxWidth: 752}}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12}>
-          <Typography sx={{ mt: 2, mb: 8.25 }} variant="h6" component="div">
+          <Typography sx={{ mt: 2, mb: 10 }} variant="h6" component="div">
             Your Dashboard
           </Typography>
           <Demo>

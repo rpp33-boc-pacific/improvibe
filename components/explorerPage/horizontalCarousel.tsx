@@ -38,7 +38,7 @@ const HorizontalCarousel = (props: any) => {
     // isLoading === true ? <>Loading...</> :
     <>
       {/* <hr /> */}
-      <Typography sx={{ mt: 0, mb: 2 }} variant="h6" component="div">
+      <Typography sx={{ mt: 0, mb: 2 , pl: 7}} variant="h6" component="div" textAlign = 'left'>
             {props.genre} Songs
       </Typography>
       <Splide

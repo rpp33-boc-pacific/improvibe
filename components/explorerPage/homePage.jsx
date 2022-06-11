@@ -38,6 +38,8 @@ export default function HomePage() {
   const [isLoading, setLoading] = useState(true);
   const user = useContext(AppContext); //the user will come from the AppContext
 
+  // console.log('userId', user.id);
+
   useEffect(() => {
     // The songs will come from the api call
     fetchData();
@@ -46,7 +48,7 @@ export default function HomePage() {
   const fetchData = () => {
 
     // GET request to fetch top songs
-    axios.get('api/top/songs')
+    axios.get('api/top/allSongs/1')
     .then((response) => {
       setSongs(response.data);
       setLoading(false);

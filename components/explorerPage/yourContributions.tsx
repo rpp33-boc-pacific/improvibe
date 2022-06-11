@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import useSWR from 'swr';
+import React, { useEffect, useState, useContext  } from 'react';
 import axios from 'axios';
-import { useContext } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -40,6 +38,7 @@ const YourContributions = () => {
   })
 
   return (
+    isLoading === true ? <>Loading...</> :
     <Box sx={{ flexGrow: 1, maxWidth: 752}}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12}>

@@ -9,7 +9,7 @@ export default function getTopSongsForUser(req: any, res: any) {
   // .then((data: any) => {
   //   //Uncomment this when example is no longer being sent back
   //   // console.log('top songs:', data.rows);
-  //   // res.status(200).send(data);
+  //   // res.status(200).send(data.rows);
   // })
   // .catch((err: any) => {
   //   res.status(400).send(err);

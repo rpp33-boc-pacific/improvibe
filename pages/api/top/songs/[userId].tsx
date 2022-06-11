@@ -4,13 +4,12 @@ export default function getTopSongsForUser(req: any, res: any) {
   let { userId } = req.query;
 
   //Returns the most liked songs for a given user
-  let getTopSongsForUserQuery = `SELECT * from projects WHERE user_id=${userId} ORDER BY likes DESC LIMIT 3;`
-
+  let getTopSongsForUserQuery = `SELECT p.id AS song_id, p.name AS song_name, u.name AS artist_name, u.id AS artist_id, p.genre, p.likes AS cummulative_likes, p.song_path, p.photo_url, FROM projects p JOIN users u ON p.id=u.id WHERE user_id=${userId} ORDER BY likes DESC LIMIT 3;`
   // pool
   // .query(getTopSongsForUserQuery)
   // .then((data: any) => {
   //   console.log('user:', data.rows);
-  //   res.status(200).send(data);
+  //   res.status(200).send(data.rows);
   // })
   // .catch((err: any) => {
   //   res.status(400).send(err);

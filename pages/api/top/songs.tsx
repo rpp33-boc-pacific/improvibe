@@ -1,15 +1,15 @@
 import pool from "../../../sql/db";
 
-export default function getTopSongsForUser(req: any, res: any) {
+export default function getAllTopSongs(req: any, res: any) {
   //Returns most liked songs
-  let getTopSongsForUserQuery = `SELECT * from projects ORDER BY likes DESC LIMIT 4;`
+  let getAllTopSongsQuery = `SELECT p.id AS song_id, p.name AS song_name, u.name AS artist_name, u.id AS artist_id, p.genre, p.likes AS cummulative_likes, p.song_path, p.photo_url, FROM projects p JOIN users u ON p.id=u.id;`
 
   // pool
-  // .query(getTopSongsForUserQuery)
+  // .query(getAllTopSongsQuery)
   // .then((data: any) => {
   //   //Uncomment this when example is no longer being sent back
-  //   // console.log('top songs:', data.rows);
-  //   // res.status(200).send(data);
+  //   console.log('top songs:', data.rows);
+  //   res.status(200).send(data.rows);
   // })
   // .catch((err: any) => {
   //   res.status(400).send(err);

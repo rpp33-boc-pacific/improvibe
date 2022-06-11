@@ -56,7 +56,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top rock songs
-    axios.get('api/top/genre/rock')
+    axios.get('api/top/genre/rock/1')
     .then((response) => {
       setRockSongs(response.data);
       setLoading(false);
@@ -66,7 +66,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top country songs
-    axios.get('api/top/genre/country')
+    axios.get('api/top/genre/country/1')
     .then((response) => {
       setCountrySongs(response.data);
       setLoading(false);
@@ -76,7 +76,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top hiphop songs
-    axios.get('api/top/genre/hiphop')
+    axios.get('api/top/genre/hiphop/1')
     .then((response) => {
       sethiphopSongs(response.data);
       setLoading(false);
@@ -86,7 +86,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top pop songs
-    axios.get('api/top/genre/pop')
+    axios.get('api/top/genre/pop/1')
     .then((response) => {
       setPopSongs(response.data);
       setLoading(false);
@@ -96,7 +96,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top electronic songs
-    axios.get('api/top/genre/electronic')
+    axios.get('api/top/genre/electronic/1')
     .then((response) => {
       setElectronicSongs(response.data);
       setLoading(false);

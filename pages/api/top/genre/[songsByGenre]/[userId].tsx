@@ -1,24 +1,34 @@
-import pool from "../../../../sql/db";
+import pool from "../../../../../sql/db";
 
 export default function getTopSongsByGenre(req: any, res: any) {
-  let { genre } = req.query;
-  console.log('genre', genre)
+  let { songsByGenre, userId } = req.query;
+  // console.log('query', req.query)
 
   // Returns the most popular songs by genre
-  const getTopGenreSongsQuery = `SELECT * from projects where genre=${genre} ORDER BY likes DESC LIMIT 4;`
+  const getTopGenreSongsQuery = `SELECT p.id AS song_id, p.name AS song_name, u.name AS artist_name, u.id AS artist_id, p.genre, p.likes AS cummulative_likes, p.song_path, p.photo_url FROM projects p JOIN users u ON p.id=u.id WHERE genre=${songsByGenre} ORDER BY likes DESC;`
 
   // pool.query(getTopGenreSongsQuery)
   // .then((data:any) => {
-  //   // console.log('top genre songs list', data)
+  //  console.log('top genre songs list', data.rows)
+  // res.status(200).send(data.rows);
+
   // })
   // .catch((err: any) => {
   //   res.status(400);
   // });
 
+//   SELECT OrderID, Quantity,
+// CASE
+//     WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+//     WHEN Quantity = 30 THEN 'The quantity is 30'
+//     ELSE 'The quantity is under 30'
+// END AS QuantityText
+// FROM OrderDetails;
+
   const example = [
     {
-      song_id: 2,
-      song_name: 'Hello Again',
+      id: 2,
+      name: 'Hello Again',
       artist_name: 'Caiwin',
       artist_id: 6,
       in_projects: true,

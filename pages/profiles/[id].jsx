@@ -12,18 +12,21 @@ import { Stack } from '@mui/material';
 import NavigationBar from '../../components/NavigationBar';
 import SongTile from '../../components/shared/SongTile';
 import AppContext from '../../AppContext';
+import { getSession } from 'next-auth/react';
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const noPhotoUrl = 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif';
 
-const Profile: NextPage = () => {
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+const Profile = (props) => {
 
   const router = useRouter();
   const id = router.query.id;
-  const context: any = useContext(AppContext);
-  const clientId = context.user.id;
-  const noPhotoUrl = 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif';
+  const { user, setUser } = useContext(AppContext);
+  setUser(props.user);
+  const userId = user.id;
 
-  const { data, error } = useSWR(`/api/user/public/${id}?client=${clientId}`, fetcher);
+  const { data, error } = useSWR(`/api/user/public/${id}?client=${userId}`, fetcher);
 
   if (error) {
     return (
@@ -79,7 +82,7 @@ const Profile: NextPage = () => {
             </Grid>
             <Grid container item xs={12} sx={{ marginTop: '40px' }}>
               <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                {data.songs.map((song: any, index: number) => <Box sx={{ marginRight: '20px', marginTop: '20px' }}><SongTile key={index} song={song} user={data.user.id} color='white' /></Box>)}
+                {data.songs.map((song, index) => <Box sx={{ marginRight: '20px', marginTop: '20px' }}><SongTile key={index} song={song} user={data.user.id} color='white' /></Box>)}
               </Box>
             </Grid>
           </Grid>
@@ -87,6 +90,19 @@ const Profile: NextPage = () => {
       </div>
     );
   }
+};
+
+export async function getServerSideProps(AppContext) {
+  const { req, res } = AppContext;
+  const session = await getSession({ req });
+  if (!session) {
+    res.writeHead(302, {
+      Location: "/logIn",
+    });
+    res.end();
+    return;
+  }
+  return { props: session };
 };
 
 export default Profile;

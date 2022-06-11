@@ -56,12 +56,18 @@ export default function Query(req: any, res: any) {
     // );
     if (queryTypeParam === 'Songs') {
       query =
-      `SELECT projects.id, projects.name, projects.genre, projects.likes, projects.shares, projects.user_id, projects.song_path, projects.date_created
+      `SELECT projects.id, projects.name, projects.genre, projects.likes as cumulativeLikes, projects.shares, projects.user_id, projects.song_path, projects.date_created, users.photo_url
       FROM projects
       JOIN users
-      ON projects.user_id = users.id
-      WHERE projects.name LIKE '%${queryInput}%'
-      AND projects.public
+      ON users.id
+      IN
+        (SELECT user_id
+        FROM
+        projects
+        WHERE
+        name LIKE '%${queryInput}%'
+        AND public
+        )
       ${sort};`;
       console.log(query);
     } else if (queryTypeParam === 'Artists') {

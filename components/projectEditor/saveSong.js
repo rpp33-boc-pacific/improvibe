@@ -10,12 +10,8 @@ const saveSong = (context, user, Crunker) => {
   const projectId = context.projectIdState[0];
 
   let tracks = layers.map((layer) => {
-    return layer.trackAudio
+    return layer.track_path
   });
-
-  let filters = layers.map((layer) => {
-     return layer.filter
-   });
 
   const uploadFile = async (songName, song) => {
     let { data } = await axios.post("/api/s3/uploadFile", {
@@ -40,7 +36,7 @@ const saveSong = (context, user, Crunker) => {
     crunker.fetchAudio(...tracks)
       .then((buffers) => {
         let modified = buffers.map((buffer, index) => {
-          const modifiedBuffer = crunker.padAudio(buffer, 0, layers[index].start);
+          const modifiedBuffer = crunker.padAudio(buffer, 0, layers[index].start_time);
           return modifiedBuffer;
         })
         return crunker.mergeAudio(modified);

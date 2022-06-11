@@ -2,7 +2,7 @@ import pool from '../../../../sql/db';
 
 export default function getLayers(req: any, res: any) {
   const projectId = req.query.project_id
-  console.log('PROJECT ID', projectId);
+  // console.log('PROJECT ID', projectId);
   const getLayers = `SELECT * FROM layers WHERE project_id = ${projectId}`;
 
   if (req.method === 'GET') {

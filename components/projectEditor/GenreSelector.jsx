@@ -9,12 +9,12 @@ function GenreSelector() {
   const context = useContext(ProjectContext);
   const [newContext, updatedContext] = useState(context);
 
-  const initialValue = '';
+  const [initialValue, setGenreState] = context.genreState;
   const [genre, setGenre] = useState(initialValue)
 
   const handleChange = (e) => {
     setGenre(e.target.value);
-    context.genreState = e.target.value;
+    setGenreState(e.target.value);
   };
 
   return (

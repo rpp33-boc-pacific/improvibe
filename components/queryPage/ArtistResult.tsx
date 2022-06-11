@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 import LikeButton from '../shared/LikeButton';
 import { styled } from '@mui/material/styles';
 import { containerClasses } from '@mui/system';
@@ -19,19 +20,23 @@ export default function ArtistResult({ user }: any) {
   }));
   const ArtistImage = styled('img')(({ theme }) => ({
     flexShrink: 0,
-    width: '80px',
-    height: '80px',
-    borderRadius: '50%'
+    width: '85px',
+    height: '85px',
+    borderRadius: '10%'
   }));
+  const hoveredStyle = {
+    cursor: 'default'
+  };
+  const artistProfileReference = `../profile/${user.id}`;
 
   return (
     <Card sx={{border: 1, margin: 0, borderColor: 'grey.500', ml: '200px', mr: '200px'}} role='artist-search-result'>
       <CardContent sx={{display: 'flex', flexDirection: 'row', pb: 0}}>
-        <ArtistImage src="https://image.shutterstock.com/image-photo/linked-blocks-bank-world-currencies-600w-1926421151.jpg" alt='https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'/>
+        <ArtistImage src={user.photo_url} alt='https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'/>
         <CardContent sx={{display: 'flex', flexDirection: 'column', pb: 0, margin: 0, padding: 0}}>
-          <Typography gutterBottom variant="h5" sx={{mt: 0, ml: '30px', mb: 0, textAlign: 'justify'}}>
+          <Link href={artistProfileReference} gutterBottom underline="hover" variant="h5" sx={{mt: 0, ml: '30px', mb: 0, textAlign: 'justify', color: "black", cursor: "pointer"}}>
             {user.name}
-          </Typography>
+          </Link>
           <Typography variant="body2" color="text.primary" sx={{ml: '30px'}}>
           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{user.about_me}
           </Typography>

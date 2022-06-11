@@ -2,12 +2,13 @@ import axios from 'axios';
 import { v4 } from "uuid";
 
 const saveSong = (context, user, Crunker, projectId) => {
+  const user_id = user.user;
   const isSaved = context.isSavedState[0];
-  const user_id = user.user.id;
   const name = context.projectNameState[0];
   const genre = context.genreState[0];
   const layers = context.layersState[0];
 
+  console.log('svaed status', isSaved);
   let tracks = layers.map((layer) => {
     return layer.track_path
   });
@@ -59,13 +60,11 @@ const saveSong = (context, user, Crunker, projectId) => {
       })
       .then(async (url) => {
         let projectUserId = user_id;
-        console.log('user_id', user_id);
         if (projectId !== undefined) {
           projectUserId = await axios.get('/api/project/project', { params: { projectId: projectId } });
-          console.log('projectUserId', projectUserId);
         }
 
-        if (isSaved && (projectUserId.data.user_id === user_id)) {
+        if (isSaved && projectUserId.data !== undefined && (projectUserId.data.user_id === user_id)) {
           const updatedProject = {
             id: projectId,
             name,
@@ -76,8 +75,8 @@ const saveSong = (context, user, Crunker, projectId) => {
           const putResult = await axios.put('/api/project/project', updatedProject);
 
           layers.forEach(async (layer) => {
+            layer.project_id = projectId;
             let putLayerResult = await axios.put('/api/project/layer', layer);
-            console.log('put layer', putLayerResult);
           });
 
           resolve(putResult);
@@ -97,18 +96,18 @@ const saveSong = (context, user, Crunker, projectId) => {
 
           const postResult = await axios.post('/api/project/project', newProject);
 
-          console.log('projectUserId.data.user_id', projectUserId.data.user_id);
-          if (projectUserId.data.user_id !== user_id && projectUserId.data.user_id !== undefined) { // second check is to see if there isnt a project in the database
+          console.log('projectUserId.data', projectUserId.data);
+          if (projectUserId.data !== undefined && projectUserId.data.user_id !== user_id) {
+            console.log('if path');
             layers.forEach(async (layer) => {
-              layer.project_id = postResult.data.productId;
+              layer.project_id = postResult.data.projectId;
               let postLayerResult = await axios.post('/api/project/layer', layer);
-              console.log(postLayerResult);
             });
           } else {
+            console.log('else path');
             layers.forEach(async (layer) => {
-              layer.project_id = postResult.data.productId;
+              layer.project_id = postResult.data.projectId;
               let putLayerResult = await axios.put('/api/project/layer', layer);
-              console.log('put layer', putLayerResult);
             });
           }
 

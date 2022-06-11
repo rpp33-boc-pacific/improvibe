@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import saveSong from './saveSong';
 import { ProjectContext } from './ProjectContext';
 import AppContext from '../../AppContext';
-import { useRouter } from 'next/router';
+import { useRouter, push } from 'next/router';
 
 export default function SaveProject() {
   const router = useRouter();
@@ -13,7 +13,7 @@ export default function SaveProject() {
   const { isSavedState } = useContext(ProjectContext);
   const [isSaved, setIsSaved] = isSavedState;
   const user = useContext(AppContext);
-  console.log('user', user);
+  console.log(user);
   let crunker;
 
   useEffect(() => {
@@ -36,6 +36,9 @@ export default function SaveProject() {
         saveSong(context, user, crunker, id)
         .then((id) => {
           setIsSaved(true);
+          if (typeof id.data.projectId === 'number') {
+            push(`${id.data.projectId}`);
+          }
         })
       }}
       variant="contained"

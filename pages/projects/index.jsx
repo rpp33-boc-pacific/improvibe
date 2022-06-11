@@ -25,6 +25,8 @@ const Projects = (props) => {
   const { songs, setUser } = useContext(AppContext);
   setUser(props.user.id);
 
+  // need to do a get request for songs here...
+
   return (
     <>
     <Head>

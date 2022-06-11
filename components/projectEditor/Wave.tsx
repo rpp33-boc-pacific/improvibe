@@ -82,18 +82,22 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
           }, delay);
         }
 
-        let left = wavesurfer.current.backend.source.buffer.getChannelData(0);
-        let right = wavesurfer.current.backend.source.buffer.getChannelData(1);
+        const numberOfChannels =  wavesurfer.current.backend.source.buffer.numberOfChannels;
+        let channels = [];
+        for (let channel = 0; channel < numberOfChannels; channel++) {
+          channels.push(wavesurfer.current.backend.source.buffer.getChannelData(channel));
+        }
 
         if (playAudio) {
           if (newPosition > startInterval && newPosition < endInterval) {
             for (var i = 0; i < numFrames; i++) {
-              target[i * 2] = left[i + newPosition];
-              target[i * 2 + 1] = right[i + newPosition];
+              for (let channel = 0; channel < numberOfChannels; channel++) {
+                target[i * 2 + channel] = channels[channel][i + newPosition];
+              }
             }
           }
 
-          return Math.min(numFrames, left.length - newPosition);
+          return Math.min(numFrames, channels[0].length - newPosition);
         } else {
           adjustPosition = (delay > 0) ? position : 0;
           return numFrames;
@@ -101,17 +105,21 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
       }}
 
       const noStartDelay = { extract: (target: [any], numFrames: number, position: number) => {
-        let left = wavesurfer.current.backend.source.buffer.getChannelData(0);
-        let right = wavesurfer.current.backend.source.buffer.getChannelData(1);
+        const numberOfChannels =  wavesurfer.current.backend.source.buffer.numberOfChannels;
+        let channels = [];
+        for (let channel = 0; channel < numberOfChannels; channel++) {
+          channels.push(wavesurfer.current.backend.source.buffer.getChannelData(channel));
+        }
 
         if (position > startInterval && position < endInterval) {
           for (var i = 0; i < numFrames; i++) {
-            target[i * 2] = left[i + position];
-            target[i * 2 + 1] = right[i + position];
+            for (let channel = 0; channel < numberOfChannels; channel++) {
+              target[i * 2 + channel] = channels[channel][i + position];
+            }
           }
         }
 
-        return Math.min(numFrames, left.length - position);
+        return Math.min(numFrames, channels[0].length - position);
       }}
 
       const delayFilter = new window.soundtouch.SimpleFilter(delayStart, soundTouchObj);
@@ -228,7 +236,7 @@ const Wave: NextPage<Props> = ({ data, isPlaying, playAll, layerIndex, updateAud
 
         setTimeout(() => {
           wavesurfer.current.play(pausedTime, data.trim_end);
-        }, data.start * 1000);
+        }, data.start_time * 1000);
       } else {
         pauseTimes.playAll[data.id] = wavesurfer.current.getCurrentTime();
         wavesurfer.current.pause();

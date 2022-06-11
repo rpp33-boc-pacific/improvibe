@@ -27,7 +27,11 @@ export default function Query(req: any, res: any) {
     } else if (sortParam === 'Least Popular'){
       sort = 'ORDER BY searched ASC';
     } else if (sortParam === 'Alphabetical'){
-      sort = 'ORDER BY name DESC';
+      if (queryTypeParam === 'Genres') {
+        sort = 'ORDER BY projects.name DESC';
+      } else {
+        sort = 'ORDER BY name DESC';
+      }
     }
 
     // REATE TABLE users (
@@ -62,12 +66,11 @@ export default function Query(req: any, res: any) {
       ON users.id
       IN
         (SELECT user_id
-        FROM
-        projects
         WHERE
-        name LIKE '%${queryInput}%'
-        AND public
+        LOWER(projects.name) LIKE LOWER('${queryInput}%')
+
         )
+        WHERE LOWER(projects.name) LIKE LOWER('${queryInput}%')
       ${sort};`;
       console.log(query);
     } else if (queryTypeParam === 'Artists') {
@@ -84,12 +87,11 @@ export default function Query(req: any, res: any) {
       ON users.id
       IN
         (SELECT user_id
-        FROM
-        projects
         WHERE
-        genre LIKE '%${queryInput}%'
-        AND public
+        LOWER(genre) LIKE LOWER('${queryInput}%')
+
         )
+
       ${sort};`;
     }
     return pool

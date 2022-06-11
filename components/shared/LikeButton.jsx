@@ -25,7 +25,7 @@ const LikeButton = ({ song, user, color }) => {
     }
     axios.put('api/song/like', {song, user, liked})
     .then((res) => {
-      console.log(res)
+
     })
     .catch((err) => {
       alert('Unable to update like');

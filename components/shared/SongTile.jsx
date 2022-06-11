@@ -11,24 +11,27 @@ import Typography from '@mui/material/Typography';
 import axios from 'axios';
 
 const SongTile = ({song, user, color}) => {
-  user = 1;
+  // user = user.id
+  user = 3;
+  // console.log('the song', song);
 
-  const [liked, setLiked] = useState(false)
+  const [liked, setLiked] = useState(song.liked)
   const [likes, setLikes] = useState(song.cumulative_likes)
 
-  useEffect(() => {
-    axios.get(`api/song/liked-by-current-user/${user}?songId=${song.song_id}`)
-    .then((likeStatus) => {
-      if(likeStatus.length === 0) {
-        setLiked(false);
-      } else {
-        setLiked(true);
-      }
-    })
-    .catch((err) => {
-      console.log('Error:', err)
-    })
-  }, [])
+  // useEffect(() => {
+  //   setLiked(!liked)
+  //   // axios.get(`api/song/liked-by-current-user/${user}?songId=${song.song_id}`)
+  //   // .then((likeStatus) => {
+  //   //   if(likeStatus.length === 0) {
+  //   //     setLiked(false);
+  //   //   } else {
+  //   //     setLiked(true);
+  //   //   }
+  //   // })
+  //   .catch((err) => {
+  //     console.log('Error:', err)
+  //   })
+  // }, [])
 
   const ProfileImage = () => {
     return (

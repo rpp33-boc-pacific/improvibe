@@ -1,10 +1,8 @@
 import client from '../../../sql/db';
 
 export default function addProject(req, res) {
-  const projectId = req.body.songId;
-  const userId = req.body.userId;
-  console.log('The project and user from "Add To Projects Click', projectId, userId);
-
+  const projectId = req.body.song.song_id
+  const userId = req.body.user;
 
   client.query(`SELECT * FROM projects WHERE id=${projectId};`)
   .then((data) => {
@@ -17,20 +15,21 @@ export default function addProject(req, res) {
     let searched = data.rows[0].searched;
     let total_time = data.rows[0].total_time;
     let song_path = data.rows[0].song_path;
+    console.log('the data', data.rows);
 
-    client.query(`INSERT INTO projects (name, genre_id, likes, shares, user_id, searched, total_time, song_path, date_created) VALUES('${name}', ${genre}, ${likes}, ${shares}, ${user_id}, ${searched}, ${total_time}, '${song_path}', NOW()) RETURNING id;`)
+    client.query(`INSERT INTO projects (name, genre, likes, shares, user_id, searched, total_time, song_path, date_created) VALUES('${name}', ${genre}, ${likes}, ${shares}, ${user_id}, ${searched}, ${total_time}, '${song_path}', NOW()) RETURNING id;`)
     .then((projectIdData) => {
       const newProjectId = projectIdData.rows[0].id
 
       client.query(`SELECT * FROM layers WHERE l.project_id=${projectId};`)
       .then((layerData) => {
         const layers = layerData.rows
+        console.log('the layers', layers);
         if (layers.length) {
           layers.forEach((layer) => {
               const trackPath = layer.track_path
               const layerName = layer.name;
               const trackTime = layer.track_time;
-              const trackPath = layer.track_path;
               const shares = layer.shares;
               //newProjectId already declared
               const searched = layer.searched;

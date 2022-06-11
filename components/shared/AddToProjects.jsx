@@ -9,23 +9,23 @@ const AddToProjects = ({ song, user, color}) => {
 
  const handleAddToProjects = () => {
    addToProjects(!inProjects);
-   axios.post('api/song/add-to-projects', {song, user})
-   .then((result) => {
-     addToProjects(true);
-   })
-   .catch((err) => {
-     console.log('Error:', err)
-   })
+  //  axios.post('api/song/add-to-projects', {song, user})
+  //  .then((result) => {
+  //    addToProjects(true);
+  //  })
+  //  .catch((err) => {
+  //    console.log('Error:', err)
+  //  })
  }
- console.log(song, user);
- useEffect(() => {
-  axios.get(`api/song/in-projects/${user}?songId=${song.song_id}`)
-  .then((data) => {
-    if (data.length > 0 ) {
-      addToProjects(true);
-    }
-  })
- })
+
+//  useEffect(() => {
+//   axios.get(`api/song/in-projects/${user}?songId=${song.song_id}`)
+//   .then((data) => {
+//     if (data.length > 0 ) {
+//       addToProjects(true);
+//     }
+//   })
+//  })
 
   return (
     inProjects === false ?

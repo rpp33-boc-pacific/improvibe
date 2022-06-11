@@ -71,7 +71,7 @@ const Profile = (props) => {
             </Grid>
             <Grid item xs={12} sx={{ marginRight: '60px' }}>
               <Box>
-                {data.user.aboutMe}
+                {data.user.about_me}
               </Box>
             </Grid>
           </Grid>

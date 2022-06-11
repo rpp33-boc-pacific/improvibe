@@ -16,7 +16,6 @@ import axios from 'axios';
 
 const Editor = (props) => {
   const { songs, setUser, setSongs } = useContext(AppContext);
-  console.log(AppContext);
   const router = useRouter();
   let { id } = router.query;
   setUser(props.user.id);

@@ -1,4 +1,4 @@
-import {useState, useRef, useContext, SetStateAction } from 'react';
+import { useState, useRef, useContext, SetStateAction, useEffect } from 'react';
 import PlayProject from "./PlayProject";
 import GenreSelector from "./GenreSelector";
 import SaveProject from "./SaveProject";
@@ -17,9 +17,12 @@ function ProjectHeader() {
 
   const { projectNameState } = useContext(ProjectContext);
   const [projectName, setProjectName] = projectNameState;
+  const [value, setValue] = useState(projectName);
 
-  const initialValue = projectName;
-  const [value, setValue] = useState(initialValue);
+  useEffect(() => {
+    setValue(projectName);
+  }, [projectNameState]);
+
 
   const handleChange = (event) => {
     setValue(event.target.value)
@@ -27,33 +30,33 @@ function ProjectHeader() {
   };
 
   return (
-      <Grid
-      container
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
-      sx={{ height: '5vh' }}>
-        <div>
-          <Grid
-          container
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center">
-            <PlayProject />
-            <input className='song-name' value={value} onInput={handleChange}></input>
-          </Grid>
-        </div>
-        <div>
-          <Grid
-          container
-          direction="row"
-          justifyContent="flex-end"
-          alignItems="center">
-            <GenreSelector />
-            <SaveProject />
-          </Grid>
-        </div>
-      </Grid>
+    <Grid
+    container
+    direction="row"
+    justifyContent="space-between"
+    alignItems="center"
+    sx={{ height: '5vh' }}>
+      <div>
+        <Grid
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="center">
+          <PlayProject />
+          <input className='song-name' value={value} onInput={handleChange}></input>
+        </Grid>
+      </div>
+      <div>
+        <Grid
+        container
+        direction="row"
+        justifyContent="flex-end"
+        alignItems="center">
+          <GenreSelector />
+          <SaveProject />
+        </Grid>
+      </div>
+    </Grid>
   );
 }
 

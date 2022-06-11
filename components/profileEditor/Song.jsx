@@ -46,14 +46,14 @@ const Songs = ({ song }) => {
     if (updateError) {
       return (
         <div>
-          <Grid container>
-            <Grid item>
+          <Grid container sx={{ marginTop: '10px', backgroundColor: 'lightgray', padding: '10px 20px', borderRadius: '5px' }}>
+            <Grid item xs={11}>
               <Box>
                 <Typography>{song.song_name}</Typography>
               </Box>
             </Grid>
-            <Grid item>
-              <LockOpen onClick={handleLockOpenClick} />Try again
+            <Grid item xs={1}>
+              Try again public <LockOpen onClick={handleLockOpenClick} />
             </Grid>
           </Grid>
         </div>
@@ -61,14 +61,14 @@ const Songs = ({ song }) => {
     } else {
       return (
         <div>
-          <Grid container>
-            <Grid item>
+          <Grid container sx={{ marginTop: '10px', backgroundColor: 'lightgray', padding: '10px 20px', borderRadius: '5px' }}>
+            <Grid item xs={11}>
               <Box>
                 <Typography>{song.song_name}</Typography>
               </Box>
             </Grid>
-            <Grid item>
-              <LockOpen onClick={handleLockOpenClick} />
+            <Grid item xs={1}>
+              public <LockOpen onClick={handleLockOpenClick} />
             </Grid>
           </Grid>
         </div>
@@ -78,14 +78,12 @@ const Songs = ({ song }) => {
     if (updateError) {
       return (
         <div>
-          <Grid container>
-            <Grid item>
-              <Box>
-                <Typography>{song.song_name}</Typography>Try again
-              </Box>
+          <Grid container sx={{ marginTop: '10px', backgroundColor: 'lightgray', padding: '10px 20px', borderRadius: '5px' }}>
+            <Grid item xs={11}>
+                <Typography>{song.song_name}</Typography>
             </Grid>
-            <Grid item>
-              <Lock onClick={handleLockClick} />
+            <Grid item xs={1}>
+              Try again private<Lock onClick={handleLockClick} />
             </Grid>
           </Grid>
         </div>
@@ -93,14 +91,12 @@ const Songs = ({ song }) => {
     } else {
       return (
         <div>
-          <Grid container>
-            <Grid item>
-              <Box>
+          <Grid container sx={{ marginTop: '10px', backgroundColor: 'lightgray', padding: '10px 20px', borderRadius: '5px' }}>
+            <Grid item xs={11}>
                 <Typography>{song.song_name}</Typography>
-              </Box>
             </Grid>
-            <Grid item>
-              <Lock onClick={handleLockClick} />
+            <Grid item xs={1}>
+              private<Lock onClick={handleLockClick} />
             </Grid>
           </Grid>
         </div>

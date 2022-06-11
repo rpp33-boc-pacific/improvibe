@@ -5,6 +5,11 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import '../../styles/ShareButton.module.css';
 import LinkIcon from '@mui/icons-material/Link';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import ShareIcon from '@mui/icons-material/Share';
+import TextField from '@mui/material/TextField';
+import Snackbar from '@mui/material/Snackbar';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -18,14 +23,32 @@ const style = {
   p: 2,
 };
 
-export default function ShareButton(songURL: any) {
+export default function ShareButton({songURL, shares}: any) {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const [totalShares, setTotalShares] = React.useState(shares);
+  const [openNotification, setOpenNotification] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+    setTotalShares(totalShares + 1);
+  };
   const handleClose = () => setOpen(false);
+  console.log(songURL)
 
   return (
     <div>
-      <Button size="small" onClick={handleOpen}>Share</Button>
+      <IconButton aria-label="unlike-song" onClick={handleOpen}>
+        <Stack>
+          <ShareIcon sx={{color: '#173A5E'}}></ShareIcon>
+          <Typography sx={{color: "#173A5E"}} variant="subtitle2">{totalShares}</Typography>
+        </Stack>
+      </IconButton>
+      <Snackbar
+        open={openNotification}
+        onClose={() => setOpenNotification(false)}
+        autoHideDuration={3000}
+        message="Copied to clipboard"
+      />
       <Modal
         open={open}
         onClose={handleClose}
@@ -34,12 +57,24 @@ export default function ShareButton(songURL: any) {
       >
         <Box sx={style} textAlign="center">
           <Typography id="modal-modal-title" variant="h6" component="h2" sx={{margin: 0, padding: 0}}>
-            Text in a modal
+            Shareable Link
           </Typography>
           <div className="field d-flex align-items-center justify-content-center">
-            <LinkIcon/>
-            <input type="text" value={songURL}/>
-            <Button>Copy</Button>
+            <TextField
+            type="text"
+            variant="outlined"
+            value={songURL}
+            inputProps={
+					  { readOnly: true }
+				    }
+            size="small"
+            />
+            <Button
+            onClick={() => {
+              setOpenNotification(true);
+              navigator.clipboard.writeText(songURL);
+            }}
+            >Copy</Button>
           </div>
         </Box>
       </Modal>

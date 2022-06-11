@@ -3,12 +3,17 @@ import Button from '@mui/material/Button';
 import saveSong from './saveSong';
 import { ProjectContext } from './ProjectContext';
 import AppContext from '../../AppContext';
+import { useRouter } from 'next/router';
 
 export default function SaveProject() {
+  const router = useRouter();
+  let { id } = router.query;
+
   const context = useContext(ProjectContext);
   const { isSavedState } = useContext(ProjectContext);
   const [isSaved, setIsSaved] = isSavedState;
   const user = useContext(AppContext);
+  console.log('user', user);
   let crunker;
 
   useEffect(() => {
@@ -28,7 +33,7 @@ export default function SaveProject() {
     <ProjectContext.Provider value={context}>
       <Button
       onClick={ () => {
-        saveSong(context, user, crunker)
+        saveSong(context, user, crunker, id)
         .then((id) => {
           setIsSaved(true);
         })

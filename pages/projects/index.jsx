@@ -8,8 +8,9 @@ import NewProject from '../../components/projectEditor/NewProject'
 import ProjectList from '../../components/projectEditor/ProjectList'
 import NavigationBar from '../../components/NavigationBar';
 import projects from '../../sample-data/projects';
-import { NextPage } from 'next';
 import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
+import AppContext from '../../AppContext';
+import { useContext } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,7 +24,9 @@ const sampleProjects = projects;
 
 // TODO: bring in user context to get current user id list of songs and replace in get route
 
-const Projects: NextPage = () => {
+const Projects = () => {
+  const { songs } = useContext(AppContext);
+
   return (
     <>
     <Head>
@@ -48,7 +51,7 @@ const Projects: NextPage = () => {
           <NewProject />
         </div>
         {/* TODO: replace with projects list from global context */}
-        <ProjectList projects={sampleProjects}/>
+        <ProjectList projects={songs}/>
       </div>
     </div>
   </>

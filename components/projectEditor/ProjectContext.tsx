@@ -1,15 +1,19 @@
 import { createContext, useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const ProjectContext = createContext({});
 
-const ProjectContextProvider = ({ children }: any, project_id: any) => {
+const ProjectContextProvider = ({ children }: any) => {
+  const router = useRouter();
+  let { id } = router.query;
+
   const [layers, setLayers] = useState([]);
-  const [projectName, setProjectName] = useState('');
+  const [projectName, setProjectName] = useState('New Project');
   const [genre, setGenre] = useState('');
   const [playAll, setPlayAll] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const [projectId, setProductId] = useState(project_id);
+  const [projectId, setProductId] = useState(id);
 
   const projectContextState = {
     layersState: [layers, setLayers],
@@ -17,12 +21,12 @@ const ProjectContextProvider = ({ children }: any, project_id: any) => {
     genreState: [genre, setGenre],
     playAllState: [playAll, setPlayAll],
     isSavedState: [isSaved, setIsSaved],
-    productIdState: [projectId, setProductId],
+    projectIdState: [projectId, setProductId],
   }
 
   axios({
     method: 'GET',
-    url: `/api/project/layers/${project_id}`,
+    url: `/api/project/layers/${id}`,
   })
     .then((res) => {
       console.log('RESPONSE FROM GET LAYERS', res);
@@ -30,9 +34,10 @@ const ProjectContextProvider = ({ children }: any, project_id: any) => {
         // setLayers(res.data.layers);
         // setProjectName(res.data.projectName);
         // setGenre(res.data.genre);
+        // setIsSaved(true);
     })
     .catch((err) => {
-      console.log('ERROR FROM GET LAYERS', err);
+      // console.log('ERROR FROM GET LAYERS', err);
     })
 
   return (

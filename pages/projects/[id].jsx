@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
 import LayerList from '../../components/projectEditor/LayerList';
 import ProjectHeader from '../../components/projectEditor/ProjectHeader';
@@ -9,10 +8,13 @@ import NavigationBar from '../../components/NavigationBar';
 import { useRouter } from 'next/router';
 import projects from '../../sample-data/projects';
 import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
+import AppContext from '../../AppContext';
+import { useContext } from 'react';
 
 const sampleProjects = projects;
 
-const Editor: NextPage = () => {
+const Editor = () => {
+  const { songs } = useContext(AppContext);
   const router = useRouter();
   let { id } = router.query;
 
@@ -39,7 +41,7 @@ const Editor: NextPage = () => {
             <div className='project-header'>My Projects</div>
             <NewProject />
           </div>
-          <ProjectList projects={sampleProjects}/>
+          <ProjectList projects={songs}/>
         </div>
       </div>
     </>

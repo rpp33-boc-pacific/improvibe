@@ -11,9 +11,11 @@ export default function likeSong(req, res) {
     //Add like
       client.query(`INSERT INTO likes (user_id, song_id) VALUES(${user}, ${song}) RETURNING id;`)
       .then((data) => {
+        console.log('Like added for user');
         //Increment aggregate likes
         client.query(`UPDATE projects SET likes = likes + 1 WHERE id=${song};`)
         .then((data) => {
+          console.log('Likes incremented for song');
           res.send('Success Updating Like!')
         })
         .catch((err) => {
@@ -28,9 +30,11 @@ export default function likeSong(req, res) {
     //Remove like
     client.query(`DELETE from likes WHERE user_id=${user}`)
     .then((data) => {
+      console.log('Like removed for user');
       //Decrement aggregate likes
       client.query(`UPDATE projects SET likes = likes - 1 WHERE id=${song};`)
       .then((data) => {
+        console.log('Likes decremented for song');
         res.send('Success Updating Like!')
       })
       .catch((err) => {

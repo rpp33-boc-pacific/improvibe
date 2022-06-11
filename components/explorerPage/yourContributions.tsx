@@ -31,7 +31,6 @@ const YourContributions = () => {
     // The songs will come from the api call
     axios.get('api/songs/1')
     .then((response) => {
-      console.log('respone from db', response);
       setSongs(response.data);
       setLoading(false);
     })

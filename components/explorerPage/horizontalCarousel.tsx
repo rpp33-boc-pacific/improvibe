@@ -18,7 +18,7 @@ const HorizontalCarousel = () => {
 
   useEffect(() => {
     // The songs will come from the api call
-    axios.get('api/songs/most')
+    axios.get('api/top/songs')
     .then((response) => {
       setSongs(response.data);
       setLoading(false);
@@ -40,7 +40,7 @@ const HorizontalCarousel = () => {
           perPage: 4,
           perMove: 1,
           gap: '10em',
-          padding: '.5em',
+          // padding: '.5em',
           // border: '2em',
           heightRatio: 0.25,
           pagination: false,
@@ -51,7 +51,7 @@ const HorizontalCarousel = () => {
         {songs.map(song => {
           return (
             <>
-            <SplideSlide key={song}>
+            <SplideSlide key={song} style={{boxShadow: 'none'}}>
               <div className="slide" >
                 <Tile song={song} user={user} color={'white'}/>
               </div>

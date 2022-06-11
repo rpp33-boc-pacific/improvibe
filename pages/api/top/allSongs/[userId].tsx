@@ -2,8 +2,9 @@ import pool from "../../../../sql/db";
 
 export default function getAllTopSongs(req: any, res: any) {
   //Returns most liked songs
-  console.log('query', req.query.userId)
-  let getAllTopSongsQuery = `SELECT p.id AS song_id, p.name AS song_name, u.name AS artist_name, u.id AS artist_id, p.genre, p.likes AS cummulative_likes, p.song_path, p.photo_url, FROM projects p JOIN users u ON p.id=u.id;`
+  let {userId} = req.query;
+  // console.log('query', userId)
+  let getAllTopSongsQuery = `SELECT p.id AS song_id, p.name AS song_name, u.name AS artist_name, u.id AS artist_id, p.genre, p.likes AS cummulative_likes, p.song_path, p.photo_url, FROM projects p JOIN users u ON p.user_id=u.id;`
 
   // pool
   // .query(getAllTopSongsQuery)
@@ -20,98 +21,98 @@ export default function getAllTopSongs(req: any, res: any) {
     {
       song_id: 2,
       song_name: 'Hello Again',
-      artist_name: 'Caiwin',
+      artist_name: 'Norah Mellor',
       artist_id: 6,
       in_projects: true,
-      genre: 'hip hop',
+      genre: 'hip-hop',
       cumulative_likes: 980,
-      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YWxidW1zfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+      liked: false
     },
     {
       song_id: 1,
-      song_name: 'Song Name1',
-      artist_name: 'Artist Name1',
+      song_name: 'Heavy Feather',
+      artist_name: 'Izaan John',
       artist_id: 6,
       in_projects: false,
-      genre: 'rock',
+      genre: 'country',
       cumulative_likes: 934,
       song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      photo_url: 'https://images.unsplash.com/photo-1502773860571-211a597d6e4b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGFsYnVtc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
       liked: true
     },
     {
       song_id: 3,
-      song_name: 'Song Name3',
-      artist_name: 'Artist Name3',
+      song_name: 'Driver',
+      artist_name: 'Safiya Barnes',
       artist_id: 6,
       in_projects: false,
-      genre: 'rock',
+      genre: 'country',
       cumulative_likes: 900,
-      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1629923759854-156b88c433aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGFsYnVtc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+      liked: false
     },
     {
       song_id: 5,
-      song_name: 'Song Name5',
-      artist_name: 'Artist Name5',
+      song_name: 'Earning Streets',
+      artist_name: 'Kendall Irwin',
       artist_id: 4,
       in_projects: true,
-      genre: 'rock',
+      genre: 'pop',
       cumulative_likes: 750,
-      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bXVzaWN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
       liked: true
     },
     {
       song_id: 7,
-      song_name: 'Song Name7',
-      artist_name: 'Artist Name7',
+      song_name: 'All In Heart',
+      artist_name: 'Keon Holder',
       artist_id: 4,
       in_projects: true,
       genre: 'rock',
       cumulative_likes: 640,
-      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG11c2ljfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       liked: true
     },
     {
       song_id: 6,
-      song_name: 'Song Name6',
-      artist_name: 'Artist Name6',
+      song_name: 'I Found My Passion',
+      artist_name: 'Cali Odonnell',
       artist_id: 2,
       in_projects: true,
       genre: 'rock',
       cumulative_likes: 500,
-      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1433622070098-754fdf81c929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fG11c2ljfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       liked: true
     },
     {
       song_id: 8,
-      song_name: 'Song Name8',
-      artist_name: 'Artist Name8',
+      song_name: 'Let Me Know',
+      artist_name: 'Yvonne Lu',
       artist_id: 1,
       in_projects: true,
-      genre: 'rock',
+      genre: 'hip-hop',
       cumulative_likes: 300,
-      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1445375011782-2384686778a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fG11c2ljfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+      liked: false
     },
     {
       song_id: 9,
-      song_name: 'Song Name9',
-      artist_name: 'Artist Name9',
+      song_name: 'It Will Take a Liftime',
+      artist_name: 'Izaan John',
       artist_id: 9,
       in_projects: false,
-      genre: 'rock',
+      genre: 'hip-hop',
       cumulative_likes: 220,
-      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fG11c2ljfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+      liked: false
     },
   ]
   res.send(example);

@@ -1,4 +1,4 @@
-import pool from "../../../sql/db";
+import pool from "../../../../sql/db";
 
 export default function getAllTopSongs(req: any, res: any) {
   //Returns most liked songs

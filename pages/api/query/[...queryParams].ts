@@ -27,29 +27,71 @@ export default function Query(req: any, res: any) {
     } else if (sortParam === 'Least Popular'){
       sort = 'ORDER BY searched ASC';
     } else if (sortParam === 'Alphabetical'){
-      sort = 'ORDER BY name DESC';
+      if (queryTypeParam === 'Genres') {
+        sort = 'ORDER BY projects.name DESC';
+      } else {
+        sort = 'ORDER BY name DESC';
+      }
     }
 
+    // REATE TABLE users (
+    //   id serial,
+    //   name varchar(255),
+    //   email varchar(255),
+    //   hash varchar(255),
+    //   about_me text,
+    //   searched integer,
+    //   emailVerified timestamp,
+    //   photo_url varchar(255)
+    // );
+
+    // CREATE TABLE projects (
+    //   id serial,
+    //   name varchar(255),
+    //   genre varchar(255),
+    //   likes integer,
+    //   shares integer,
+    //   public boolean,
+    //   user_id integer,
+    //   searched integer,
+    //   total_time integer,
+    //   song_path varchar(255),
+    //   date_created timestamp
+    // );
     if (queryTypeParam === 'Songs') {
       query =
-      `SELECT *
+      `SELECT projects.id, projects.name as song_name, projects.genre, projects.likes as cumulativeLikes, projects.shares, projects.user_id, projects.song_path, projects.date_created, users.photo_url, users.name as artist_name
       FROM projects
-      WHERE name LIKE '${queryInput}%'
-      AND public
+      JOIN users
+      ON users.id
+      IN
+        (SELECT user_id
+        WHERE
+        LOWER(projects.name) LIKE LOWER('${queryInput}%')
+
+        )
+        WHERE LOWER(projects.name) LIKE LOWER('${queryInput}%')
       ${sort};`;
       console.log(query);
     } else if (queryTypeParam === 'Artists') {
       query =
       `SELECT *
       FROM users
-      WHERE name LIKE ${queryInput}%
+      WHERE name LIKE '${queryInput}%'
       ${sort};`;
     } else if (queryTypeParam === 'Genres') {
       query =
-      `SELECT *
+      `SELECT projects.id, projects.name as song_name, projects.genre, projects.likes as cumulativeLikes, projects.shares, projects.user_id, projects.song_path, projects.date_created, users.photo_url, users.name as artist_name
       FROM projects
-      WHERE genre LIKE %${queryInput}%
-      AND public
+      JOIN users
+      ON users.id
+      IN
+        (SELECT user_id
+        WHERE
+        LOWER(genre) LIKE LOWER('${queryInput}%')
+
+        )
+
       ${sort};`;
     }
     return pool

@@ -25,21 +25,19 @@ const ProjectContextProvider = ({ children }: any) => {
   }
 
   useEffect(() => {
-    console.log('use effect GET');
     axios.get(`/api/project/layers/${id}`)
     .then((res) => {
-      console.log(res.data);
       if (res.data.layers.length > 0) {
         setLayers(res.data.layers);
-        setProjectName(res.data.projectDetails.name);
-        setGenre(res.data.projectDetails.genre);
+        setProjectName(res.data.projectDetails[0].name);
+        setGenre(res.data.projectDetails[0].genre);
         setIsSaved(true);
       }
     })
     .catch((err) => {
       console.log('error getting layers', err);
     })
-  }, []);
+  }, ['GET']);
 
   return (
     <ProjectContext.Provider value={projectContextState}>

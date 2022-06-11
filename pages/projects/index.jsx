@@ -10,8 +10,9 @@ import NavigationBar from '../../components/NavigationBar';
 import projects from '../../sample-data/projects';
 import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
 import AppContext from '../../AppContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { getSession } from "next-auth/react";
+import axios from 'axios';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,10 +23,21 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Projects = (props) => {
-  const { songs, setUser } = useContext(AppContext);
+  const { songs, setUser, setSongs } = useContext(AppContext);
   setUser(props.user.id);
 
-  // need to do a get request for songs here...
+  useEffect(() => {
+    axios.get(`/api/projects/user/${props.user.id}`)
+    .then((res) => {
+      console.log(res.data);
+      if (res.data.songs.length > 0) {
+        setSongs(res.data.songs);
+      }
+    })
+    .catch((err) => {
+      console.log('error getting layers', err);
+    })
+  }, []);
 
   return (
     <>
@@ -39,7 +51,7 @@ const Projects = (props) => {
     <div className='project-editor-grid'>
       <div className='page-title'>Edit Project</div>
       <div className='editor-container'>
-        <ProjectContextProvider project_id={null} user_id={props.user.id}>
+        <ProjectContextProvider >
             <ProjectHeader />
             <LayerList />
             <AddLayer />

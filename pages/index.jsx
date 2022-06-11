@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import { NextPage } from 'next';
 import { useContext } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -10,9 +10,12 @@ import LikeButton from '../components/shared/LikeButton';
 import AddToProjects from '../components/shared/AddToProjects';
 import HomePage from '../components/explorerPage/homePage';
 import AppContext from '../AppContext';
+import { getSession } from 'next-auth/react';
 
-const Home: NextPage = (props) => {
-  const context = useContext(AppContext);
+const Home = (props) => {
+  const {user, setUser} = useContext(AppContext);
+  setUser(props.user);
+  // console.log('props', props);
 
   return (
     <div>
@@ -24,6 +27,19 @@ const Home: NextPage = (props) => {
       <HomePage/>
     </div>
   )
+};
+
+export async function getServerSideProps (AppContext) {
+  const { req, res } = AppContext;
+  const session = await getSession({ req });
+  if (!session) {
+    res.writeHead(302, {
+      Location: "/logIn",
+    });
+    res.end();
+    return;
+  }
+  return { props: session };
 };
 
 export default Home;

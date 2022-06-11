@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { v4 } from "uuid";
 
-const saveSong = (context, user, Crunker, projectId) => {
+const saveSong = (context, user, Crunker, projectId, window) => {
   const user_id = user.user;
   const isSaved = context.isSavedState[0];
   const name = context.projectNameState[0];
   const genre = context.genreState[0];
   const layers = context.layersState[0];
+  const siteURL = 'https://improvibe-tracks.s3.amazonaws.com/'
 
   console.log('svaed status', isSaved);
   let tracks = layers.map((layer) => {
@@ -20,12 +21,14 @@ const saveSong = (context, user, Crunker, projectId) => {
     });
 
     const url = data.url;
-    let { data: newData } = await axios.put(url, song, {
+    let response = await axios.put(url, song, {
       headers: {
         "Content-type": 'audio/mpeg',
         "Access-Control-Allow-Origin": "*",
       },
     });
+
+    console.log(response);
 
     return url;
   };
@@ -51,14 +54,16 @@ const saveSong = (context, user, Crunker, projectId) => {
       })
       .then((output) => {
         output.blob.name = name
-        return output
+        let songName = `flat-${v4()}.mp3`
+        var song = new File([output.blob], songName);
+        return {song, songName };
       })
-      .then(async (song) => {
-        let songName = `${name}_${v4()}.mp3`;
+      .then(async ({ song, songName}) => {
         const songUrl = await uploadFile(songName, song)
-        return songUrl;
+        return siteURL + songName;
       })
       .then(async (url) => {
+        console.log('url', url);
         let projectUserId = user_id;
         if (projectId !== undefined) {
           projectUserId = await axios.get('/api/project/project', { params: { projectId: projectId } });

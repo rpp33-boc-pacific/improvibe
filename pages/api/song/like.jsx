@@ -2,11 +2,12 @@ import client from '../../../sql/db';
 
 export default function likeSong(req, res) {
   const song = req.body.song.song_id;
-  const user = req.body.user.user.id;
+  const user = req.body.user;
   const liked = req.body.liked;
 
 
-  if (liked) {
+
+  if (!liked) {
     //POST request
     //Add like
       client.query(`INSERT INTO likes (user_id, song_id) VALUES(${user}, ${song}) RETURNING id;`)

@@ -27,7 +27,7 @@ export default function ArtistResult({ user }: any) {
   const hoveredStyle = {
     cursor: 'default'
   };
-  const artistProfileReference = `../profile/${user.id}`;
+  const artistProfileReference = `../profiles/${user.id}`;
   console.log(`hi${user}`);
   return (
     <Card sx={{border: 1, margin: 0, borderColor: 'grey.500', ml: '200px', mr: '200px'}} role='artist-search-result'>

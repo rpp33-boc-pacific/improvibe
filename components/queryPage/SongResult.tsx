@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles';
 import Link from '@mui/material/Link';
 import { containerClasses } from '@mui/system';
 import Player from '../shared/AudioPlayer.jsx';
+import AppContext from '../../AppContext';
 import ShareButton from './ShareButton';
 
 export default function SongResult({ song, user }: any) {
@@ -35,25 +36,27 @@ export default function SongResult({ song, user }: any) {
     height: '85px',
     borderRadius: '10%'
   }));
-  const artistProfileReference = `../profile/${song.user_id}`;
+  const artistProfileReference = `../profiles/${song.artist_id}`;
 
   const [liked, setLiked] = useState(song.liked);
-  const [likes, setLikes] = useState(song.cumulative_likes);
+  const [likes, setLikes] = useState(song.cumulativeLikes);
+  const newUser = useContext(AppContext);
+
 
   return (
     <SongTileContext.Provider value={{liked, setLiked, likes, setLikes}}>
       <Card sx={{border: 1, margin: 0, padding: 0, borderColor: 'grey.500', ml: '200px', mr: '200px', height: '160px'}} role='song-search-result'>
         <CardContent sx={{display: 'flex', flexDirection: 'row', pb: 0}}>
-          <ArtistImage src={song.photo_url || 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'} alt='https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif' width="85px" height="85px"/>
+          <ArtistImage src={song.photo_url || 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'} alt='No Image' width="85px" height="85px"/>
           <CardContent sx={{display: 'flex', flexDirection: 'column', pb: 0, margin: 0, padding: 0, width: "400px"}}>
             <Typography gutterBottom variant="h5" sx={{ mt: 0, ml: "30px", mb: 0, flexShrink:0}}>
               {song.song_name}
             </Typography>
             <Link href={artistProfileReference} variant="body1" underline="hover" color="text.secondary" sx={{ml: "30px", cursor: "pointer"}}>
-              {song.artist_name || 'Unkown User'}
+              {song.artist_name || 'Unknown User'}
             </Link>
             <PlayerContainer>
-            <Player song={song} user={user} color='red'/>
+            <Player song={song} user={newUser} color='red'/>
           </PlayerContainer>
           </CardContent>
           <GenreContainer>
@@ -64,7 +67,7 @@ export default function SongResult({ song, user }: any) {
         </CardContent>
         <CardActions sx={{flexDirection: 'row-reverse', padding: 0, margin: 0, pr: 3, pb: 3}}>
           <ShareButton songURL={song.song_path} shares={song.shares}/>
-          <LikeButton song={song} user={user} color='red'/>
+          <LikeButton song={song} user={newUser} color='red'/>
         </CardActions>
       </Card>
     </SongTileContext.Provider>

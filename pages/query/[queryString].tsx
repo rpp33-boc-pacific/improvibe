@@ -84,6 +84,10 @@ const Query: NextPage = (props: any) => {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      data.rows.map((item: any) => {
+        item.liked = false;
+        item.in_projects = false;
+      })
       setLoadedData(data.rows);
     })
     .catch((err) => {
@@ -146,7 +150,7 @@ const Query: NextPage = (props: any) => {
           :
           loadedData.map((item: any) => {
             return <Grid item xs={12}>
-            <SongResult song={item} user={{user_id: item.user_id}}/>
+            <SongResult song={item} user={props}/>
           </Grid>;
           })
         }

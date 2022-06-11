@@ -14,11 +14,13 @@ const Item = styled(Paper)(({ theme }) => ({
   color: alpha(theme.palette.common.white, 1),
 }));
 
-const TopGenres = (props: any) => {
+const TopGenres = (props) => {
 
   const [genres, setGenres] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const user = useContext(AppContext); //the user will come from the AppContext
+  let userId = user.user.id;
+  // console.log('userId', userId);
 
   useEffect(() => {
 
@@ -42,7 +44,7 @@ const TopGenres = (props: any) => {
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
       >
-        {genres.map((genre: { genre: string, totalLikes: number}) => {
+        {genres.map((genre) => {
           return (
             <Item key = {genre.genre}>{genre.genre}</Item>
           )

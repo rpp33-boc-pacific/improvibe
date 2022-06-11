@@ -10,12 +10,13 @@ import { Typography } from '@mui/material';
 
 let uniqueKey = 0;
 
-const HorizontalCarousel = (props: any) => {
+const HorizontalCarousel = (props) => {
 
   const ref = useRef();
   const [songs, setSongs] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const user = useContext(AppContext); //the user will come from the AppContext
+  const { user } = useContext(AppContext); //the user will come from the AppContext
+  let userId = user.id;
 
   // useEffect(() => {
   //   // The songs will come from the api call
@@ -56,7 +57,7 @@ const HorizontalCarousel = (props: any) => {
           backgroundColor: '#1976d2'
         }}
       >
-        {props.songs.map((song: React.Key | null | undefined) => {
+        {props.songs.map((song) => {
           return (
             <>
             <SplideSlide key={song} style={{boxShadow: 'none'}}>

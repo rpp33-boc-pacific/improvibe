@@ -35,6 +35,8 @@ const TopArtists = () => {
   const [artists, setArtists] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const user = useContext(AppContext); //the user will come from the AppContext
+  let userId = user.user.id;
+  // console.log('userId', userId)
 
   useEffect(() => {
     // The songs will come from the api call

@@ -24,10 +24,11 @@ const YourContributions = () => {
   const [songs, setSongs] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const user = useContext(AppContext); //the user will come from the AppContext
+  let userId = user.user.id;
 
   useEffect(() => {
     // The songs will come from the api call
-    axios.get('api/top/songs/1')
+    axios.get(`api/top/songs/${userId}`)
     .then((response) => {
       setSongs(response.data);
       setLoading(false);
@@ -47,7 +48,7 @@ const YourContributions = () => {
           </Typography>
           <Demo>
             <List dense={dense}>
-              {songs.map((song: { cumulative_likes: string; song_name: string ; }) =>{
+              {songs.map((song) =>{
                 return (
                   <ListItem
                       secondaryAction={

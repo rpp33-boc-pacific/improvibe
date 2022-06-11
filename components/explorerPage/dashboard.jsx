@@ -19,15 +19,17 @@ const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const [dense, setDense] = React.useState(false);
   const [metrics, setMetrics] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const user = useContext(AppContext); //the user will come from the AppContext
+  const {user} = useContext(AppContext); //the user will come from the AppContext
+  // setUser(props.user);
+  let userId = user.id;
 
   useEffect(() => {
     // The songs will come from the api call
-    axios.get('api/top/dashboard/1')
+    axios.get(`api/top/dashboard/${userId}`)
     .then((response) => {
       setMetrics(response.data);
       setLoading(false);

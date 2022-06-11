@@ -38,7 +38,8 @@ export default function HomePage() {
   const [isLoading, setLoading] = useState(true);
   const user = useContext(AppContext); //the user will come from the AppContext
 
-  // console.log('userId', user.id);
+  var userId = user.user.id;
+  // console.log('userId in Homepage', user);
 
   useEffect(() => {
     // The songs will come from the api call
@@ -46,9 +47,10 @@ export default function HomePage() {
   }, [])
 
   const fetchData = () => {
+    // console.log('userId inside fetch', userId);
 
     // GET request to fetch top songs
-    axios.get('api/top/allSongs/1')
+    axios.get(`api/top/allSongs/${userId}`)
     .then((response) => {
       setSongs(response.data);
       setLoading(false);
@@ -58,7 +60,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top rock songs
-    axios.get('api/top/genre/rock/1')
+    axios.get(`api/top/genre/rock/${userId}`)
     .then((response) => {
       setRockSongs(response.data);
       setLoading(false);
@@ -68,7 +70,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top country songs
-    axios.get('api/top/genre/country/1')
+    axios.get(`api/top/genre/country/${userId}`)
     .then((response) => {
       setCountrySongs(response.data);
       setLoading(false);
@@ -78,7 +80,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top hiphop songs
-    axios.get('api/top/genre/hiphop/1')
+    axios.get(`api/top/genre/hiphop/${userId}`)
     .then((response) => {
       sethiphopSongs(response.data);
       setLoading(false);
@@ -88,7 +90,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top pop songs
-    axios.get('api/top/genre/pop/1')
+    axios.get(`api/top/genre/pop/${userId}`)
     .then((response) => {
       setPopSongs(response.data);
       setLoading(false);
@@ -98,7 +100,7 @@ export default function HomePage() {
     })
 
     // GET request to fetch top electronic songs
-    axios.get('api/top/genre/electronic/1')
+    axios.get(`api/top/genre/electronic/${userId}`)
     .then((response) => {
       setElectronicSongs(response.data);
       setLoading(false);
@@ -135,7 +137,7 @@ export default function HomePage() {
         <Grid item xs={4}>
           <Item>
             <div className = 'dashboard'>
-              <Dashboard Performance = {Performance}/>
+              <Dashboard />
             </div>
           </Item>
         </Grid>

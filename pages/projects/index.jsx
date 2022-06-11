@@ -26,6 +26,7 @@ const sampleProjects = projects;
 
 const Projects = () => {
   const { songs } = useContext(AppContext);
+  console.log('SONGS FROM APP CONTEXT', songs);
 
   return (
     <>

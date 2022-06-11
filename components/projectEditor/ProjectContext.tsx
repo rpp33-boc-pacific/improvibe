@@ -22,7 +22,7 @@ const ProjectContextProvider = ({ children }: any, project_id: any) => {
 
   axios({
     method: 'GET',
-    url: `/api/project/layers/${project_id}`,
+    url: `/api/project/layers/${projectId}`,
   })
     .then((res) => {
       console.log('RESPONSE FROM GET LAYERS', res);

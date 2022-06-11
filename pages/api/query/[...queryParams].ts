@@ -56,7 +56,7 @@ export default function Query(req: any, res: any) {
     // );
     if (queryTypeParam === 'Songs') {
       query =
-      `SELECT projects.id, projects.name, projects.genre, projects.likes as cumulativeLikes, projects.shares, projects.user_id, projects.song_path, projects.date_created, users.photo_url
+      `SELECT projects.id, projects.name as song_name, projects.genre, projects.likes as cumulativeLikes, projects.shares, projects.user_id, projects.song_path, projects.date_created, users.photo_url, users.name as artist_name
       FROM projects
       JOIN users
       ON users.id
@@ -78,10 +78,18 @@ export default function Query(req: any, res: any) {
       ${sort};`;
     } else if (queryTypeParam === 'Genres') {
       query =
-      `SELECT *
+      `SELECT projects.id, projects.name as song_name, projects.genre, projects.likes as cumulativeLikes, projects.shares, projects.user_id, projects.song_path, projects.date_created, users.photo_url, users.name as artist_name
       FROM projects
-      WHERE genre LIKE '${queryInput}%'
-      AND public
+      JOIN users
+      ON users.id
+      IN
+        (SELECT user_id
+        FROM
+        projects
+        WHERE
+        genre LIKE '%${queryInput}%'
+        AND public
+        )
       ${sort};`;
     }
     return pool

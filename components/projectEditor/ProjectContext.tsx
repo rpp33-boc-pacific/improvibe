@@ -13,7 +13,7 @@ const ProjectContextProvider = ({ children }: any) => {
   const [genre, setGenre] = useState('');
   const [playAll, setPlayAll] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const [projectId, setProductId] = useState(id);
+  const [projectId, setProductId] = useState(null);
 
   const projectContextState = {
     layersState: [layers, setLayers],

@@ -13,7 +13,7 @@ export default function SaveProject() {
   const { isSavedState } = useContext(ProjectContext);
   const [isSaved, setIsSaved] = isSavedState;
   const user = useContext(AppContext);
-  console.log(user);
+  console.log(router.pathname);
   let crunker;
 
   useEffect(() => {
@@ -37,7 +37,8 @@ export default function SaveProject() {
         .then((id) => {
           setIsSaved(true);
           if (typeof id.data.projectId === 'number') {
-            push(`${id.data.projectId}`);
+            const path = (router.pathname === '/projects') ? `projects/${id.data.projectId}` : `${id.data.projectId}`;
+            push(path);
           }
         })
       }}

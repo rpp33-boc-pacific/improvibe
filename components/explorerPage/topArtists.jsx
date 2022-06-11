@@ -72,7 +72,7 @@ const TopArtists = () => {
                       <ListItemAvatar>
                         <Avatar src= {`${artist.photo_url}`} />
                       </ListItemAvatar>
-                      <Link href = {`profiles/${artist.id}`} passHref>
+                      <Link href = {`profiles/3`} passHref>
                         <MyButton artistName = {artist.name}/>
                       </Link>
                   </ListItem>

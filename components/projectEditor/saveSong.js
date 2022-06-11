@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { v4 } from "uuid";
 
-const saveSong = (context, user, Crunker) => {
+const saveSong = (context, user, Crunker, projectId) => {
   const isSaved = context.isSavedState[0];
   const user_id = user.user.id;
   const name = context.projectNameState[0];
   const genre = context.genreState[0];
   const layers = context.layersState[0];
-  const projectId = context.projectIdState[0];
 
   let tracks = layers.map((layer) => {
     return layer.track_path
@@ -54,15 +53,19 @@ const saveSong = (context, user, Crunker) => {
         return output
       })
       .then(async (song) => {
-        console.log(song);
         let songName = `${name}_${v4()}.mp3`;
         const songUrl = await uploadFile(songName, song)
         return songUrl;
       })
       .then(async (url) => {
-        const projectUserId = await axios.get('/api/project/project', { params: { projectId: projectId } });
-        console.log('projectUserId', projectUserId);
-        if (isSaved && (projectUserId === user_id)) {
+        let projectUserId = user_id;
+        console.log('user_id', user_id);
+        if (projectId !== undefined) {
+          projectUserId = await axios.get('/api/project/project', { params: { projectId: projectId } });
+          console.log('projectUserId', projectUserId);
+        }
+
+        if (isSaved && (projectUserId.data.user_id === user_id)) {
           const updatedProject = {
             id: projectId,
             name,
@@ -71,7 +74,12 @@ const saveSong = (context, user, Crunker) => {
           }
 
           const putResult = await axios.put('/api/project/project', updatedProject);
-          console.log(putResult);
+
+          layers.forEach(async (layer) => {
+            let putLayerResult = await axios.put('/api/project/layer', layer);
+            console.log('put layer', putLayerResult);
+          });
+
           resolve(putResult);
         } else {
           const newProject = {
@@ -80,7 +88,7 @@ const saveSong = (context, user, Crunker) => {
             likes: 0,
             shares: 0,
             publicStatus: false,
-            user_id: 1, // app context not working here
+            user_id: user_id,
             searched: 0,
             total_time: 250,
             song_path: url,
@@ -88,7 +96,22 @@ const saveSong = (context, user, Crunker) => {
           }
 
           const postResult = await axios.post('/api/project/project', newProject);
-          console.log(postResult);
+
+          console.log('projectUserId.data.user_id', projectUserId.data.user_id);
+          if (projectUserId.data.user_id !== user_id && projectUserId.data.user_id !== undefined) { // second check is to see if there isnt a project in the database
+            layers.forEach(async (layer) => {
+              layer.project_id = postResult.data.productId;
+              let postLayerResult = await axios.post('/api/project/layer', layer);
+              console.log(postLayerResult);
+            });
+          } else {
+            layers.forEach(async (layer) => {
+              layer.project_id = postResult.data.productId;
+              let putLayerResult = await axios.put('/api/project/layer', layer);
+              console.log('put layer', putLayerResult);
+            });
+          }
+
           resolve(postResult);
         }
       });

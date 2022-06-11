@@ -13,7 +13,8 @@ export default function alterLayer(req: any, res: any) {
       res.send(error);
     });
   } else if (req.method === 'PUT') {
-    let sql = `` // TODO
+    const { layerId, name, tempo, pitch, volume, start_time, trim_start, trim_end } = req.body;
+    let sql = `UPDATE layers SET name = '${name}', tempo = ${tempo}, pitch = ${pitch}, volume = ${volume}, start_time = ${start_time}, trim_start = ${trim_start}, trim_end = ${trim_end}  WHERE id = ${layerId}`
     pool.query(sql)
     .then((results: any) => {
       res.send('success - updated layer!');

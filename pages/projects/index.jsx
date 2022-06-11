@@ -11,6 +11,7 @@ import projects from '../../sample-data/projects';
 import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
 import AppContext from '../../AppContext';
 import { useContext } from 'react';
+import { getSession } from "next-auth/react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,9 +25,9 @@ const sampleProjects = projects;
 
 // TODO: bring in user context to get current user id list of songs and replace in get route
 
-const Projects = () => {
-  const { songs } = useContext(AppContext);
-  console.log('SONGS FROM APP CONTEXT', songs);
+const Projects = (props) => {
+  const { songs, setUser } = useContext(AppContext);
+  setUser(props.user.id);
 
   return (
     <>
@@ -40,7 +41,7 @@ const Projects = () => {
     <div className='project-editor-grid'>
       <div className='page-title'>Edit Project</div>
       <div className='editor-container'>
-        <ProjectContextProvider project_id={null}>
+        <ProjectContextProvider project_id={null} user_id={props.user.id}>
             <ProjectHeader />
             <LayerList />
             <AddLayer />
@@ -51,12 +52,25 @@ const Projects = () => {
           <div className='project-header'>My Projects</div>
           <NewProject />
         </div>
-        {/* TODO: replace with projects list from global context */}
         <ProjectList projects={songs}/>
       </div>
     </div>
   </>
 )
+};
+
+export async function getServerSideProps (context) {
+  const { req, res } = context;
+  const session = await getSession({ req });
+  if (!session) {
+    res.writeHead(302, {
+      Location: "/logIn",
+    });
+    res.end();
+    return;
+  }
+
+  return { props: session };
 };
 
 export default Projects;

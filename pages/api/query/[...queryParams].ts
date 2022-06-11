@@ -28,9 +28,9 @@ export default function Query(req: any, res: any) {
       sort = 'ORDER BY searched ASC';
     } else if (sortParam === 'Alphabetical'){
       if (queryTypeParam === 'Genres') {
-        sort = 'ORDER BY projects.name DESC';
+        sort = 'ORDER BY projects.name ASC';
       } else {
-        sort = 'ORDER BY name DESC';
+        sort = 'ORDER BY name ASC';
       }
     }
 
@@ -58,37 +58,46 @@ export default function Query(req: any, res: any) {
     //   song_path varchar(255),
     //   date_created timestamp
     // );
+    // song_id: 9,
+    //   song_name: 'Song Name9',
+    //   artist_name: 'Artist Name9',
+    //   artist_id: 9,
+    //   in_projects: false,
+    //   genre: 'rock',
+    //   cumulative_likes: 220,
+    //   song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    //   photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
+    //   liked: true
     if (queryTypeParam === 'Songs') {
       query =
-      `SELECT projects.id, projects.name as song_name, projects.genre, projects.likes as cumulativeLikes, projects.shares, projects.user_id, projects.song_path, projects.date_created, users.photo_url, users.name as artist_name
+      `SELECT projects.id as "song_id", projects.name as "song_name", projects.genre, projects.likes as "cumulativeLikes", projects.shares, projects.user_id as artist_id, projects.song_path, projects.date_created, users.photo_url, users.name as "artist_name"
       FROM projects
       JOIN users
       ON users.id
       IN
         (SELECT user_id
         WHERE
-        LOWER(projects.name) LIKE LOWER('${queryInput}%')
+        LOWER(projects.name) LIKE LOWER('%${queryInput}%')
 
         )
         WHERE LOWER(projects.name) LIKE LOWER('${queryInput}%')
       ${sort};`;
-      console.log(query);
     } else if (queryTypeParam === 'Artists') {
       query =
       `SELECT *
       FROM users
-      WHERE name LIKE '${queryInput}%'
+      WHERE name LIKE '%${queryInput}%'
       ${sort};`;
     } else if (queryTypeParam === 'Genres') {
       query =
-      `SELECT projects.id, projects.name as song_name, projects.genre, projects.likes as cumulativeLikes, projects.shares, projects.user_id, projects.song_path, projects.date_created, users.photo_url, users.name as artist_name
+      `SELECT projects.id as "song_id", projects.name as "song_name", projects.genre, projects.likes as "cumulativeLikes", projects.shares, projects.user_id as artist_id, projects.song_path, projects.date_created, users.photo_url, users.name as "artist_name"
       FROM projects
       JOIN users
       ON users.id
       IN
         (SELECT user_id
         WHERE
-        LOWER(genre) LIKE LOWER('${queryInput}%')
+        LOWER(genre) LIKE LOWER('%${queryInput}%')
 
         )
 

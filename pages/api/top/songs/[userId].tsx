@@ -17,39 +17,43 @@ export default function getTopSongsForUser(req: any, res: any) {
   // )
 
   // // Send Back Sample Data
-  res.status(200).send([
+  const example = [
     {
       song_id: 2,
-      song_name: 'Song Name2',
-      artist_name: 'Artist Name2',
+      song_name: 'Hello Again',
+      artist_name: 'Norah Mellor',
       artist_id: 6,
       in_projects: true,
-      genre: 'hip hop',
+      genre: 'hip-hop',
       cumulative_likes: 980,
-      photo_url: 'https://footdistrict.com/media/magefan_blog/footdistrict-run-dmc-adidas-union-historica-3-1.jpg',
-      liked: true
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YWxidW1zfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+      liked: false
     },
     {
       song_id: 1,
-      song_name: 'Song Name1',
-      artist_name: 'Artist Name1',
+      song_name: 'Heavy Feather',
+      artist_name: 'Norah Mellor',
       artist_id: 6,
       in_projects: false,
-      genre: 'rock',
+      genre: 'country',
       cumulative_likes: 934,
-      photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1502773860571-211a597d6e4b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGFsYnVtc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
       liked: true
     },
     {
       song_id: 3,
-      song_name: 'Song Name3',
-      artist_name: 'Artist Name3',
+      song_name: 'Driver',
+      artist_name: 'Norah Mellor',
       artist_id: 6,
       in_projects: false,
-      genre: 'rock',
+      genre: 'country',
       cumulative_likes: 900,
-      photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-      liked: true
+      song_path: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+      photo_url: 'https://images.unsplash.com/photo-1629923759854-156b88c433aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGFsYnVtc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+      liked: false
     }
-  ]);
+  ]
+  res.send(example);
 }

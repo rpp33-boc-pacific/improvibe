@@ -44,16 +44,8 @@ const Layer = ({ layers, layerIndex, setLayers }) => {
     setLayers(layers);
   }
 
-  const deleteLayer = () => {
-    // make a call to the api to delete
-    axios.delete('/api/project/layer', { data: { name: layerName } })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-
+  const deleteLayer = async () => {
+    const message = await axios.delete('/api/project/layer', { params: { layerId: layers[layerIndex].id } });
     const remainingLayers = layers.filter((item, index) => index !== layerIndex)
     setLayers(remainingLayers);
   }

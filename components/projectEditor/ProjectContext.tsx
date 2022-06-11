@@ -25,24 +25,21 @@ const ProjectContextProvider = ({ children }: any) => {
   }
 
   useEffect(() => {
-    axios({
-      method: 'GET',
-      url: `/api/project/layers/${id}`,
+    console.log('use effect GET');
+    axios.get(`/api/project/layers/${id}`)
+    .then((res) => {
+      console.log(res.data);
+      if (res.data.layers.length > 0) {
+        setLayers(res.data.layers);
+        setProjectName(res.data.projectDetails.name);
+        setGenre(res.data.projectDetails.genre);
+        setIsSaved(true);
+      }
     })
-      .then((res) => {
-        console.log('RESPONSE FROM GET LAYERS', res.data);
-        // if project exists then load data from project into state
-        if (res.data.projectDetails.length > 0) {
-          // setLayers(res.data.layers);
-          // setProjectName(res.data.projectDetails.name);
-          // setGenre(res.data.projectDetails.genre);
-          // setIsSaved(true);
-        }
-      })
-      .catch((err) => {
-        console.log('ERROR FROM GET LAYERS', err);
-      })
-  });
+    .catch((err) => {
+      console.log('error getting layers', err);
+    })
+  }, []);
 
   return (
     <ProjectContext.Provider value={projectContextState}>

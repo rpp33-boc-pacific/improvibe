@@ -6,10 +6,6 @@ import { Modal } from "@mui/material";
 import { Typography } from "@mui/material";
 import axios from 'axios';
 
-if (process.env.IMG_KEY === undefined) {
-  var IMG_KEY = '8a652fbb22ae8e9e354f46db711dad79';
-}
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -23,9 +19,6 @@ const style = {
 };
 
 const Photo = ({ photoUrl, handlePhotoUrlChange }) => {
-
-  // const context = useContext(AppContext);
-  const id = 1; // TEMPORARY
 
   const [open, setOpen] = useState(false);
 
@@ -48,12 +41,12 @@ const Photo = ({ photoUrl, handlePhotoUrlChange }) => {
       axios({
         headers: { 'content-type': 'multipart/form-data' },
         method: 'post',
-        url: `https://api.imgbb.com/1/upload?key=${IMG_KEY}`,
+        url: 'https://api.imgbb.com/1/upload?key=8a652fbb22ae8e9e354f46db711dad79',
         data: formData,
       }).catch((error)=> {
         imgbbError = true;
       }).then((res) => {
-        if (!imgbbError && res.status === 200) {
+        if (!imgbbError) {
           newUrl = res.data.data.url;
           handlePhotoUrlChange(newUrl);
         } else {
@@ -72,12 +65,12 @@ const Photo = ({ photoUrl, handlePhotoUrlChange }) => {
       <img
         alt='Profile picture'
         src={photoUrl}
-        height={300}
-        width={300}
+        height={270}
+        width={270}
         style={{ borderRadius: '90%' }}
       />
       <Box sx={{ marginLeft: '180px', marginTop: '20px' }}>
-        <Typography onClick={handleOpen}><u>Upload iamge</u></Typography>
+        <Typography onClick={handleOpen}><u>Upload image</u></Typography>
       </Box>
       <Modal
         hideBackdrop

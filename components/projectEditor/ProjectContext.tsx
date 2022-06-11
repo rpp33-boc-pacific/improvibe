@@ -33,7 +33,7 @@ const ProjectContextProvider = ({ children }: any, project_id: any) => {
         // setIsSaved(true);
     })
     .catch((err) => {
-      console.log('ERROR FROM GET LAYERS', err);
+      // console.log('ERROR FROM GET LAYERS', err);
     })
 
   return (

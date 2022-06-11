@@ -25,10 +25,8 @@ const ProjectContextProvider = ({ children }: any) => {
   }
 
   useEffect(() => {
-    console.log('use effect GET');
     axios.get(`/api/project/layers/${id}`)
     .then((res) => {
-      console.log(res.data);
       if (res.data.layers.length > 0) {
         setLayers(res.data.layers);
         setProjectName(res.data.projectDetails[0].name);

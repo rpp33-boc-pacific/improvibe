@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import saveSong from './saveSong';
 import { ProjectContext } from './ProjectContext';
 import AppContext from '../../AppContext';
-import { useRouter, push } from 'next/router';
+import { useRouter } from 'next/router';
 
 export default function SaveProject() {
   const router = useRouter();
@@ -37,7 +37,10 @@ export default function SaveProject() {
           setIsSaved(true);
           if (typeof id.data.projectId === 'number') {
             const path = (router.pathname === '/projects') ? `projects/${id.data.projectId}` : `${id.data.projectId}`;
-            push(path);
+            router.push(path);
+            setTimeout(() => {
+              router.reload();
+            }, 500);
           }
         })
       }}

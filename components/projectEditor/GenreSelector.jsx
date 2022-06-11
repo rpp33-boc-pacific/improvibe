@@ -8,7 +8,6 @@ import { ProjectContext } from './ProjectContext';
 function GenreSelector() {
   const { genreState } = useContext(ProjectContext);
   const [genre, setGenre] = genreState;
-  console.log('genre', genre);
   const [localGenre, setLocalGenre] = useState(genre)
 
   useEffect(() => {

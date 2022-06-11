@@ -12,48 +12,6 @@ import NavigationBar from '../components/NavigationBar';
 import Song from '../components/profileEditor/Song';
 import Context from '../AppContext';
 
-// const tempContext = {
-//   user: {
-//     id: 1,
-//     name: 'David Bowe',
-//     about_me: 'All about David Bowe...',
-//     email: 'email@email.com',
-//     photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-//   },
-//   songs: [ // public and private
-//     {
-//       song_id: 1,
-//       song_name: 'Song Name1',
-//       artist_name: 'Artist Name1',
-//       photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-//       genre: 'rock',
-//       song_path: 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav',
-//       searched: 9,
-//       likes: 20,
-//       shares: 10,
-//       public: true,
-//       total_time: 2,
-//       date_created: 'timestamp here',
-//       liked: true,
-//     },
-//     {
-//       song_id: 1,
-//       song_name: 'Song Name1',
-//       artist_name: 'Artist Name1',
-//       photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
-//       genre: 'rock',
-//       song_path: 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav',
-//       searched: 9,
-//       likes: 20,
-//       shares: 10,
-//       public: true,
-//       total_time: 2,
-//       date_created: 'timestamp here',
-//       liked: true,
-//     },
-//   ]
-// };
-
 const noPhotoUrl = 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif';
 
 const ProfileEditor: NextPage = () => {

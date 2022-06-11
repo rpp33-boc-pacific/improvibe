@@ -8,10 +8,7 @@ import axios from 'axios';
 import { ProjectContext } from './ProjectContext';
 import { v4 } from "uuid";
 
-let AudioContext;
-
 const style = {
-  // position: 'absolute' as 'absolute',
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -29,29 +26,20 @@ function AddLayer() {
   const [open, setOpen] = useState(false);
   const [fileURL, setURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const { layersState, productIdState } = useContext(ProjectContext);
+  const { layersState, projectIdState } = useContext(ProjectContext);
   const [layers, setLayers] = layersState;
-  const [projectId, setProductId] = productIdState;
+  const [projectId, setProductId] = projectIdState;
 
-  useEffect(() => {
-    AudioContext = new (window.AudioContext || window.webkitAudioContext)()
-  }, []);
-
-  // open / close modal
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => {
     setOpen(false);
     setSelectedFile(null);
   }
 
-  // TODO: update this with deployed URL to work in production
-  const currentProject = projectId
-  const addLayerToDB = (newLayer) => {
-    axios({
-      method: 'POST',
-      url: `/api/project/layers/${currentProject}`,
-      data: newLayer
-    })
+  const addLayerToDB = async (newLayer) => {
+    const results = await axios.post('/api/project/layer', newLayer);
+    return results.data.layerId;
   }
 
   const saveToS3 = () => {
@@ -64,29 +52,33 @@ function AddLayer() {
           let duration = Math.round(audio.duration);
           console.log("The duration of the song is of: " + duration + " seconds");
 
-          const trackURL = BUCKET_URL + selectedFile.name;
-          setURL(trackURL)
+          const trackName = `${selectedFile.name.slice(0, -4)}_${v4() + selectedFile.name.slice(-4)}`
+          const trackURL = BUCKET_URL + trackName;
+          setURL(trackURL);
+          await uploadFile(trackName);
 
           const newLayer = {
-            layerId: layers.length + 1,
-            trackAudio: trackURL,
-            trackName: 'Layer Name',
-            trackTime: duration,
+            name: 'Layer Name',
+            track_time: duration,
+            track_path: trackURL,
+            shares: 0,
+            project_id: 99999,
+            searched: 0,
             tempo: 1,
             pitch: 0,
             volume: 0.50,
-            startInterval: 0,
-            endInterval: duration,
-            start: 0,
+            start_time: 0,
+            trim_start: 0,
+            trim_end: duration,
             loop: false
           }
 
-          await uploadFile();
-
+          const layerId = await addLayerToDB(newLayer);
+          newLayer.id = layerId;
           let newLayers = layers.map((layer) => layer);
           newLayers[layers.length] = newLayer
           setLayers(newLayers);
-          addLayerToDB(newLayer); // need to make sure we are submitting with field names corresponding to db
+
           handleClose();
           console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
         },false);
@@ -95,14 +87,13 @@ function AddLayer() {
     reader.readAsDataURL(selectedFile);
   };
 
-  const uploadFile = async () => {
+  const uploadFile = async (name) => {
     let { data } = await axios.post("/api/s3/uploadFile", {
-      name: `${selectedFile.name.slice(0, -4)}_${v4() + selectedFile.name.slice(-4)}`,
+      name: name,
       type: selectedFile.type,
     });
 
     const url = data.url;
-    console.log(url);
     let { data: newData } = await axios.put(url, selectedFile, {
       headers: {
         "Content-type": selectedFile.type,

@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -17,11 +18,12 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const Profile: NextPage = () => {
 
   const router = useRouter();
-  const { id } = router.query;
-  // const context: any = useContext(AppContext);
-  // const clientId = context.user.id;
+  const id = router.query.id;
+  const context: any = useContext(AppContext);
+  const clientId = context.user.id;
+  const noPhotoUrl = 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif';
 
-  const { data, error } = useSWR(`/api/user/public/${id}?client=${1}`, fetcher);
+  const { data, error } = useSWR(`/api/user/public/${id}?client=${clientId}`, fetcher);
 
   if (error) {
     return (
@@ -40,45 +42,45 @@ const Profile: NextPage = () => {
       <div>
         <NavigationBar />
         <Grid container spacing={1}>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Container>
-              <Box sx={{ marginLeft: '40px', marginTop: '40px' }}>
+              <Box sx={{ marginLeft: '60px', marginTop: '40px' }}>
                 <Image
-                  alt='Profile picture of the arist'
-                  src={data.user.photoUrl}
-                  height={300}
-                  width={300}
+                  alt='Profile picture of the artist'
+                  src={data.user.photoUrl || noPhotoUrl}
+                  height={270}
+                  width={270}
                   style={{ borderRadius: '90%' }}
                   data-testid='picture'
                 />
               </Box>
             </Container>
           </Grid>
-          <Grid container item xs={8} sx={{ marginTop: '40px' }}>
+          <Grid container item xs={9} sx={{ marginTop: '40px' }}>
             <Grid item xs={12}>
               <Box>
-                <Typography>{data.user.name}</Typography>
+                <Typography sx={{ fontSize: '2.5vh', fontWeight: 'bold' }}>{data.user.name}</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sx={{ marginRight: '60px' }}>
-              <Typography>About Me</Typography>
-            </Grid>
             <Grid item xs={12}>
+              <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>About Me</Typography>
+            </Grid>
+            <Grid item xs={12} sx={{ marginRight: '60px' }}>
               <Box>
-                {data.user.aboutMe}
+                {data.user.about_me}
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
           </Grid>
           <Grid container item xs={8}>
             <Grid item xs={12}>
-              <Typography>My Songs</Typography>
+              <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>My Songs</Typography>
             </Grid>
-            <Grid container item xs={12}>
-              <Stack direction='row' spacing={1.5}>
-                {data.songs.map((song: any, index: number) => <Grid item key={index}><SongTile key={index} song={song} user={data.user.id} color='white' /></Grid>)}
-              </Stack>
+            <Grid container item xs={12} sx={{ marginTop: '40px' }}>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+                {data.songs.map((song: any, index: number) => <Box sx={{ marginRight: '20px', marginTop: '20px' }}><SongTile key={index} song={song} user={data.user.id} color='white' /></Box>)}
+              </Box>
             </Grid>
           </Grid>
         </Grid>

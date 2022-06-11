@@ -7,5 +7,10 @@ const pool = new Pool({
   port: 5432,
 });
 
+// pool.query("DELETE FROM users WHERE email='alyshargilliard@gmail.com'")
+// .then((user) => {
+//   console.log(user)
+// })
+
 export default pool;
 

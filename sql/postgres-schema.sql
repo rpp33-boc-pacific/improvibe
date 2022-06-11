@@ -14,12 +14,6 @@ DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS past_searches;
 
-CREATE TABLE project_hashtag (
-  id serial,
-  project_id integer,
-  hashtag_id integer
-);
-
 CREATE TABLE sessions (
   id serial,
   expires timestamp,
@@ -27,24 +21,6 @@ CREATE TABLE sessions (
   sessionToken varchar(255)
 );
 
--- CREATE TABLE layers (
---   id serial,
---   name varchar,
---   track_id integer,
---   shares integer,
---   project_id integer,
---   searched integer,
---   tempo integer,
---   pitch integer,
---   volume integer,
---   start_time integer,
---   trim_start integer,
---   trim_end integer,
---   loop boolean
--- );
-
--- This should be new layers table schema
--- TODO: make sure we update deployed db to reflect
 CREATE TABLE layers (
   id serial,
   name varchar,
@@ -53,19 +29,13 @@ CREATE TABLE layers (
   shares integer,
   project_id integer,
   searched integer,
-  tempo integer,
-  pitch integer,
-  volume integer,
+  tempo decimal,
+  pitch decimal,
+  volume decimal,
   start_time integer,
   trim_start integer,
   trim_end integer,
   loop boolean
-);
-
-CREATE TABLE hashtags (
-  id serial,
-  hashtag_name varchar,
-  searched integer
 );
 
 CREATE TABLE users (
@@ -89,18 +59,9 @@ CREATE TABLE projects (
   user_id integer,
   searched integer,
   total_time integer,
-  song_path varchar(255),
-  date_created timestamp
+  song_path varchar,
+  date_created bigint
 );
-
--- No longer needed
--- CREATE TABLE tracks (
---   id serial,
---   name varchar(255),
---   track_path varchar(255),
---   date_created timestamp,
---   searched integer
--- );
 
 CREATE TABLE account (
   id serial,

@@ -3,24 +3,27 @@ import Button from '@mui/material/Button';
 import saveSong from './saveSong';
 import { ProjectContext } from './ProjectContext';
 import AppContext from '../../AppContext';
+import { useRouter, push } from 'next/router';
 
 export default function SaveProject() {
+  const router = useRouter();
+  let { id } = router.query;
+
   const context = useContext(ProjectContext);
   const { isSavedState } = useContext(ProjectContext);
   const [isSaved, setIsSaved] = isSavedState;
   const user = useContext(AppContext);
+  console.log(router.pathname);
   let crunker;
 
   useEffect(() => {
     importCrunker();
-  }, []);
+  });
 
   const importCrunker = async () => {
-    const Crunker = (await import('crunker')).default
+    const Crunker = (await import('crunker')).default;
     crunker = Crunker;
   }
-
-  console.log('context', context);
 
   const saveProject = () => {
     setIsSaved(true);
@@ -30,10 +33,13 @@ export default function SaveProject() {
     <ProjectContext.Provider value={context}>
       <Button
       onClick={ () => {
-        // Save song on click then get back id
-        saveSong(context, user, crunker)
+        saveSong(context, user, crunker, id)
         .then((id) => {
-          context.isSavedState.setIsSaved(true);
+          setIsSaved(true);
+          if (typeof id.data.projectId === 'number') {
+            const path = (router.pathname === '/projects') ? `projects/${id.data.projectId}` : `${id.data.projectId}`;
+            push(path);
+          }
         })
       }}
       variant="contained"

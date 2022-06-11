@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
 import LayerList from '../../components/projectEditor/LayerList';
 import ProjectHeader from '../../components/projectEditor/ProjectHeader';
@@ -9,12 +8,16 @@ import NavigationBar from '../../components/NavigationBar';
 import { useRouter } from 'next/router';
 import projects from '../../sample-data/projects';
 import { ProjectContextProvider } from '../../components/projectEditor/ProjectContext';
+import AppContext from '../../AppContext';
+import { useContext, useEffect } from 'react';
+import Protect from '../../components/Protect';
+import { getSession } from "next-auth/react";
 
-const sampleProjects = projects;
-
-const Editor: NextPage = () => {
+const Editor = (props) => {
+  const { songs, setUser } = useContext(AppContext);
   const router = useRouter();
   let { id } = router.query;
+  setUser(props.user.id);
 
   return (
       <>
@@ -28,7 +31,7 @@ const Editor: NextPage = () => {
       <div className='project-editor-grid'>
         <div className='page-title'>Edit Project</div>
         <div className='editor-container'>
-          <ProjectContextProvider project_id={id}>
+          <ProjectContextProvider >
               <ProjectHeader />
               <LayerList />
               <AddLayer />
@@ -39,11 +42,25 @@ const Editor: NextPage = () => {
             <div className='project-header'>My Projects</div>
             <NewProject />
           </div>
-          <ProjectList projects={sampleProjects}/>
+          <ProjectList projects={songs}/>
         </div>
       </div>
     </>
   )
+};
+
+export async function getServerSideProps (context) {
+  const { req, res } = context;
+  const session = await getSession({ req });
+  if (!session) {
+    res.writeHead(302, {
+      Location: "/logIn",
+    });
+    res.end();
+    return;
+  }
+
+  return { props: session };
 };
 
 export default Editor;

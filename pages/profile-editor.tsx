@@ -1,98 +1,127 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 import { Box } from '@mui/material';
 import { Grid } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Typography } from '@mui/material';
 import { Stack } from '@mui/material';
-import axios from 'axios';
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import Photo from '../components/profileEditor/Photo';
-import Song from '../components/profileEditor/Song';
 import NavigationBar from '../components/NavigationBar';
-// import editProfile from '../sample-data/profileeditor'; // REMOVE LATER
-import { useContext } from 'react';  // const userInfo = useContext(Context);
-// const userIdInState = userInfo.userId;
-// const songs = useContext(Context);
-// import Context from '../AppContext';
+import Song from '../components/profileEditor/Song';
+import Context from '../AppContext';
 
-const ProfileEditor: NextPage = (/*{ Component, pageProps }: AppProps*/) => {
+const noPhotoUrl = 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif';
 
-  return (
-    <div>
-    </div>
-  );
+const ProfileEditor: NextPage = () => {
 
-//   // const context = useContext(Context);
-//   // const userIdInState = context.user.userId;
-//   // const nameInState = context.user.name;
-//   // const emailInState = context.user.email;
-//   // const aboutMeInState = context.user.aboutMe;
-//   // const photoUrl = context.user.photoUrl;
-//   // const songs = context.songs;
+  const router = useRouter();
+  const context: any = useContext(Context);
+  const id = context.user.id;
+  const songs = context.songs;
 
-//   const router = useRouter();
+  const [ name, setName ] = useState(context.user.name);
+  const [ email, setEmail ] = useState(context.user.email);
+  const [ aboutMe, setAbout ] = useState(context.user.about_me);
+  const [ password, setPassword ] = useState('');
+  const [ photoUrl, setPhotoUrl ] = useState(context.user.photoUrl);
+  const [ saveFailed, setSaveFailed ] = useState(false);
 
-//   const [name, setName] = useState(editProfile.name /* nameInState */);
-//   const [email, setEmail] = useState(editProfile.email /* emailInState */);
-//   const [aboutMe, setAbout] = useState(editProfile.aboutMe /* aboutMeInState */);
-//   const [password, setPassword] = useState('');
+  const handleNameChange = (event: any) => setName(event.target.value);
+  const handleEmailChange = (event: any) => setEmail(event.target.value);
+  const handleAboutMeChange = (event: any) => setAbout(event.target.value);
+  const handlePasswordChange = (event: any) => setPassword(event.target.value);
+  const handlePhotoUrlChange = (url: string) => setPhotoUrl(url);
+  const handleSave = async () => {
+    let err = false;
+    try {
+      await axios.put('/api/user/update', {
+        id,
+        name,
+        email,
+        password,
+        aboutMe,
+        photoUrl
+      });
+    } catch (error) {
+      err = true;
+    } finally {
+      if (err) {
+        setSaveFailed(true);
+      } else {
+        router.push('/profile');
+      }
+    }
+  };
 
-//   const handleNameChange = (event: any) => setName(event.target.value);
-//   const handlePasswordChange = (event: any) => setPassword(event.target.value);
-//   const handleAboutMeChange = (event: any) => setAbout(event.target.value);
-//   const handleSave = async () => {
-//     let err = false;
-//     try {
-//       await axios.post('/api/user/update', { name, email, password, aboutMe });
-//     } catch (error) {
-//       err = true;
-//     } finally {
-//       if (err) {
-//         // NOTIFY USER
-//       } else {
-//       }
-//       router.push('/profile');
-//     }
-//   };
-
-//   if (editProfile.userId /* userIdInState */) {
-//     return (
-//       <div>
-//         <NavigationBar />
-//         <Grid container spacing={1}>
-//           <Grid item xs={4}>
-//             <Photo photoUrl={editProfile.photoUrl /* photoUrl */ } />
-//           </Grid>
-//           <Grid container item xs={8}>
-//             <Grid item xs={9}>
-//               <Typography>Edit Profile</Typography>
-//             </Grid>
-//             <Grid item xs={3}>
-//               <Typography onClick={handleSave}>Save Changes</Typography>
-//             </Grid>
-//             <Grid item xs={12}>
-//               <Stack>
-//                 <TextField type='text' value={editProfile.name /* name */} onChange={handleNameChange} />
-//                 <TextField type='password' placeholder='New password' value={password} onChange={handlePasswordChange} />
-//                 <TextField type='text' multiline value={editProfile.aboutMe /* aboutMe */ } onChange={handleAboutMeChange} />
-//                 <Typography>Songs {editProfile.songs.length /* songs */ }</Typography>
-//                 <Stack>
-//                   {editProfile.songs.map((song, index) => <Song key={index} song={song} />)}
-//                 </Stack>
-//               </Stack>
-//             </Grid>
-//           </Grid>
-//         </Grid>
-//       </div>
-//     );
-//   } else {
-//     return (
-//       <div>
-//         <p>You cannot edit another profile</p>
-//       </div>
-//     );
-//   }
+  if (!saveFailed) {
+    return (
+      <div>
+        <NavigationBar />
+        <Grid container spacing={1}>
+          <Grid item xs={3}>
+            <Box sx={{ marginLeft: '60px', marginTop: '40px' }}>
+              <Photo photoUrl={photoUrl || noPhotoUrl } handlePhotoUrlChange={handlePhotoUrlChange} />
+            </Box>
+          </Grid>
+          <Grid container item xs={9} sx={{ paddingRight: '60px', marginTop: '40px' }}>
+            <Grid item xs={9}>
+              <Typography sx={{ fontSize: '2.5vh', fontWeight: 'bold', marginLeft: '45px' }}>Edit Profile</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography onClick={handleSave}><u>Save Changes</u></Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Stack spacing={2} sx={{ marginLeft: '40px', marginTop: '40px' }}>
+                <TextField type='text' size={'small'} value={name} onChange={handleNameChange} />
+                <TextField type='email' size={'small'} value={email} onChange={handleEmailChange} />
+                <TextField type='password' size={'small'} placeholder='New password' value={password} onChange={handlePasswordChange} />
+                <TextField type='text' size={'small'} multiline value={aboutMe} onChange={handleAboutMeChange} />
+                <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>Songs ({context.songs.length})</Typography>
+                <Stack>
+                  {songs.map((song: any, index: number) => <Song key={index} song={song} />)}
+                </Stack>
+              </Stack>
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <NavigationBar />
+        <Grid container spacing={1}>
+          <Grid item xs={3}>
+            <Box sx={{ marginLeft: '60px', marginTop: '40px' }}>
+              <Photo photoUrl={photoUrl || noPhotoUrl } handlePhotoUrlChange={handlePhotoUrlChange} />
+            </Box>
+          </Grid>
+          <Grid container item xs={9} sx={{ paddingRight: '60px', marginTop: '40px' }}>
+            <Grid item xs={9}>
+              <Typography sx={{ fontSize: '2.5vh', fontWeight: 'bold', marginLeft: '45px' }}>Edit Profile</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              Try again<Typography onClick={handleSave}><u>Save Changes</u></Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Stack spacing={2} sx={{ marginLeft: '40px', marginTop: '40px' }}>
+                <TextField type='text' size={'small'} value={name} onChange={handleNameChange} />
+                <TextField type='email' size={'small'} value={email} onChange={handleEmailChange} />
+                <TextField type='password' size={'small'} placeholder='New password' value={password} onChange={handlePasswordChange} />
+                <TextField type='text' size={'small'} multiline value={aboutMe} onChange={handleAboutMeChange} />
+                <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>Songs ({context.songs.length})</Typography>
+                <Stack>
+                  {songs.map((song: any, index: number) => <Song key={index} song={song} />)}
+                </Stack>
+              </Stack>
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  }
 };
 
 export default ProfileEditor;

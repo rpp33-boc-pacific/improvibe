@@ -21,14 +21,11 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const sampleProjects = projects;
-
-// TODO: bring in user context to get current user id list of songs and replace in get route
-
 const Projects = (props) => {
   const { songs, setUser } = useContext(AppContext);
-  console.log(props);
   setUser(props.user.id);
+
+  // need to do a get request for songs here...
 
   return (
     <>

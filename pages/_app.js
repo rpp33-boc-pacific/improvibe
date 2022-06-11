@@ -9,19 +9,19 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [user, setUser] = useState({});
   const [songs, setSongs] = useState([]);
   const value = { user, setUser , songs, setSongs};
-  const { id } = user;
+  // const { id } = user;
 
-  useEffect(() => {
-    if (Object.keys(user).length) {
-      axios.get(`/api/user/${id}`)
-      .then((response) => {
-        setSongs(response.data.songs);
-      })
-      .catch((err) =>{
-        console.log(err)
-      })
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (Object.keys(user).length) {
+  //     axios.get(`/api/user/${id}`)
+  //     .then((response) => {
+  //       setSongs(response.data.songs);
+  //     })
+  //     .catch((err) =>{
+  //       console.log(err)
+  //     })
+  //   }
+  // }, [user])
 
   return (
     <SessionProvider session={session}>

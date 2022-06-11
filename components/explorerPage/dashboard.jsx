@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useEffect, useState, useContext  } from 'react';
+import axios from 'axios';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -12,21 +13,38 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ApiIcon from '@mui/icons-material/Api';
+import AppContext from '../../AppContext';
 
 const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-const Dashboard = (props: { Performance: any }) => {
+const Dashboard = (props) => {
   const [dense, setDense] = React.useState(false);
-  const Metrics = props.Performance;
-  // console.log('metrics', Metrics)
+  const [metrics, setMetrics] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const {user} = useContext(AppContext); //the user will come from the AppContext
+  // setUser(props.user);
+  let userId = user.id;
+
+  useEffect(() => {
+    // The songs will come from the api call
+    axios.get(`api/top/dashboard/${userId}`)
+    .then((response) => {
+      setMetrics(response.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.log('Error:', err);
+    })
+  })
 
   return (
+    isLoading === true ? <>Loading...</> :
     <Box sx={{ flexGrow: 1, maxWidth: 752}}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12}>
-          <Typography sx={{ mt: 2, mb: 8.25 }} variant="h6" component="div">
+          <Typography sx={{ mt: 2, mb: 10 }} variant="h6" component="div">
             Your Dashboard
           </Typography>
           <Demo>
@@ -34,9 +52,9 @@ const Dashboard = (props: { Performance: any }) => {
               <ListItem
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
-                      <FavoriteIcon />{Metrics.likes}
+                      <FavoriteIcon />{metrics[0].totalLikes}
                     </IconButton>
-                  } key = {Metrics.likes}
+                  } key = {metrics[0].totalLikes}
                 >
                   <ListItemAvatar>
                   <ApiIcon />
@@ -48,9 +66,9 @@ const Dashboard = (props: { Performance: any }) => {
               <ListItem
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
-                      <ShareIcon />{Metrics.shares}
+                      <ShareIcon />{metrics[0].totalShares}
                     </IconButton>
-                  } key = {Metrics.shares}
+                  } key = {metrics[0].totalShares}
                 >
                   <ListItemAvatar>
                   <ApiIcon />

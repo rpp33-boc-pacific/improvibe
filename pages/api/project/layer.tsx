@@ -12,7 +12,7 @@ export default function alterLayer(req: any, res: any) {
       console.log('error posting layer');
       res.send(error);
     });
-  } else if (req.method === 'PUT' ){
+  } else if (req.method === 'PUT') {
     let sql = `` // TODO
     pool.query(sql)
     .then((results: any) => {

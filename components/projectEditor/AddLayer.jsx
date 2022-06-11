@@ -9,7 +9,6 @@ import { ProjectContext } from './ProjectContext';
 import { v4 } from "uuid";
 
 const style = {
-  // position: 'absolute' as 'absolute',
   position: 'absolute',
   top: '50%',
   left: '50%',

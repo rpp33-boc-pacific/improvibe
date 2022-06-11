@@ -1,9 +1,9 @@
-import pool from "../../../sql/db";
+import pool from "../../../../sql/db";
 
 export default function getTopSongsByGenre(req: any, res: any) {
   let { genre } = req.query;
 
-  // Returns the genres in order of most popular
+  // Returns the most popular songs by genre
   const getTopGenreSongsQuery = `SELECT * from projects where genre=${genre} ORDER BY likes DESC LIMIT 4;`
 
   pool.query(getTopGenreSongsQuery)

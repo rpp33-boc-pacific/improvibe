@@ -18,9 +18,9 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const Profile: NextPage = () => {
 
   const router = useRouter();
-  const id = router.query.id || 1;
+  const id = router.query.id;
   const context: any = useContext(AppContext);
-  const clientId = context.user.id || 1; // 1 without context
+  const clientId = context.user.id;
   const noPhotoUrl = 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif';
 
   const { data, error } = useSWR(`/api/user/public/${id}?client=${clientId}`, fetcher);

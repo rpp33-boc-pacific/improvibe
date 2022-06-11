@@ -15,48 +15,45 @@ function ProjectHeader() {
     backgroundColor: '#fff',
   };
 
-  const context = useContext(ProjectContext);
+  const { projectNameState } = useContext(ProjectContext);
+  const [projectName, setProjectName] = projectNameState;
 
-  const [newContext, updatedContext] = useState(context);
-
-  const initialValue = context.projectNameState[0];
+  const initialValue = projectName;
   const [value, setValue] = useState(initialValue);
 
-  const handleChange = (e) => {
-    setValue(e.target.value)
-    context.projectNameState = e.target.value
+  const handleChange = (event) => {
+    setValue(event.target.value)
+    setProjectName(event.target.value);
   };
 
   return (
-    <ProjectContext.Provider value={context}>
-        <Grid
-        container
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        sx={{ height: '5vh' }}>
-          <div>
-            <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center">
-              <PlayProject />
-              <input className='song-name' value={value} onInput={handleChange}></input>
-            </Grid>
-          </div>
-          <div>
-            <Grid
-            container
-            direction="row"
-            justifyContent="flex-end"
-            alignItems="center">
-              <GenreSelector />
-              <SaveProject />
-            </Grid>
-          </div>
-        </Grid>
-      </ProjectContext.Provider>
+      <Grid
+      container
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      sx={{ height: '5vh' }}>
+        <div>
+          <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center">
+            <PlayProject />
+            <input className='song-name' value={value} onInput={handleChange}></input>
+          </Grid>
+        </div>
+        <div>
+          <Grid
+          container
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="center">
+            <GenreSelector />
+            <SaveProject />
+          </Grid>
+        </div>
+      </Grid>
   );
 }
 

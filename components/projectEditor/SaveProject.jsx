@@ -13,7 +13,7 @@ export default function SaveProject() {
   const { isSavedState } = useContext(ProjectContext);
   const [isSaved, setIsSaved] = isSavedState;
   const user = useContext(AppContext);
-  console.log(router.pathname);
+  console.log(user);
   let crunker;
 
   useEffect(() => {

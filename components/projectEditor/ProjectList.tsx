@@ -16,14 +16,13 @@ const ProjectList: NextPage<Props> = ({ projects }) => {
     router.push(path);
     setTimeout(() => {
       router.reload();
-    }, 500);
+    }, 1000);
   }
 
   return (
     <Stack spacing={2}>
       {projects.map((project: { id: number, [key: string]: any }) => {
         const status = (project.public) ? 'public' : 'private'
-
         return (
           <div className='project-card' id={`projectCard-${project.id}`} key={project.id} onClick={changeProject}>
             <div className='project-link' id={`projectName-${project.id}`}>{project.name}</div>

@@ -23,7 +23,7 @@ export default function alterLayer(req: any, res: any) {
       res.send(error);
     });
   } else if (req.method === 'DELETE') {
-    let sql = `` // TODO
+    let sql = `DELETE FROM layers WHERE name = ${req.body.name}` // TODO
     pool.query(sql)
     .then((results: any) => {
       res.send('success - deleted layer!');

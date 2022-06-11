@@ -5,6 +5,7 @@ import SoundControllerList from './SoundControllerList';
 import Wave from './Wave';
 import { ProjectContext } from './ProjectContext';
 import TimeLine from './TimeLine';
+import axios from 'axios';
 
 const Layer = ({ layers, layerIndex, setLayers }) => {
   const { playAllState } = useContext(ProjectContext);
@@ -43,8 +44,8 @@ const Layer = ({ layers, layerIndex, setLayers }) => {
     setLayers(layers);
   }
 
-  const deleteLayer = () => {
-    // make a call to the api to delete
+  const deleteLayer = async () => {
+    const message = await axios.delete('/api/project/layer', { params: { layerId: layers[layerIndex].id } });
     const remainingLayers = layers.filter((item, index) => index !== layerIndex)
     setLayers(remainingLayers);
   }

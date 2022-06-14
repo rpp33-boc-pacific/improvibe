@@ -5,6 +5,7 @@ import SoundControllerList from './SoundControllerList';
 import Wave from './Wave';
 import { ProjectContext } from './ProjectContext';
 import TimeLine from './TimeLine';
+import axios from 'axios';
 
 const Layer = ({ layers, layerIndex, setLayers }) => {
   const { playAllState } = useContext(ProjectContext);
@@ -12,7 +13,7 @@ const Layer = ({ layers, layerIndex, setLayers }) => {
   const data = layers[layerIndex];
   const [isPlaying, setIsPlaying] = useState(false);
   const [showWaveView, setWaveView] = useState(true);
-  const [layerName, setLayerName] = useState(data.trackName);
+  const [layerName, setLayerName] = useState(data.name);
 
   const changeView = () => {
     if (layers[layerIndex].audioNode) {
@@ -43,21 +44,21 @@ const Layer = ({ layers, layerIndex, setLayers }) => {
     setLayers(layers);
   }
 
-  const deleteLayer = () => {
-    // make a call to the api to delete
+  const deleteLayer = async () => {
+    const message = await axios.delete('/api/project/layer', { params: { layerId: layers[layerIndex].id } });
     const remainingLayers = layers.filter((item, index) => index !== layerIndex)
     setLayers(remainingLayers);
   }
 
   const changeLayerName = (event) => {
-    data.trackName = event.target.value;
+    data.name = event.target.value;
     layers[layerIndex] = data;
     setLayers(layers);
     setLayerName(event.target.value);
   }
 
   const waveView = (
-    <div role='layer' className={`card-layer layer-${data.layerId}`}>
+    <div role='layer' className={`card-layer layer-${data.id}`}>
       <div className='layer-holder'>
         <div className='layer-details-holder'>
           <Stack direction="row" spacing={2} sx={{ width: '6vw' }}>
@@ -70,7 +71,7 @@ const Layer = ({ layers, layerIndex, setLayers }) => {
           <div className='wave-holder'>
             <Wave data={data} isPlaying={isPlaying} playAll={playAll} layerIndex={layerIndex} updateAudioNode={updateAudioNode} updateReadyState={updateReadyState} updateLayerAudioNode={updateLayerAudioNode}/>
           </div>
-          <TimeLine startMarker={Math.round(data.startInterval / data.tempo) + data.start} endMarker={Math.round(data.endInterval / data.tempo) + data.start}/>
+          <TimeLine startMarker={Math.round(data.trim_start / data.tempo) + data.start_time} endMarker={Math.round(data.trim_end / data.tempo) + data.start_time}/>
         </div>
 
       </div>

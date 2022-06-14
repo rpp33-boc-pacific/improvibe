@@ -39,3 +39,6 @@ __snapshots__
 .env
 
 package-lock.json
+
+# local database
+/localdb

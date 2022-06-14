@@ -9,6 +9,7 @@ const nextConfig = {
       'footdistrict.com',
       'images.unsplash.com',
       'ychef.files.bbci.co.uk',
+      'www.shutterstock.com'
     ],
   }
 }

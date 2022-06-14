@@ -1,21 +1,29 @@
 /* eslint-disable react/display-name */
 import React, { useEffect } from 'react';
-import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 
-export default function Protect (WrappedComponent: any) {
+function Protect (WrappedComponent: any) {
 
-    return function ProtectedComponent () {
-
-      const router = useRouter();
-      const { data: session, status } = useSession();
-
-      useEffect(() => {
-        if (status === "unauthenticated" ) {
-          router.push("/logIn");
-        }
-      })
-
+    function ProtectedComponent () {
       return <WrappedComponent />;
     };
+
+    ProtectedComponent.getInitialProps = async (context: any) => {
+      const { req, res } = context;
+      const session = await getSession({ req });
+      if (!session) {
+        res.writeHead(302, {
+          Location: "/logIn",
+        });
+        res.end();
+        return;
+      }
+
+      return { session };
+    };
+
+    return ProtectedComponent;
   }
+
+  export default Protect;

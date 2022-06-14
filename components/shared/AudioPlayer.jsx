@@ -39,10 +39,9 @@ const AudioPlayer = ({ song, user, color }) => {
 
   const ProfileImage = () => {
     return (
-      <Image src={song.photo_url} alt="artist-profile-picture" objectFit={"cover"} layout={"fixed"}width="125px" height="125px"/>
+      <Image src={song.photo_url || 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'} alt="artist-profile-picture" objectFit={"cover"} layout={"fixed"}width="125px" height="125px"/>
       )
     }
-
   const [liked, updateLiked] = useState(song.liked);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

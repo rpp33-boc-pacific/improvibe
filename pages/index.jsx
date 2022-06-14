@@ -20,7 +20,7 @@ const Home = (props) => {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Improvibe</title>
         <meta name="keywords" content="music, app, audio editing, social" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

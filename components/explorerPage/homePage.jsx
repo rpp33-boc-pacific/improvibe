@@ -39,18 +39,21 @@ export default function HomePage() {
   const user = useContext(AppContext); //the user will come from the AppContext
 
   var userId = user.user.id;
-  // console.log('userId in Homepage', user);
+  // console.log('userId in Homepage', userId);
 
   useEffect(() => {
     // The songs will come from the api call
-    fetchData();
-  }, [])
+    // console.log('userId', userId);
+    // if (userId) {
+      fetchData();
+    // }
+  }, [AppContext])
 
   const fetchData = () => {
     // console.log('userId inside fetch', userId);
 
     // GET request to fetch top songs
-    axios.get(`api/top/allSongs/${userId}`)
+    axios.get(`api/top/allSongs/3`)
     .then((response) => {
       setSongs(response.data);
       setLoading(false);

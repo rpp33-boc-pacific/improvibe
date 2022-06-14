@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { NextPage } from 'next';
@@ -13,10 +13,9 @@ import NavigationBar from '../../components/NavigationBar';
 import SongTile from '../../components/shared/SongTile';
 import AppContext from '../../AppContext';
 import { getSession } from 'next-auth/react';
+import axios from 'axios';
 
 const noPhotoUrl = 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif';
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Profile = (props) => {
 
@@ -26,70 +25,82 @@ const Profile = (props) => {
   setUser(props.user);
   const userId = user.id;
 
-  const { data, error } = useSWR(`/api/user/public/${id}?client=${userId}`, fetcher);
+  const [name, setName] = useState('');
+  const [aboutMe, setAboutMe] = useState('');
+  const [photoUrl, setPhotoUrl] = useState(noPhotoUrl);
+  const [songs, setSongs] = useState([]);
 
-  if (error) {
-    return (
-      <div>
-        <p>An error has occurred</p>
-      </div>
-    );
-  } else if (!data) {
-    return (
-      <div>
-        <p>Loading...</p>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <NavigationBar />
-        <Grid container spacing={1}>
-          <Grid item xs={3}>
-            <Container>
-              <Box sx={{ marginLeft: '60px', marginTop: '40px' }}>
-                <Image
-                  alt='Profile picture of the artist'
-                  src={data.user.photoUrl || noPhotoUrl}
-                  height={270}
-                  width={270}
-                  style={{ borderRadius: '90%' }}
-                  data-testid='picture'
-                />
-              </Box>
-            </Container>
+  useEffect(() => {
+    axios.get(`/api/user/public/${id}?client=${userId}`)
+      .then((res) => {
+        console.log(res.data);
+        setName(res.data.user.name);
+        setAboutMe(res.data.user.about_me);
+        res.data.songs.forEach((song) => {
+          if (song.photo_url === null) {
+            song.photo_url = noPhotoUrl;
+          }
+        });
+        setSongs(res.data.songs);
+        if (res.data.user.photo_url === null) {
+          setPhotoUrl(noPhotoUrl);
+        } else {
+          setPhotoUrl(res.data.user.photo_url);
+        }
+      })
+      .catch((err) => {
+        console.log('Error getting user info');
+      })
+  }, []);
+
+  return (
+    <div>
+      <NavigationBar />
+      <Grid container spacing={1}>
+        <Grid item xs={3}>
+          <Container>
+            <Box sx={{ marginLeft: '60px', marginTop: '40px' }}>
+              <Image
+                alt='Profile picture of the artist'
+                src={photoUrl}
+                height={270}
+                width={270}
+                style={{ borderRadius: '90%' }}
+                data-testid='picture'
+              />
+            </Box>
+          </Container>
+        </Grid>
+        <Grid container item xs={9} sx={{ marginTop: '40px' }}>
+          <Grid item xs={12}>
+            <Box>
+              <Typography sx={{ fontSize: '2.5vh', fontWeight: 'bold' }}>{name}</Typography>
+            </Box>
           </Grid>
-          <Grid container item xs={9} sx={{ marginTop: '40px' }}>
-            <Grid item xs={12}>
-              <Box>
-                <Typography sx={{ fontSize: '2.5vh', fontWeight: 'bold' }}>{data.user.name}</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>About Me</Typography>
-            </Grid>
-            <Grid item xs={12} sx={{ marginRight: '60px' }}>
-              <Box>
-                {data.user.about_me}
-              </Box>
-            </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>About Me</Typography>
           </Grid>
-          <Grid item xs={3}>
-          </Grid>
-          <Grid container item xs={8}>
-            <Grid item xs={12}>
-              <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>My Songs</Typography>
-            </Grid>
-            <Grid container item xs={12} sx={{ marginTop: '40px' }}>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                {data.songs.map((song, index) => <Box sx={{ marginRight: '20px', marginTop: '20px' }}><SongTile key={index} song={song} user={data.user.id} color='white' /></Box>)}
-              </Box>
-            </Grid>
+          <Grid item xs={12} sx={{ marginRight: '60px' }}>
+            <Box>
+              {aboutMe}
+            </Box>
           </Grid>
         </Grid>
-      </div>
-    );
-  }
+        <Grid item xs={3}>
+        </Grid>
+        <Grid container item xs={8}>
+          <Grid item xs={12}>
+            <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>My Songs</Typography>
+          </Grid>
+          <Grid container item xs={12} sx={{ marginTop: '40px' }}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+              {songs.map((song, index) => <Box sx={{ marginRight: '20px', marginTop: '20px' }}><SongTile key={index} song={song} user={id} color='white' /></Box>)}
+            </Box>
+          </Grid>
+        </Grid>
+      </Grid>
+    </div>
+  );
 };
 
 export async function getServerSideProps(AppContext) {

@@ -47,12 +47,20 @@ const AudioPlayer = ({ song, user, color }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const buttonStyle = {
+    display: 'inline-block',
+    padding:0,
+    minHeight: 0,
+    minWidth: 0,
+  }
+
     return (
       <div id="play-song-container">
         <IconButton
+          sx={ {paddingRight: '0' }}
           aria-label="open-player-modal"
           onClick={handleOpen}>
-          <PlayCircleIcon fontSize="large"/>
+          <PlayCircleIcon fontSize="medium" />
         </IconButton>
         <Modal
           hideBackdrop

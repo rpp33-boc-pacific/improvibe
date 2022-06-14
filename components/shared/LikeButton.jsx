@@ -37,16 +37,16 @@ const LikeButton = ({ song, user, color }) => {
     liked === false ?
     <IconButton aria-label="like-song" onClick={handleLike}>
       <Stack>
-      <FavoriteBorderIcon sx={{color: '#e8554a'}}></FavoriteBorderIcon>
-      <Typography sx={{color: "#e8554a"}} variant="subtitle2">{likes}</Typography>
+      <FavoriteBorderIcon sx={{color: '#000'}}></FavoriteBorderIcon>
+      {/* <Typography sx={{color: "#000"}} variant="subtitle2">{likes}</Typography> */}
       </Stack>
 
     </IconButton>
     :
     <IconButton aria-label="unlike-song" onClick={handleLike}>
       <Stack>
-      <FavoriteIcon sx={{color: '#e8554a'}}></FavoriteIcon>
-      <Typography sx={{color: "#e8554a"}} variant="subtitle2">{likes}</Typography>
+      <FavoriteIcon sx={{color: '#000'}}></FavoriteIcon>
+      {/* <Typography sx={{color: "#000"}} variant="subtitle2">{likes}</Typography> */}
       </Stack>
     </IconButton>
   )

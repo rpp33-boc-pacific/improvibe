@@ -226,3 +226,75 @@ a {
   width: 100%;
   background-color: #f50057;
 }
+
+/* song tile */
+.song-card {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  height: 26vh;
+  width: 22vh;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: #D3D3D3;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.song-card-details-holder {
+  display: flex;
+  flex-direction: row;
+}
+
+.image-card {
+  margin-top: 1.5vh;
+  width: 18vh;
+  height: 18vh;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 5% 90% 5%
+}
+
+.home-categories {
+  grid-column: 2;
+}
+
+.home-category-labels {
+  font-size: 2.5vh;
+  font-weight: bold;
+  margin-top: 4vh;
+  margin-bottom: 2vh;
+}
+
+.song-tile-info-holder {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 1.5vh;
+  justify-content: space-evenly;
+}
+
+.song-tile-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-left: 2vh;
+}
+
+.song-artist {
+  font-weight: lighter;
+}
+
+.song-name,.song-artist {
+  font-size: 1.2vh;
+  white-space: nowrap;
+}
+
+.song-tile-buttons {
+  display: flex;
+  flex-direction: row;
+  padding-right: 2vh;
+}

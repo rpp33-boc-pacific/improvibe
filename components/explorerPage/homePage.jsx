@@ -34,78 +34,69 @@ export default function HomePage() {
   const [countrySongs, setCountrySongs] = useState([]);
   const [hiphopSongs, sethiphopSongs] = useState([]);
   const [popSongs, setPopSongs] = useState([]);
-  const [electronicSongs, setElectronicSongs] = useState([]);
+  const [classicalSongs, setClassicalSongs] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const user = useContext(AppContext); //the user will come from the AppContext
 
   var userId = user.user.id;
-  // console.log('userId in Homepage', userId);
 
   useEffect(() => {
-    // The songs will come from the api call
-    // console.log('userId', userId);
-    // if (userId) {
+    if (userId !== undefined) {
       fetchData();
-    // }
-  }, [AppContext])
+    }
+  }, [user])
 
   const fetchData = () => {
-    // console.log('userId inside fetch', userId);
-
-    // GET request to fetch top songs
-    axios.get(`api/top/allSongs/3`)
+    axios.get(`api/home/top/${userId}`)
     .then((response) => {
-      setSongs(response.data);
+      console.log(response.data.songs);
+      setSongs(response.data.songs);
       setLoading(false);
     })
     .catch((err) => {
       console.log('Error:', err);
     })
 
-    // GET request to fetch top rock songs
-    axios.get(`api/top/genre/rock/${userId}`)
+    axios.get(`api/home/rock/${userId}`)
     .then((response) => {
-      setRockSongs(response.data);
+      console.log(response.data.songs)
+      setRockSongs(response.data.songs);
       setLoading(false);
     })
     .catch((err) => {
       console.log('Error:', err);
     })
 
-    // GET request to fetch top country songs
-    axios.get(`api/top/genre/country/${userId}`)
+    axios.get(`api/home/country/${userId}`)
     .then((response) => {
-      setCountrySongs(response.data);
+      setCountrySongs(response.data.songs);
       setLoading(false);
     })
     .catch((err) => {
       console.log('Error:', err);
     })
 
-    // GET request to fetch top hiphop songs
-    axios.get(`api/top/genre/hiphop/${userId}`)
+    axios.get(`api/home/hip-hop/${userId}`)
     .then((response) => {
-      sethiphopSongs(response.data);
+      sethiphopSongs(response.data.songs);
       setLoading(false);
     })
     .catch((err) => {
       console.log('Error:', err);
     })
 
-    // GET request to fetch top pop songs
-    axios.get(`api/top/genre/pop/${userId}`)
+    axios.get(`api/home/pop/${userId}`)
     .then((response) => {
-      setPopSongs(response.data);
+      setPopSongs(response.data.songs);
       setLoading(false);
     })
     .catch((err) => {
       console.log('Error:', err);
     })
 
-    // GET request to fetch top electronic songs
-    axios.get(`api/top/genre/electronic/${userId}`)
+    axios.get(`api/home/classical/${userId}`)
     .then((response) => {
-      setElectronicSongs(response.data);
+      setClassicalSongs(response.data.songs);
       setLoading(false);
     })
     .catch((err) => {
@@ -113,87 +104,32 @@ export default function HomePage() {
     })
   }
 
-
   return (
     isLoading === true ? <>Loading...</> :
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <div className = 'NavigationBar' >
-            <NavigationBar/>
-          </div>
-        </Grid>
-        <Grid item xs={12} sx={{padding: '1em', marginLeft:"2em"}}>
-          <Item elevation={0}>
-            <div className = 'top-genres'>
-              <TopGenres GenreData = {GenreData}/>
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item elevation={0}>
-            <div className = 'carousel'>
-              <HorizontalCarousel songs = {songs} genre = {'Top'}/>
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <div className = 'dashboard'>
-              <Dashboard />
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item elevation={0}>
-            <div className = 'carousel'>
-              <HorizontalCarousel songs = {rockSongs} genre = {'Rock'}/>
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <div className = 'your-contributions'>
-              <YourContributions  />
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item elevation={0}>
-            <div className = 'carousel'>
-              <HorizontalCarousel songs = {countrySongs} genre = {'Country'}/>
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <div className = 'top-artists'>
-              <TopArtists/>
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item elevation={0}>
-            <div className = 'carousel'>
-              <HorizontalCarousel songs = {hiphopSongs} genre = {'Hip-Hop'}/>
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item elevation={0}>
-            <div className = 'carousel'>
-              <HorizontalCarousel songs = {popSongs} genre = {'Pop'}/>
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item elevation={0}>
-            <div className = 'carousel'>
-              <HorizontalCarousel songs = {electronicSongs} genre = {'Electronic'}/>
-            </div>
-          </Item>
-        </Grid>
-      </Grid>
-    </Box>
+    <>
+    <div className = 'NavigationBar' >
+      <NavigationBar/>
+    </div>
+    <div className='home-grid'>
+      <div className = 'carousel home-categories'>
+        <HorizontalCarousel songs = {songs} genre = {'Top'}/>
+      </div>
+      <div className = 'carousel home-categories'>
+        <HorizontalCarousel songs = {rockSongs} genre = {'Rock'}/>
+      </div>
+      <div className = 'carousel home-categories'>
+        <HorizontalCarousel songs = {countrySongs} genre = {'Country'}/>
+      </div>
+      <div className = 'carousel home-categories'>
+        <HorizontalCarousel songs = {hiphopSongs} genre = {'Hip-Hop'}/>
+      </div>
+      <div className = 'carousel home-categories'>
+        <HorizontalCarousel songs = {popSongs} genre = {'Pop'}/>
+      </div>
+      <div className = 'carousel home-categories'>
+        <HorizontalCarousel songs = {classicalSongs} genre = {'Classical'}/>
+      </div>
+    </div>
+    </>
   );
 }

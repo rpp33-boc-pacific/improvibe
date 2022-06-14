@@ -1,102 +1,125 @@
-// import axios from 'axios';
-// import Crunker from 'crunker';
+import axios from 'axios';
+import { v4 } from "uuid";
 
-// const saveSong = (context, user, crunker) => {
-//   const isSaved = context.isSavedState[0];
-//   const user_id = user.user.id;
-//   const name = context.projectNameState[0];
-//   const genre = context.genreState[0];
-//   const layers = context.layersState[0];
+const saveSong = (context, user, Crunker, projectId, window) => {
+  const user_id = user.user;
+  const isSaved = context.isSavedState[0];
+  const name = context.projectNameState[0];
+  const genre = context.genreState[0];
+  const layers = context.layersState[0];
+  const siteURL = 'https://improvibe-tracks.s3.amazonaws.com/'
 
-//   //returns unmodified tracks
-//   let tracks = layers.map((layer) => {
-//     return layer.trackAudio
-//   });
+  console.log('svaed status', isSaved);
+  let tracks = layers.map((layer) => {
+    return layer.track_path
+  });
 
-//   //returns modified ScriptProcessorNode
-//   let buffers = layers.map((layer) => {
-//      return layer.audioNode
-//    });
+  const uploadFile = async (songName, song) => {
+    let { data } = await axios.post("/api/s3/uploadFile", {
+      name: songName,
+      type: 'audio/mpeg',
+    });
 
-// //   //FOR THIS TO WORK NEED TO TURN ScriptProcessorNode into AudioBuffer
-// //   // let crunker = new Crunker()
-// //   // return new Promise((resolve, reject) => {
-// //   //   resolve(buffers);
-// //   // })
-// //   // .then((buffers) => {
-// //   //   crunker.mergeAudio(buffers);
-// //   // })
-// //   // .then((merged) => {
-// //   //   return crunker.export(merged, 'audio/mp3');
-// //   // })
-// //   // .then((output) => {
-// //   //   console.log('the blob url', output.blob.url);
-// //   // })
+    const url = data.url;
+    let response = await axios.put(url, song, {
+      headers: {
+        "Content-type": 'audio/mpeg',
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
 
+    console.log(response);
 
-//  // Next Merge the URLs into one file
-//   return new Promise((resolve, reject) => {
-//     let crunker = new Crunker();
-//     crunker
-//       .fetchAudio(...tracks)
-//       .then((buffers) => {
-//         //Apply modifications to buffers here? Is this possible?
-//         return crunker.mergeAudio(buffers);
-//       })
-//       .then((merged) => {
-//         return crunker.export(merged, 'audio/mp3');
-//       })
-//       .then((output) => {
-//         output.blob.name = name
-//         return output
-//       })
-//       .then((song) => {
-//         //upload to s3 bucket and return url
-//         return song
-//       })
-//       .then((url) => {
-//         //TODO: Song path should be = to the url parameter not hard coded
-//         let song_path = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'
-//         if (isSaved) {
-//           //If song is saved PUT request
-//         } else {
-//           //POST request
-//           axios.post('api/project', { user_id, name, song_path, genre })
-//           .then((id) => {
-//             let songId = id.data
-//             resolve(songId);
-//           })
-//           .catch((err) => {console.log('Error updating project in database:', err)})
-//           }
-//         })
-//         .catch((err) => {
-//           console.log('Error flattening layers:', err);
-//         });
-//     });
-//   };
+    return url;
+  };
 
-//   export default saveSong;
+  return new Promise((resolve, reject) => {
+    let crunker = new Crunker();
 
+    if (layers.length === 0) {
+      reject();
+      return;
+    }
 
-//   //S3 bucket copied from Jeff
-// //   const uploadFile = async () => {
-// //     let { data } = await axios.post("/api/s3/uploadFile", {
-// //       name: selectedFile.name,
-// //       type: selectedFile.type,
-// //     });
+    crunker.fetchAudio(...tracks)
+      .then((buffers) => {
+        let modified = buffers.map((buffer, index) => {
+          const modifiedBuffer = crunker.padAudio(buffer, 0, layers[index].start_time);
+          return modifiedBuffer;
+        })
+        return crunker.mergeAudio(modified);
+      })
+      .then((merged) => {
+        return crunker.export(merged, 'audio/mp3');
+      })
+      .then((output) => {
+        output.blob.name = name
+        let songName = `flat-${v4()}.mp3`
+        var song = new File([output.blob], songName);
+        return {song, songName };
+      })
+      .then(async ({ song, songName}) => {
+        const songUrl = await uploadFile(songName, song)
+        return siteURL + songName;
+      })
+      .then(async (url) => {
+        console.log('url', url);
+        let projectUserId = user_id;
+        if (projectId !== undefined) {
+          projectUserId = await axios.get('/api/project/project', { params: { projectId: projectId } });
+        }
 
-// //     const url = data.url;
-// //     let { data: newData } = await axios.put(url, selectedFile, {
-// //       headers: {
-// //         "Content-type": selectedFile.type,
-// //         "Access-Control-Allow-Origin": "*",
-// //       },
-// //     });
-// //   };
+        if (isSaved && projectUserId.data !== undefined && (projectUserId.data.user_id === user_id)) {
+          const updatedProject = {
+            id: projectId,
+            name,
+            genre,
+            song_path: url,
+          }
 
+          const putResult = await axios.put('/api/project/project', updatedProject);
 
-// // const saveToS3 = () => {
-// // uploadFile();
-// // setURL(BUCKET_URL + selectedFile.name)
-// // handleClose();
-// // };
+          layers.forEach(async (layer) => {
+            layer.project_id = projectId;
+            let putLayerResult = await axios.put('/api/project/layer', layer);
+          });
+
+          resolve(putResult);
+        } else {
+          const newProject = {
+            name,
+            genre,
+            likes: 0,
+            shares: 0,
+            publicStatus: false,
+            user_id: user_id,
+            searched: 0,
+            total_time: 250,
+            song_path: url,
+            date_created: Date.now(),
+          }
+
+          const postResult = await axios.post('/api/project/project', newProject);
+
+          console.log('projectUserId.data', projectUserId.data);
+          if (projectUserId.data !== undefined && projectUserId.data.user_id !== user_id) {
+            console.log('if path');
+            layers.forEach(async (layer) => {
+              layer.project_id = postResult.data.projectId;
+              let postLayerResult = await axios.post('/api/project/layer', layer);
+            });
+          } else {
+            console.log('else path');
+            layers.forEach(async (layer) => {
+              layer.project_id = postResult.data.projectId;
+              let putLayerResult = await axios.put('/api/project/layer', layer);
+            });
+          }
+
+          resolve(postResult);
+        }
+      });
+  });
+};
+
+  export default saveSong;

@@ -6,9 +6,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import { ProjectContext } from './ProjectContext';
+import { v4 } from "uuid";
 
 const style = {
-  // position: 'absolute' as 'absolute',
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -26,51 +26,70 @@ function AddLayer() {
   const [open, setOpen] = useState(false);
   const [fileURL, setURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-
-  const { layersState } = useContext(ProjectContext);
+  const { layersState, projectIdState } = useContext(ProjectContext);
   const [layers, setLayers] = layersState;
+  const [projectId, setProductId] = projectIdState;
 
-  // open / close modal
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => {
     setOpen(false);
     setSelectedFile(null);
   }
 
-  const handleClick = () => {
-    openFileSelector();
+  const addLayerToDB = async (newLayer) => {
+    const results = await axios.post('/api/project/layer', newLayer);
+    return results.data.layerId;
   }
 
   const saveToS3 = () => {
-    uploadFile();
-    const trackURL = BUCKET_URL + selectedFile.name;
-    setURL(trackURL)
+    let audio = document.createElement('audio');
+    var reader = new FileReader();
 
-    const newLayer = {
-      layerId: layers.length + 1,
-      trackAudio: trackURL,
-      trackName: 'Track Name',
-      trackTime: 'track time',
-      tempo: 1,
-      pitch: 0,
-      volume: 0.65,
-      startInterval: 0,
-      endInterval: 1,
-      start: 0,
-      loop: false
-    }
+    reader.onload = (event) => {
+        audio.src = event.target.result;
+        audio.addEventListener('loadedmetadata', async function(){
+          let duration = Math.round(audio.duration);
+          console.log("The duration of the song is of: " + duration + " seconds");
 
-    const layersCopy = JSON.parse(JSON.stringify(layers));
-    layersCopy.push(newLayer);
-    setLayers(layersCopy);
+          const trackName = `${selectedFile.name.slice(0, -4)}_${v4() + selectedFile.name.slice(-4)}`
+          const trackURL = BUCKET_URL + trackName;
+          setURL(trackURL);
+          await uploadFile(trackName);
 
-    handleClose();
-    console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
+          const newLayer = {
+            name: 'Layer Name',
+            track_time: duration,
+            track_path: trackURL,
+            shares: 0,
+            project_id: 99999,
+            searched: 0,
+            tempo: 1,
+            pitch: 0,
+            volume: 0.50,
+            start_time: 0,
+            trim_start: 0,
+            trim_end: duration,
+            loop: false
+          }
+
+          const layerId = await addLayerToDB(newLayer);
+          newLayer.id = layerId;
+          let newLayers = layers.map((layer) => layer);
+          newLayers[layers.length] = newLayer
+          setLayers(newLayers);
+
+          handleClose();
+          console.log('The file URL?', fileURL, 'The file?', selectedFile instanceof Blob);
+        },false);
+    };
+
+    reader.readAsDataURL(selectedFile);
   };
 
-  const uploadFile = async () => {
+  const uploadFile = async (name) => {
     let { data } = await axios.post("/api/s3/uploadFile", {
-      name: selectedFile.name,
+      name: name,
       type: selectedFile.type,
     });
 
@@ -87,7 +106,7 @@ function AddLayer() {
 
   return (
     <div className='add-layer-holder'>
-      <Button variant="contained" onClick={handleOpen} sx={{ width: '16vw', height: '5vh', fontSize: '1.7vh'}}>Add Layer</Button>
+      <Button variant="contained" onClick={handleOpen} sx={{ width: '10vw', height: '4vh', fontSize: '1.5vh'}}>Add Layer</Button>
         <Modal
           open={open}
           onClose={handleClose}

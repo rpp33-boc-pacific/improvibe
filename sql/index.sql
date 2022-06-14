@@ -6,17 +6,8 @@ CREATE INDEX index_projects_genreid
 CREATE INDEX index_projects_userid
   ON projects(user_id);
 
-CREATE INDEX index_layers_trackid
-  ON layers(track_id);
-
 CREATE INDEX index_layers_projectid
   ON layers(project_id);
-
-CREATE INDEX index_project_hashtag_projectid
-  ON project_hashtag(project_id);
-
-CREATE INDEX index_project_hashtag_hashtag_id
-  ON project_hashtag(hashtag_id);
 
 CREATE INDEX index_sessions_userid
   ON sessions(user_id);

@@ -333,6 +333,14 @@ Updates total number of times project has been shared
 
 response status: 200<br>
 
+#### PUT `/api/song/public` <br>
+Updates public to true or false
+
+| Parameter      | Type |  Description      |  Required      |
+| ----------- | ----------- | ----------- | ----------- |
+| song_id | integer | Id for current song |    yes    |
+
+response status: 201<br>
 
 ## Songs API
 #### GET  `/api/songs/?[parameter]=[value]`<br>

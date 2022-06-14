@@ -16,9 +16,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import ProjectIcon from '@mui/icons-material/LibraryMusic';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useRouter } from 'next/router';
+import { signOut } from "next-auth/react"
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -115,7 +115,7 @@ export default function NavigationBar() {
         Router.push(`/profile/`);
       }}
       >Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+      <MenuItem onClick={() => signOut({ callbackUrl: '/logIn' }) }>Log Out</MenuItem>
     </Menu>
   );
 
@@ -149,24 +149,8 @@ export default function NavigationBar() {
       </MenuItem>
       <MenuItem onClick={(event) => {
         event.preventDefault();
-        setDarkMode(!darkMode);
+        Router.push(`/profile/`);
       }}>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={0} color="error">
-            {darkMode === false ?
-              <LightModeIcon/>
-              :
-              <DarkModeIcon/>
-            }
-          </Badge>
-        </IconButton>
-        {darkMode === false ?
-          <p>Light Mode</p>
-          :
-          <p>Dark Mode</p>
-        }
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -177,6 +161,18 @@ export default function NavigationBar() {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
+      </MenuItem>
+      <MenuItem onClick={() => signOut({ callbackUrl: '/logIn' }) }>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <LogoutIcon />
+        </IconButton>
+        <p>Log Out</p>
       </MenuItem>
     </Menu>
   );
@@ -232,29 +228,23 @@ export default function NavigationBar() {
                 <ProjectIcon />
               </Badge>
             </IconButton>
-            <IconButton size="large" color="inherit"
-            onClick={(event) => {
-              event.preventDefault();
-              setDarkMode(!darkMode);
-            }}>
-              <Badge badgeContent={0} color="error">
-                {darkMode === false ?
-                  <LightModeIcon/>
-                  :
-                  <DarkModeIcon/>
-                }
-              </Badge>
+            <IconButton
+              size="large"
+              onClick={(event) => {
+                event.preventDefault();
+                Router.push(`/profile/`);
+              }}
+              color="inherit"
+            >
+              <AccountCircle />
             </IconButton>
             <IconButton
               size="large"
               edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              onClick={() => signOut({ callbackUrl: '/logIn' }) }
               color="inherit"
             >
-              <AccountCircle />
+              <LogoutIcon />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

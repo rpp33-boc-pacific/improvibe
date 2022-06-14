@@ -80,7 +80,7 @@ export default function Query(req: any, res: any) {
         LOWER(projects.name) LIKE LOWER('%${queryInput}%')
 
         )
-        WHERE LOWER(projects.name) LIKE LOWER('${queryInput}%')
+        WHERE LOWER(projects.name) LIKE LOWER('%${queryInput}%')
       ${sort};`;
     } else if (queryTypeParam === 'Artists') {
       query =

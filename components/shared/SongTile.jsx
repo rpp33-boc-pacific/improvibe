@@ -14,8 +14,8 @@ import axios from 'axios';
 const SongTile = ({song, user, color}) => {
   const router = useRouter();
   const [liked, setLiked] = useState(song.liked)
-  const [likes, setLikes] = useState(song.cumulative_likes)
-
+  const [likes, setLikes] = useState(song.cummulative_likes)
+  console.log(song);
 
   const imageStyle = {
     'border-style': 'solid',
@@ -53,7 +53,7 @@ const SongTile = ({song, user, color}) => {
             <div className='song-artist' onClick={artistClicked}>{song.artist_name}</div>
           </div>
           <div className='song-tile-buttons'>
-            <LikeButton color={'#757575'} song={song} user={user} liked={liked} padding={1}/>
+            <LikeButton color={'#757575'} song={song} user={user} likes={likes} liked={liked} setLiked={setLiked} setLikes={setLikes} padding={1}/>
             <AudioPlayer color={color} song={song} user={user} padding={1}/>
           </div>
         </div>

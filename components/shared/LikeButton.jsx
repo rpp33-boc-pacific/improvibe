@@ -8,14 +8,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
 
-const LikeButton = ({ song, user, color }) => {
-
-  const context = useContext(SongTileContext);
-  let liked = context.liked;
-  let setLiked = context.setLiked;
-  let likes = context.likes;
-  let setLikes = context.setLikes
-
+const LikeButton = ({ song, user, color, likes, liked, setLiked, setLikes }) => {
+  console.log('likes', likes)
   const handleLike = () => {
     setLiked(!liked);
     if (liked) {
@@ -36,17 +30,17 @@ const LikeButton = ({ song, user, color }) => {
   return (
     liked === false ?
     <IconButton aria-label="like-song" onClick={handleLike}>
-      <Stack>
-      <FavoriteBorderIcon sx={{color: '#000'}}></FavoriteBorderIcon>
-      {/* <Typography sx={{color: "#000"}} variant="subtitle2">{likes}</Typography> */}
+      <Stack direction='row'>
+        <Typography sx={{color: "#000", 'paddingRight':'0.5vh', 'alignItems': 'center', 'justifyContent': 'center' }} variant="subtitle2">{likes}</Typography>
+        <FavoriteBorderIcon sx={{color: '#000'}}></FavoriteBorderIcon>
       </Stack>
 
     </IconButton>
     :
     <IconButton aria-label="unlike-song" onClick={handleLike}>
-      <Stack>
-      <FavoriteIcon sx={{color: '#000'}}></FavoriteIcon>
-      {/* <Typography sx={{color: "#000"}} variant="subtitle2">{likes}</Typography> */}
+      <Stack direction='row'>
+        <Typography sx={{color: "#000", 'paddingRight':'0.5vh', 'alignItems': 'center', 'justifyContent': 'center' }} variant="subtitle2">{likes}</Typography>
+        <FavoriteIcon sx={{color: '#000'}}></FavoriteIcon>
       </Stack>
     </IconButton>
   )

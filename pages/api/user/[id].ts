@@ -6,7 +6,7 @@ const exampleResponse = {
     name: 'David Bowe',
     about_me: 'All about David Bowe...',
     email: 'email@email.com',
-    photoUrl: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
+    photo_url: 'https://ychef.files.bbci.co.uk/976x549/p01j3jyb.jpg',
   },
   songs: [ // public and private
     {
@@ -44,7 +44,6 @@ const exampleResponse = {
 
 export default async function getUser(req: any, res: any) {
   if (req.method === 'GET') {
-    // res.status(200).send(exampleResponse);
     const userId = Number(req.query.id);
 
     const retrieveUserInfo = `SELECT id, name, about_me, email, photo_url FROM users WHERE id = ${userId};`;

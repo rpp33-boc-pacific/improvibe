@@ -1,7 +1,10 @@
 import { useContext, useState } from 'react';
 import AppContext from '../../AppContext';
+import Image from 'next/image';
 import { Box } from '@mui/material';
+import { Container } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { Grid } from '@mui/material';
 import { Modal } from "@mui/material";
 import { Typography } from "@mui/material";
 import axios from 'axios';
@@ -21,7 +24,6 @@ const style = {
 const Photo = ({ photoUrl, handlePhotoUrlChange }) => {
 
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -43,7 +45,7 @@ const Photo = ({ photoUrl, handlePhotoUrlChange }) => {
         method: 'post',
         url: 'https://api.imgbb.com/1/upload?key=8a652fbb22ae8e9e354f46db711dad79',
         data: formData,
-      }).catch((error)=> {
+      }).catch((error) => {
         imgbbError = true;
       }).then((res) => {
         if (!imgbbError) {
@@ -54,36 +56,41 @@ const Photo = ({ photoUrl, handlePhotoUrlChange }) => {
         }
       });
     };
-
     if (file) {
       reader.readAsDataURL(file);
     }
   };
 
   return (
-    <div>
-      <img
-        alt='Profile picture'
-        src={photoUrl}
-        height={270}
-        width={270}
-        style={{ borderRadius: '90%' }}
-      />
-      <Box sx={{ marginLeft: '180px', marginTop: '20px' }}>
+    <Grid container direction='row'>
+      <Grid item container justifyContent='center' marginBottom='1vw'>
+        <Image
+          alt='Profile picture'
+          src={photoUrl}
+          height={270}
+          width={270}
+          style={{ borderRadius: '90%' }}
+        />
+      </Grid>
+      <Grid item container justifyContent='center'>
         <Typography onClick={handleOpen}><u>Upload image</u></Typography>
-      </Box>
-      <Modal
-        hideBackdrop
-        open={open}
-        onClose={handleClose}
-      >
-        <Box sx={style}>
-          <CloseIcon onClick={handleClose}/>
-            <input id='image-file' type='file' accept='image/*'></input>
+      </Grid>
+      <Modal hideBackdrop open={open} onClose={handleClose}>
+        <Grid container sx={style}>
+          <Grid sx='1'>
+            <CloseIcon onClick={handleClose} />
+          </Grid>
+          <Grid item='3'>
+            <Container>
+              <input id='image-file' type='file' accept='image/*'></input>
+            </Container>
+          </Grid>
+          <Grid item='1'>
             <button onClick={handleUpload}>Upload</button>
-        </Box>
+          </Grid>
+        </Grid>
       </Modal>
-    </div>
+    </Grid>
   );
 };
 

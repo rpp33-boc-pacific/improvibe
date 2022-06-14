@@ -8,8 +8,8 @@ import axios from 'axios';
 
 const Songs = ({ song }) => {
 
-  const [ publicState, setpublicState ] = useState(song.public);
-  const [ updateError, setUpdateError ] = useState(false);
+  const [publicState, setpublicState] = useState(song.public);
+  const [updateError, setUpdateError] = useState(false);
 
   const handleLockClick = () => {
     let err = false;
@@ -47,13 +47,16 @@ const Songs = ({ song }) => {
       return (
         <div>
           <Grid container sx={{ marginTop: '10px', backgroundColor: 'lightgray', padding: '10px 20px', borderRadius: '5px' }}>
-            <Grid item xs={11}>
-              <Box>
+            <Grid item xs={10}>
                 <Typography>{song.song_name}</Typography>
-              </Box>
             </Grid>
-            <Grid item xs={1}>
-              Try again public <LockOpen onClick={handleLockOpenClick} />
+            <Grid item container xs={2} justifyContent='flex-end'>
+              <Grid paddingRight='1vw'>
+                <Typography>try again public</Typography>
+              </Grid>
+              <Grid>
+                <LockOpen onClick={handleLockOpenClick} />
+              </Grid>
             </Grid>
           </Grid>
         </div>
@@ -62,13 +65,16 @@ const Songs = ({ song }) => {
       return (
         <div>
           <Grid container sx={{ marginTop: '10px', backgroundColor: 'lightgray', padding: '10px 20px', borderRadius: '5px' }}>
-            <Grid item xs={11}>
-              <Box>
-                <Typography>{song.song_name}</Typography>
-              </Box>
+            <Grid item xs={10}>
+              <Typography>{song.song_name}</Typography>
             </Grid>
-            <Grid item xs={1}>
-              public <LockOpen onClick={handleLockOpenClick} />
+            <Grid item container xs={2} justifyContent='flex-end'>
+              <Grid paddingRight='1vw'>
+                <Typography>public</Typography>
+              </Grid>
+              <Grid>
+                <LockOpen onClick={handleLockOpenClick} />
+              </Grid>
             </Grid>
           </Grid>
         </div>
@@ -79,11 +85,16 @@ const Songs = ({ song }) => {
       return (
         <div>
           <Grid container sx={{ marginTop: '10px', backgroundColor: 'lightgray', padding: '10px 20px', borderRadius: '5px' }}>
-            <Grid item xs={11}>
-                <Typography>{song.song_name}</Typography>
+            <Grid item xs={10}>
+              <Typography>{song.song_name}</Typography>
             </Grid>
-            <Grid item xs={1}>
-              Try again private<Lock onClick={handleLockClick} />
+            <Grid item container xs={2} justifyContent='flex-end'>
+              <Grid paddingRight='1vw'>
+                <Typography>try again private</Typography>
+              </Grid>
+              <Grid>
+                <Lock onClick={handleLockClick} />
+              </Grid>
             </Grid>
           </Grid>
         </div>
@@ -92,11 +103,16 @@ const Songs = ({ song }) => {
       return (
         <div>
           <Grid container sx={{ marginTop: '10px', backgroundColor: 'lightgray', padding: '10px 20px', borderRadius: '5px' }}>
-            <Grid item xs={11}>
-                <Typography>{song.song_name}</Typography>
+            <Grid item xs={10}>
+              <Typography>{song.song_name}</Typography>
             </Grid>
-            <Grid item xs={1}>
-              private<Lock onClick={handleLockClick} />
+            <Grid item container xs={2} justifyContent='flex-end'>
+              <Grid paddingRight='1vw'>
+                <Typography>private</Typography>
+              </Grid>
+              <Grid>
+                <Lock onClick={handleLockClick} />
+              </Grid>
             </Grid>
           </Grid>
         </div>

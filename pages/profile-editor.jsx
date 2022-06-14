@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { Box } from '@mui/material';
+import { Container } from '@mui/material';
 import { Grid } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Typography } from '@mui/material';
@@ -64,7 +65,7 @@ const ProfileEditor = (props) => {
         setName(res.data.user.name);
         setEmail(res.data.user.email);
         setAboutMe(res.data.user.about_me);
-        setPhotoUrl(res.data.user.photoUrl);
+        setPhotoUrl(res.data.user.photo_url);
         setSongs(res.data.songs);
       })
       .catch((err) => {
@@ -76,66 +77,66 @@ const ProfileEditor = (props) => {
     return (
       <div>
         <NavigationBar />
-        <Grid container spacing={1}>
-          <Grid item xs={3}>
-            <Box sx={{ marginLeft: '60px', marginTop: '40px' }}>
-              <Photo photoUrl={photoUrl || noPhotoUrl} handlePhotoUrlChange={handlePhotoUrlChange} />
-            </Box>
-          </Grid>
-          <Grid container item xs={9} sx={{ paddingRight: '60px', marginTop: '40px' }}>
-            <Grid item xs={9}>
-              <Typography sx={{ fontSize: '2.5vh', fontWeight: 'bold', marginLeft: '45px' }}>Edit Profile</Typography>
-            </Grid>
+        <Box maxWidth='100vw' paddingLeft='0' paddingRight='4vw' paddingTop='4vw' paddingBottom='4vw'>
+          <Grid container>
             <Grid item xs={3}>
-              <Typography onClick={handleSave}><u>Save Changes</u></Typography>
+              <Photo photoUrl={photoUrl || noPhotoUrl} handlePhotoUrlChange={handlePhotoUrlChange} />
             </Grid>
-            <Grid item xs={12}>
-              <Stack spacing={2} sx={{ marginLeft: '40px', marginTop: '40px' }}>
-                <TextField type='text' size={'small'} value={name} onChange={handleNameChange} />
-                <TextField type='email' size={'small'} value={email} onChange={handleEmailChange} />
-                <TextField type='password' size={'small'} placeholder='New password' value={password} onChange={handlePasswordChange} />
-                <TextField type='text' size={'small'} multiline value={aboutMe} onChange={handleAboutMeChange} />
-                <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>Songs ({songs.length})</Typography>
-                <Stack>
-                  {songs.map((song, index) => <Song key={index} song={song} />)}
+            <Grid container item xs={9} padding='0 4vw'>
+              <Grid item xs={10} paddingBottom='2vw'>
+                <Typography sx={{ fontSize: '2.5vh', fontWeight: 'bold' }}>Edit Profile</Typography>
+              </Grid>
+              <Grid container item xs={2} direction='row' justifyContent='flex-end' paddingBottom='2vw'>
+                <Typography onClick={handleSave}><u>Save Changes</u></Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Stack spacing={2}>
+                  <TextField type='text' size={'small'} value={name} onChange={handleNameChange} />
+                  <TextField type='email' size={'small'} value={email} onChange={handleEmailChange} />
+                  <TextField type='password' size={'small'} placeholder='New password' value={password} onChange={handlePasswordChange} />
+                  <TextField type='text' size={'small'} multiline value={aboutMe} onChange={handleAboutMeChange} />
+                  <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>Songs ({songs.length})</Typography>
+                  <Stack>
+                    {songs.map((song, index) => <Song key={index} song={song} />)}
+                  </Stack>
                 </Stack>
-              </Stack>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        </Box>
       </div>
     );
   } else {
     return (
       <div>
         <NavigationBar />
-        <Grid container spacing={1}>
-          <Grid item xs={3}>
-            <Box sx={{ marginLeft: '60px', marginTop: '40px' }}>
-              <Photo photoUrl={photoUrl || noPhotoUrl} handlePhotoUrlChange={handlePhotoUrlChange} />
-            </Box>
-          </Grid>
-          <Grid container item xs={9} sx={{ paddingRight: '60px', marginTop: '40px' }}>
-            <Grid item xs={9}>
-              <Typography sx={{ fontSize: '2.5vh', fontWeight: 'bold', marginLeft: '45px' }}>Edit Profile</Typography>
-            </Grid>
+        <Box maxWidth='100vw' paddingLeft='0' paddingRight='4vw' paddingTop='4vw' paddingBottom='4vw'>
+          <Grid container>
             <Grid item xs={3}>
-              Try again<Typography onClick={handleSave}><u>Save Changes</u></Typography>
+              <Photo photoUrl={photoUrl || noPhotoUrl} handlePhotoUrlChange={handlePhotoUrlChange} />
             </Grid>
-            <Grid item xs={12}>
-              <Stack spacing={2} sx={{ marginLeft: '40px', marginTop: '40px' }}>
-                <TextField type='text' size={'small'} value={name} onChange={handleNameChange} />
-                <TextField type='email' size={'small'} value={email} onChange={handleEmailChange} />
-                <TextField type='password' size={'small'} placeholder='New password' value={password} onChange={handlePasswordChange} />
-                <TextField type='text' size={'small'} multiline value={aboutMe} onChange={handleAboutMeChange} />
-                <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>Songs ({songs.length})</Typography>
-                <Stack>
-                  {songs.map((song, index) => <Song key={index} song={song} />)}
+            <Grid container item xs={9} padding='0 4vw'>
+              <Grid item xs={10} paddingBottom='2vw'>
+                <Typography sx={{ fontSize: '2.5vh', fontWeight: 'bold' }}>Edit Profile</Typography>
+              </Grid>
+              <Grid container item xs={2} direction='row' justifyContent='flex-end' paddingBottom='2vw'>
+                <Typography onClick={handleSave}><u>Save Changes (Try Again)</u></Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Stack spacing={2}>
+                  <TextField type='text' size={'small'} value={name} onChange={handleNameChange} />
+                  <TextField type='email' size={'small'} value={email} onChange={handleEmailChange} />
+                  <TextField type='password' size={'small'} placeholder='New password' value={password} onChange={handlePasswordChange} />
+                  <TextField type='text' size={'small'} multiline value={aboutMe} onChange={handleAboutMeChange} />
+                  <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>Songs ({songs.length})</Typography>
+                  <Stack>
+                    {songs.map((song, index) => <Song key={index} song={song} />)}
+                  </Stack>
                 </Stack>
-              </Stack>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        </Box>
       </div>
     );
   }

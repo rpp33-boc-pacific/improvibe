@@ -48,11 +48,7 @@ const Profile = (props) => {
               <Grid item container justifyContent='center'>
                 <Image
                   alt='Profile picture of the artist'
-<<<<<<< Updated upstream
-                  src={data.user.photoUrl || noPhotoUrl}
-=======
                   src={photoUrl || noPhotoUrl}
->>>>>>> Stashed changes
                   height={270}
                   width={270}
                   style={{ borderRadius: '90%' }}
@@ -74,15 +70,8 @@ const Profile = (props) => {
             <Grid item xs={12} paddingBottom='2vw'>
               <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>About Me</Typography>
             </Grid>
-<<<<<<< Updated upstream
-            <Grid item xs={12} sx={{ marginRight: '60px' }}>
-              <Box>
-                {data.user.about_me}
-              </Box>
-=======
             <Grid item xs={12} paddingBottom='2vw'>
               {aboutMe}
->>>>>>> Stashed changes
             </Grid>
             <Grid item xs={12} paddingBottom='2vw'>
               <Typography sx={{ fontSize: '2vh', fontWeight: 'bold' }}>My Songs {songs.length}</Typography>

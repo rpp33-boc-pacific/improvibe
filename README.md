@@ -1,7 +1,7 @@
 # Improvibe
 [![rpp33-boc-pacific](https://circleci.com/gh/rpp33-boc-pacific/improvibe.svg?style=svg)](https://app.circleci.com/pipelines/github/rpp33-boc-pacific/improvibe)
 
-[![improvibe](https://im2.ezgif.com/tmp/ezgif-2-d244b298d9.gif "improvibe")](https://im2.ezgif.com/tmp/ezgif-2-d244b298d9.gif)
+[![improvibe](https://i.ibb.co/6vWMBj5/ezgif-com-gif-maker.gif "improvibe")](https://i.ibb.co/6vWMBj5/ezgif-com-gif-maker.gif)
 
 
 

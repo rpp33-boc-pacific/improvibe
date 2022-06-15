@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS improvibe;
+
 CREATE DATABASE improvibe;
 
 \c improvibe;
@@ -5,11 +7,8 @@ CREATE DATABASE improvibe;
 DROP TABLE IF EXISTS project_hashtag;
 DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS layers;
-DROP TABLE IF EXISTS hashtags;
-DROP TABLE IF EXISTS senres;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS projects;
-DROP TABLE IF EXISTS tracks;
 DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS past_searches;

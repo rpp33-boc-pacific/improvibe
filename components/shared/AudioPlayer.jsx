@@ -30,7 +30,7 @@ const AudioPlayer = ({ song, user, color, customStyle }) => {
     color: 'white',
     height: '275px',
     width: '100%',
-    bgcolor: '#333',
+    bgcolor: '#3A0CA3',
     // bgcolor: '#F1F3F4',
     border: '1px solid #000',
     p: 4,

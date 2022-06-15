@@ -38,7 +38,7 @@ export default function ShareButton({songURL, shares}: any) {
   return (
     <div>
       <IconButton aria-label="unlike-song" onClick={handleOpen}>
-        <Stack direction='row' spacing={1} alignItems='center' width='5vh'>
+        <Stack direction='row' spacing={1} alignItems='center' width='4vh'>
           <Typography sx={{ color: '#000' }} variant="subtitle2">{totalShares}</Typography>
           <ShareIcon sx={{ color: '#000' }}></ShareIcon>
         </Stack>

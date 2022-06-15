@@ -30,7 +30,7 @@ const LikeButton = ({ song, user, color, likes, liked, setLiked, setLikes }) => 
   return (
     liked === false ?
     <IconButton aria-label="like-song" onClick={handleLike}>
-      <Stack direction='row'>
+      <Stack direction='row' width='4vh'>
         <Typography sx={{color: "#000", 'paddingRight':'0.5vh', 'alignItems': 'center', 'justifyContent': 'center' }} variant="subtitle2">{likes}</Typography>
         <FavoriteBorderIcon sx={{color: '#000'}}></FavoriteBorderIcon>
       </Stack>
@@ -38,7 +38,7 @@ const LikeButton = ({ song, user, color, likes, liked, setLiked, setLikes }) => 
     </IconButton>
     :
     <IconButton aria-label="unlike-song" onClick={handleLike}>
-      <Stack direction='row' width='5vh'>
+      <Stack direction='row' width='4vh'>
         <Typography sx={{color: "#000", 'paddingRight':'0.5vh', 'alignItems': 'center', 'justifyContent': 'center' }} variant="subtitle2">{likes}</Typography>
         <FavoriteIcon sx={{color: '#000'}}></FavoriteIcon>
       </Stack>

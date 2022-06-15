@@ -16,9 +16,9 @@ Improvibe is a collaborative space for artists to create, explore and share musi
 
 [Search](https://i.ibb.co/WWpdc0C/search.png) - allows user to search artist, song name and genre
 
-[Profile](https://i.ibb.co/mT0yY7n/profile.png) - Displays info about the user, and offers signed-in user the ability to edit their profile
+[Profile](https://i.ibb.co/mT0yY7n/profile.png) - displays info about the user, and offers signed-in user the ability to edit their profile
 
-[Project Editor](https://i.ibb.co/BK5FLng/audio-editor.png)  - Allows the user to upload new tracks and make adjustments to the audio
+[Project Editor](https://i.ibb.co/BK5FLng/audio-editor.png)  - allows the user to upload new tracks and make adjustments to the audio
 
 ## Technologies
 [PostgreSQL](https://www.postgresql.org/)<br>

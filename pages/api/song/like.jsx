@@ -1,4 +1,4 @@
-import client from '../../../sql/db';
+import pool from '../../../sql/db';
 
 export default function likeSong(req, res) {
   // const song = 15;
@@ -12,19 +12,25 @@ export default function likeSong(req, res) {
     //POST request
     //Add like
     // INSERT INTO likes (user_id, song_id) VALUES(${user}, ${song});
-      client.query(`INSERT INTO likes (user_id, song_id) VALUES(${user}, ${song}) RETURNING id;`)
-      client.query(`UPDATE projects SET likes = likes + 1 WHERE id=${song} RETURNING likes;`)
-      .then((data)=> {
-        res.send(data.rows.likes);
+    console.log(user)
+    pool.query(`INSERT INTO likes (user_id, song_id) VALUES (${user.id}, ${song}) RETURNING id`)
+      .then((data) => {
+        pool.query(`UPDATE projects SET likes = likes + 1 WHERE id=${song} RETURNING likes`)
+        .then((data)=> {
+          res.send(data.rows[0].likes);
+        })
+      })
+      .catch((error) => {
+        console.log(error);
       })
   } else {
     //DELETE request
     //Remove like
-    client.query(`DELETE from likes WHERE user_id=${user}`)
+    pool.query(`DELETE from likes WHERE user_id=${user}`)
     .then((data) => {
       console.log('Like removed for user');
       //Decrement aggregate likes
-      client.query(`UPDATE projects SET likes = likes - 1 WHERE id=${song} RETURNING likes;`)
+      pool.query(`UPDATE projects SET likes = likes - 1 WHERE id=${song} RETURNING likes;`)
       .then((data) => {
         res.send(data.rows.likes)
       })

@@ -1,24 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Improvibe
+[![rpp33-boc-pacific](https://circleci.com/gh/rpp33-boc-pacific/improvibe.svg?style=svg)](https://app.circleci.com/pipelines/github/rpp33-boc-pacific/improvibe)
 
-## Getting Started
+[![improvibe](https://im2.ezgif.com/tmp/ezgif-2-d244b298d9.gif "improvibe")](https://im2.ezgif.com/tmp/ezgif-2-d244b298d9.gif)
 
-First, run the development server:
 
-```bash
+
+## Description
+Improvibe is a collaborative space for artists to create, explore and share music. *Ellaborate more here?*
+## Features
+<!---
+#### User Authentication
+[![improvibe](https://i.ibb.co/XpGc6Fj/authentication.png "authentication")](https://i.ibb.co/XpGc6Fj/authentication.png)
+
+#### Explorer Page
+[![improvibe](https://i.ibb.co/ygvV5CG/Screen-Shot-2022-06-15-at-4-54-02-PM.png "home page")](http://ec2-3-89-242-183.compute-1.amazonaws.com/)
+
+#### Project Editor
+[![improvibe](https://i.ibb.co/BK5FLng/audio-editor.png "editor")](https://i.ibb.co/BK5FLng/audio-editor.png)
+--->
+User Authentication
+
+Explorer Page
+
+Audio Player
+
+Artist Profile
+
+Project Editor
+
+## Technologies
+[PostgreSQL](https://www.postgresql.org/)<br>
+[Next.js](https://nextjs.org/) <br>
+[Material UI](https://mui.com/) <br>
+[wavesurfer.js](https://wavesurfer-js.org/)<br>
+[crunker](https://github.com/jaggad/crunker)
+
+
+## Installation and Usage
+#### Prerequisites - [Node.js](https://nodejs.org/en/), [npm](https://www.npmjs.com/) and [PostgreSQL](https://www.postgresql.org/)
+
+1. Navigate to project root directory
+2. Install dependencies
+```
+npm install
+```
+3. Start local server
+```
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Start local database
+```
+psql postgres
+```
+5. Run project schema to create database
+```
+\i [path to project]/improvibe/sqlpostgres-schema.sql
+```
+6. Index columns
+```
+\i [path to project]/improvibe/sqlpostgres-schema.sql
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributers
+Alysha Gilliard - authentication and product owner <br>
+Bhrigu Joshi - aome page<br>
+Caitlin Winters - audio player and UI owner<br>
+J.P. Doyle - profile <br>
+Jakob Truong -  search and navigation<br>
+Jeff Sparrow - audio editor<br>
+Joe Casey - audio editor and architect owner<br>

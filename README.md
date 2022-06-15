@@ -8,25 +8,17 @@
 ## Description
 Improvibe is a collaborative space for artists to create, explore and share music. *Ellaborate more here?*
 ## Features
-<!---
-#### User Authentication
-[![improvibe](https://i.ibb.co/XpGc6Fj/authentication.png "authentication")](https://i.ibb.co/XpGc6Fj/authentication.png)
+[User Authentication](https://i.ibb.co/XpGc6Fj/authentication.png) - sign-up, log-in and log-out
 
-#### Explorer Page
-[![improvibe](https://i.ibb.co/ygvV5CG/Screen-Shot-2022-06-15-at-4-54-02-PM.png "home page")](http://ec2-3-89-242-183.compute-1.amazonaws.com/)
+[Explorer Page](https://i.ibb.co/ygvV5CG/Screen-Shot-2022-06-15-at-4-54-02-PM.png) -  song tiles categorized and displayed in a carousel format
 
-#### Project Editor
-[![improvibe](https://i.ibb.co/BK5FLng/audio-editor.png "editor")](https://i.ibb.co/BK5FLng/audio-editor.png)
---->
-User Authentication
+[Audio Player](https://i.ibb.co/d0Xgkgc/Screen-Shot-2022-06-15-at-7-56-51-PM.png) - pop-up modal that plays current song
 
-Explorer Page
+[Search](https://i.ibb.co/WWpdc0C/search.png) - allows user to search artist, song name and genre
 
-Audio Player
+[Profile](https://i.ibb.co/mT0yY7n/profile.png) - Displays info about the user, and offers signed-in user the ability to edit their profile
 
-Artist Profile
-
-Project Editor
+[Project Editor](https://i.ibb.co/BK5FLng/audio-editor.png)  - Allows the user to upload new tracks and make adjustments to the audio
 
 ## Technologies
 [PostgreSQL](https://www.postgresql.org/)<br>

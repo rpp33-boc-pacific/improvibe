@@ -15,7 +15,6 @@ const SongTile = ({song, user, color}) => {
   const router = useRouter();
   const [liked, setLiked] = useState(song.liked)
   const [likes, setLikes] = useState(song.cummulative_likes)
-  console.log(song);
 
   const imageStyle = {
     'border-style': 'solid',

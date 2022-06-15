@@ -9,7 +9,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
 
 const LikeButton = ({ song, user, color, likes, liked, setLiked, setLikes }) => {
-  console.log('likes', likes)
   const handleLike = () => {
     setLiked(!liked);
     if (liked) {
@@ -17,9 +16,9 @@ const LikeButton = ({ song, user, color, likes, liked, setLiked, setLikes }) => 
     } else {
       setLikes(likes + 1);
     }
-    axios.put('api/song/like', {song, user, liked})
+    axios.put('/api/song/like', {song, user, liked})
     .then((res) => {
-
+      console.log('liked song');
     })
     .catch((err) => {
       alert('Unable to update like');

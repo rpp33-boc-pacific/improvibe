@@ -12,7 +12,7 @@ export default function likeSong(req, res) {
     //POST request
     //Add like
     // INSERT INTO likes (user_id, song_id) VALUES(${user}, ${song});
-    console.log(user)
+    console.log(user, song)
     pool.query(`INSERT INTO likes (user_id, song_id) VALUES (${user.id}, ${song}) RETURNING id`)
       .then((data) => {
         pool.query(`UPDATE projects SET likes = likes + 1 WHERE id=${song} RETURNING likes`)

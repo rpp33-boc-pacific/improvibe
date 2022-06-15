@@ -72,7 +72,7 @@ export default function SongResult({ song, user }: any) {
           </Stack>
           <Stack direction='row' justifyContent='flex-end' alignItems='center'>
             <ShareButton songURL={song.song_path} shares={song.shares}/>
-            <LikeButton song={song} user={user.user.id} likes={likes} liked={liked} setLiked={setLiked} setLikes={setLikes} color='#000'/>
+            <LikeButton song={song} user={user.user} likes={likes} liked={liked} setLiked={setLiked} setLikes={setLikes} color='#000'/>
             <Player song={song} user={user.user.id} customStyle={{ paddingRight: '0', width: '5vh' }} color='#000'/>
           </Stack>
         </CardContent>

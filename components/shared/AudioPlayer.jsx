@@ -28,7 +28,7 @@ const AudioPlayer = ({ song, user, color, customStyle }) => {
     position: 'absolute',
     bottom: '0%',
     color: 'white',
-    height: '350px',
+    height: '275px',
     width: '100%',
     bgcolor: '#333',
     // bgcolor: '#F1F3F4',
@@ -36,12 +36,23 @@ const AudioPlayer = ({ song, user, color, customStyle }) => {
     p: 4,
   };
 
+  const imageStyle = {
+    'border-style': 'solid',
+    'width': '10vh',
+    'height': '10vh',
+    'border-radius': '10px',
+    'border-width': '1px',
+  }
+
+  const photoUrl = song.photo_url || 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif';
 
   const ProfileImage = () => {
     return (
-      <Image src={song.photo_url || 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif'} alt="artist-profile-picture" objectFit={"cover"} layout={"fixed"}width="125px" height="125px"/>
-      )
-    }
+      <div className='image-card-audio' >
+        <Image src={song.photo_url} style={imageStyle} alt="artist-profile-picture" objectFit={"cover"} layout={"responsive"} sizes="10vh" width="10h" height="10vh" />
+      </div>
+    )
+  }
   const [liked, updateLiked] = useState(song.liked);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -66,46 +77,34 @@ const AudioPlayer = ({ song, user, color, customStyle }) => {
           hideBackdrop
           open={open}
           onClose={handleClose}>
-          <Box sx={style}>
-            <Grid container sx={{height: "20px"}}>
-              <Grid item xs={10.5}></Grid>
-              <Grid item xs={1}>
-              <LikeButton color={color} song={song} user={user} liked={liked} updateLiked={updateLiked} />
-              </Grid>
-            </Grid>
-            <Grid container direction="row" spacing={2} sx={{paddingBottom: '.5em', paddingTop: '1em'}}>
-              <Grid item xs={1.5}>
-              <Link href="./profile">
-                <div style={{borderRadius:"8px", overflow: "hidden", width:"125px"}}>
-                  <ProfileImage></ProfileImage>
+            <Box sx={style}>
+              <Stack direction='column' spacing={2}>
+                <Stack direction='row' justifyContent='space-between'>
+                  <Stack direction='row' spacing={5}>
+                    <Link href="./profile">
+                    <div style={{ width:"8vh", height: '8vh'}}>
+                      <ProfileImage></ProfileImage>
+                    </div>
+                    </Link>
+                    <Stack direction='column'>
+                      <Typography variant="h4"sx={{color: style.color}}>{song.song_name}</Typography>
+                      <Link href="./profile" sx={{color: style.color}}>{song.artist_name}</Link>
+                    </Stack>
+                  </Stack>
+                  <AddToProjects song={song} user={user} color={color}/>
+                </Stack>
+                <div style={{ paddingTop: "2em" }}>
+                  <audio controls src={song.song_path} style={{width: "100%", textAlign:"center"}}></audio>
                 </div>
-              </Link>
-              </Grid>
-              <Grid item xs={10} sx={{paddingBotton: ".5em"}}>
-                <Typography variant="h4"sx={{color: style.color}}>{song.song_name}</Typography>
-                <Link href="./profile" sx={{color: style.color}}>{song.artist_name}</Link>
-                <div style={{paddingTop: "2em", paddingLeft: "1.5em"}}>
-                <audio controls src={song.song_path} style={{width: "100%", textAlign:"center"}}></audio>
-              </div>
-              </Grid>
-            </Grid>
-            <Grid container spacing={5} sx={{paddingTop: '.5em'}}>
-              <Grid item xs={8}>
-                <Typography sx={{color: style.color, textAlign:"center"}}>
-                      #{song.genre},  fresh,  popular
-                  </Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <AddToProjects song={song} user={user} color={color}/>
-              </Grid>
-            </Grid>
-            <IconButton
-              aria-label="close-player-modal"
-              sx={{color: style.color, position: 'absolute', top: '2%', right: '1%'}}
-              onClick={handleClose}>
-                <CloseIcon></CloseIcon>
-            </IconButton>
-          </Box>
+              </Stack>
+
+              <IconButton
+                aria-label="close-player-modal"
+                sx={{color: style.color, position: 'absolute', top: '2%', right: '1%'}}
+                onClick={handleClose}>
+                  <CloseIcon></CloseIcon>
+              </IconButton>
+            </Box>
         </Modal>
       </div>
     );

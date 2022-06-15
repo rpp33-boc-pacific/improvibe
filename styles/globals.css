@@ -170,7 +170,7 @@ a {
   padding-left: 16px;
 }
 
-.song-name, .layer-name {
+.song-name-editor, .layer-name {
   border: 0;
   outline: 0;
   font-size: 2vh;
@@ -178,6 +178,8 @@ a {
   font-weight: bold;
   background: transparent;
 }
+
+
 
 .layer-name {
   font-size: 1.8vh;
@@ -297,4 +299,43 @@ a {
   display: flex;
   flex-direction: row;
   padding-right: 2vh;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #2877cc;
+}
+
+/* audio::-webkit-media-controls-current-time-display {
+  color: #fff;
+}
+
+audio::-webkit-media-controls-time-remaining-display {
+  color: #fff;
+}
+
+audio::-webkit-media-controls-play-button {
+  color: #fff;
+}
+
+audio::-webkit-media-controls-mute-button {
+  color: #fff;
+} */
+
+.image-card-audio {
+  width: 10vh;
+  height: 10vh;
+}
+
+.empty-editor-card {
+  height: 20vh;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 6px;
+  border-color: #D3D3D3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 2vh;
+  align-items: center;
+  padding-left: 16px;
 }

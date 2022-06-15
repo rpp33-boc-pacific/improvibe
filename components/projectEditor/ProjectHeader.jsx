@@ -43,7 +43,7 @@ function ProjectHeader() {
         justifyContent="flex-start"
         alignItems="center">
           <PlayProject />
-          <input className='song-name' value={value} onInput={handleChange}></input>
+          <input className='song-name-editor' value={value} onInput={handleChange}></input>
         </Grid>
       </div>
       <div>

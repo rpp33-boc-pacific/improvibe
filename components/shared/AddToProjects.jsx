@@ -8,31 +8,21 @@ const AddToProjects = ({ song, user, color}) => {
   const [inProjects, addToProjects] = useState(false);
 
  const handleAddToProjects = () => {
-   addToProjects(!inProjects);
-  //  axios.post('api/song/add-to-projects', {song, user})
-  //  .then((result) => {
-  //    addToProjects(true);
-  //  })
-  //  .catch((err) => {
-  //    console.log('Error:', err)
-  //  })
+   axios.post('/api/song/add-to-projects', {song, user})
+   .then((result) => {
+     addToProjects(true);
+   })
+   .catch((err) => {
+     console.log('Error:', err)
+   })
  }
-
-//  useEffect(() => {
-//   axios.get(`api/song/in-projects/${user}?songId=${song.song_id}`)
-//   .then((data) => {
-//     if (data.length > 0 ) {
-//       addToProjects(true);
-//     }
-//   })
-//  })
 
   return (
     inProjects === false ?
     <Button
       aria-label="add-project"
       onClick={() => {handleAddToProjects()}}
-      sx={{color: color}}
+      sx={{color: '#fff'}}
       startIcon={<AddCircleIcon></AddCircleIcon>}>
         Add To Projects
     </Button>
@@ -40,7 +30,7 @@ const AddToProjects = ({ song, user, color}) => {
     <>
     <Button
       onClick={() => {}}
-      sx={{color: color}}>
+      sx={{color: '#fff' }}>
         In Your Projects
     </Button>
     </>

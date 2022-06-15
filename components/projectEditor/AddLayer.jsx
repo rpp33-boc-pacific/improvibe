@@ -104,9 +104,11 @@ function AddLayer() {
     setSelectedFile(null);
   };
 
+  const buttonLabel = (layers.length === 0) ? 'Get Started' : 'Add Layer';
+
   return (
     <div className='add-layer-holder'>
-      <Button variant="contained" onClick={handleOpen} sx={{ width: '10vw', height: '4vh', fontSize: '1.5vh'}}>Add Layer</Button>
+      <Button variant="contained" onClick={handleOpen} sx={{ width: '10vw', height: '4vh', fontSize: '1.5vh'}}>{buttonLabel}</Button>
         <Modal
           open={open}
           onClose={handleClose}

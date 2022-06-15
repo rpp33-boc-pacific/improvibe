@@ -18,40 +18,17 @@ const HorizontalCarousel = (props) => {
   const { user } = useContext(AppContext); //the user will come from the AppContext
   let userId = user.id;
 
-  // useEffect(() => {
-  //   // The songs will come from the api call
-  //   axios.get('api/songs/most')
-  //   .then((response) => {
-  //     setSongs(response.data);
-  //     setLoading(false);
-  //   })
-  //   .catch((err) => {
-  //     console.log('Error:', err);
-  //   })
-  // })
-
-  // if (props.songs) {
-  //   setLoading(false);
-  // }
-
-
   return (
-    // isLoading === true ? <>Loading...</> :
     <>
-      {/* <hr /> */}
-      <Typography sx={{ mt: 0, mb: 2 , pl: 7}} variant="h6" component="div" textAlign = 'left'>
-            {props.genre} Songs
-      </Typography>
+      <div className='home-category-labels'>{props.genre} Songs</div>
       <Splide
-        // ref={ref}
         options={{
           rewind: false,
-          perPage: 4,
+          perPage: 5,
           perMove: 1,
           gap: '1px',
           padding: '1',
-          // border: '2em',
-          heightRatio: 0.225,
+          heightRatio: 0.17,
           pagination: false,
           width: '100%',
           backgroundColor: '#1976d2'

@@ -8,52 +8,55 @@ import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 const SongTile = ({song, user, color}) => {
-  // user = user.id
-  user = 3;
-  // console.log('the song', song);
-
+  const router = useRouter();
   const [liked, setLiked] = useState(song.liked)
-  const [likes, setLikes] = useState(song.cumulative_likes)
+  const [likes, setLikes] = useState(song.cummulative_likes)
 
-  // useEffect(() => {
-  //   setLiked(!liked)
-  //   // axios.get(`api/song/liked-by-current-user/${user}?songId=${song.song_id}`)
-  //   // .then((likeStatus) => {
-  //   //   if(likeStatus.length === 0) {
-  //   //     setLiked(false);
-  //   //   } else {
-  //   //     setLiked(true);
-  //   //   }
-  //   // })
-  //   .catch((err) => {
-  //     console.log('Error:', err)
-  //   })
-  // }, [])
+  const imageStyle = {
+    'border-style': 'solid',
+    'width': '18vh',
+    'height': '18vh',
+    'border-radius': '10px',
+    'border-width': '1px',
+  }
+
+  const photoUrl = song.photo_url || 'https://artscimedia.case.edu/wp-content/uploads/sites/79/2016/12/14205134/no-user-image.gif';
 
   const ProfileImage = () => {
     return (
-      <Image src={song.photo_url} alt="artist-profile-picture" objectFit={"cover"} layout={"fixed"} width="75px" height="75px"/>
+      <div className='image-card' >
+        <Image src={photoUrl} style={imageStyle} alt="artist-profile-picture" objectFit={"cover"} layout={"responsive"} sizes="18vh" width="18h" height="18vh" />
+      </div>
     )
   }
 
+  const songClicked = () => {
+    router.push(`projects/${song.song_id}`);
+  };
+
+  const artistClicked = () => {
+    router.push(`profiles/${song.artist_id}`);
+  };
+
   return(
     <SongTileContext.Provider value={{liked, setLiked, likes, setLikes}}>
-      <Card sx={{ width: 200, height: 200, padding: "1em", marginLeft:"4em" }}>
-        <Stack direction="row">
-          <ProfileImage></ProfileImage>
-          <Stack sx={{textAlign: "right", paddingLeft: ".5em"}}>
-            <Typography variant="subtitle1">{song.song_name}</Typography>
-            <Typography variant="caption">{song.artist_name}</Typography>
-          </Stack>
-        </Stack>
-        <Stack direction="row" spacing={8}>
-          <AudioPlayer color={color} song={song} user={user}/>
-          <LikeButton color={'#757575'} song={song} user={user} liked={liked}/>
-        </Stack>
-      </Card>
+      <div className='song-card'>
+        <ProfileImage></ProfileImage>
+        <div className='song-tile-info-holder'>
+          <div className='song-tile-info'>
+            <div className='song-name' onClick={songClicked}>{song.song_name}</div>
+            <div className='song-artist' onClick={artistClicked}>{song.artist_name}</div>
+          </div>
+          <div className='song-tile-buttons'>
+            <LikeButton color={'#757575'} song={song} user={user} likes={likes} liked={liked} setLiked={setLiked} setLikes={setLikes} padding={1}/>
+            <AudioPlayer song={song} user={user} padding={1} customStyle={{ paddingRight: '0' }} color='#000'/>
+          </div>
+        </div>
+      </div>
     </SongTileContext.Provider>
   )
 };

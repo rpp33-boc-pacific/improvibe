@@ -108,35 +108,35 @@ const Query: NextPage = (props: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavigationBar/>
-      <CardContent sx={{display: 'flex', flexDirection: 'row-reverse', mr: "200px", padding:0}}>
+      <CardContent sx={{display: 'flex', flexDirection: 'row-reverse', mr: '20%', mt:'4vh', padding:0}}>
         <SortSelect sortParam={sortParam} setSortParam={setSortParam} menuItems={menuItems}/>
         <QueryTypeSelect queryTypeParam={queryTypeParam} setQueryTypeParam={setQueryTypeParam}/>
       </CardContent>
       {loadedData[0] === 'Not Loaded' ?
-      <Grid container spacing={1} direction="column">
+      <Grid container spacing={2} direction="column">
         <Grid item xs={12}>
-          <Skeleton variant="text" animation="wave" height={30} width="25%" sx={{ margin: 0, ml: '100px'}}/>
+          <Skeleton variant="text" animation="wave" height={30} width="25%" sx={{ margin: 0, ml: '15%'}}/>
         </Grid>
         <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '100px', mr: '100px'}}/>
+          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '15%', mr: '15%'}}/>
         </Grid>
         <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '100px', mr: '100px'}}/>
+          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '15%', mr: '15%'}}/>
         </Grid>
         <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '100px', mr: '100px'}}/>
+          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '15%', mr: '15%'}}/>
         </Grid>
         <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '100px', mr: '100px'}}/>
+          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '15%', mr: '15%'}}/>
         </Grid>
         <Grid item xs={12}>
-          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '100px', mr: '100px'}}/>
+          <Skeleton variant="rectangular" height={150} animation="wave" sx={{ margin: 0, ml: '15%', mr: '15%'}}/>
         </Grid>
       </Grid>
       :
-      <Grid container spacing={1} direction="column">
+      <Grid container spacing={2} direction="column">
         <Grid item xs={12}>
-          <Item>Showing {loadedData.length} results</Item>
+          <Item sx={{ ml: '15%'}}>Showing {loadedData.length} results</Item>
         </Grid>
         {/* <Grid item xs={12}>
             <SongResult song={songProp} user={props}/>

@@ -179,7 +179,7 @@ export default function NavigationBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }} role='navigation-bar'>
-      <AppBar position="static">
+      <AppBar style={{ background: '#3A0CA3' }} position="static">
         <Toolbar>
           <Typography
             variant="h6"

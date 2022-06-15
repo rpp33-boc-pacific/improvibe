@@ -91,7 +91,7 @@ const saveSong = (context, user, Crunker, projectId, window) => {
             genre,
             likes: 0,
             shares: 0,
-            publicStatus: false,
+            publicStatus: true,
             user_id: user_id,
             searched: 0,
             total_time: 250,

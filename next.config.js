@@ -4,12 +4,15 @@ const nextConfig = {
   images: {
     domains: [
       'artscimedia.case.edu',
+      'images.pexels.com',
+      'ibb.co',
       'i.ibb.co',
       'image.shutterstock.com',
       'footdistrict.com',
-      'images.unsplash.com',
+      'unsplash.com',
       'ychef.files.bbci.co.uk',
-      'www.shutterstock.com'
+      'www.shutterstock.com',
+
     ],
   }
 }

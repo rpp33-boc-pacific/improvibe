@@ -1,47 +1,45 @@
-import client from '../../../sql/db';
+import pool from '../../../sql/db';
 
 export default function addProject(req, res) {
   const projectId = req.body.song.song_id
-  const userId = req.body.user;
+  const userId = req.body.user.id;
 
-  client.query(`SELECT * FROM projects WHERE id=${projectId};`)
+  pool.query(`SELECT * FROM projects WHERE id=${projectId}`)
   .then((data) => {
-    let id = data.rows[0].id;
     let name = data.rows[0].name;
     let genre = data.rows[0].genre;
-    let likes = data.rows[0].likes;
-    let shares = data.rows[0].shares;
+    let likes = 0;
+    let shares = 0;
+    let publicStatus = false;
     let user_id = userId;
-    let searched = data.rows[0].searched;
+    let searched = 0;
     let total_time = data.rows[0].total_time;
     let song_path = data.rows[0].song_path;
-    console.log('the data', data.rows);
+    let date_created = Date.now();
 
-    client.query(`INSERT INTO projects (name, genre, likes, shares, user_id, searched, total_time, song_path, date_created) VALUES('${name}', ${genre}, ${likes}, ${shares}, ${user_id}, ${searched}, ${total_time}, '${song_path}', NOW()) RETURNING id;`)
+    pool.query(`INSERT INTO projects (name, genre, likes, shares, public, user_id, searched, total_time, song_path, date_created) VALUES ('${name}', '${genre}', ${likes}, ${shares}, ${publicStatus}, ${user_id}, ${searched}, ${total_time}, '${song_path}', ${date_created}) RETURNING id`)
     .then((projectIdData) => {
       const newProjectId = projectIdData.rows[0].id
-
-      client.query(`SELECT * FROM layers WHERE l.project_id=${projectId};`)
+      pool.query(`SELECT * FROM layers WHERE project_id=${projectId}`)
       .then((layerData) => {
         const layers = layerData.rows
-        console.log('the layers', layers);
         if (layers.length) {
           layers.forEach((layer) => {
-              const trackPath = layer.track_path
-              const layerName = layer.name;
-              const trackTime = layer.track_time;
-              const shares = layer.shares;
+              const track_path = layer.track_path
+              const name = layer.name;
+              const track_time = layer.track_time;
+              const shares = 0;
               //newProjectId already declared
-              const searched = layer.searched;
+              const searched = 0;
               const tempo = layer.tempo;
               const pitch = layer.pitch;
               const volume = layer.volume;
-              const startTime = layer.start_time;
-              const trimStart = layer.trim_start;
-              const trimEnd = layer.trim_end;
+              const start_time = layer.start_time;
+              const trim_start = layer.trim_start;
+              const trim_end = layer.trim_end;
               const loop = layer.loop;
               //insert layer information
-              client.query(`INSERT INTO layers (name, track_time, track_path, shares, project_id, searched, tempo, pitch, volume, start_time, trim_start, trim_end, loop) VALUES('${layerName}', ${trackTime}, ${trackPath}, ${shares}, ${newProjectId}, ${searched}, ${tempo}, ${pitch}, ${volume}, ${startTime}, ${trimStart}, ${trimEnd}, ${loop})`)
+              pool.query(`INSERT INTO layers (name, track_time, track_path, shares, project_id, searched, tempo, pitch, volume, start_time, trim_start, trim_end, loop) VALUES ('${name}', ${track_time}, '${track_path}', ${shares}, ${newProjectId}, ${searched}, ${tempo}, ${pitch}, ${volume}, ${start_time}, ${trim_start}, ${trim_end}, ${loop})`)
             .catch((err) => {
               console.log('Error inserting track:', err);
             })
@@ -57,21 +55,3 @@ export default function addProject(req, res) {
     console.log('Error getting project data from db:', err);
   })
 };
-
-
-// CREATE TABLE layers (
-//   id serial,
-//   name varchar,
-//   track_time integer,
-//   track_path varchar,
-//   shares integer,
-//   project_id integer,
-//   searched integer,
-//   tempo decimal,
-//   pitch decimal,
-//   volume decimal,
-//   start_time integer,
-//   trim_start integer,
-//   trim_end integer,
-//   loop boolean
-// );

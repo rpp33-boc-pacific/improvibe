@@ -8,14 +8,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
 
-const LikeButton = ({ song, user, color }) => {
-
-  const context = useContext(SongTileContext);
-  let liked = context.liked;
-  let setLiked = context.setLiked;
-  let likes = context.likes;
-  let setLikes = context.setLikes
-
+const LikeButton = ({ song, user, color, likes, liked, setLiked, setLikes }) => {
   const handleLike = () => {
     setLiked(!liked);
     if (liked) {
@@ -23,9 +16,9 @@ const LikeButton = ({ song, user, color }) => {
     } else {
       setLikes(likes + 1);
     }
-    axios.put('api/song/like', {song, user, liked})
+    axios.put('/api/song/like', {song, user, liked})
     .then((res) => {
-
+      console.log('liked song');
     })
     .catch((err) => {
       alert('Unable to update like');
@@ -36,17 +29,17 @@ const LikeButton = ({ song, user, color }) => {
   return (
     liked === false ?
     <IconButton aria-label="like-song" onClick={handleLike}>
-      <Stack>
-      <FavoriteBorderIcon sx={{color: '#e8554a'}}></FavoriteBorderIcon>
-      <Typography sx={{color: "#e8554a"}} variant="subtitle2">{likes}</Typography>
+      <Stack direction='row' width='4vh'>
+        <Typography sx={{color: "#000", 'paddingRight':'0.5vh', 'alignItems': 'center', 'justifyContent': 'center' }} variant="subtitle2">{likes}</Typography>
+        <FavoriteBorderIcon sx={{color: '#000'}}></FavoriteBorderIcon>
       </Stack>
 
     </IconButton>
     :
     <IconButton aria-label="unlike-song" onClick={handleLike}>
-      <Stack>
-      <FavoriteIcon sx={{color: '#e8554a'}}></FavoriteIcon>
-      <Typography sx={{color: "#e8554a"}} variant="subtitle2">{likes}</Typography>
+      <Stack direction='row' width='4vh'>
+        <Typography sx={{color: "#000", 'paddingRight':'0.5vh', 'alignItems': 'center', 'justifyContent': 'center' }} variant="subtitle2">{likes}</Typography>
+        <FavoriteIcon sx={{color: '#000'}}></FavoriteIcon>
       </Stack>
     </IconButton>
   )

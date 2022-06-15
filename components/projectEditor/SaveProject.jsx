@@ -44,8 +44,8 @@ export default function SaveProject() {
           }
         })
       }}
-      variant="contained"
-      sx={{ width: '5vw', height: '4vh', fontSize: '1.5vh'}}
+      variant="outlined"
+      sx={{ width: '5vw', height: '4vh', fontSize: '1.5vh' }}
       >Save</Button>
     </ProjectContext.Provider>
   );

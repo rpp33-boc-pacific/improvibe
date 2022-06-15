@@ -22,7 +22,7 @@ import dynamic from 'next/dynamic';
 // const Player = dynamic(() => import('react-h5-audio-player'))
 
 
-const AudioPlayer = ({ song, user, color }) => {
+const AudioPlayer = ({ song, user, color, customStyle }) => {
 
   const style = {
     position: 'absolute',
@@ -57,7 +57,7 @@ const AudioPlayer = ({ song, user, color }) => {
     return (
       <div id="play-song-container">
         <IconButton
-          sx={ {paddingRight: '0' }}
+          sx={customStyle}
           aria-label="open-player-modal"
           onClick={handleOpen}>
           <PlayCircleIcon fontSize="medium" />

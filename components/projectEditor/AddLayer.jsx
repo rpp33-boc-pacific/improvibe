@@ -104,6 +104,7 @@ function AddLayer() {
     setSelectedFile(null);
   };
 
+
   return (
     <div className='add-layer-holder'>
       <Button variant="contained" onClick={handleOpen} sx={{ width: '10vw', height: '4vh', fontSize: '1.5vh'}}>Add Layer</Button>

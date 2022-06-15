@@ -38,7 +38,7 @@ const LikeButton = ({ song, user, color, likes, liked, setLiked, setLikes }) => 
     </IconButton>
     :
     <IconButton aria-label="unlike-song" onClick={handleLike}>
-      <Stack direction='row'>
+      <Stack direction='row' width='5vh'>
         <Typography sx={{color: "#000", 'paddingRight':'0.5vh', 'alignItems': 'center', 'justifyContent': 'center' }} variant="subtitle2">{likes}</Typography>
         <FavoriteIcon sx={{color: '#000'}}></FavoriteIcon>
       </Stack>

@@ -1,4 +1,3 @@
-import { Stack } from '@mui/material'
 import { NextPage } from 'next'
 import SoundController from './SoundController'
 

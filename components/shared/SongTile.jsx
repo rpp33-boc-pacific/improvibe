@@ -54,7 +54,7 @@ const SongTile = ({song, user, color}) => {
           </div>
           <div className='song-tile-buttons'>
             <LikeButton color={'#757575'} song={song} user={user} likes={likes} liked={liked} setLiked={setLiked} setLikes={setLikes} padding={1}/>
-            <AudioPlayer color={color} song={song} user={user} padding={1}/>
+            <AudioPlayer song={song} user={user} padding={1} customStyle={{ paddingRight: '0' }} color='#000'/>
           </div>
         </div>
       </div>

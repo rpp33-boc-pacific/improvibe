@@ -8,7 +8,7 @@ const AddToProjects = ({ song, user, color}) => {
   const [inProjects, addToProjects] = useState(false);
 
  const handleAddToProjects = () => {
-   axios.post('api/song/add-to-projects', {song, user})
+   axios.post('/api/song/add-to-projects', {song, user})
    .then((result) => {
      addToProjects(true);
    })

@@ -45,7 +45,7 @@ export default function SaveProject() {
         })
       }}
       variant="outlined"
-      sx={{ width: '5vw', height: '4vh', fontSize: '1.5vh' }}
+      sx={{color:'#3A0CA3', borderColor: '#3A0CA3' }}
       >Save</Button>
     </ProjectContext.Provider>
   );

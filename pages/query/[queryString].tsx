@@ -16,7 +16,6 @@ import { getSession } from "next-auth/react";
 
 const Query: NextPage = (props: any) => {
   const { setUser }: any = useContext(AppContext);
-  console.log(props.user.id);
   setUser(props.user.id);
 
   const Item = styled('div')(({ theme }) => ({
@@ -80,7 +79,7 @@ const Query: NextPage = (props: any) => {
   useEffect(() => {
     setLoadedData(['Not Loaded']);
     setQueryState(0);
-    fetch(`/api/query/${queryInput.queryString}/${queryTypeParam}/${sortParam}`)
+    fetch(`/api/query/${queryInput.queryString}/${queryTypeParam}/${sortParam}/${props.user.id}`)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);

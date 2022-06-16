@@ -6,7 +6,7 @@
 
 
 ## Description
-Improvibe is a collaborative space for artists to create, explore and share music. *Ellaborate more here?*
+Improvibe is a collaborative space for artists to create, explore and share music.
 ## Features
 [User Authentication](https://i.ibb.co/XpGc6Fj/authentication.png) - sign-up, log-in and log-out
 

@@ -53,7 +53,7 @@ psql postgres
 ```
 \i [path to project]/improvibe/sqlpostgres-schema.sql
 ```
-7. Set up an AWS s3 bucket for 'improvibe-tracks'
+7. Set up an AWS S3 bucket for 'improvibe-tracks'
 
 8. Create a .env.local file in the root of the project
 ```
@@ -65,8 +65,8 @@ PGHOST = '<posgres host server>'
 PGUSER = '<postgres user name>'
 PGDATABASE = 'improvibe'
 PGPASSWORD = '<postgres password>'
-ACCESS_KEY = '<s3 bucket access key>'
-SECRET_KEY = '<s3 bucket secre key>'
+ACCESS_KEY = '<S3 bucket access key>'
+SECRET_KEY = '<S3 bucket secre key>'
 BUCKET_NAME = 'improvibe-tracks'
 ```
 

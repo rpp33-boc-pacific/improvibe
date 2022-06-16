@@ -62,11 +62,11 @@ touch .env.local
 9. Store the following variables
 ```
 PGHOST = '<posgres host server>'
-PGUSER = <postgres user name>
+PGUSER = '<postgres user name>'
 PGDATABASE = 'improvibe'
-PGPASSWORD = <postgres password>
-ACCESS_KEY = <s3 bucket access key>
-SECRET_KEY = ,s3 bucket secre key.
+PGPASSWORD = '<postgres password>'
+ACCESS_KEY = '<s3 bucket access key>'
+SECRET_KEY = '<s3 bucket secre key>'
 BUCKET_NAME = 'improvibe-tracks'
 ```
 

@@ -42,3 +42,4 @@ package-lock.json
 
 # local database
 /localdb
+sql/load-data.sql

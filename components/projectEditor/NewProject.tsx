@@ -5,7 +5,7 @@ import Link from "next/link";
 function NewProject() {
 
   return (
-      <Button variant="outlined" sx={{ width: '10vw', height: '4vh', fontSize: '1.5vh'}}>
+      <Button variant="outlined" sx={{color:'#3A0CA3', borderColor: '#3A0CA3'}}>
         <Link href='/projects'>
           <a>New Project</a>
         </Link>

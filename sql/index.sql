@@ -1,7 +1,7 @@
 \c improvibe;
 
 CREATE INDEX index_projects_genreid
-  ON projects(genre_id);
+  ON projects(genre);
 
 CREATE INDEX index_projects_userid
   ON projects(user_id);

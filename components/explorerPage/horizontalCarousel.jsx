@@ -31,7 +31,8 @@ const HorizontalCarousel = (props) => {
           heightRatio: 0.17,
           pagination: false,
           width: '100%',
-          backgroundColor: '#1976d2'
+          // backgroundColor: '#1976d2',
+          background: 'black'
         }}
       >
         {props.songs.map((song) => {

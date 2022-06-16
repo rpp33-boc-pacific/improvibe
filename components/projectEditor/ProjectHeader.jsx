@@ -4,6 +4,7 @@ import GenreSelector from "./GenreSelector";
 import SaveProject from "./SaveProject";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import EditableElement from '../shared/EditableElement';
 import { ProjectContext } from './ProjectContext';
 
@@ -38,17 +39,18 @@ function ProjectHeader() {
     sx={{ height: '5vh' }}>
       <div>
         <Grid
-        container
+        item
         direction="row"
         justifyContent="flex-start"
         alignItems="center">
           <PlayProject />
-          <input className='song-name-editor' value={value} onInput={handleChange}></input>
+          <TextField id="standard-basic" label="Project Name" variant="standard" className='song-name-editor' onInput={handleChange} />
+          {/* <input className='song-name-editor' value={value} onInput={handleChange}></input> */}
         </Grid>
       </div>
       <div>
         <Grid
-        container
+        item
         direction="row"
         justifyContent="flex-end"
         alignItems="center">

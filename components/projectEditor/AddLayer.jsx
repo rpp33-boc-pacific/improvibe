@@ -108,7 +108,7 @@ function AddLayer() {
 
   return (
     <div className='add-layer-holder'>
-      <Button variant="contained" onClick={handleOpen} sx={{ width: '10vw', height: '4vh', fontSize: '1.5vh'}}>{buttonLabel}</Button>
+      <Button variant="contained" onClick={handleOpen} sx={{backgroundColor:'#3A0CA3'}}>{buttonLabel}</Button>
         <Modal
           open={open}
           onClose={handleClose}

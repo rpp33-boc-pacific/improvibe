@@ -224,9 +224,10 @@ export default function NavigationBar() {
               event.preventDefault();
               Router.push(`/projects`);
             }}>
-              <Badge badgeContent={0} color="error">
+              {/* <Badge badgeContent={0} color="error">
                 <ProjectIcon />
-              </Badge>
+              </Badge> */}
+              <Typography>My Projects</Typography>
             </IconButton>
             <IconButton
               size="large"
@@ -236,7 +237,8 @@ export default function NavigationBar() {
               }}
               color="inherit"
             >
-              <AccountCircle />
+              <Typography>Profile</Typography>
+              {/* <AccountCircle /> */}
             </IconButton>
             <IconButton
               size="large"
@@ -244,7 +246,8 @@ export default function NavigationBar() {
               onClick={() => signOut({ callbackUrl: '/logIn' }) }
               color="inherit"
             >
-              <LogoutIcon />
+              {/* <LogoutIcon /> */}
+              <Typography>Logout</Typography>
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

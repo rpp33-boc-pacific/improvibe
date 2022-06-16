@@ -53,13 +53,13 @@ psql postgres
 ```
 \i [path to project]/improvibe/sqlpostgres-schema.sql
 ```
-6. Create a .env.local file in the root of the project
+7. Set up an AWS s3 bucket for 'improvibe-tracks'
+
+8. Create a .env.local file in the root of the project
 ```
 touch .env.local
 ```
-7. Set up an AWS s3 bucket for 'improvibe-tracks'
-
-8. Store the following variables
+9. Store the following variables
 ```
 PGHOST = '<posgres host server>'
 PGUSER = <postgres user name>

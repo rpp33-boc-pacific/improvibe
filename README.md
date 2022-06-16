@@ -66,7 +66,7 @@ PGUSER = '<postgres user name>'
 PGDATABASE = 'improvibe'
 PGPASSWORD = '<postgres password>'
 ACCESS_KEY = '<S3 bucket access key>'
-SECRET_KEY = '<S3 bucket secre key>'
+SECRET_KEY = '<S3 bucket secret key>'
 BUCKET_NAME = 'improvibe-tracks'
 ```
 

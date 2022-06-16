@@ -51,7 +51,7 @@ psql postgres
 ```
 6. Index columns
 ```
-\i [path to project]/improvibe/sqlpostgres-schema.sql
+\i [path to project]/improvibe/index.sql
 ```
 7. Set up an AWS S3 bucket for 'improvibe-tracks'
 

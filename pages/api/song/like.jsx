@@ -7,6 +7,7 @@ export default function likeSong(req, res) {
   let liked = req.body.liked;
   liked = !liked;
 
+  console.log('liked!!! -------- ', liked);
   if (liked) {
     console.log('the user liked it')
     //POST request
@@ -26,7 +27,7 @@ export default function likeSong(req, res) {
   } else {
     //DELETE request
     //Remove like
-    pool.query(`DELETE from likes WHERE user_id=${user}`)
+    pool.query(`DELETE from likes WHERE user_id=${user.id} AND song_id=${song}`)
     .then((data) => {
       console.log('Like removed for user');
       //Decrement aggregate likes

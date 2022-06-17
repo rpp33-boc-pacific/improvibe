@@ -9,6 +9,7 @@ export default function Query(req: any, res: any) {
     const queryInput = queryParams[0];
     const queryTypeParam = queryParams[1];
     const sortParam = queryParams[2];
+    const userId = queryParams[3];
 
     if (sortParam === 'Most Liked') {
       sort = 'ORDER BY likes DESC';
@@ -70,7 +71,19 @@ export default function Query(req: any, res: any) {
     //   liked: true
     if (queryTypeParam === 'Songs') {
       query =
-      `SELECT projects.id as "song_id", projects.name as "song_name", projects.genre, projects.likes as "cumulativeLikes", projects.shares, projects.user_id as artist_id, projects.song_path, projects.date_created, users.photo_url, users.name as "artist_name"
+      `SELECT projects.id as "song_id", projects.name as "song_name", projects.genre, projects.likes as "cumulativeLikes", projects.shares, projects.user_id as artist_id, projects.song_path, projects.date_created, users.photo_url, users.name as "artist_name",
+        CASE WHEN (
+          SELECT
+            likes.id
+          FROM
+            likes
+          WHERE
+            likes.song_id = projects.id
+            AND likes.user_id = ${userId}
+        ) IS NOT NULL
+          THEN true
+          ELSE false
+        END as liked
       FROM projects
       JOIN users
       ON users.id
@@ -90,7 +103,19 @@ export default function Query(req: any, res: any) {
       ${sort};`;
     } else if (queryTypeParam === 'Genres') {
       query =
-      `SELECT projects.id as "song_id", projects.name as "song_name", projects.genre, projects.likes as "cumulativeLikes", projects.shares, projects.user_id as artist_id, projects.song_path, projects.date_created, users.photo_url, users.name as "artist_name"
+      `SELECT projects.id as "song_id", projects.name as "song_name", projects.genre, projects.likes as "cumulativeLikes", projects.shares, projects.user_id as artist_id, projects.song_path, projects.date_created, users.photo_url, users.name as "artist_name",
+        CASE WHEN (
+          SELECT
+            likes.id
+          FROM
+            likes
+          WHERE
+            likes.song_id = projects.id
+            AND likes.user_id = ${userId}
+        ) IS NOT NULL
+          THEN true
+          ELSE false
+          END as liked
       FROM projects
       JOIN users
       ON users.id

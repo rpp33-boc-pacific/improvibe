@@ -72,7 +72,7 @@ BUCKET_NAME = 'improvibe-tracks'
 
 ## Contributers
 Alysha Gilliard - authentication and product owner <br>
-Bhrigu Joshi - aome page<br>
+Bhrigu Joshi - home page<br>
 Caitlin Winters - audio player and UI owner<br>
 J.P. Doyle - profile <br>
 Jakob Truong -  search and navigation<br>
